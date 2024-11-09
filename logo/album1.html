@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album Photo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .album {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .album img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .album img:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-title {
+            text-align: center;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Mon Album Photo</h1>
+
+    <div class="album">
+        <div>
+            <img src="facebook.jpg" alt="Photo 1">
+            <div class="photo-title">Photo 1</div>
+        </div>
+        <div>
+            <img src="instagram2.jpg" alt="Photo 2">
+            <div class="photo-title">Photo 2</div>
+        </div>
+        <div>
+            <img src="tiktok.png" alt="Photo 3">
+            <div class="photo-title">Photo 3</div>
+        </div>
+        <div>
+            <img src="telegram2.png" alt="Photo 4">
+            <div class="photo-title">Photo 4</div>
+        </div>
+        <!-- Ajoute autant de photos que tu veux -->
+    </div>
+
+</body>
+</html>
