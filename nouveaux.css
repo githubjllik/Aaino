@@ -1,0 +1,512 @@
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        
+
+        .navii {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+        }
+
+        .nav-filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .custom-filter {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        select {
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .page-section {
+            margin-bottom: 30px;
+        }
+
+        .page-header {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .page-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+        }
+
+        .contents-slider {
+            position: relative;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 0;
+            scrollbar-width: thin;
+            scroll-behavior: smooth;
+        }
+
+        .contents-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .contents-slider::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .contents-slider::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .new-content {
+            display: inline-block;
+            vertical-align: top;
+            width: 300px;
+            margin-right: 15px;
+            white-space: normal;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .content-timestamp {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .scroll-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .scroll-btn {
+            padding: 5px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #6c757d;
+            color: white;
+            cursor: pointer;
+        }
+
+        .scroll-btn:hover {
+            background-color: #5a6268;
+        }
+
+        .no-content {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .content-body {
+            margin-bottom: 10px;
+        }
+
+        .content-link {
+            display: inline-block;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .content-link:hover {
+            text-decoration: underline;
+        }
+            .content-link:hover {
+        text-decoration: underline;
+    }
+
+    /* Nouvelles règles pour les images */
+    .new-content img {
+        max-width: 100%;
+        height: auto;
+        max-height: 150px; /* Hauteur maximale des images */
+        object-fit: cover; /* Pour garder les proportions */
+        display: block;
+        margin: 0 auto;
+    }
+
+    /* Pour les images dans les contenus spécifiques */
+    .content-body img {
+        max-width: 100%;
+        height: auto;
+        max-height: 120px; /* Plus petit pour les images dans le contenu */
+        object-fit: contain; /* Garde l'image entière visible */
+        margin: 5px auto;
+    }
+   .new-content img{
+      border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    max-width: 100%;
+    height: auto;
+    }
+   .new-content img {
+    border-radius: 50%; /* Rendre l'image circulaire */
+    
+    object-fit: cover; /* Maintenir le ratio de l'image */
+    
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Ombre douce */
+}
+
+
+    /* Pour les vignettes des pages */
+    .page-header img {
+        width: 30px; /* Réduit de 40px à 30px */
+        height: 30px; /* Réduit de 40px à 30px */
+        border-radius: 5px;
+        object-fit: cover;
+    }
+        .new-content {
+        display: inline-block;
+        vertical-align: top;
+        width: 300px; /* Largeur fixe */
+        height: 400px; /* Hauteur fixe */
+        margin-right: 15px;
+        white-space: normal;
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #fff;
+        position: relative; /* Pour le positionnement absolu du lien */
+        overflow: hidden; /* Cache tout contenu débordant */
+    }
+
+    .content-timestamp {
+        color: #666;
+        font-size: 0.9em;
+        margin-bottom: 10px;
+    }
+
+    .content-body {
+        margin-bottom: 10px;
+        /* Limite la hauteur du contenu */
+        max-height: 280px; /* Ajustez selon vos besoins */
+        overflow: hidden;
+        position: relative;
+    }
+
+    .content-body::after {
+        content: "...";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background-color: white;
+        padding-left: 4px;
+    }
+
+    /* Style pour le texte tronqué */
+    .content-body p, 
+    .content-body div {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Nombre de lignes avant troncature */
+        -webkit-box-orient: vertical;
+        margin-bottom: 5px;
+    }
+    
+    
+    .filter-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        background-color: #fff;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s, transform 0.2s;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .filter-btn:hover {
+        background-color: #f5f5f5;
+        transform: translateY(-2px);
+    }
+
+    .filter-btn:active {
+        background-color: #e0e0e0;
+        color: #000;
+        transform: translateY(0);
+    }
+
+    .filter-btn.active {
+        background-color: #ddd;
+        color: #000;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    .select-wrapper-month, .select-wrapper-year {
+    position: relative;
+    width: 200px;
+}
+
+.month-fieldset, .year-fieldset {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 5px;
+    cursor: pointer;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.month-legend, .year-legend {
+    padding: 0 5px;
+    font-size: 12px;
+    color: #666;
+}
+
+.month-button, .year-button {
+    width: 100%;
+    padding: 5px 35px 5px 10px;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+}
+
+.month-options, .year-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 0 0 6px 6px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.month-option, .year-option {
+    padding: 10px 15px;
+    cursor: pointer;
+    color: #333;
+}
+
+.month-option:hover, .year-option:hover {
+    background-color: #f5f5f5;
+}
+
+#monthSelect, #yearSelect {
+    display: none;
+}
+.navii {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: auto; /* Permet le défilement horizontal */
+    white-space: nowrap; /* Empêche le retour à la ligne */
+    padding: 10px;
+    width: 100%; /* S'adapte à la largeur de l'écran */
+}
+
+.navii > * {
+    flex: 0 0 auto; /* Empêche les éléments de rétrécir */
+    margin-right: 10px; /* Espace entre les éléments */
+}
+
+/* Modifier la position des options */
+.month-options, .year-options {
+    position: fixed; /* Changer absolute en fixed */
+    max-height: 300px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1001; /* Augmenter le z-index */
+}
+
+/* Ajouter cette règle pour le positionnement */
+.select-wrapper-month, .select-wrapper-year {
+    position: relative; /* Changer relative en static */
+}
+
+/* Optionnel : Ajuster l'apparence des options */
+.month-option, .year-option {
+    background-color: white;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.month-option:last-child, .year-option:last-child {
+    border-bottom: none;
+}
+/* Ajoutez ces nouvelles règles CSS */
+
+.content-body {
+    margin-bottom: 10px;
+    max-height: 200px; /* Réduit de 280px à 200px pour laisser de l'espace aux boutons */
+    overflow: hidden;
+    position: relative;
+}
+
+/* Style pour la zone des boutons */
+.buttons {
+    position: absolute;
+    bottom: 40px; /* Espace au-dessus du lien "Voir dans la page" */
+    left: 15px;
+    right: 15px;
+    background-color: #fff;
+    padding: 10px 0;
+    z-index: 2;
+}
+
+/* Style pour les boutons */
+.button {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 5px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    transition: background-color 0.3s;
+}
+
+.button.view-site {
+    background-color: #28a745;
+}
+
+.button.view-tuto {
+    background-color: #17a2b8;
+}
+
+.button span {
+    margin-left: 5px;
+}
+
+/* Ajuster la position du lien "Voir dans la page" */
+.content-link {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    z-index: 1;
+}
+
+/* Ajuster la hauteur du new-content pour accommoder tous les éléments */
+.new-content {
+    height: 450px; /* Augmenté de 400px à 450px */
+}
+/* Ajustement des hauteurs et espacements */
+.new-content {
+    height: 400px; /* Retour à 400px */
+    padding: 10px; /* Réduit de 15px à 10px */
+}
+
+.content-timestamp {
+    margin-bottom: 5px; /* Réduit de 10px à 5px */
+    font-size: 0.85em; /* Légèrement plus petit */
+}
+
+.content-body {
+    margin-bottom: 5px; /* Réduit de 10px à 5px */
+    max-height: 260px; /* Augmenté pour plus de contenu visible */
+    overflow: hidden;
+    position: relative;
+}
+
+/* Ajustement de la zone des boutons */
+.buttons {
+    position: absolute;
+    bottom: 35px; /* Légèrement ajusté */
+    left: 10px;
+    right: 10px;
+    background-color: #fff;
+    padding: 5px 0; /* Réduit de 10px à 5px */
+    z-index: 2;
+}
+
+/* Ajustement des boutons individuels */
+.button {
+    display: inline-block;
+    padding: 6px 12px; /* Réduit de 8px 15px à 6px 12px */
+    margin: 3px; /* Réduit de 5px à 3px */
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    font-size: 0.9em; /* Légèrement plus petit */
+}
+
+/* Ajustement du lien "Voir dans la page" */
+.content-link {
+    position: absolute;
+    bottom: 10px; /* Réduit de 15px à 10px */
+    left: 10px;
+    font-size: 0.9em; /* Légèrement plus petit */
+}
+.scroll-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.scroll-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background-color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.scroll-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.scroll-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+
+
+    

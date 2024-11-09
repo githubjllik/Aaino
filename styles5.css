@@ -1,0 +1,626 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+
+.gradient-1 { 
+  background: linear-gradient(120deg, #6366f1, #8b5cf6);
+}
+.gradient-2 {
+  background: linear-gradient(120deg, #ec4899, #8b5cf6); 
+}
+.gradient-3 {
+  background: linear-gradient(120deg, #06b6d4, #3b82f6);
+}
+.gradient-4 {
+  background: linear-gradient(120deg, #f43f5e, #ec4899);
+}
+
+#zephyr-engagement-hub {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  max-width: 1400px;
+  margin: 3rem auto;
+  padding: 3rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(250, 250, 250, 0.95));
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 32px;
+}
+
+.quixotic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  padding: 1rem;
+}
+
+.serendipity-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2.5rem;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.serendipity-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  opacity: 0.8;
+}
+
+.serendipity-card:nth-child(1)::before {
+  background: linear-gradient(120deg, #6366f1, #8b5cf6);
+}
+
+.serendipity-card:nth-child(2)::before {
+  background: linear-gradient(120deg, #ec4899, #8b5cf6);
+}
+
+.serendipity-card:nth-child(3)::before {
+  background: linear-gradient(120deg, #06b6d4, #3b82f6);
+}
+
+.serendipity-card:nth-child(4)::before {
+  background: linear-gradient(120deg, #f43f5e, #ec4899);
+}
+
+.serendipity-card h2 {
+  color: #333333;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.serendipity-card p {
+  color: rgba(0, 0, 0, 0.8);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.ephemeral-glyph {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 1rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.quantum-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+  border-radius: 99px;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  background-size: 200% auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.serendipity-card:nth-child(1) .quantum-link {
+  background: linear-gradient(120deg, #6366f1, #8b5cf6);
+}
+
+.serendipity-card:nth-child(2) .quantum-link {
+  background: linear-gradient(120deg, #ec4899, #8b5cf6);
+}
+
+.serendipity-card:nth-child(3) .quantum-link {
+  background: linear-gradient(120deg, #06b6d4, #3b82f6);
+}
+
+.serendipity-card:nth-child(4) .quantum-link {
+  background: linear-gradient(120deg, #f43f5e, #ec4899);
+}
+
+.zephyr-svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-left: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  #zephyr-engagement-hub {
+    padding: 2rem 1.5rem;
+    margin: 2rem 1rem;
+  }
+
+  .serendipity-card {
+    padding: 2rem;
+  }
+}
+
+/* Mode sombre */
+body.eclipse-mode #zephyr-engagement-hub {
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(30, 30, 30, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+body.eclipse-mode .serendipity-card {
+  background: rgba(40, 40, 40, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+body.eclipse-mode .serendipity-card h2 {
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+body.eclipse-mode .serendipity-card p {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+body.eclipse-mode .ephemeral-glyph {
+  fill: currentColor;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+body.eclipse-mode .quantum-link {
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.custom_youtube_modal_container_unique {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 99999;
+}
+
+.custom_youtube_modal_inner_box_specific {
+    position: absolute;
+    top: 45%; /* Légèrement plus haut pour une meilleure visibilité */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85vw; /* Utilisation de vw au lieu de % */
+    height: 80vh; /* Ajout d'une hauteur en vh */
+    min-height: 480px;
+    max-height: 90vh;
+    padding: 0; /* Suppression du padding */
+}
+
+.custom_youtube_modal_close_btn_unique {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 100000;
+}
+
+#youtube_player_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Styles spécifiques pour l'iframe */
+#youtube_player_container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Ajustements pour différentes tailles d'écran */
+@media screen and (max-width: 768px) {
+    .custom_youtube_modal_inner_box_specific {
+        width: 95vw;
+        height: 40vh;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .custom_youtube_modal_inner_box_specific {
+        width: 75vw;
+        height: 85vh;
+    }
+}
+
+
+.etherealNotificationCard {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1),
+                0 8px 20px rgba(0, 0, 0, 0.08),
+                0 0 0 1px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    max-width: 480px;
+    text-align: center;
+    animation: crystallineEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(22, 93, 255, 0.15);
+}
+
+.luminousBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+    z-index: 999;
+    animation: nebulousAppear 0.3s ease-out;
+}
+
+@keyframes nebulousAppear {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes crystallineEntrance {
+    0% { 
+        opacity: 0;
+        transform: translate(-50%, -45%);
+    }
+    100% { 
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.etherealNotificationCard h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.8em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.3;
+}
+
+.etherealNotificationCard p {
+    margin: 0;
+    line-height: 1.7;
+    font-size: 1.1em;
+    color: #374151;
+    font-weight: 400;
+}
+
+.celestialDismissButton {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.06);
+    border: none;
+    color: #4b5563;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.2s ease;
+}
+
+.celestialDismissButton:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
+}
+
+.notificationContent {
+    position: relative;
+    padding: 10px;
+}
+
+.etherealNotificationCard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.5), rgba(79, 70, 229, 0.5));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+@media (max-width: 640px) {
+    .etherealNotificationCard {
+        width: 90%;
+        padding: 25px 20px;
+    }
+    
+    .etherealNotificationCard h3 {
+        font-size: 1.5em;
+    }
+    
+    .etherealNotificationCard p {
+        font-size: 1em;
+    }
+}
+
+
+
+
+.crystallineCard {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1),
+                0 8px 20px rgba(0, 0, 0, 0.08),
+                0 0 0 1px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    max-width: 480px;
+    text-align: center;
+    animation: aetherealFloat 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(22, 93, 255, 0.15);
+}
+
+.mistVeil {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+    z-index: 999;
+    animation: vaporize 0.3s ease-out;
+}
+
+@keyframes vaporize {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes aetherealFloat {
+    0% { 
+        opacity: 0;
+        transform: translate(-50%, -45%);
+    }
+    100% { 
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.crystallineCard h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.8em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.3;
+}
+
+.crystallineCard p {
+    margin: 0;
+    line-height: 1.7;
+    font-size: 1.1em;
+    color: #374151;
+    font-weight: 400;
+}
+
+.prismClose {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.06);
+    border: none;
+    color: #4b5563;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.2s ease;
+}
+
+.prismClose:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
+}
+
+.notificationContent {
+    position: relative;
+    padding: 10px;
+}
+
+.crystallineCard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.5), rgba(79, 70, 229, 0.5));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+@media (max-width: 640px) {
+    .crystallineCard {
+        width: 90%;
+        padding: 25px 20px;
+    }
+    
+    .crystallineCard h3 {
+        font-size: 1.5em;
+    }
+    
+    .crystallineCard p {
+        font-size: 1em;
+    }
+}
+#quote-content {
+    padding: 25px;
+    border-radius: 15px;
+    margin: 20px 0;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+    backdrop-filter: brightness(0.95);
+}
+
+#quote-content:hover {
+    transform: translateY(-5px);
+}
+
+#quote-content p {
+    color: white;
+    text-shadow: 
+        2px 2px 4px rgba(0,0,0,0.3),
+        -1px -1px 0 rgba(0,0,0,0.3),
+        1px -1px 0 rgba(0,0,0,0.3),
+        -1px 1px 0 rgba(0,0,0,0.3);
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.6;
+    text-align: center;
+    margin: 0;
+    padding: 15px;
+    letter-spacing: 0.3px;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+#quote-content::before {
+    content: '"';
+    font-size: 4rem;
+    position: absolute;
+    left: 20px;
+    top: 0;
+    color: rgba(255,255,255,0.2);
+    font-family: Georgia, serif;
+}
+
+#quote-content::after {
+    content: '"';
+    font-size: 4rem;
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    color: rgba(255,255,255,0.2);
+    font-family: Georgia, serif;
+}
+
+#quote-title {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+#quote-content {
+    /* ... autres styles existants ... */
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+.quote-carousel {
+    position: relative;
+}
+
+.quote-dots {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: white;
+}
+
+#quote-content {
+    transition: opacity 0.3s ease;
+}
+.mascot {
+    position: fixed;
+    top: 130px;
+    right: 80px;
+    z-index: 1000;
+    cursor: pointer;
+    animation: bouncemas 2s infinite, fadeOutmas 1s ease 5s forwards;
+    font-size: 30px;
+    display: flex; /* Ajouté */
+    flex-direction: column; /* Ajouté */
+    align-items: flex-end; /* Ajouté */
+    width: auto; /* Ajouté */
+}
+
+.mascot-speech {
+    position: relative; /* Changé de absolute à relative */
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin-bottom: 10px; /* Ajouté */
+    min-width: 150px; /* Ajouté */
+    text-align: center; /* Ajouté */
+}
+
+.mascot-speech:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 20px;
+    border-width: 10px 10px 0;
+    border-style: solid;
+    border-color: #fff transparent transparent;
+}
+
+@keyframes bouncemas {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeOutmas {
+    to { opacity: 0; visibility: hidden; }
+}

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Aaino" />
+<link rel="manifest" href="/site.webmanifest" />
+<title>Aaino | Rechercher </title>
+<link rel="stylesheet" href="styles.css"> 
+<link rel="stylesheet" href="styles2.css">
+<link rel="stylesheet" href="styles3.css">
+<link rel="stylesheet" href="styles4.css">
+<link rel="stylesheet" href="styles5.css">
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+
+<main>
+<section id="introduction">
+    <h1>Bienvenue dans la section Rechercher</h1>
+    <p>Explorez l'immensité du web avec confiance !
+
+      Cette section est votre boîte à outils complète pour une navigation internet plus efficace et enrichissante. Que vous soyez un explorateur chevronné ou que vous commenciez tout juste votre voyage dans l'univers numérique, vous trouverez ici les meilleurs outils pour affiner vos recherches.
+
+      Découvrez des moteurs de recherche adaptés à vos besoins spécifiques, des navigateurs innovants, et des astuces pour dénicher l'information que vous cherchez. Notre sélection d'outils vous permettra d'aller au-delà des résultats conventionnels et d'accéder à des contenus plus pertinents.
+
+      Prenez le contrôle de votre expérience en ligne et transformez chaque recherche en une découverte enrichissante. Votre quête d'information commence ici !</p>
+    <p><strong>Alors, que cherchez-vous ?</strong></p>
+    <div class="qw4321_search_box">
+        <input type="text" id="intro_search_input" class="er7890_search_field" placeholder="Rechercher...">
+        <div id="intro_close_icon" class="hj6789_close_icon">
+            <img src="svg/close.svg" alt="Effacer">
+        </div>
+        <button id="intro_search_button" class="ty5678_search_btn">
+            <img src="svg/searchword.svg" alt="Rechercher">
+        </button>
+    </div>
+    <div class="zx9">
+        <ul class="qt3" id="listContainer">
+            <li class="vp7">
+                <span class="lm2">Les meilleurs outils de recherche en <span class="current-year"></span></span>
+                <a href="#lien1" class="wy5">Voir</a>
+            </li>
+            <li class="vp7">
+                <span class="lm2">Les meilleurs navigateurs de recherche en <span class="current-year"></span></span>
+                <a href="#lien2" class="wy5">Voir</a>
+            </li>
+            <li class="vp7">
+          <span class="lm2">Les moteurs de recherche pour faire des recherches plus appronfondies en <span class="current-year"></span></span>
+          <a href="#lien3" class="wy5">Voir</a>
+        </li>
+        </ul>
+        <div class="jk4" id="buttonContainer"></div>
+    </div>
+</section>
+
+
+  <section id="lien1" class="section-offset">
+    <h2>Les meilleurs outils de recherche en <span class="current-year"></span></h2>
+    <div class="appListContainer">
+<div class="app-item">
+  <h3 class="links-title"><img src="logo2/aaino2.jpg" alt="logo">Aaino</h3>
+  <p>Aaino est votre compagnon de voyage dans l'univers du web, conçu pour transformer chaque recherche en découverte. Cette plateforme unique combine intelligence de recherche et curation humaine pour vous guider vers les trésors cachés d'Internet. Que vous soyez passionné de streaming, amateur de logiciels innovants ou simplement curieux d'explorer le web différemment, Aaino vous accompagne avec une sélection minutieuse de ressources, constamment mise à jour pour refléter les meilleures découvertes du moment.</p>
+  <div class="buttons">
+    <a href="#" class="button view-site" id="aaino_site_btn">Voir le site <span>&#10132;</span></a>
+    <a class="button view-tuto" id="aaino_tuto_btn">Voir le tuto <span>&#10132;</span></a>
+  </div>
+</div>
+
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/google3.jpg" alt="logo">Google</h3>
+        <p>Google est un moteur de recherche puissant et rapide qui permet aux utilisateurs de trouver des informations, des images, des vidéos et des actualités sur internet. Il est simple à utiliser, offre des résultats pertinents et propose des services supplémentaires comme la traduction, la cartographie, le stockage de données et les recommandations personnalisées. Ses avantages incluent une interface intuitive, la fiabilité des résultats et des fonctionnalités variées pour faciliter la navigation en ligne.
+
+</p>
+        <div class="buttons">
+          <a href="https://www.google.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/bing.jpg" alt="logo">Bing</h3>
+        <p>Bing est un moteur de recherche de Microsoft qui fournit des résultats pertinents, des images, des vidéos et des cartes. Il inclut des fonctionnalités comme la recherche vocale et la traduction, tout en étant bien intégré aux produits Microsoft pour une expérience fluide. Son interface est visuellement attrayante et offre des récompenses pour son utilisation.
+
+</p>
+        <div class="buttons">
+          <a href="https://www.bing.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/duckduckgo.png" alt="logo">DuckDuckGo</h3>
+        <p>DuckDuckGo est un moteur de recherche axé sur la confidentialité, ne suivant pas les utilisateurs ni ne collectant leurs données personnelles. Il offre des résultats de recherche pertinents, des fonctionnalités de protection de la vie privée et une interface simple. Il est idéal pour ceux qui privilégient la confidentialité en ligne tout en obtenant des résultats fiables.
+
+</p>
+        <div class="buttons">
+          <a href="https://duckduckgo.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/swisscows.jpg" alt="logo">Swisscows</h3>
+        <p>Swisscows est un moteur de recherche suisse axé sur la confidentialité, ne collectant ni ne stockant de données personnelles. Il offre des résultats pertinents et sûrs, avec un accent sur la protection de la vie privée et une interface simple. Il inclut également des résultats enrichis et des options pour rechercher des images et des vidéos.
+
+</p>
+        <div class="buttons">
+          <a href="https://swisscows.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/yahoo.jpg" alt="logo">Yahoo</h3>
+        <p>Yahoo est un portail web qui combine un moteur de recherche, des actualités, des emails, des services financiers et des informations sur le sport. Il offre une interface conviviale avec un accès rapide à divers contenus et services en ligne, tout en proposant une expérience personnalisée selon les intérêts des utilisateurs.
+
+</p>
+        <div class="buttons">
+          <a href="https://www.yahoo.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/ecosia.jpg" alt="logo">Ecosia</h3>
+        <p>Ecosia est un moteur de recherche éco-responsable qui utilise les revenus générés par les recherches pour financer des projets de reforestation. Il offre des résultats pertinents tout en contribuant à la lutte contre la déforestation, avec une interface simple et un engagement envers la durabilité environnementale.
+
+</p>
+        <div class="buttons">
+          <a href="https://www.ecosia.org/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/qwant2.jpg" alt="logo">Qwant</h3>
+        <p>Qwant est un moteur de recherche européen qui respecte la vie privée des utilisateurs en ne collectant pas leurs données personnelles. Il offre des résultats pertinents, une interface claire, et inclut des fonctionnalités pour rechercher des actualités, des images et des vidéos, tout en promouvant la confidentialité en ligne.
+
+</p>
+        <div class="buttons">
+          <a href="https://www.qwant.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/yandex.jpg" alt="logo">Yandex</h3>
+        <p>Yandex est un moteur de recherche russe qui propose des résultats de recherche pertinents, des services de cartographie, de traduction, et de stockage en ligne. Il offre une interface utilisateur fluide et une forte intégration avec divers services numériques, tout en étant particulièrement populaire en Russie et dans d'autres pays de l'Est.
+
+</p>
+        <div class="buttons">
+          <a href="https://yandex.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/baidu.jpg" alt="logo">Baidu</h3>
+        <p>Baidu est le principal moteur de recherche en Chine, offrant des résultats pertinents, des services de cartographie, de traduction, et des recherches multimédias. Il intègre également des fonctionnalités pour les actualités et les applications, optimisées pour le public chinois.
+
+</p>
+        <div class="buttons">
+          <a href="https://www.baidu.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/bravesearch.jpg" alt="logo">Brave Search</h3>
+        <p>Brave Search est un moteur de recherche axé sur la confidentialité, qui ne suit ni ne collecte les données des utilisateurs. Il propose des résultats indépendants et neutres, sans publicités ciblées, avec une interface épurée et rapide.
+
+</p>
+        <div class="buttons">
+          <a href="https://search.brave.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/startpage.jpg" alt="logo">Startpage</h3>
+        <p>Startpage est un moteur de recherche axé sur la confidentialité, qui utilise les résultats de Google sans suivre ni stocker les données des utilisateurs. Il offre une navigation anonyme et une interface simple pour des recherches sécurisées et privées.
+
+</p>
+        <div class="buttons">
+          <a href="https://www.startpage.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/yep.jpg" alt="logo">Yep</h3>
+        <p>Yep est un moteur de recherche développé par Ahrefs, qui met l'accent sur la confidentialité en ne collectant pas de données personnelles. Il partage 90 % des revenus publicitaires avec les créateurs de contenu, offrant une expérience de recherche transparente et orientée vers l'éthique.
+
+</p>
+        <div class="buttons">
+          <a href="https://yep.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/kagi.jpg" alt="logo">Kagi</h3>
+        <p>Kagi est un moteur de recherche payant axé sur la qualité et la confidentialité, sans publicités ni suivi des utilisateurs. Il offre des résultats précis et personnalisables, avec une interface épurée pour une expérience de recherche sans distractions.
+
+</p>
+        <div class="buttons">
+          <a href="https://kagi.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="view-toggle-container"></div>
+  </section>
+  <section id="lien2" class="section-offset">
+    <h2>Les meilleurs navigateurs de recherche en <span class="current-year"></span></h2>
+    <div class="appListContainer">
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/chrome3.jpg" alt="logo">Chrome</h3>
+        <p>Chrome est un navigateur web rapide et sécurisé développé par Google, offrant une navigation fluide, des extensions variées, et une synchronisation facile entre appareils. Son interface intuitive et ses performances optimisées en font un choix populaire pour une expérience web rapide et personnalisée.
+
+</p>
+        <div class="buttons">
+          <a href="https://www.google.com/intl/fr/chrome/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/edge3.jpg" alt="logo">Edge</h3>
+        <p>Edge est un navigateur développé par Microsoft, offrant une navigation rapide, des outils de productivité intégrés, et une bonne compatibilité avec les services Windows. Son design épuré, ses fonctionnalités de confidentialité, et ses options de personnalisation en font un choix polyvalent pour les utilisateurs.
+
+</p>
+        <div class="buttons">
+          <a href="https://www.microsoft.com/fr-fr/edge/?form=MA13FJ" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/opera2.jpg" alt="logo">Opera</h3>
+        <p>Opera est un navigateur rapide et sécurisé avec un bloqueur de publicités intégré, un VPN gratuit et des espaces de travail personnalisables. Il propose une interface élégante, une consommation de mémoire optimisée, et des fonctionnalités pratiques comme l’intégration des messageries et un mode économie de données.
+
+</p>
+        <div class="buttons">
+          <a href="https://www.opera.com/fr" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/firefox2.jpg" alt="logo">Firefox</h3>
+        <p>Firefox est un navigateur open-source axé sur la confidentialité et la sécurité, offrant une navigation rapide, un bloqueur de suivi intégré, et une forte personnalisation. Son interface intuitive et ses extensions variées en font un choix apprécié pour une navigation respectueuse de la vie privée.
+
+</p>
+        <div class="buttons">
+          <a href="https://www.mozilla.org/fr/firefox/new/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/safari2.jpg" alt="logo">Safari</h3>
+        <p>Safari est le navigateur d'Apple, optimisé pour les appareils iOS et macOS, offrant une navigation rapide, économe en énergie, et des fonctionnalités de confidentialité avancées. Son design épuré et son intégration fluide avec l'écosystème Apple en font un choix privilégié pour les utilisateurs Apple.
+
+</p>
+        <div class="buttons">
+          <a href="https://www.apple.com/fr/safari/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/brave2.jpg" alt="logo">Brave</h3>
+        <p>Brave est un navigateur axé sur la confidentialité, bloquant par défaut les publicités et les traqueurs. Il offre une navigation rapide, une consommation de données réduite, et propose des récompenses en cryptomonnaie pour les utilisateurs qui choisissent de voir des publicités non-intrusives.
+
+</p>
+        <div class="buttons">
+          <a href="https://brave.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/vivaldi.jpg" alt="logo">Vivaldi</h3>
+        <p>Vivaldi est un navigateur personnalisable qui permet de modifier l’interface, d'organiser les onglets en groupes, et d'utiliser des commandes rapides. Il offre une navigation privée, des options de personnalisation étendues, et des outils intégrés comme la prise de notes et la capture d’écran.
+
+</p>
+        <div class="buttons">
+          <a href="https://vivaldi.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/kiwi.jpg" alt="logo">Kiwi</h3>
+        <p>Kiwi est un navigateur basé sur Chromium, offrant une expérience rapide et fluide avec des fonctionnalités supplémentaires comme le support des extensions Chrome sur Android. Il inclut un bloqueur de publicité intégré, une interface épurée, et une meilleure gestion de la confidentialité.
+
+</p>
+        <div class="buttons">
+          <a href="https://kiwibrowser.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/tor2.jpg" alt="logo">Tor</h3>
+        <p>Tor est un navigateur axé sur la confidentialité, permettant de naviguer de manière anonyme en utilisant un réseau décentralisé pour masquer l'adresse IP. Il bloque les traqueurs et protège contre la surveillance en ligne, offrant une sécurité renforcée pour les utilisateurs soucieux de leur vie privée.
+
+</p>
+        <div class="buttons">
+          <a href="https://www.torproject.org/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/1dm.jpg" alt="logo">1DM</h3>
+        <p>1DM est un gestionnaire de téléchargement et navigateur pour Android, offrant des téléchargements rapides, un support pour les torrents, et la possibilité de télécharger des vidéos en streaming. Il intègre un navigateur web rapide avec un bloqueur de publicités et permet de gérer plusieurs téléchargements simultanés, tout en optimisant les vitesses de téléchargement.
+
+</p>
+        <div class="buttons">
+          <a href="https://vicky-bonick-idm.fr.uptodown.com/android" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/duckduckgo.png" alt="logo">DuckDuckGo</h3>
+        <p>DuckDuckGo propose également un navigateur mobile qui met l'accent sur la confidentialité. Il bloque les traqueurs, offre une navigation anonyme, et permet de rechercher sans enregistrer l'historique. Ce navigateur simple et sécurisé garantit une expérience en ligne respectueuse de la vie privée.
+
+</p>
+        <div class="buttons">
+          <a href="https://duckduckgo.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/ucbrowser.jpg" alt="logo">UC Browser</h3>
+        <p>UC Browser est un navigateur rapide pour mobile et PC, offrant des téléchargements rapides, un blocage des publicités, et une compression de données pour économiser la bande passante. Il propose une interface personnalisable et un mode de navigation privé pour une expérience fluide et sécurisée.
+
+</p>
+        <div class="buttons">
+          <a href="https://ucbrowser.io/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/dezor.jpg" alt="logo">Dezor</h3>
+        <p>Dezor est un navigateur axé sur la confidentialité et le streaming, offrant une navigation rapide et un accès facile aux contenus multimédias. Il intègre un bloqueur de publicités et une protection contre le suivi, permettant une expérience en ligne privée et fluide.
+
+</p>
+        <div class="buttons">
+          <a href="https://www.dezor.net/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="view-toggle-container"></div>
+  </section>
+  <section id="lien3" class="section-offset">
+    <h2>Les moteurs de recherche pour faire des recherches plus appronfondies en <span class="current-year"></span></h2>
+    <div class="appListContainer">
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/searx.jpg" alt="logo">Searx</h3>
+        <p>Searx est un moteur de recherche open-source et respectueux de la vie privée qui agrège les résultats de nombreuses sources sans suivre les utilisateurs ni stocker leurs données. Il permet de personnaliser les recherches en sélectionnant les moteurs à inclure (comme Google, Bing, etc.), et propose des résultats non filtrés, protégeant ainsi la confidentialité tout en offrant une recherche complète et diversifiée.
+
+</p>
+        <div class="buttons">
+          <a href="https://searx.space/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="logo2/metasearx.jpg" alt="logo">MetaSearx</h3>
+        <p>MetaSearx est un métamoteur de recherche open source qui privilégie la confidentialité. Il regroupe les résultats de plusieurs moteurs de recherche sans suivre les utilisateurs ni stocker leurs données. Entièrement personnalisable, il permet de choisir les sources et de filtrer les résultats selon les préférences de l'utilisateur. Grâce à sa transparence, MetaSearx offre une recherche diversifiée et sécurisée, respectueuse de la vie privée.
+
+</p>
+        <div class="buttons">
+          <a href="https://metasearx.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+      <div class="app-item">
+        <h3 class="links-title"><img src="[logo]" alt="logo">[Nom]</h3>
+        <p>[Description]</p>
+        <div class="buttons">
+          <a href="#" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="view-toggle-container"></div>
+  </section>
+</main>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="common-elementss.js"></script>
+<common-elements></common-elements>
+<script src="template.js"></script>
+<script src="script0.js"></script>
+<script src="search.js"></script>
+<script src="calendar-events.js"></script>
+<script src="calendar.js"></script>
+<script src="scripts.js"></script>
+<style>
+.aaino_notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  color: #2d3436;
+  padding: 2.5rem;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1),
+              0 4px 12px rgba(0,0,0,0.05),
+              0 0 0 1px rgba(0,0,0,0.03);
+  max-width: 90%;
+  width: 450px;
+  text-align: center;
+  animation: aainoSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.aaino_notification h4 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  background: linear-gradient(135deg, #2B2F77 0%, #1E69FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+
+.aaino_notification p {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  color: #4a4a4a;
+  font-weight: 400;
+}
+
+.aaino_close_btn {
+  background: linear-gradient(135deg, #1E69FF 0%, #2B2F77 100%);
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 100px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(30, 105, 255, 0.3);
+}
+
+.aaino_close_btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(30, 105, 255, 0.4);
+}
+
+.aaino_close_btn:active {
+  transform: translateY(0);
+}
+
+@keyframes aainoSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -45%);
+  } 
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Ajout de l'overlay pour fermer en cliquant ailleurs */
+.aaino_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(3px);
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+</style>
+
+<script>
+document.getElementById('aaino_site_btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  showAainoMessage('site');
+});
+
+document.getElementById('aaino_tuto_btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  showAainoMessage('tuto');
+});
+
+function showAainoMessage(type) {
+  // Créer l'overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'aaino_overlay';
+  document.body.appendChild(overlay);
+
+  const message = document.createElement('div');
+  message.className = 'aaino_notification';
+  
+  if (type === 'site') {
+    message.innerHTML = `
+      <h4>✨ Vous y êtes déjà !</h4>
+      <p>Tel un explorateur averti, vous naviguez déjà au cœur même d'Aaino. Continuez votre voyage de découverte, les trésors du web n'attendent que vous !</p>
+      <button class="aaino_close_btn">Continuer l'exploration</button>
+    `;
+  } else {
+    message.innerHTML = `
+      <h4>🎯 Expert en devenir</h4>
+      <p>Votre présence ici prouve que vous maîtrisez déjà l'art de la navigation sur Aaino. Continuez d'explorer, chaque clic vous rapproche de nouvelles découvertes fascinantes !</p>
+      <button class="aaino_close_btn">Poursuivre l'aventure</button>
+    `;
+  }
+  
+  document.body.appendChild(message);
+  
+  // Fermer en cliquant sur le bouton
+  message.querySelector('.aaino_close_btn').onclick = function() {
+    closeMessage(message, overlay);
+  };
+
+  // Fermer en cliquant sur l'overlay
+  overlay.onclick = function() {
+    closeMessage(message, overlay);
+  };
+}
+
+function closeMessage(message, overlay) {
+  message.style.opacity = '0';
+  overlay.style.opacity = '0';
+  setTimeout(() => {
+    message.remove();
+    overlay.remove();
+  }, 300);
+}
+</script>
+
+</body>
+</html>

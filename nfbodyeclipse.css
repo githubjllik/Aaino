@@ -1,0 +1,1091 @@
+/* Styles généraux */
+
+
+/* Header */
+
+
+/* ... Reste du CSS ... */
+.qw4321_search_box .ty5678_search_btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+}
+
+.qw4321_search_box .ty5678_search_btn img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0; /* Annuler le style circulaire */
+    box-shadow: none; /* Supprimer l'ombre */
+    object-fit: contain; /* Assurer que l'image s'adapte correctement */
+}
+
+.qw4321_search_box .ty5678_search_btn:hover img {
+    transform: none; /* Supprimer l'effet de scale au survol */
+}
+
+
+#a-consulter {
+    background-color: #f5f5f5;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 100%;
+    margin: 2rem auto;
+    box-sizing: border-box;
+}
+
+#a-consulter > h2 {
+    color: #333;
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+#a-consulter > .options-consultation {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+#a-consulter > .options-consultation > .option-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+#a-consulter > .options-consultation > .option-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+#a-consulter > .options-consultation > .option-item > p {
+    flex: 1;
+    margin-right: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+#a-consulter > .options-consultation .bouton-tuto {
+    display: inline-block;
+    padding: 12px 24px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    background-size: 200% auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+
+#a-consulter > .options-consultation .bouton-tuto:hover {
+    background-position: right center;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    #a-consulter {
+        padding: 1.5rem;
+    }
+
+    #a-consulter > h2 {
+        font-size: 1.8rem;
+    }
+
+    #a-consulter > .options-consultation > .option-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem;
+    }
+
+    #a-consulter > .options-consultation > .option-item > p {
+        margin-right: 0;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        width: 100%;
+        word-break: break-word;
+        hyphens: auto;
+    }
+
+    #a-consulter > .options-consultation .bouton-tuto {
+        align-self: flex-start;
+        font-size: 0.9rem;
+    }
+}
+
+
+
+
+
+
+
+
+  .context-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+
+  .menu-item {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  .menu-item:hover {
+    background-color: #f0f0f0;
+  }
+
+  /* Styles pour .icon et .three-dots-icon à l'intérieur des sections */
+
+
+
+
+  #browser-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+
+  #browser-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 300px;
+  }
+
+  #browser-modal ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  #browser-modal li {
+    margin-bottom: 10px;
+  }
+
+  #browser-modal a {
+    text-decoration: none;
+    color: #333;
+  }
+
+  #browser-modal button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  /* Styles existants */
+
+  /* Nouveau style pour le message d'erreur */
+  
+  /* Styles existants */
+
+  /* Style modifié pour le message d'erreur */
+  #error-message {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    color: #333333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    z-index: 2000;
+    text-align: center;
+    max-width: 80%;
+    width: 400px;
+    font-family: Arial, sans-serif;
+  }
+
+  #error-message h3 {
+    margin-top: 0;
+    color: #4a4a4a;
+  }
+
+  #error-message p {
+    margin-bottom: 15px;
+    line-height: 1.5;
+  }
+
+  #error-message a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+
+  #error-message a:hover {
+    color: #2980b9;
+  }
+
+  .browser-links {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+  }
+
+  .browser-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #333333;
+  }
+
+  .browser-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 5px;
+  }
+
+
+
+  /* Styles précédents inchangés */
+
+  .browser-links {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    flex-wrap: wrap;
+  }
+
+  .browser-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #333333;
+    margin: 0 10px 10px 10px;
+  }
+
+  .browser-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 5px;
+  }
+
+#error-message {
+  /* Styles existants */
+  color: #333333; /* Assurez-vous que cette couleur offre un bon contraste */
+}
+
+#error-message p {
+  margin-bottom: 15px;
+  line-height: 1.5;
+  font-size: 16px; /* Augmentez la taille de la police si nécessaire */
+  font-weight: normal; /* Assurez-vous que le texte n'est pas trop fin */
+  opacity: 1; /* Assurez-vous que l'opacité est à 100% */
+  color: #333333; /* Utilisez une couleur foncée pour un meilleur contraste */
+  text-shadow: none; /* Supprimez tout effet d'ombre qui pourrait rendre le texte flou */
+}
+
+/* Si le problème persiste, essayez d'augmenter encore le contraste */
+#error-message p {
+  color: #000000; /* Noir pour un contraste maximal */
+}
+
+/* Assurez-vous qu'aucun autre style ne vient interférer */
+#error-message * {
+  text-shadow: none;
+  opacity: 1;
+}
+
+
+.copy-message {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 2001;
+  }
+
+  .copy-message.show {
+    opacity: 1;
+  }
+  
+  
+  
+        
+
+        section {
+            background-color: white;
+            color: black;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Conteneur global */
+        .zephyr-control-panel {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            transition: background-color 0.3s;
+        }
+
+        /* Style commun pour les icônes */
+        .quasar-icon {
+            width: 40px;
+            height: 40px;
+            margin: 5px 0;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .quasar-icon:hover {
+            transform: scale(1.2);
+        }
+
+        /* Styles spécifiques pour chaque icône */
+        #nebula-toggle {
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+        }
+
+        #nova-share {
+            fill: green;
+        }
+
+        /* Zone de recherche (initialement cachée) */
+        .pulsar-search-box {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            transition: opacity 0.3s ease;
+        }
+
+        
+
+        /* Quand le champ est actif (montré après le clic) */
+        .active .pulsar-search-box {
+            display: block;
+            opacity: 1;
+        }
+
+        .active .pulsar-search-box input {
+            width: 250px;
+        }
+
+        /* Styles pour le mode sombre */
+        .eclipse-mode section {
+            background-color: #222;
+            color: #fff;
+        }
+
+        .eclipse-mode .zephyr-control-panel {
+            background-color: #222;
+        }
+
+        .eclipse-mode #nebula-toggle {
+            filter: invert(1);
+        }
+
+        .eclipse-mode #nova-share {
+            fill: yellow;
+        }
+
+        #cosmos-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        #cosmos-modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 300px;
+        }
+
+        #cosmos-modal ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #cosmos-modal li {
+            margin-bottom: 10px;
+        }
+
+        #cosmos-modal a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        #cosmos-modal button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        /* Style modifié pour le message d'erreur */
+        #supernova-error {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            color: #333333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 2000;
+            text-align: center;
+            max-width: 80%;
+            width: 400px;
+            font-family: Arial, sans-serif;
+        }
+
+        #supernova-error h3 {
+            margin-top: 0;
+            color: #4a4a4a;
+        }
+
+        #supernova-error p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        #supernova-error a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        #supernova-error a:hover {
+            color: #2980b9;
+        }
+
+        .constellation-links {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .constellation-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #333333;
+        }
+
+        .constellation-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 5px;
+        }
+
+        .constellation-links {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .constellation-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #333333;
+            margin: 0 10px 10px 10px;
+        }
+
+        .constellation-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 5px;
+        }
+        
+                #supernova-error {
+  /* Styles existants */
+  color: #333333; /* Assurez-vous que cette couleur offre un bon contraste */
+}
+
+#supernova-error p {
+  margin-bottom: 15px;
+  line-height: 1.5;
+  font-size: 16px; /* Augmentez la taille de la police si nécessaire */
+  font-weight: normal; /* Assurez-vous que le texte n'est pas trop fin */
+  opacity: 1; /* Assurez-vous que l'opacité est à 100% */
+  color: #333333; /* Utilisez une couleur foncée pour un meilleur contraste */
+  text-shadow: none; /* Supprimez tout effet d'ombre qui pourrait rendre le texte flou */
+}
+
+/* Si le problème persiste, essayez d'augmenter encore le contraste */
+#supernova-error p {
+  color: #000000; /* Noir pour un contraste maximal */
+}
+
+/* Assurez-vous qu'aucun autre style ne vient interférer */
+#supernova-error * {
+  text-shadow: none;
+  opacity: 1;
+}
+        
+        
+        body {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        section, 
+        .zephyr-control-panel,
+        #supernova-error,
+        #cosmos-modal-content {
+            background-color: white;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Styles pour le mode sombre */
+        body.eclipse-mode {
+            background-color: #1a1a2e; /* Bleu nuit très foncé */
+            color: #e0e0e0;
+        }
+
+        body.eclipse-mode section,
+        body.eclipse-mode div[id],
+        body.eclipse-mode .zephyr-control-panel,
+        body.eclipse-mode #supernova-error,
+        body.eclipse-mode #cosmos-modal-content {
+            background-color: #1e1e2e !important; /* Bleu nuit foncé légèrement plus clair */
+            color: #e0e0e0 !important;
+        }
+
+        /* Sélecteurs spécifiques pour les sections avec ID */
+        body.eclipse-mode #header,
+        body.eclipse-mode #main-content,
+        body.eclipse-mode #footer,
+        body.eclipse-mode [id^="section-"] {
+            background-color: #1e1e2e !important;
+            color: #e0e0e0 !important;
+        }
+
+        body.eclipse-mode h1, 
+        body.eclipse-mode h2, 
+        body.eclipse-mode h3, 
+        body.eclipse-mode h4,
+        body.eclipse-mode p, 
+        body.eclipse-mode h5, 
+        body.eclipse-mode h6 {
+            color: #ffffff !important;
+        }
+
+        body.eclipse-mode a {
+            color: #bb86fc !important;
+        }
+
+        body.eclipse-mode #nebula-toggle {
+            filter: invert(1);
+        }
+
+        body.eclipse-mode #nova-share {
+            fill: #bb86fc !important;
+        }
+
+        /* Le reste du code CSS reste inchangé */
+        
+        /* ... */
+
+    
+    
+        body {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        section, 
+        .zephyr-control-panel,
+        #supernova-error,
+        #cosmos-modal-content {
+            background-color: white;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Styles pour le mode sombre */
+        body.eclipse-mode {
+            background-color: #1a1a2e; /* Bleu nuit très foncé */
+            color: #e0e0e0;
+        }
+
+        body.eclipse-mode section,
+        body.eclipse-mode div[id],
+        body.eclipse-mode .zephyr-control-panel,
+        body.eclipse-mode #supernova-error,
+        body.eclipse-mode #cosmos-modal-content {
+            background-color: #1e1e2e !important; /* Bleu nuit foncé légèrement plus clair */
+            color: #e0e0e0 !important;
+        }
+
+        /* Sélecteurs spécifiques pour les sections avec ID */
+        body.eclipse-mode #header,
+        body.eclipse-mode #main-content,
+        body.eclipse-mode #footer,
+        body.eclipse-mode [id^="section-"] {
+            background-color: #1e1e2e !important;
+            color: #e0e0e0 !important;
+        }
+
+        body.eclipse-mode h1, 
+        body.eclipse-mode h2, 
+        body.eclipse-mode h3, 
+        body.eclipse-mode h4, 
+        body.eclipse-mode h5, 
+        body.eclipse-mode h6 {
+            color: #ffffff !important;
+        }
+
+        body.eclipse-mode a {
+            color: #bb86fc !important;
+        }
+
+        body.eclipse-mode #nebula-toggle {
+            filter: invert(1);
+        }
+
+        body.eclipse-mode #nova-share {
+            fill: #bb86fc !important;
+        }
+
+        /* Nouveaux styles pour résoudre les problèmes mentionnés */
+        body.eclipse-mode .option-item {
+            background-color: #1e1e2e !important;
+        }
+
+        body.eclipse-mode .button,
+        body.eclipse-mode .bouton-tuto {
+            color: white !important;
+        }
+
+        body.eclipse-mode .context-menu {
+            background-color: #1e1e2e !important;
+            color: #e0e0e0 !important;
+        }
+
+        body.eclipse-mode img[src$=".svg"] {
+            filter: brightness(0) invert(1);
+        }
+
+        /* Le reste du code CSS reste inchangé */
+        
+        /* ... */
+        
+        
+
+      body.eclipse-mode input[type="text"],
+        body.eclipse-mode input[type="search"],
+        body.eclipse-mode textarea {
+            background-color: #1e1e1e;
+            border-color: #333333;
+            color: #e0e0e0;
+        }
+
+        body.eclipse-mode input[type="text"]:focus,
+        body.eclipse-mode input[type="search"]:focus,
+        body.eclipse-mode textarea:focus {
+            border-color: #bb86fc;
+            box-shadow: 0 0 0 2px rgba(187,134,252,0.2);
+        }
+
+        body.eclipse-mode input::placeholder,
+        body.eclipse-mode textarea::placeholder {
+            color: #909090;
+        }
+        
+        body.eclipse-mode #search-container #search-bar #search {
+            background-color: #1e1e1e;
+            border-color: #333333;
+            color: #e0e0e0;
+        }
+
+        body.eclipse-mode #search-container #search-bar #search:focus {
+            border-color: #bb86fc;
+            box-shadow: 0 0 0 2px rgba(187,134,252,0.2);
+        }
+
+        body.eclipse-mode #search-container #search-bar #search::placeholder {
+            color: #909090;
+        }
+
+        /* Styles pour les autres inputs et textareas en mode sombre */
+        body.eclipse-mode input[type="text"]:not(#search),
+        body.eclipse-mode input[type="search"]:not(#search),
+        body.eclipse-mode textarea {
+            background-color: #1e1e1e;
+            border-color: #333333;
+            color: #e0e0e0;
+        }
+
+        body.eclipse-mode input[type="text"]:not(#search):focus,
+        body.eclipse-mode input[type="search"]:not(#search):focus,
+        body.eclipse-mode textarea:focus {
+            border-color: #bb86fc;
+            box-shadow: 0 0 0 2px rgba(187,134,252,0.2);
+        }
+
+        body.eclipse-mode input:not(#search)::placeholder,
+        body.eclipse-mode textarea::placeholder {
+            color: #909090;
+        }
+        
+        
+        body.eclipse-mode #search-btn::before {
+    background-color: #1e1e1e;
+}
+
+body.eclipse-mode .no-results {
+    background-color: #1e1e1e;
+    color:white;
+}
+
+body.eclipse-mode #about .feature-item, body.eclipse-mode #about .testimonial-item, body.eclipse-mode #about .cta-section  {
+            background-color: #2a2a42 !important;
+        }
+        
+    body.eclipse-mode nav ul li a:hover {
+    color: #fff !important ;
+}
+    body.eclipse-mode .burger-menu ul li a:hover {
+    color: #fff !important ;
+}
+body.eclipse-mode .zx9  {
+            background-color: #2a2a42 !important;
+        }
+        
+        body.eclipse-mode .lm2, body.eclipse-mode .wy5 {
+    color: #fff !important ;
+}
+
+body.eclipse-mode .vp7:hover {
+    background-color: #32324d ;
+}
+body.eclipse-mode .qw4321_search_box  {
+            background-color: #32324d !important;
+        }
+        
+     body.eclipse-mode .nav-menu  {
+            background-color: #2a2a42 !important;
+        }
+      body.eclipse-mode .overlay-panel  {
+            background-color: #1f1e2e !important;
+        }
+        body.eclipse-mode .overlay-panel  {
+            border: 1px solid #403f4f !important;
+        }
+        body.eclipse-mode .sidebar  {
+            background-color: #1f1e2e !important;
+        }
+        body.eclipse-mode .chronos-wrapper  {
+            background-color: #2a2a42 !important;
+        }
+        body.eclipse-mode .aevum-select-options  {
+            background-color: #2a2a42 !important;
+        }
+       body.eclipse-mode .aevum-select-button   {
+            background-color: #1f1e2e !important;
+            color:#ffff!important;
+        }
+        
+        body.eclipse-mode .custom-select-button   {
+            background-color: #1f1e2e !important;
+            color:#ffff!important;
+        }
+        
+        
+        body.eclipse-mode .custom-select-options  {
+            background-color: #2a2a42 !important;
+        }
+        
+        
+        body.eclipse-mode #translation-output {
+            background-color: #2a2a42 !important;
+        }
+        
+        
+
+
+body.eclipse-mode .compass {
+  position: relative;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(41, 98, 255, 0.3);
+  margin: auto;
+  background: #132f4c;
+  border: 2px solid #1e4976;
+}
+
+/* Ajustements pour les petits écrans */
+@media (max-width: 600px) {
+  body.eclipse-mode .compass {
+    width: 70vw; 
+    height: 70vw;
+  }
+
+  body.eclipse-mode .start-btn {
+    font-size: 14px;
+  }
+}
+
+/* Ajustements pour les écrans moyens */
+@media (min-width: 601px) and (max-width: 900px) {
+  body.eclipse-mode .compass {
+    width: 50vw;
+    height: 50vw;
+  }
+
+  body.eclipse-mode .start-btn {
+    font-size: 16px;
+  }
+}
+
+/* Ajustements pour les grands écrans */ 
+@media (min-width: 901px) {
+  body.eclipse-mode .compass {
+    width: 320px;
+    height: 320px;
+  }
+
+  body.eclipse-mode .start-btn {
+    font-size: 18px;
+  }
+}
+
+body.eclipse-mode .compass > .arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-style: solid;
+  border-width: 30px 20px 0 20px;
+  border-color: red transparent transparent transparent;
+  z-index: 1;
+}
+
+body.eclipse-mode .compass > .compass-circle,
+body.eclipse-mode .compass > .my-point {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out;
+  background: url(https://purepng.com/public/uploads/large/purepng.com-compasscompassinstrumentnavigationcardinal-directionspointsdiagram-1701527842316onq7x.png) center no-repeat;
+  background-size: contain;
+  filter: invert(1) hue-rotate(180deg);
+}
+
+body.eclipse-mode .compass > .compass-circle {
+  width: 90%;
+  height: 90%;
+}
+
+body.eclipse-mode .compass > .my-point {
+  opacity: 0;
+  width: 20%;
+  height: 20%;
+  background: #64b5f6;
+  border-radius: 50%;
+  transition: opacity 0.5s ease-out;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.5);
+}
+
+body.eclipse-mode .start-btn {
+  margin-bottom: auto;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+body.eclipse-mode .start-btn:hover {
+  background: #2196f3;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
+}
+body.eclipse-mode .message-box {
+            background-color: black;
+            
+        }
+body.eclipse-mode  .title-prompt {
+            background-color: black;
+            
+        }
+body.eclipse-mode  .delete-confirmation {
+            background-color: black;
+            
+        }
+        
+body.eclipse-mode .crystallineCard {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(25, 25, 30, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    max-width: 480px;
+    text-align: center;
+    animation: aetherealFloat 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(100, 150, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+body.eclipse-mode  .etherealNotificationCard {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(25, 25, 30, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    max-width: 480px;
+    text-align: center;
+    animation: crystallineEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(100, 150, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+}
+body.eclipse-mode .new-content {
+    display: inline-block;
+    vertical-align: top;
+    width: 300px;
+    height: 400px;
+    margin-right: 15px;
+    white-space: normal;
+    border: 1px solid #333;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #1e1e2e;
+    color: #e0e0e0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+body.eclipse-mode .content-body::after{
+  background-color: #1e1e2e;
+}
+
+body.eclipse-mode .buttons{
+  background-color: #1e1e2e;
+}
+
+body.eclipse-mode .navii{
+            color: #fff;
+            background-color: #32324d;
+        }
+body.eclipse-mode .filter-btn{
+            color: #fff;
+            background-color: #32324d;
+        }
+ body.eclipse-mode .month-button, body.eclipse-mode .year-button {
+            color: #fff;
+            background-color: #32324d;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        }
+ body.eclipse-mode .month-fieldset, body.eclipse-mode .year-fieldset {
+            color: #fff;
+            background-color: #32324d;
+        }
+  body.eclipse-mode .month-legend, body.eclipse-mode .year-legend {
+            color: #fff;
+            
+        }
+body.eclipse-mode .month-options, body.eclipse-mode .year-options {
+            
+            background-color: #32324d;
+        }
+        
+  body.eclipse-mode .scroll-btn {
+            
+            background-color: #32324d;
+        }
+        
+        body.eclipse-mode .mascot-speech {
+  color:#000;
+}
+
+body.eclipse-mode #searchMascot {
+  background:transparent !important;
+}

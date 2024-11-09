@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aaino | Darkweb</title>
+    <link rel="stylesheet" href="styles2.css">
+    <link rel="stylesheet" href="styles4.css">
+    <link rel="stylesheet" href="styles5.css">
+    <link rel="stylesheet" href="navfoot.css">
+    <link rel="stylesheet" href="nfbodyeclipse.css">
+    <link rel="stylesheet" href="nouveaux.css">
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.dark-age-verification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(15px);
+    padding: 1rem;
+}
+
+.dark-verification-content {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+    color: #fff;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    animation: darkFadeIn 0.5s ease-out;
+}
+
+@keyframes darkFadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dark-warning-title {
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.dark-verification-text {
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #fff;
+    font-weight: 300;
+}
+
+.dark-verification-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.dark-verify-btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.dark-verify-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.dark-yes-btn {
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+    color: white;
+    box-shadow: 0 5px 15px rgba(0,114,255,0.3);
+}
+
+.dark-no-btn {
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.2);
+}
+
+main {
+    padding: 1rem;
+}
+
+.dark-web-intro {
+    padding: 2rem;
+    background: linear-gradient(145deg, #ffffff, #f8f9ff);
+    border-radius: 20px;
+    color: #1a1a1a;
+    margin: 2rem 0;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.dark-feature-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.dark-feature-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(0,114,255,0.1);
+}
+
+.dark-feature-icon {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dark-section-title {
+    font-size: clamp(2rem, 6vw, 3rem);
+    background: linear-gradient(45deg, #1a1a1a, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.dark-coming-soon {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(145deg, #00c6ff, #0072ff);
+    border-radius: 20px;
+    color: white;
+    margin: 2rem 0;
+    box-shadow: 0 15px 30px rgba(0,114,255,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.dark-coming-soon h2 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.dark-coming-soon p {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+    font-weight: 300;
+}
+
+.dark-safety-tips {
+    background: rgba(255,255,255,0.9);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-top: 2rem;
+    border: 1px solid rgba(0,114,255,0.1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.dark-list {
+    list-style: none;
+    padding: 0;
+}
+
+.dark-list-item {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(0,114,255,0.1);
+    display: flex;
+    align-items: center;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+}
+
+.dark-list-item::before {
+    content: '→';
+    margin-right: 0.8rem;
+    color: #00c6ff;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 480px) {
+    .dark-verification-content {
+        padding: 1rem;
+    }
+    
+    .dark-web-intro {
+        padding: 1.5rem;
+    }
+    
+    .dark-feature-item {
+        padding: 1rem;
+    }
+    
+    .dark-coming-soon {
+        padding: 1.5rem;
+    }
+    
+    .dark-verification-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .dark-verify-btn {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+}
+
+/* ... styles précédents ... */
+
+.dark-coming-soon {
+    text-align: center;
+    padding: 2.5rem;
+    background: linear-gradient(145deg, #1a1b1f, #2a2b30);
+    border-radius: 20px;
+    color: white;
+    margin: 2rem 0;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Indicateur en ligne avec effet futuriste */
+.dark-coming-soon::after {
+    content: '';
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    background-color: #39ff14;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #39ff14, 0 0 25px #39ff14;
+    animation: pulseModern 2s infinite;
+}
+
+@keyframes pulseModern {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.dark-coming-soon {
+    text-align: center;
+    padding: 3rem;
+    background: linear-gradient(145deg, #f8f9fc, #ffffff);
+    border-radius: 20px;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 114, 255, 0.1);
+    border-bottom: 4px solid #0072ff;
+}
+
+.dark-coming-soon h2 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 800; /* Augmenté pour plus de lisibilité */
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(45deg, #0052cc, #0072ff); /* Couleurs ajustées pour plus de contraste */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.dark-coming-soon h2::before {
+    content: '🌐';
+    font-size: 0.9em;
+    animation: rotate 10s linear infinite;
+    display: inline-block;
+    -webkit-text-fill-color: initial;
+    background: none;
+}
+
+.dark-coming-soon p {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    line-height: 1.8;
+    position: relative;
+    z-index: 2;
+    font-weight: 500; /* Augmenté pour plus de lisibilité */
+    color: #2d3748; /* Couleur plus foncée pour un meilleur contraste */
+    margin-bottom: 1.2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Effet de scanning moderne */
+.dark-coming-soon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent,
+        rgba(255,255,255,0.05),
+        transparent
+    );
+    animation: scanModern 4s linear infinite;
+}
+
+@keyframes scanModern {
+    0% {
+        transform: translateX(-50%) skewX(-15deg);
+    }
+    100% {
+        transform: translateX(50%) skewX(-15deg);
+    }
+}
+
+/* Ajout d'un effet de grille en arrière-plan */
+.dark-coming-soon {
+    background-image: 
+        linear-gradient(145deg, #1a1b1f, #2a2b30),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 20px 20px, 20px 20px;
+    background-position: 0 0, 0 0, 0 0;
+}
+
+
+.dark-coming-soon {
+    text-align: center;
+    padding: 3rem;
+    background: linear-gradient(145deg, #f8f9fc, #ffffff);
+    border-radius: 20px;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 114, 255, 0.1);
+    border-bottom: 4px solid #0072ff;
+}
+
+.dark-coming-soon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(45deg, rgba(0, 114, 255, 0.03) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(0, 114, 255, 0.03) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(0, 114, 255, 0.03) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(0, 114, 255, 0.03) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    opacity: 0.5;
+}
+
+.dark-coming-soon h2 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(45deg, #0072ff, #00c6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.dark-coming-soon h2::before {
+    content: '🌐';
+    font-size: 0.9em;
+    animation: rotate 10s linear infinite;
+    display: inline-block;
+    color: #0072ff;
+    -webkit-text-fill-color: initial;
+    background: none;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.dark-coming-soon p {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    line-height: 1.8;
+    position: relative;
+    z-index: 2;
+    font-weight: 400;
+    color: #4a5568;
+    margin-bottom: 1.2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Indicateur en ligne avec effet futuriste */
+.dark-coming-soon::after {
+    content: '';
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    background-color: #39ff14;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #39ff14, 0 0 25px #39ff14;
+    animation: pulseModern 2s infinite;
+}
+
+@keyframes pulseModern {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .dark-coming-soon {
+        padding: 2rem 1.5rem;
+    }
+}
+
+.dark-coming-soon {
+    text-align: center;
+    padding: 3rem;
+    background: linear-gradient(145deg, #f8f9fc, #ffffff);
+    border-radius: 20px;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 114, 255, 0.1);
+    border-bottom: 4px solid #0072ff;
+}
+
+.dark-coming-soon h2 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 800; /* Augmenté pour plus de lisibilité */
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(45deg, #0052cc, #0072ff); /* Couleurs ajustées pour plus de contraste */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.dark-coming-soon h2::before {
+    content: '🌐';
+    font-size: 0.9em;
+    animation: rotate 10s linear infinite;
+    display: inline-block;
+    -webkit-text-fill-color: initial;
+    background: none;
+}
+
+.dark-coming-soon p {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    line-height: 1.8;
+    position: relative;
+    z-index: 2;
+    font-weight: 500; /* Augmenté pour plus de lisibilité */
+    color: #2d3748; /* Couleur plus foncée pour un meilleur contraste */
+    margin-bottom: 1.2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+</style>
+
+</head>
+<body>
+
+<div class="dark-age-verification" id="darkAgeVerification">
+    <div class="dark-verification-content">
+        <h2 class="dark-warning-title">Bienvenue dans l'exploration du Dark Web</h2>
+        <p class="dark-verification-text">
+            Cette section est dédiée à la découverte et à la compréhension du Dark Web dans un cadre éducatif et sécurisé. 
+            Notre objectif est de partager des connaissances et non d'encourager des activités illégales.
+            En continuant, vous confirmez avoir plus de 18 ans et comprendre la nature éducative de ce contenu.
+        </p>
+        <div class="dark-verification-buttons">
+            <button class="dark-verify-btn dark-yes-btn" onclick="verifyAge(true)">J'accepte et je continue</button>
+            <button class="dark-verify-btn dark-no-btn" onclick="verifyAge(false)">Retour</button>
+        </div>
+    </div>
+</div>
+
+<main>
+    <section id="darkIntroduction">
+        <h1 class="dark-section-title">Guide d'Exploration du Dark Web</h1>
+        
+        <div class="dark-web-intro">
+            <h2>Comprendre le Dark Web</h2>
+            <p>Le Dark Web représente une partie fascinante d'Internet, offrant anonymat et liberté d'expression. C'est un espace où la confidentialité est primordiale, utilisé par des journalistes, activistes, et chercheurs.</p>
+            
+            <div class="dark-feature-list">
+                <div class="dark-feature-item">
+                    <div class="dark-feature-icon">🔒</div>
+                    <h3>Accès Sécurisé</h3>
+                    <p>Navigateur Tor requis</p>
+                </div>
+                
+                <div class="dark-feature-item">
+                    <div class="dark-feature-icon">🛡️</div>
+                    <h3>Protection</h3>
+                    <p>VPN recommandé</p>
+                </div>
+                
+                <div class="dark-feature-item">
+                    <div class="dark-feature-icon">📚</div>
+                    <h3>Ressources</h3>
+                    <p>Bibliothèques, forums, archives</p>
+                </div>
+            </div>
+
+            <div class="dark-safety-tips">
+                <h3>Guide de Sécurité Essentiel:</h3>
+                <ul class="dark-list">
+                    <li class="dark-list-item">Téléchargez Tor Browser depuis le site officiel</li>
+                    <li class="dark-list-item">Utilisez un VPN de confiance</li>
+                    <li class="dark-list-item">Gardez votre anonymat</li>
+                    <li class="dark-list-item">Activez les paramètres de sécurité maximum</li>
+                    <li class="dark-list-item">Évitez de télécharger des fichiers suspects</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="dark-coming-soon">
+        <h2>✨ Prochainement sur Aaino Dark Web</h2>
+        <p>Notre équipe prépare une sélection soignée de ressources fascinantes et sécurisées du Dark Web. Nous recherchons des sites éducatifs, des forums de discussion enrichissants et des plateformes de partage de connaissances.</p>
+        <p>Explorez bientôt avec nous les aspects les plus intéressants et sécurisés du Dark Web!</p>
+    </section>
+</main>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script src="common-elementss.js"></script>
+<common-elements></common-elements>
+
+    
+<script src="template0.js"></script>
+<script src="script0.js"></script>
+<script src="search.js"></script>
+<script src="calendar-events.js"></script>
+    <script src="calendar.js"></script>
+<script src="scripts.js"></script>
+        <script src="nouveaux.js"></script>
+<script>
+function verifyAge(isAdult) {
+    if (isAdult) {
+        document.getElementById('darkAgeVerification').style.display = 'none';
+    } else {
+        window.location.href = '/';
+    }
+}
+</script>
+
+</body>
+</html>

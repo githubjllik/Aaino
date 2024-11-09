@@ -1,0 +1,1178 @@
+#preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+        .loader {
+            width: 120px;
+            height: 120px;
+            position: relative;
+        }
+        .loader svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        path {
+            fill: none;
+            stroke: #fff;
+            stroke-width: 34;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 0 2px #000);
+        }
+        .bar {
+            stroke-dasharray: 86;
+            stroke-dashoffset: 86;
+            animation: barAnimation 2s ease-in-out infinite;
+        }
+        @keyframes barAnimation {
+            0%, 10% {
+                stroke-dashoffset: 86;
+                transform: translateY(-100%);
+            }
+            40%, 60% {
+                stroke-dashoffset: 0;
+                transform: translateY(0);
+            }
+            90%, 100% {
+                stroke-dashoffset: 86;
+                transform: translateY(0);
+            }
+        }
+
+        /* Assurez-vous que le header et la nav sont au-dessus du preloader */
+        header, nav {
+            position: relative;
+            z-index: 10000;
+        }
+/* Déclaration de la police */
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('fonts/Helvetica Neue Medium Extended.otf') format('opentype'),
+         url('fonts/Helvetica Neue Medium Extended.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Styles généraux */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Autres styles */
+h1 {
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Pacifico';
+    src: url('fonts/FugazOne-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Styles pour la balise main */
+main {
+    padding: 80px 20px 20px; /* Ajoute un padding-top pour compenser le header et nav fixes */
+}
+
+/* Styles pour les sections */
+section {
+    margin-bottom: 40px;
+    
+    padding-bottom: 20px;
+}
+
+/* Styles pour les titres (h2) */
+h2 {
+    color: #333;
+}
+
+/* Styles pour les paragraphes (p) */
+p {
+    font-size: 18px;
+    color: #555;
+}
+
+/* Styles pour les boutons */
+.buttons {
+    margin-top: 10px;
+}
+.button {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin-right: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px; /* Ajoute un espacement entre le texte et l'icône */
+}
+.view-site {
+    background-color: #28a745;
+}
+.view-tuto {
+    background-color: #007bff;
+}
+.button:hover {
+    opacity: 0.8;
+}
+
+
+
+.logo {
+    font-size: 32px; /* Augmente la taille du texte */
+    font-weight: bold; /* Gras pour le rendre plus visible */
+    font-family: 'Pacifico', sans-serif; /* Change la police pour une police plus moderne et attrayante */
+    letter-spacing: 2px; /* Espace entre les lettres pour donner un style élégant */
+    color: #17a2b8; /* Couleur vive et accrocheuse */
+    
+    position: relative; /* Nécessaire pour l'animation */
+    cursor: pointer; /* Curiosité : ajout d'une interaction */
+    transition: color 0.3s ease-in-out; /* Ajoute une transition pour un effet fluide au survol */
+    text-decoration: none;
+}
+
+.logo:hover {
+    color: #17a2b8; /* Change la couleur lors du survol pour attirer l'attention */
+}
+
+.logo::before {
+    content: ''; /* Crée un effet de soulignement animé */
+    position: absolute;
+    bottom: -5px; /* Positionné sous le texte */
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #17a2b8; /* Couleur du soulignement */
+    transition: width 0.3s ease-in-out; /* Animation fluide de l'élargissement */
+}
+
+.logo:hover::before {
+    width: 100%; /* Le soulignement s'élargit lors du survol */
+}
+
+.burger-menu ul li .description {
+    font-size: 16px; /* Augmente la taille de la description */
+    color: #ffcc00; /* Ajoute une couleur contrastante pour la description */
+    font-weight: bold; /* Ajoute du gras pour la mettre en évidence */
+    padding-left: 10px; /* Ajoute un léger retrait pour la démarquer des titres */
+}
+
+
+
+.burger-menu .contacts p {
+    font-size: 20px; /* Agrandit le texte "Contactez-nous" */
+    font-weight: bold; /* Texte en gras pour plus de visibilité */
+    color: #17a2b8; /* Accentue le texte avec une couleur vive */
+}
+
+.burger-menu .contacts a {
+    font-size: 18px; /* Augmente la taille de la police des liens de contact */
+    color: #17a2b8; /* Ajoute une couleur visible aux liens */
+    font-weight: bold;
+}
+
+footer p {
+    font-size: 20px; /* Augmente la taille du texte */
+    color: #ffffff; /* Blanc pour contraste sur le fond foncé */
+    font-weight: bold; /* Rend le texte plus visible */
+}
+
+footer a {
+    font-size: 18px; /* Taille légèrement augmentée pour les liens */
+    color: #17a2b8; /* Utilise une couleur plus vive pour les liens */
+}
+
+
+footer a {
+    color: inherit; /* Hérite de la couleur du texte parent (blanc dans ce cas) */
+    text-decoration: none; /* Enlève le soulignement */
+}
+
+.contact-icons {
+    position: fixed;
+    right: 0; /* Collé au bord droit de l'écran */
+    top: 50%; /* Centré verticalement */
+    transform: translateY(-50%); /* Ajuste pour centrer parfaitement */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espacement entre les icônes */
+    z-index: 1000; /* Assure que les icônes sont au-dessus des autres éléments */
+    padding: 0; /* Supprime tout padding pour éviter le décalage */
+}
+
+.contact-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0f2229; /* Couleur de fond pour les icônes */
+    border-radius: 50%; /* Forme circulaire */
+    padding: 5px; /* Ajustez selon la taille des icônes */
+    transition: background-color 0.3s;
+}
+
+.contact-icons a:hover {
+    background-color: #555; /* Changement de couleur au survol */
+}
+
+.contact-icons img {
+    height: 24px; /* Ajustez la taille des icônes selon vos besoins */
+    width: 24px; /* Assure que les icônes sont carrées */
+}
+
+section:first-of-type {
+    margin-top: 60px; /* Applique cette marge à la première section de chaque page */
+} 
+/* Ajoute cette partie au fichier CSS pour les styles actifs */
+nav ul li.active {
+    border-bottom: 4px solid #17a2b8; /* Bordure stylée pour l'élément actif */
+    background-color: #555; /* Optionnel : changement de couleur de fond pour l'élément actif */
+}
+/* Enlève le style des liens dans le menu */
+nav ul li a {
+    color: inherit; /* Prend la couleur du texte du parent */
+    text-decoration: none; /* Enlève le soulignement */
+}
+
+/* Assure que les liens s'affichent comme des éléments en ligne */
+nav ul li {
+    display: inline-block; /* Permet d'utiliser les propriétés de padding et de bordure */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Assure que le header est au-dessus des autres éléments */
+    box-sizing: border-box; /* Inclut padding et border dans la largeur totale */
+}
+.logo {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+}
+.logo img {
+    height: 40px; /* Ajuste la hauteur selon tes besoins */
+    margin-right: 10px; /* Espacement entre l'image et le texte */
+}
+.burger {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    display: block; /* Affiché par défaut */
+}
+
+/* Styles pour le bouton "X" */
+.close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    display: none; /* Masqué par défaut */
+}
+
+/* Affiche le bouton burger seulement quand le menu est fermé */
+.burger-menu.show ~ #burgerButton {
+    display: none;
+}
+
+/* Affiche le bouton "X" seulement quand le menu est ouvert */
+.burger-menu.show ~ #closeButton {
+    display: block;
+}
+
+nav {
+    overflow-x: auto;
+    white-space: nowrap;
+    background-color: #444;
+    position: fixed;
+    top: 50px; /* Positionné juste en dessous du header */
+    left: 0;
+    width: 100%;
+    z-index: 999; /* Assure que le nav est sous le header mais au-dessus du contenu */
+    box-sizing: border-box; /* Assure que le padding est inclus dans la largeur */
+}
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+nav ul li {
+    padding: 15px 20px;
+    color: white;
+    cursor: pointer;
+    flex: 1; /* Égalise la taille des items */
+    text-align: center;
+}
+nav ul li img {
+    height: 20px; /* Ajustez la taille des icônes selon vos besoins */
+    margin-right: 10px; /* Espacement entre l'icône et le texte */
+    vertical-align: middle; /* Aligne verticalement l'icône avec le texte */
+}
+nav ul li:hover {
+    background-color: #555;
+}
+main {
+    padding: 80px 20px 20px; /* Ajoute un padding-top pour compenser le header et nav fixes */
+}
+section {
+    margin-bottom: 40px;
+    
+    padding-bottom: 20px;
+}
+h2 {
+    color: #333;
+}
+p {
+    font-size: 18px;
+    color: #555;
+}
+ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+li {
+    font-size: 16px;
+    color: #555;
+}
+.buttons {
+    margin-top: 10px;
+}
+.button {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin-right: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px; /* Ajoute un espacement entre le texte et l'icône */
+}
+.view-content {
+    background-color: #17a2b8; /* Couleur pour le bouton "voir le contenu" */
+}
+.button:hover {
+    opacity: 0.8;
+}
+.scroll-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.3s;
+}
+.scroll-button:hover {
+    background-color: #555;
+    transform: scale(1.1);
+}
+#scrollTopBtn {
+    display: none;
+}
+#scrollDownBtn {
+    display: none;
+}
+footer {
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+}
+footer a img {
+    height: 20px; /* Ajustez la taille des icônes selon vos besoins */
+    margin-right: 5px; /* Espacement entre l'icône et le texte */
+    vertical-align: middle; /* Aligne verticalement l'icône avec le texte */
+}
+
+/* Styles pour le menu burger */
+.burger-menu {
+    display: none;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background-color: #444;
+    color: white;
+    z-index: 1000;
+    box-sizing: border-box;
+    padding-top: 10px;
+    transition: transform 0.3s;
+    max-height: 80vh; /* Limite la hauteur du menu à 80% de la hauteur de la fenêtre */
+    overflow-y: auto; /* Permet le défilement vertical */
+}
+.burger-menu.show {
+    display: block;
+}
+.burger-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.burger-menu ul li {
+    padding: 15px;
+    border-bottom: 1px solid #555;
+    position: relative;
+}
+.burger-menu ul li img {
+    height: 20px; /* Ajustez la taille des icônes selon vos besoins */
+    margin-right: 10px; /* Espacement entre l'icône et le texte */
+    vertical-align: middle; /* Aligne verticalement l'icône avec le texte */
+}
+.burger-menu ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+.burger-menu ul li a:hover {
+    background-color: #555;
+}
+.burger-menu ul li .submenu-btn {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    color: white;
+}
+.burger-menu ul li ul {
+    display: none;
+    background-color: #555;
+}
+.burger-menu ul li.show-submenu > ul {
+    display: block;
+}
+.burger-menu .contacts {
+    padding: 10px 15px;
+    border-top: 1px solid #555;
+    text-align: center;
+}
+.burger-menu .contacts a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin: 5px 0;
+}
+.burger-menu .contacts a img {
+    height: 20px; /* Ajustez la taille des icônes des contacts selon vos besoins */
+    margin-right: 10px; /* Espacement entre l'icône et le texte */
+    vertical-align: middle; /* Aligne verticalement l'icône avec le texte */
+}
+.burger-menu .contacts a:hover {
+    background-color: #555;
+}
+
+footer a {
+    color: inherit;
+    text-decoration: none;
+}
+
+#introduction {
+    padding: 20px;
+    background-color: #f8f9fa;
+    text-align: left;
+}
+
+#introduction h1 {
+    color: #007bff;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+#introduction p {
+    font-size: 1.1em;
+    color: #333;
+    margin: 10px 0;
+}
+
+#introduction .user-question {
+    font-size: 1.3em;
+    color: #555;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+#introduction .search-options {
+    margin-top: 20px;
+}
+
+#introduction .option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#introduction .option span {
+    font-size: 1em;
+    color: #333;
+}
+
+#introduction .button {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+}
+
+#introduction .payants {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+#introduction .gratuits {
+    color: #28a745;
+    font-weight: bold;
+}
+
+#introduction .option:hover .button {
+    opacity: 0.8;
+}
+
+.button-red {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+.view-channel {
+    
+    width: 150px; /* Ajuste la largeur selon tes besoins */
+    text-align: center;
+    
+}
+
+#a-voir {
+    margin: 40px 0; /* Espace au-dessus et en-dessous de la section */
+    padding: 20px;
+    background-color: #f8f9fa; /* Couleur de fond similaire à la section d'introduction */
+}
+
+#a-voir h2 {
+    color: #007bff;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+#a-voir .search-options {
+    margin-top: 20px;
+}
+
+#a-voir .option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#a-voir .option span {
+    font-size: 1em;
+    color: #333;
+}
+
+#a-voir .button {
+    background-color: #007bff; /* Couleur des boutons similaire à celle de la section d'introduction */
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+}
+
+.search-options table {
+    width: 100%;
+    border-collapse: collapse; /* Évite les bordures doubles entre les cellules */
+    margin: 0; /* Enlève les marges pour un alignement précis */
+}
+
+.search-options td {
+    padding: 10px;
+    vertical-align: middle; /* Aligne verticalement les éléments au centre de la cellule */
+}
+
+.search-options td:first-child {
+    text-align: left; /* Aligne le texte à gauche */
+}
+
+.search-options td:last-child {
+    text-align: right; /* Aligne les boutons à droite */
+}
+
+.search-options a.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.links-title {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espace entre l'image et le texte */
+}
+
+.links-title img {
+    width: 80px; /* Taille de l'image, ajustez selon vos besoins */
+    height: auto; /* Maintient les proportions */
+}
+.section-offset::before {
+    content: "";
+    display: block;
+    height: 120px; /* Ajuste cette valeur en fonction de la hauteur de ta barre de navigation */
+    margin-top: -120px; /* Ajuste cette valeur pour que le titre soit visible */
+}
+.scroll-offset::before {
+    content: "";
+    display: block;
+    height: 120px; /* Ajuste en fonction de la hauteur de ta barre de navigation */
+    margin-top: -120px; /* Ajuste pour que le titre soit visible */
+}
+/* Assurez-vous que le conteneur des boutons utilise Flexbox */
+.buttons {
+    display: flex;
+    justify-content: flex-start; /* Aligne les boutons à gauche du conteneur */
+}
+
+/* Assurez-vous que les boutons ne s'étendent pas au-delà du conteneur */
+.button {
+    flex: 0 1 auto; /* Permet aux boutons de s'adapter à leur contenu */
+}
+
+/* Espacement entre les boutons "voir le site" et "voir le tuto" */
+.view-site {
+    margin-right: 10px; /* Espace entre les deux boutons */
+}
+.contact-message {
+    padding: 20px;
+    background-color: #000000;
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    border-top: 2px solid #ccc; /* Optionnel : pour séparer cette section du contenu précédent */
+    margin-top: 40px;
+}
+
+.contact-message p {
+    margin: 0;
+}
+
+.no-tuto-message {
+    background-color: #f8d7da; /* Couleur de fond rouge clair */
+    color: #721c24; /* Couleur du texte rouge foncé */
+    border: 1px solid #f5c6cb; /* Bordure rouge clair */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 15px; /* Espace intérieur */
+    position: fixed; /* Position fixe pour rester au centre */
+    top: 50%; /* Centre verticalement */
+    left: 50%; /* Centre horizontalement */
+    transform: translate(-50%, -50%); /* Ajuste la position pour centrer */
+    text-align: center; /* Centre le texte */
+    font-weight: bold; /* Met le texte en gras */
+    font-size: 16px; /* Taille du texte */
+    display: none; /* Cacher par défaut */
+    z-index: 1000; /* Assure que le message est au-dessus des autres éléments */
+}
+        .no-tuto-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 15px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            display: none;
+            z-index: 1000;
+            max-width: 80%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+                .tuto-suggestion {
+            margin-top: 10px;
+        }
+
+        .tuto-link {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .no-tuto-message {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: none;
+    color: #2d3436;
+    border-radius: 16px;
+    padding: 25px 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    animation: slideInooo 0.3s ease-out;
+    width: 400px;
+    max-width: 90%;
+}
+
+@keyframes slideInooo {
+    from {
+        transform: translate(-50%, -40%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+#default-message {
+    font-size: 18px;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+#similar-tuto-message {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+#similar-tuto-message p {
+    margin-bottom: 15px;
+    color: #2d3436;
+}
+
+/* Style des suggestions */
+.tuto-suggestion {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.tuto-suggestion p {
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: #636e72;
+}
+
+.tuto-link {
+    display: inline-block;
+    color: #0984e3;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 16px;
+    background: #dff6ff;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.tuto-link:hover {
+    background: #0984e3;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(9, 132, 227, 0.2);
+}
+
+/* Animation de fermeture */
+.no-tuto-message.hiding {
+    animation: slideOutiii 0.3s ease-out forwards;
+}
+
+@keyframes slideOutiii {
+    to {
+        transform: translate(-50%, -60%);
+        opacity: 0;
+    }
+}
+#introduction .search-options td:first-child {
+    text-align: left;
+    max-width: 70%; /* Limite la largeur pour éviter trop de texte sur une seule ligne */
+    white-space: normal; /* Permet le retour à la ligne */
+    word-break: normal; /* Empêche les coupures de mots */
+    overflow-wrap: anywhere; /* Casse la ligne s'il n'y a pas assez d'espace, mais sans couper les mots */
+}
+
+#introduction .search-options td:last-child {
+    text-align: right;
+    white-space: nowrap; /* Le bouton reste sur une seule ligne */
+}
+
+body {
+    max-width: 100%; /* Pour s'assurer que le contenu ne dépasse pas l'écran */
+    white-space: normal; /* Permet les retours à la ligne naturels */
+    word-break: normal; /* Empêche la coupure des mots au milieu */
+    overflow-wrap: anywhere; /* Retour à la ligne si nécessaire sans casser les mots */
+}
+div, p, span, td {
+    max-width: 100%;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: anywhere;
+}
+#a-voir .search-options td:first-child {
+    text-align: left;
+    max-width: 70%; /* Limite la largeur pour éviter trop de texte sur une seule ligne */
+    white-space: normal; /* Permet le retour à la ligne */
+    word-break: normal; /* Empêche les coupures de mots */
+    overflow-wrap: anywhere; /* Casse la ligne s'il n'y a pas assez d'espace, mais sans couper les mots */
+}
+
+#a-voir .search-options td:last-child {
+    text-align: right;
+    white-space: nowrap; /* Le bouton reste sur une seule ligne */
+}
+
+  /* Animations pour faire apparaître les sections en douceur */
+
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ajoutez une légère transition et un effet d'ombre aux boutons */
+.button {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Ajoutez des effets de pulsation pour les boutons "scroll" */
+.scroll-button {
+    animation: pulseez 2s infinite;
+}
+
+@keyframes pulseez {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h2 {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #666;
+}
+
+
+.button {
+    background: linear-gradient(45deg, #00c6ff, #0072ff); /* Dégradé pour un effet moderne */
+    border: none;
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.7); /* Transparence pour un effet de modernité */
+}
+
+.scroll-button {
+    background-color: #00c6ff;
+}
+.parallax {
+    background-image: url('background.jpg');
+    min-height: 500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+/* Couleur dynamique du fond lors du survol */
+
+/* Transition entre les pages avec des effets de fondu */
+body {
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+/* Changez la couleur du texte des paragraphes */
+p, li{
+    font-size: 18px;
+    line-height: 1.7;
+    color: #f0f0f0; /* Couleur de texte plus claire */
+}
+
+/* Changez la couleur des titres */
+h1, h2 {
+    color: #ffffff; /* Couleur blanche pour les titres */
+}
+
+/* Modifiez la couleur de fond des sections */
+section {
+    background-color: rgba(255, 255, 255, 0.1); /* Fond légèrement transparent pour les sections */
+    padding: 20px;
+}
+
+/* Ajoutez cette règle pour le texte des options dans l'introduction */
+#introduction .option span {
+    color: #f0f0f0; /* Couleur de texte plus claire */
+}
+#introduction .search-options {
+    margin-top: 20px;
+    color: #ffffff; /* Couleur du texte plus claire pour une meilleure visibilité */
+}
+
+#introduction .option span {
+    font-size: 1.2em; /* Augmente la taille de la police pour une meilleure lisibilité */
+    color: #ffffff; /* Assure que le texte est blanc pour le contraste */
+    padding: 10px; /* Ajoute de l'espace autour du texte */
+    background-color: rgba(0, 0, 0, 0.5); /* Ajoute un fond semi-transparent pour le contraste */
+    border-radius: 5px; /* Arrondit les coins pour un look plus doux */
+}
+/* Ajoutez cette règle pour assurer que le texte dans .search-options est toujours lisible */
+#introduction .search-options {
+    color: #f0f0f0 !important; /* Couleur de texte claire */
+    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour le contraste */
+    padding: 10px; /* Ajoute un peu d'espace autour du texte */
+    border-radius: 5px; /* Ajoute des bords arrondis pour un meilleur aspect */
+}
+
+#introduction .option span {
+    color: #f0f0f0 !important; /* Couleur de texte claire pour chaque option */
+}
+/* Ajoutez cette règle pour le texte des options dans l'introduction */
+#a-voir .option span {
+    color: #f0f0f0; /* Couleur de texte plus claire */
+}
+#a-voir .search-options {
+    margin-top: 20px;
+    color: #ffffff; /* Couleur du texte plus claire pour une meilleure visibilité */
+}
+
+#a-voir .option span {
+    font-size: 1.2em; /* Augmente la taille de la police pour une meilleure lisibilité */
+    color: #ffffff; /* Assure que le texte est blanc pour le contraste */
+    padding: 10px; /* Ajoute de l'espace autour du texte */
+    background-color: rgba(0, 0, 0, 0.5); /* Ajoute un fond semi-transparent pour le contraste */
+    border-radius: 5px; /* Arrondit les coins pour un look plus doux */
+}
+/* Ajoutez cette règle pour assurer que le texte dans .search-options est toujours lisible */
+
+
+#a-voir .option span {
+    color: #f0f0f0 !important; /* Couleur de texte claire pour chaque option */
+}
+.logo {
+    font-size: 24px; /* Taille de police par défaut */
+    white-space: nowrap; /* Empêche le texte de passer à la ligne */
+    overflow: hidden; /* Cache le texte qui déborde */
+    text-overflow: ellipsis; /* Affiche des points de suspension si le texte déborde */
+    flex: 1; /* Permet au texte de prendre de l'espace disponible */
+    min-width: 0; /* Permet au texte de réduire sa taille dans le conteneur flex */
+}
+
+/* Pour diminuer la taille de la police si le texte déborde */
+.header .logo {
+    animation: resizeText 1s forwards; /* Animation pour la réduction de taille */
+}
+
+@keyframes resizeText {
+    0% {
+        font-size: 24px; /* Taille de police initiale */
+    }
+    100% {
+        font-size: 16px; /* Taille de police finale (ajustez comme nécessaire) */
+    }
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px; /* Ajustez la hauteur si nécessaire */
+    background-color: #333; /* Couleur de fond du header */
+    color: white; /* Couleur du texte du header */
+    z-index: 1000; /* Assure que le header reste au-dessus des autres éléments */
+}
+
+nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 40px; /* Coller le nav juste en dessous du header */
+    background-color: #444; /* Couleur de fond du nav */
+    color: white; /* Couleur du texte du nav */
+    padding: 0px; /* Ajustez le padding selon vos besoins */
+    z-index: 999; /* Assurez-vous qu'il soit en dessous du header */
+}
+
+html {
+    scroll-padding-top: 80px; /* Ajuste cette valeur en fonction de la hauteur de ta navbar */
+}
+
+
+  footer {
+  background-color: #282836;
+  color: white;
+  padding: 40px;
+  font-family: Arial, sans-serif;
+}
+
+.footer-columns {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-column h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.footer-column p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  
+  color: #f8f8f8;
+}
+
+.footer-column a {
+  color: #1abc9c;
+  text-decoration: none;
+}
+
+.footer-column a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  border-top: 1px solid #34495e;
+  padding-top: 20px;
+  font-size: 0.8rem;
+}
+
+.footer-bottom a {
+  color: #1abc9c;
+  text-decoration: none;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+
+  /* Nouveau style pour les boutons spécifiques */
+        .view-channel .button {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            background-color: #333 !important; /* Remplace le fond rouge */
+            border: none;
+            
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-channel .button::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            z-index: -1;
+            border-radius: 50px;
+        }
+
+        .view-channel .button:hover {
+            background-color: #444 !important;
+            transform: scale(1.05);
+        }
+        .view-channel .button {
+            padding: 15px 30px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #333;
+            border: none;
+            border-radius: 47px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .view-channel .button:hover {
+            background-color: #444;
+            transform: scale(1.05);
+        }
+
+        .view-channel {
+            padding: 3px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border-radius: 50px;
+            display: inline-block;
+        }
+        
+        .current-year {
+            display: inline;  /* Garantit que le span se comporte comme du texte inline */
+        }

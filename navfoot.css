@@ -1,0 +1,737 @@
+@font-face {
+    font-family: 'Pacifico';
+    src: url('fonts/FugazOne-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+header, nav {
+            position: relative;
+            z-index: 10000;
+        }
+main {
+    padding: 80px 20px 20px; /* Ajoute un padding-top pour compenser le header et nav fixes */
+}
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Assure que le header est au-dessus des autres éléments */
+    box-sizing: border-box; /* Inclut padding et border dans la largeur totale */
+}
+.logo {
+    font-size: 32px; /* Augmente la taille du texte */
+    font-weight: bold; /* Gras pour le rendre plus visible */
+    font-family: 'Pacifico', sans-serif; /* Change la police pour une police plus moderne et attrayante */
+    letter-spacing: 2px; /* Espace entre les lettres pour donner un style élégant */
+    color: #17a2b8; /* Couleur vive et accrocheuse */
+    
+    position: relative; /* Nécessaire pour l'animation */
+    cursor: pointer; /* Curiosité : ajout d'une interaction */
+    transition: color 0.3s ease-in-out; /* Ajoute une transition pour un effet fluide au survol */
+    text-decoration: none;
+}
+
+.logo:hover {
+    color: #17a2b8; /* Change la couleur lors du survol pour attirer l'attention */
+}
+
+.logo::before {
+    content: ''; /* Crée un effet de soulignement animé */
+    position: absolute;
+    bottom: -5px; /* Positionné sous le texte */
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #17a2b8; /* Couleur du soulignement */
+    transition: width 0.3s ease-in-out; /* Animation fluide de l'élargissement */
+}
+
+.logo:hover::before {
+    width: 100%; /* Le soulignement s'élargit lors du survol */
+}
+
+.burger-menu ul li .description {
+    font-size: 16px; /* Augmente la taille de la description */
+    color: #ffcc00; /* Ajoute une couleur contrastante pour la description */
+    font-weight: bold; /* Ajoute du gras pour la mettre en évidence */
+    padding-left: 10px; /* Ajoute un léger retrait pour la démarquer des titres */
+}
+
+
+
+.burger-menu .contacts p {
+    font-size: 20px; /* Agrandit le texte "Contactez-nous" */
+    font-weight: bold; /* Texte en gras pour plus de visibilité */
+    color: #17a2b8; /* Accentue le texte avec une couleur vive */
+}
+
+.burger-menu .contacts a {
+    font-size: 18px; /* Augmente la taille de la police des liens de contact */
+    color: #17a2b8; /* Ajoute une couleur visible aux liens */
+    font-weight: bold;
+}
+
+footer p {
+    font-size: 20px; /* Augmente la taille du texte */
+    color: #ffffff; /* Blanc pour contraste sur le fond foncé */
+    font-weight: bold; /* Rend le texte plus visible */
+}
+
+footer a {
+    font-size: 18px; /* Taille légèrement augmentée pour les liens */
+    color: #17a2b8; /* Utilise une couleur plus vive pour les liens */
+}
+
+
+footer a {
+    color: inherit; /* Hérite de la couleur du texte parent (blanc dans ce cas) */
+    text-decoration: none; /* Enlève le soulignement */
+}
+
+.contact-icons {
+    position: fixed;
+    right: 0; /* Collé au bord droit de l'écran */
+    top: 50%; /* Centré verticalement */
+    transform: translateY(-50%); /* Ajuste pour centrer parfaitement */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espacement entre les icônes */
+    z-index: 1000; /* Assure que les icônes sont au-dessus des autres éléments */
+    padding: 0; /* Supprime tout padding pour éviter le décalage */
+}
+
+.contact-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0f2229; /* Couleur de fond pour les icônes */
+    border-radius: 50%; /* Forme circulaire */
+    padding: 5px; /* Ajustez selon la taille des icônes */
+    transition: background-color 0.3s;
+}
+
+.contact-icons a:hover {
+    background-color: #555; /* Changement de couleur au survol */
+}
+
+.contact-icons img {
+    height: 24px; /* Ajustez la taille des icônes selon vos besoins */
+    width: 24px; /* Assure que les icônes sont carrées */
+}
+
+section:first-of-type {
+    margin-top: 60px; /* Applique cette marge à la première section de chaque page */
+} 
+/* Ajoute cette partie au fichier CSS pour les styles actifs */
+nav ul li.active {
+    border-bottom: 4px solid #17a2b8; /* Bordure stylée pour l'élément actif */
+    background-color: #555; /* Optionnel : changement de couleur de fond pour l'élément actif */
+}
+/* Enlève le style des liens dans le menu */
+nav ul li a {
+    color: inherit; /* Prend la couleur du texte du parent */
+    text-decoration: none; /* Enlève le soulignement */
+}
+
+/* Assure que les liens s'affichent comme des éléments en ligne */
+nav ul li {
+    display: inline-block; /* Permet d'utiliser les propriétés de padding et de bordure */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Assure que le header est au-dessus des autres éléments */
+    box-sizing: border-box; /* Inclut padding et border dans la largeur totale */
+}
+.logo {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+}
+.logo img {
+    height: 40px; /* Ajuste la hauteur selon tes besoins */
+    margin-right: 10px; /* Espacement entre l'image et le texte */
+}
+.logo {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+}
+.logo img {
+    height: 40px; /* Ajuste la hauteur selon tes besoins */
+    margin-right: 10px; /* Espacement entre l'image et le texte */
+}
+.burger {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    display: block; /* Affiché par défaut */
+}
+
+/* Styles pour le bouton "X" */
+.close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    display: none; /* Masqué par défaut */
+}
+
+/* Affiche le bouton burger seulement quand le menu est fermé */
+.burger-menu.show ~ #burgerButton {
+    display: none;
+}
+
+/* Affiche le bouton "X" seulement quand le menu est ouvert */
+.burger-menu.show ~ #closeButton {
+    display: block;
+}
+
+nav {
+    overflow-x: auto;
+    white-space: nowrap;
+    background-color: #444;
+    position: fixed;
+    top: 50px; /* Positionné juste en dessous du header */
+    left: 0;
+    width: 100%;
+    z-index: 999; /* Assure que le nav est sous le header mais au-dessus du contenu */
+    box-sizing: border-box; /* Assure que le padding est inclus dans la largeur */
+}
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+nav ul li {
+    padding: 15px 20px;
+    color: white;
+    cursor: pointer;
+    flex: 1; /* Égalise la taille des items */
+    text-align: center;
+}
+nav ul li img {
+    height: 20px; /* Ajustez la taille des icônes selon vos besoins */
+    margin-right: 10px; /* Espacement entre l'icône et le texte */
+    vertical-align: middle; /* Aligne verticalement l'icône avec le texte */
+}
+nav ul li:hover {
+    background-color: #555;
+}
+main {
+    padding: 80px 20px 20px; /* Ajoute un padding-top pour compenser le header et nav fixes */
+}
+section {
+    margin-bottom: 40px;
+    
+    padding-bottom: 20px;
+}
+.no-tuto-message {
+    background-color: #f8d7da; /* Couleur de fond rouge clair */
+    color: #721c24; /* Couleur du texte rouge foncé */
+    border: 1px solid #f5c6cb; /* Bordure rouge clair */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 15px; /* Espace intérieur */
+    position: fixed; /* Position fixe pour rester au centre */
+    top: 50%; /* Centre verticalement */
+    left: 50%; /* Centre horizontalement */
+    transform: translate(-50%, -50%); /* Ajuste la position pour centrer */
+    text-align: center; /* Centre le texte */
+    font-weight: bold; /* Met le texte en gras */
+    font-size: 16px; /* Taille du texte */
+    display: none; /* Cacher par défaut */
+    z-index: 1000; /* Assure que le message est au-dessus des autres éléments */
+}
+.scroll-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.3s;
+}
+.scroll-button:hover {
+    background-color: #555;
+    transform: scale(1.1);
+}
+#scrollTopBtn {
+    display: none;
+}
+#scrollDownBtn {
+    display: none;
+}
+.scroll-button {
+    animation: pulseez 2s infinite;
+}
+
+@keyframes pulseez {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+.scroll-button {
+    background-color: #00c6ff;
+}
+footer {
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+}
+footer a img {
+    height: 20px; /* Ajustez la taille des icônes selon vos besoins */
+    margin-right: 5px; /* Espacement entre l'icône et le texte */
+    vertical-align: middle; /* Aligne verticalement l'icône avec le texte */
+}
+
+/* Styles pour le menu burger */
+.burger-menu {
+    display: none;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background-color: #444;
+    color: white;
+    z-index: 1000;
+    box-sizing: border-box;
+    padding-top: 10px;
+    transition: transform 0.3s;
+    max-height: 80vh; /* Limite la hauteur du menu à 80% de la hauteur de la fenêtre */
+    overflow-y: auto; /* Permet le défilement vertical */
+}
+.burger-menu.show {
+    display: block;
+}
+.burger-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.burger-menu ul li {
+    padding: 15px;
+    border-bottom: 1px solid #555;
+    position: relative;
+}
+.burger-menu ul li img {
+    height: 20px; /* Ajustez la taille des icônes selon vos besoins */
+    margin-right: 10px; /* Espacement entre l'icône et le texte */
+    vertical-align: middle; /* Aligne verticalement l'icône avec le texte */
+}
+.burger-menu ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+.burger-menu ul li a:hover {
+    background-color: #555;
+}
+.burger-menu ul li .submenu-btn {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    color: white;
+}
+.burger-menu ul li ul {
+    display: none;
+    background-color: #555;
+}
+.burger-menu ul li.show-submenu > ul {
+    display: block;
+}
+.burger-menu .contacts {
+    padding: 10px 15px;
+    border-top: 1px solid #555;
+    text-align: center;
+}
+.burger-menu .contacts a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin: 5px 0;
+}
+.burger-menu .contacts a img {
+    height: 20px; /* Ajustez la taille des icônes des contacts selon vos besoins */
+    margin-right: 10px; /* Espacement entre l'icône et le texte */
+    vertical-align: middle; /* Aligne verticalement l'icône avec le texte */
+}
+.burger-menu .contacts a:hover {
+    background-color: #555;
+}
+
+footer a {
+    color: inherit;
+    text-decoration: none;
+}
+.logo {
+    font-size: 24px; /* Taille de police par défaut */
+    white-space: nowrap; /* Empêche le texte de passer à la ligne */
+    overflow: hidden; /* Cache le texte qui déborde */
+    text-overflow: ellipsis; /* Affiche des points de suspension si le texte déborde */
+    flex: 1; /* Permet au texte de prendre de l'espace disponible */
+    min-width: 0; /* Permet au texte de réduire sa taille dans le conteneur flex */
+}
+
+/* Pour diminuer la taille de la police si le texte déborde */
+.header .logo {
+    animation: resizeText 1s forwards; /* Animation pour la réduction de taille */
+}
+
+@keyframes resizeText {
+    0% {
+        font-size: 24px; /* Taille de police initiale */
+    }
+    100% {
+        font-size: 16px; /* Taille de police finale (ajustez comme nécessaire) */
+    }
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px; /* Ajustez la hauteur si nécessaire */
+    background-color: #333; /* Couleur de fond du header */
+    color: white; /* Couleur du texte du header */
+    z-index: 1000; /* Assure que le header reste au-dessus des autres éléments */
+}
+
+nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 40px; /* Coller le nav juste en dessous du header */
+    background-color: #444; /* Couleur de fond du nav */
+    color: white; /* Couleur du texte du nav */
+    padding: 0px; /* Ajustez le padding selon vos besoins */
+    z-index: 999; /* Assurez-vous qu'il soit en dessous du header */
+}
+
+html {
+    scroll-padding-top: 80px; /* Ajuste cette valeur en fonction de la hauteur de ta navbar */
+}
+ li{
+    font-size: 18px;
+    line-height: 1.7;
+    /* Couleur de texte plus claire */
+}
+
+
+  footer {
+  background-color: #282836;
+  color: white;
+  padding: 40px;
+  font-family: Arial, sans-serif;
+}
+
+.footer-columns {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-column h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.footer-column p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  
+  color: #f8f8f8;
+}
+
+.footer-column a {
+  color: #1abc9c;
+  text-decoration: none;
+}
+
+.footer-column a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  border-top: 1px solid #34495e;
+  padding-top: 20px;
+  font-size: 0.8rem;
+}
+
+.footer-bottom a {
+  color: #1abc9c;
+  text-decoration: none;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+header{
+  background-color: #20202c;
+}
+  
+.burger-menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.burger-menu ul li a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+/* Header Styles */
+
+
+header .logo a {
+    color: #fff;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+header .logo a:hover {
+    color: #007bff;
+}
+
+
+
+
+
+
+
+
+
+/* Nav Styles */
+
+nav ul li {
+    list-style: none;
+}
+
+
+
+nav ul li a:hover {
+    background: #3498db;
+}
+
+/* Burger Menu Styles */
+.burger-menu {
+    background: #20202c;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.burger-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.burger-menu ul li {
+    margin-bottom: 20px;
+}
+
+.burger-menu ul li a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2em;
+    padding: 15px;
+    background: #34495e;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.burger-menu ul li a:hover {
+    background: #3498db;
+}
+
+.burger-menu ul li p.description {
+    color: #bdc3c7;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+nav{
+ background-color:#181b22;
+ top : 50px;
+}
+nav ul li {
+    padding: 7px 15px;
+    margin-top:150px;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    flex: 1; /* Égalise la taille des items */
+    text-align: center;
+    border: 2px solid transparent; /* Bordure transparente */
+    border-radius: 8px; /* Coins arrondis pour un look moderne */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Transition douce */
+    margin: 5px; /* Espace entre les éléments */
+    padding-top:5px;
+}
+
+nav ul li:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Fond légèrement visible au survol */
+}
+
+nav ul li.active {
+    background-color: rgba(255, 255, 255, 0.2); /* Fond légèrement plus visible pour l'élément actif */
+    border-bottom: 2px solid #007bff; /* Bordure inférieure subtile pour l'élément actif */
+}
+
+
+#a-consulter {
+    background-color: #f5f5f5;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 100%;
+    margin: 2rem auto;
+    box-sizing: border-box;
+}
+
+#a-consulter > h2 {
+    color: #333;
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+#a-consulter > .options-consultation {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+#a-consulter > .options-consultation > .option-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+#a-consulter > .options-consultation > .option-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+#a-consulter > .options-consultation > .option-item > p {
+    flex: 1;
+    margin-right: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+#a-consulter > .options-consultation .bouton-tuto {
+    display: inline-block;
+    padding: 12px 24px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    background-size: 200% auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+
+#a-consulter > .options-consultation .bouton-tuto:hover {
+    background-position: right center;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    #a-consulter {
+        padding: 1.5rem;
+    }
+
+    #a-consulter > h2 {
+        font-size: 1.8rem;
+    }
+
+    #a-consulter > .options-consultation > .option-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem;
+    }
+
+    #a-consulter > .options-consultation > .option-item > p {
+        margin-right: 0;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        width: 100%;
+        word-break: break-word;
+        hyphens: auto;
+    }
+
+    #a-consulter > .options-consultation .bouton-tuto {
+        align-self: flex-start;
+        font-size: 0.9rem;
+    }
+}
+body {
+  word-wrap: break-word; /* ou overflow-wrap: break-word; */
+  overflow-x: hidden; /* pour éviter le débordement horizontal */
+}
