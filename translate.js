@@ -8,7 +8,7 @@ const translationService = {
         const userLang = this.getUserLanguage().split('-')[0];
         if (userLang !== 'fr') {
             await this.translatePage(userLang);
-            this.setupDynamicTranslation();
+            this.observeDynamicContent();
         }
     },
 
@@ -39,84 +39,73 @@ const translationService = {
         return clone;
     },
 
-    setupDynamicTranslation() {
-        const userLang = this.getUserLanguage().split('-')[0];
-        
-        // Observer pour les changements dynamiques du DOM
+    observeDynamicContent() {
+        const config = { 
+            childList: true, 
+            subtree: true,
+            characterData: true
+        };
+
         const observer = new MutationObserver(async (mutations) => {
+            const userLang = this.getUserLanguage().split('-')[0];
+            if (userLang === 'fr') return;
+
             for (const mutation of mutations) {
                 if (mutation.type === 'childList') {
                     for (const node of mutation.addedNodes) {
-                        if (node.nodeType === Node.ELEMENT_NODE) {
-                            // Traduire le nouveau contenu
+                        if (node.nodeType === 1) { // Element node
                             await this.translateElement(node, userLang);
+                        }
+                    }
+                }
+                else if (mutation.type === 'characterData') {
+                    const parentElement = mutation.target.parentElement;
+                    if (parentElement && !parentElement.hasAttribute('data-translated')) {
+                        const text = mutation.target.nodeValue.trim();
+                        if (text) {
+                            const translatedText = await this.translateText(text, userLang);
+                            mutation.target.nodeValue = translatedText;
+                            parentElement.setAttribute('data-translated', 'true');
                         }
                     }
                 }
             }
         });
 
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-
-        // Intercepter les alertes et messages
-        const originalAlert = window.alert;
-        window.alert = async (message) => {
-            if (userLang !== 'fr') {
-                const translatedMessage = await this.translateText(message, userLang);
-                originalAlert(translatedMessage);
-            } else {
-                originalAlert(message);
-            }
-        };
-
-        // Pour les messages d'erreur et de confirmation
-        const translateDynamicMessage = async (element) => {
-            if (userLang !== 'fr' && element && element.textContent) {
-                const translatedText = await this.translateText(element.textContent, userLang);
-                element.textContent = translatedText;
-            }
-        };
-
-        // Traduction des tooltips et popups dynamiques
-        document.body.addEventListener('mouseenter', async (e) => {
-            if (e.target.title && !e.target.hasAttribute('data-translated')) {
-                const translatedTitle = await this.translateText(e.target.title, userLang);
-                e.target.title = translatedTitle;
-                e.target.setAttribute('data-translated', 'true');
-            }
-        }, true);
+        observer.observe(document.body, config);
     },
 
     async translateElement(element, targetLang) {
-        // Traiter les textes
+        if (element.hasAttribute('data-translated')) return;
+
+        // Traduit le texte des éléments
         const textNodes = Array.from(element.childNodes).filter(node => 
             node.nodeType === Node.TEXT_NODE && node.textContent.trim());
-        
+
         for (const textNode of textNodes) {
-            const originalText = textNode.textContent.trim();
-            if (originalText) {
-                const translatedText = await this.translateText(originalText, targetLang);
+            const text = textNode.textContent.trim();
+            if (text) {
+                const translatedText = await this.translateText(text, targetLang);
                 textNode.textContent = translatedText;
             }
         }
 
-        // Traiter les attributs
-        const attributesToTranslate = ['placeholder', 'title', 'alt'];
-        for (const attr of attributesToTranslate) {
+        // Traduit les attributs
+        const translatableAttributes = ['placeholder', 'title', 'alt', 'data-content', 'aria-label'];
+        for (const attr of translatableAttributes) {
             if (element.hasAttribute(attr)) {
-                const originalValue = element.getAttribute(attr);
-                if (originalValue && !element.hasAttribute(`data-original-${attr}`)) {
-                    element.setAttribute(`data-original-${attr}`, originalValue);
-                    const translatedValue = await this.translateText(originalValue, targetLang);
-                    element.setAttribute(attr, translatedValue);
+                const text = element.getAttribute(attr);
+                if (text && !element.hasAttribute(`data-original-${attr}`)) {
+                    element.setAttribute(`data-original-${attr}`, text);
+                    const translatedText = await this.translateText(text, targetLang);
+                    element.setAttribute(attr, translatedText);
                 }
             }
         }
 
-        // Traiter récursivement les enfants
+        element.setAttribute('data-translated', 'true');
+
+        // Traduit récursivement les enfants
         const children = element.children;
         for (const child of children) {
             await this.translateElement(child, targetLang);
@@ -136,42 +125,10 @@ const translationService = {
             });
         });
 
-        const elements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, a, span, button, label, input[type="text"], textarea, div');
+        const elements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, a, span, button, label, input[type="text"], textarea, div[data-content], [aria-label]');
         
         for (const element of elements) {
-            if (element.hasAttribute('data-original-text')) continue;
-
-            const containsImage = element.querySelector('img');
-            
-            if (containsImage) {
-                const originalHTML = element.innerHTML;
-                element.setAttribute('data-original-html', originalHTML);
-                
-                const textNodes = Array.from(element.childNodes).filter(node => 
-                    node.nodeType === Node.TEXT_NODE && node.textContent.trim());
-                
-                for (const textNode of textNodes) {
-                    const originalText = textNode.textContent.trim();
-                    if (originalText) {
-                        const translatedText = await this.translateText(originalText, targetLang);
-                        textNode.textContent = translatedText;
-                    }
-                }
-            } else {
-                const originalText = element.textContent.trim();
-                if (originalText) {
-                    element.setAttribute('data-original-text', originalText);
-                    const translatedText = await this.translateText(originalText, targetLang);
-                    element.textContent = translatedText;
-                }
-            }
-
-            if (element.hasAttribute('placeholder')) {
-                const originalPlaceholder = element.getAttribute('placeholder');
-                element.setAttribute('data-original-placeholder', originalPlaceholder);
-                const translatedPlaceholder = await this.translateText(originalPlaceholder, targetLang);
-                element.setAttribute('placeholder', translatedPlaceholder);
-            }
+            await this.translateElement(element, targetLang);
         }
 
         images.forEach(img => {
@@ -182,25 +139,6 @@ const translationService = {
                 img.className = state.className;
             }
         });
-
-        for (const img of images) {
-            if (img.hasAttribute('alt')) {
-                const originalAlt = img.getAttribute('alt');
-                if (originalAlt && !img.hasAttribute('data-original-alt')) {
-                    img.setAttribute('data-original-alt', originalAlt);
-                    const translatedAlt = await this.translateText(originalAlt, targetLang);
-                    img.setAttribute('alt', translatedAlt);
-                }
-            }
-            if (img.hasAttribute('title')) {
-                const originalTitle = img.getAttribute('title');
-                if (originalTitle && !img.hasAttribute('data-original-title')) {
-                    img.setAttribute('data-original-title', originalTitle);
-                    const translatedTitle = await this.translateText(originalTitle, targetLang);
-                    img.setAttribute('title', translatedTitle);
-                }
-            }
-        }
     }
 };
 
