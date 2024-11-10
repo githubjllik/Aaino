@@ -527,11 +527,19 @@ function onYouTubeIframeAPIReady() {
             return textNodes;
         }
 
-        function performSearch() {
-            const searchWords = searchInput.value.trim()
-                .toLowerCase()
-                .split(/\s+/)
-                .filter(word => word.length > 0);
+        async function performSearch() {
+    const searchWords = searchInput.value.trim();
+    
+    // Traduire la recherche en français pour la recherche interne
+    const searchInFrench = userLanguage === 'fr' ? 
+        searchWords : 
+        await translateText(searchWords, 'fr');
+    
+    // Utiliser la version traduite pour la recherche
+    const searchWordsArray = searchInFrench
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(word => word.length > 0);
 
             if (searchWords.length === 0) return;
 
@@ -649,7 +657,13 @@ function onYouTubeIframeAPIReady() {
                 resultCount.textContent = "Aucun résultat";
                 searchResults.style.display = 'flex';
             }
+         if (userLanguage !== 'fr') {
+        highlights = document.querySelectorAll('.jk4321_highlight');
+        for (const highlight of highlights) {
+            const translatedText = await translateText(highlight.textContent, userLanguage);
+            highlight.textContent = translatedText;
         }
+    }}
 
         function findSequentialMatches(text, searchWords) {
             const matches = [];
