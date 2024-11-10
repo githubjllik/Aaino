@@ -95,11 +95,7 @@ function clearSearch() {
 let typingTimer;
 const doneTypingInterval = 500;
 
-async function showSuggestions(query) {
-    // Traduire la requête en français
-    const queryInFrench = userLanguage === 'fr' ? 
-        query : 
-        await translateText(query, 'fr');
+function showSuggestions(query) {
     const suggestionsDiv = document.getElementById('suggestions');
     suggestionsDiv.innerHTML = '';
 
@@ -236,23 +232,7 @@ async function showSuggestions(query) {
             console.error('Erreur lors de la recherche:', error);
         }
     }, doneTypingInterval);
- if (userLanguage !== 'fr') {
-        const suggestions = document.querySelectorAll('.suggestion');
-        for (const suggestion of suggestions) {
-            const titleElement = suggestion.querySelector('a');
-            const snippetText = suggestion.querySelector('br').nextSibling;
-            
-            if (titleElement) {
-                const translatedTitle = await translateText(titleElement.textContent, userLanguage);
-                titleElement.textContent = translatedTitle;
-            }
-            
-            if (snippetText) {
-                const translatedSnippet = await translateText(snippetText.textContent, userLanguage);
-                snippetText.textContent = translatedSnippet;
-            }
-        }
-    }}
+}
 
 
 function generateRandomPermutations(words) {

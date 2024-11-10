@@ -177,20 +177,4 @@
       `;
       resultsDiv.appendChild(resultElement);
     });
-   if (userLanguage !== 'fr') {
-        const resultElements = document.querySelectorAll('.result');
-        for (const result of resultElements) {
-            const title = result.querySelector('h2');
-            const snippet = result.querySelector('p');
-            
-            if (title) {
-                const translatedTitle = await translateText(title.textContent, userLanguage);
-                title.textContent = translatedTitle;
-            }
-            
-            if (snippet) {
-                const translatedSnippet = await translateText(snippet.textContent, userLanguage);
-                snippet.textContent = translatedSnippet;
-            }
-        }
-    }}
+  }
