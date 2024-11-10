@@ -1473,54 +1473,53 @@ body {
     padding: 2px 6px;
     border-radius: 10px;
 }
-.translation-banner {
+.translation-toggle-container {
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 10px 20px;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    max-width: 90%;
+    font-size: 14px;
+    line-height: 1.4;
+    max-width: 90vw;
+    white-space: nowrap;
+}
+
+.translated-text {
+    color: #666;
     font-size: 14px;
 }
 
-.translation-banner-text {
-    color: #666;
-    margin: 0;
-}
-
-.translation-toggle-btn {
-    background-color: #4a90e2;
+.translation-toggle-button {
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
+    padding: 6px 12px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 13px;
-    transition: background-color 0.2s;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
 }
 
-.translation-toggle-btn:hover {
-    background-color: #357abd;
+.translation-toggle-button:hover {
+    background-color: #0056b3;
 }
 
-@media (max-width: 600px) {
-    .translation-banner {
-        padding: 8px 15px;
-    }
-    
-    .translation-banner-text {
+@media (max-width: 768px) {
+    .translation-toggle-container {
+        padding: 6px 12px;
         font-size: 12px;
     }
     
-    .translation-toggle-btn {
-        padding: 6px 12px;
+    .translation-toggle-button {
+        padding: 4px 8px;
         font-size: 12px;
     }
 }
