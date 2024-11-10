@@ -1474,39 +1474,51 @@ body {
     border-radius: 10px;
 }
 .translation-banner {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.95);
-    padding: 8px 16px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    display: none;
-    align-items: center;
-    gap: 12px;
-    font-size: 14px;
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    max-width: 90%;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  z-index: 1000;
+  font-size: 14px;
+  max-width: 90%;
+  border: 1px solid #eaeaea;
 }
 
-.translation-banner.visible {
-    display: flex;
+.translation-banner p {
+  margin: 0;
+  color: #666;
 }
 
-.translation-banner button {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
+.translation-toggle {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.2s;
+}
+
+.translation-toggle:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+  .translation-banner {
+    padding: 8px 15px;
     font-size: 13px;
-    transition: background 0.2s;
-}
-
-.translation-banner button:hover {
-    background: #0056b3;
+  }
+  
+  .translation-toggle {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
 }
