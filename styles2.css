@@ -1478,16 +1478,17 @@ body {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 12px 24px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     display: none;
     align-items: center;
     gap: 12px;
-    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 14px;
     backdrop-filter: blur(10px);
-    z-index: 9999;
+    z-index: 1000;
+    max-width: 90%;
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -1495,28 +1496,17 @@ body {
     display: flex;
 }
 
-.translation-message {
-    color: #333;
-    font-size: 14px;
-    margin: 0;
-}
-
-.translation-button {
-    background-color: #007AFF;
+.translation-banner button {
+    background: #007bff;
     color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
+    padding: 6px 12px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
+    font-size: 13px;
+    transition: background 0.2s;
 }
 
-.translation-button:hover {
-    background-color: #0056b3;
-}
-
-[data-original-text] {
-    transition: opacity 0.2s ease;
+.translation-banner button:hover {
+    background: #0056b3;
 }
