@@ -1473,53 +1473,48 @@ body {
     padding: 2px 6px;
     border-radius: 10px;
 }
-.translation-banner {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 10px 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 14px;
-    z-index: 9999;
-    max-width: 90%;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+.translation-indicator {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  z-index: 9999;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  max-width: 90vw;
+  white-space: nowrap;
 }
 
-.translation-banner-text {
-    color: #333;
-    margin: 0;
+.translation-toggle {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s ease;
 }
 
-.translation-toggle-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
+.translation-toggle:hover {
+  background: #357abd;
+}
+
+@media (max-width: 768px) {
+  .translation-indicator {
     font-size: 13px;
-    transition: background-color 0.2s;
-}
-
-.translation-toggle-btn:hover {
-    background-color: #0056b3;
-}
-
-@media (max-width: 600px) {
-    .translation-banner {
-        padding: 8px 15px;
-        font-size: 12px;
-    }
-    
-    .translation-toggle-btn {
-        padding: 4px 10px;
-        font-size: 12px;
-    }
+    padding: 6px 12px;
+  }
+  
+  .translation-toggle {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
 }
