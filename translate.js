@@ -10,29 +10,17 @@ const translationService = {
     async init() {
         const userLang = this.getUserLanguage().split('-')[0];
         if (userLang !== 'fr') {
-            // Attendre que tous les scripts soient chargés
-            await this.waitForScriptsToLoad();
-            // Traduire d'abord le contenu dynamique
-            await this.translateDynamicContent(userLang);
-            // Ensuite traduire le contenu de la page
+            // Traduire d'abord les contenus JavaScript
+            await this.translateJavaScriptContent(userLang);
+            // Puis traduire le contenu de la page
             await this.translatePage(userLang);
-            // Observer les changements DOM
-            this.observeDOMChanges(userLang);
+            // Ajouter des observateurs pour le contenu dynamique
+            this.observeDynamicContent(userLang);
         }
     },
 
-    async waitForScriptsToLoad() {
-        return new Promise(resolve => {
-            if (document.readyState === 'complete') {
-                resolve();
-            } else {
-                window.addEventListener('load', resolve);
-            }
-        });
-    },
-
     async translateText(text, targetLang) {
-        if (!text || !text.trim()) return text;
+        if (!text || text.trim() === '') return text;
         
         // Vérifier le cache
         const cacheKey = `${text}_${targetLang}`;
@@ -49,7 +37,7 @@ const translationService = {
                 translatedText += data[0][i][0];
             }
 
-            // Mettre en cache
+            // Mettre en cache la traduction
             this.translationCache.set(cacheKey, translatedText);
             return translatedText;
         } catch (error) {
@@ -58,8 +46,48 @@ const translationService = {
         }
     },
 
-    async translateDynamicContent(targetLang) {
-        // Créer un MutationObserver pour détecter les changements dynamiques
+    async translateJavaScriptContent(targetLang) {
+        // Créer un proxy pour intercepter les insertions de contenu dynamique
+        const originalInsertAdjacentHTML = Element.prototype.insertAdjacentHTML;
+        Element.prototype.insertAdjacentHTML = async function(position, text) {
+            if (targetLang !== 'fr') {
+                const translatedText = await translationService.translateText(text, targetLang);
+                originalInsertAdjacentHTML.call(this, position, translatedText);
+            } else {
+                originalInsertAdjacentHTML.call(this, position, text);
+            }
+        };
+
+        // Intercepter innerHTML
+        const originalInnerHTMLDescriptor = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
+        Object.defineProperty(Element.prototype, 'innerHTML', {
+            set: async function(text) {
+                if (targetLang !== 'fr') {
+                    const translatedText = await translationService.translateText(text, targetLang);
+                    originalInnerHTMLDescriptor.set.call(this, translatedText);
+                } else {
+                    originalInnerHTMLDescriptor.set.call(this, text);
+                }
+            },
+            get: originalInnerHTMLDescriptor.get
+        });
+
+        // Intercepter textContent
+        const originalTextContentDescriptor = Object.getOwnPropertyDescriptor(Node.prototype, 'textContent');
+        Object.defineProperty(Node.prototype, 'textContent', {
+            set: async function(text) {
+                if (targetLang !== 'fr' && text && text.trim()) {
+                    const translatedText = await translationService.translateText(text, targetLang);
+                    originalTextContentDescriptor.set.call(this, translatedText);
+                } else {
+                    originalTextContentDescriptor.set.call(this, text);
+                }
+            },
+            get: originalTextContentDescriptor.get
+        });
+    },
+
+    observeDynamicContent(targetLang) {
         const observer = new MutationObserver(async (mutations) => {
             for (const mutation of mutations) {
                 if (mutation.type === 'childList') {
@@ -69,49 +97,38 @@ const translationService = {
                         }
                     }
                 }
-                else if (mutation.type === 'characterData') {
-                    const element = mutation.target.parentElement;
-                    if (element && !element.hasAttribute('data-translated')) {
-                        await this.translateElement(element, targetLang);
-                    }
-                }
             }
         });
 
-        // Observer le document entier
         observer.observe(document.body, {
             childList: true,
-            subtree: true,
-            characterData: true
+            subtree: true
         });
     },
 
     async translateElement(element, targetLang) {
-        if (element.hasAttribute('data-translated')) return;
+        if (element.hasAttribute('data-no-translate')) return;
 
-        // Traduire le contenu textuel
         const textNodes = this.getTextNodes(element);
         for (const node of textNodes) {
-            const originalText = node.textContent.trim();
-            if (originalText) {
-                const translatedText = await this.translateText(originalText, targetLang);
+            const text = node.textContent.trim();
+            if (text) {
+                const translatedText = await this.translateText(text, targetLang);
                 node.textContent = translatedText;
             }
         }
 
         // Traduire les attributs
-        const translatableAttrs = ['placeholder', 'title', 'alt', 'data-content', 'aria-label'];
-        for (const attr of translatableAttrs) {
+        const attributesToTranslate = ['placeholder', 'title', 'alt'];
+        for (const attr of attributesToTranslate) {
             if (element.hasAttribute(attr)) {
-                const originalValue = element.getAttribute(attr);
-                if (originalValue) {
-                    const translatedValue = await this.translateText(originalValue, targetLang);
-                    element.setAttribute(attr, translatedValue);
+                const text = element.getAttribute(attr);
+                if (text) {
+                    const translatedText = await this.translateText(text, targetLang);
+                    element.setAttribute(attr, translatedText);
                 }
             }
         }
-
-        element.setAttribute('data-translated', 'true');
     },
 
     getTextNodes(element) {
@@ -119,12 +136,10 @@ const translationService = {
         const walk = document.createTreeWalker(
             element,
             NodeFilter.SHOW_TEXT,
-            {
-                acceptNode: function(node) {
-                    return node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
-                }
-            }
+            null,
+            false
         );
+
         let node;
         while (node = walk.nextNode()) {
             textNodes.push(node);
@@ -137,64 +152,101 @@ const translationService = {
         
         const translations = await Promise.all(
             Array.from(elements).map(async element => {
-                if (!element.hasAttribute('data-translated')) {
-                    await this.translateElement(element, targetLang);
+                if (element.hasAttribute('data-no-translate')) return;
+
+                const originalText = element.textContent.trim();
+                if (originalText) {
+                    return {
+                        element,
+                        translatedText: await this.translateText(originalText, targetLang)
+                    };
                 }
             })
         );
-    },
 
-    observeDOMChanges(targetLang) {
-        const observer = new MutationObserver(async (mutations) => {
-            for (const mutation of mutations) {
-                if (mutation.type === 'childList') {
-                    for (const node of mutation.addedNodes) {
-                        if (node.nodeType === Node.ELEMENT_NODE && !node.hasAttribute('data-translated')) {
-                            await this.translateElement(node, targetLang);
-                        }
-                    }
-                }
+        translations.forEach(translation => {
+            if (translation) {
+                translation.element.textContent = translation.translatedText;
             }
         });
 
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
+        // Traduire les attributs de tous les éléments pertinents
+        const attributeElements = document.querySelectorAll('[placeholder], [title], [alt]');
+        for (const element of attributeElements) {
+            if (element.hasAttribute('placeholder')) {
+                const text = element.getAttribute('placeholder');
+                const translatedText = await this.translateText(text, targetLang);
+                element.setAttribute('placeholder', translatedText);
+            }
+            if (element.hasAttribute('title')) {
+                const text = element.getAttribute('title');
+                const translatedText = await this.translateText(text, targetLang);
+                element.setAttribute('title', translatedText);
+            }
+            if (element.hasAttribute('alt')) {
+                const text = element.getAttribute('alt');
+                const translatedText = await this.translateText(text, targetLang);
+                element.setAttribute('alt', translatedText);
+            }
+        }
     }
 };
 
+// Initialisation au chargement de la page
 document.addEventListener('DOMContentLoaded', () => {
     translationService.init();
 });
 
-// Surcharge des fonctions de recherche
-if (typeof window.performSearch === 'function') {
-    const originalPerformSearch = window.performSearch;
-    window.performSearch = async function() {
-        const userLang = translationService.getUserLanguage().split('-')[0];
-        if (userLang !== 'fr') {
-            const searchInput = document.getElementById('search');
-            const originalQuery = searchInput.value;
-            const translatedQuery = await translationService.translateText(originalQuery, 'fr');
-            searchInput.value = translatedQuery;
-            originalPerformSearch();
-            searchInput.value = originalQuery;
-        } else {
-            originalPerformSearch();
-        }
-    };
-}
+// Modification des fonctions de recherche existantes
+const originalPerformSearch = window.performSearch;
+window.performSearch = async function() {
+    const userLang = translationService.getUserLanguage().split('-')[0];
+    
+    if (userLang !== 'fr') {
+        const searchInput = document.getElementById('search');
+        const originalQuery = searchInput.value;
+        const translatedQuery = await translationService.translateText(originalQuery, 'fr');
+        searchInput.value = translatedQuery;
+        
+        originalPerformSearch();
+        
+        searchInput.value = originalQuery;
+        
+        setTimeout(async () => {
+            const highlights = document.querySelectorAll('.jk4321_highlight');
+            for (const highlight of highlights) {
+                if (!highlight.querySelector('img')) {
+                    const translatedText = await translationService.translateText(highlight.textContent, userLang);
+                    highlight.textContent = translatedText;
+                }
+            }
+        }, 100);
+    } else {
+        originalPerformSearch();
+    }
+};
 
-if (typeof window.showSuggestions === 'function') {
-    const originalShowSuggestions = window.showSuggestions;
-    window.showSuggestions = async function(query) {
-        const userLang = translationService.getUserLanguage().split('-')[0];
-        if (userLang !== 'fr') {
-            const translatedQuery = await translationService.translateText(query, 'fr');
-            originalShowSuggestions(translatedQuery);
-        } else {
-            originalShowSuggestions(query);
-        }
-    };
-}
+// Modification de la fonction showSuggestions
+const originalShowSuggestions = window.showSuggestions;
+window.showSuggestions = async function(query) {
+    const userLang = translationService.getUserLanguage().split('-')[0];
+    
+    if (userLang !== 'fr') {
+        const translatedQuery = await translationService.translateText(query, 'fr');
+        
+        originalShowSuggestions(translatedQuery);
+        
+        setTimeout(async () => {
+            const suggestions = document.querySelectorAll('.suggestion');
+            for (const suggestion of suggestions) {
+                const snippetElement = suggestion.querySelector('a');
+                if (snippetElement && !snippetElement.querySelector('img')) {
+                    const translatedSnippet = await translationService.translateText(snippetElement.innerHTML, userLang);
+                    snippetElement.innerHTML = translatedSnippet;
+                }
+            }
+        }, 100);
+    } else {
+        originalShowSuggestions(query);
+    }
+};
