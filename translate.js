@@ -4,24 +4,25 @@ const translationService = {
         return navigator.language || navigator.userLanguage || 'fr';
     },
 
-    jsContentCache: new Map(),
-    translationCache: new Map(),
-    originalElements: new Map(),
+    translations: new Map(),
 
     async init() {
         const userLang = this.getUserLanguage().split('-')[0];
         if (userLang !== 'fr') {
+            // Traduire d'abord le contenu JavaScript
             await this.translateJavaScriptContent(userLang);
+            // Ensuite traduire le contenu HTML
             await this.translatePage(userLang);
-            this.setupDynamicTranslation(userLang);
         }
     },
 
     async translateText(text, targetLang) {
         if (!text || typeof text !== 'string') return text;
+        
+        // Vérifier si la traduction existe déjà en cache
         const cacheKey = `${text}_${targetLang}`;
-        if (this.translationCache.has(cacheKey)) {
-            return this.translationCache.get(cacheKey);
+        if (this.translations.has(cacheKey)) {
+            return this.translations.get(cacheKey);
         }
 
         try {
@@ -33,7 +34,8 @@ const translationService = {
                 translatedText += data[0][i][0];
             }
 
-            this.translationCache.set(cacheKey, translatedText);
+            // Mettre en cache la traduction
+            this.translations.set(cacheKey, translatedText);
             return translatedText;
         } catch (error) {
             console.error('Translation error:', error);
@@ -41,187 +43,188 @@ const translationService = {
         }
     },
 
-    setupDynamicTranslation(targetLang) {
-        // Observer pour les modifications du DOM
+    async translateJavaScriptContent(targetLang) {
+        // Fonction pour traduire les chaînes de caractères dans un objet
+        const translateObject = async (obj) => {
+            if (!obj) return obj;
+
+            if (typeof obj === 'string' && obj.trim()) {
+                return await this.translateText(obj, targetLang);
+            }
+
+            if (Array.isArray(obj)) {
+                return Promise.all(obj.map(item => translateObject(item)));
+            }
+
+            if (typeof obj === 'object') {
+                const newObj = {};
+                for (const key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        newObj[key] = await translateObject(obj[key]);
+                    }
+                }
+                return newObj;
+            }
+
+            return obj;
+        };
+
+        // Traiter les variables globales et les objets
+        const scripts = document.getElementsByTagName('script');
+        for (const script of scripts) {
+            if (script.src && !script.src.includes('translate.js')) {
+                try {
+                    const scriptContent = await fetch(script.src).then(r => r.text());
+                    const matches = scriptContent.match(/'([^']+)'|"([^"]+)"/g);
+                    
+                    if (matches) {
+                        for (const match of matches) {
+                            const text = match.slice(1, -1);
+                            if (text && text.length > 1 && !/^[0-9.,]+$/.test(text)) {
+                                const translated = await this.translateText(text, targetLang);
+                                window._translatedStrings = window._translatedStrings || {};
+                                window._translatedStrings[text] = translated;
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.error('Error processing script:', script.src);
+                }
+            }
+        }
+    },
+
+    cloneElementWithStyles(element) {
+        const clone = element.cloneNode(true);
+        const computedStyle = window.getComputedStyle(element);
+        
+        for (let prop of computedStyle) {
+            clone.style[prop] = computedStyle.getPropertyValue(prop);
+        }
+        
+        return clone;
+    },
+
+    async translatePage(targetLang) {
+        const images = document.querySelectorAll('img');
+        const imageStates = new Map();
+        
+        images.forEach(img => {
+            imageStates.set(img, {
+                src: img.src,
+                style: img.getAttribute('style'),
+                className: img.className,
+                parentHTML: img.parentElement.innerHTML
+            });
+        });
+
+        // Traduire les éléments dynamiques
         const observer = new MutationObserver(async (mutations) => {
             for (const mutation of mutations) {
                 if (mutation.type === 'childList') {
-                    for (const node of mutation.addedNodes) {
-                        if (node.nodeType === 1) { // Element node
-                            // Préserver les icônes et animations
-                            const icons = node.querySelectorAll('i, .animated-icon, .fa, .fas, .fab, .far');
-                            const iconStates = new Map();
-                            
-                            icons.forEach(icon => {
-                                iconStates.set(icon, {
-                                    className: icon.className,
-                                    innerHTML: icon.innerHTML,
-                                    style: icon.getAttribute('style')
-                                });
-                            });
-
-                            // Traduire le nouveau contenu
-                            await this.translateElement(node, targetLang);
-
-                            // Restaurer les icônes
-                            icons.forEach(icon => {
-                                const state = iconStates.get(icon);
-                                if (state) {
-                                    icon.className = state.className;
-                                    icon.innerHTML = state.innerHTML;
-                                    if (state.style) icon.setAttribute('style', state.style);
-                                }
-                            });
+                    const newElements = mutation.target.querySelectorAll(
+                        'h1, h2, h3, h4, h5, h6, p, a, span, button, label, input[type="text"], textarea'
+                    );
+                    for (const element of newElements) {
+                        if (!element.hasAttribute('data-translated')) {
+                            await this.translateElement(element, targetLang);
+                            element.setAttribute('data-translated', 'true');
                         }
                     }
                 }
             }
         });
 
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
+        observer.observe(document.body, { 
+            childList: true, 
+            subtree: true 
         });
 
-        // Intercepter les alertes et messages dynamiques
-        const originalAlert = window.alert;
-        window.alert = async (message) => {
-            const translatedMessage = await this.translateText(message, targetLang);
-            originalAlert(translatedMessage);
-        };
+        const elements = document.querySelectorAll(
+            'h1, h2, h3, h4, h5, h6, p, a, span, button, label, input[type="text"], textarea'
+        );
+        
+        for (const element of elements) {
+            await this.translateElement(element, targetLang);
+        }
 
-        // Intercepter les modifications de innerHTML
-        const originalDescriptor = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
-        Object.defineProperty(Element.prototype, 'innerHTML', {
-            set: async function(value) {
-                if (typeof value === 'string' && value.trim()) {
-                    const translatedValue = await translationService.translateText(value, targetLang);
-                    originalDescriptor.set.call(this, translatedValue);
-                } else {
-                    originalDescriptor.set.call(this, value);
-                }
-            },
-            get: originalDescriptor.get
+        images.forEach(img => {
+            const state = imageStates.get(img);
+            if (state) {
+                img.src = state.src;
+                if (state.style) img.setAttribute('style', state.style);
+                img.className = state.className;
+            }
         });
-    },
 
-    async translateJavaScriptContent(targetLang) {
-        const jsFiles = [
-            'common-elementss.js',
-            'template.js',
-            'template0.js',
-            'script0.js',
-            'search.js',
-            'scripts.js'
-        ];
-
-        const processScript = async (content) => {
-            const stringMatches = content.match(/(['"])((?:(?!\1)[^\\]|\\[\s\S])*?)\1/g) || [];
-            let modifiedContent = content;
-
-            for (const match of stringMatches) {
-                const cleanStr = match.slice(1, -1);
-                if (cleanStr.length > 1 && /[a-zA-Z]/.test(cleanStr) && !cleanStr.includes('class=')) {
-                    const translated = await this.translateText(cleanStr, targetLang);
-                    modifiedContent = modifiedContent.replace(match, match[0] + translated + match[0]);
-                }
-            }
-
-            return modifiedContent;
-        };
-
-        for (const file of jsFiles) {
-            try {
-                const scripts = document.querySelectorAll(`script[src*="${file}"]`);
-                for (const script of scripts) {
-                    const response = await fetch(script.src);
-                    const content = await response.text();
-                    
-                    const modifiedContent = await processScript(content);
-                    this.jsContentCache.set(file, modifiedContent);
-
-                    const newScript = document.createElement('script');
-                    newScript.textContent = modifiedContent;
-                    script.parentNode.replaceChild(newScript, script);
-                }
-            } catch (error) {
-                console.error(`Error translating ${file}:`, error);
-            }
+        // Traduire les attributs des images
+        for (const img of images) {
+            await this.translateImageAttributes(img, targetLang);
         }
     },
 
     async translateElement(element, targetLang) {
-        if (element.nodeType === Node.TEXT_NODE) {
-            const text = element.textContent.trim();
-            if (text) {
-                element.textContent = await this.translateText(text, targetLang);
-            }
-            return;
-        }
+        if (element.hasAttribute('data-original-text')) return;
 
-        if (element.nodeType !== Node.ELEMENT_NODE) return;
-
-        // Ignorer les éléments spécifiques
-        if (element.matches('i, .animated-icon, .fa, .fas, .fab, .far, script, style')) return;
-
-        // Sauvegarder l'état original
-        if (!this.originalElements.has(element)) {
-            this.originalElements.set(element, {
-                innerHTML: element.innerHTML,
-                textContent: element.textContent,
-                attributes: {}
-            });
-        }
-
-        // Traduire les attributs
-        for (const attr of ['placeholder', 'title', 'alt']) {
-            if (element.hasAttribute(attr)) {
-                const originalText = element.getAttribute(attr);
+        const containsImage = element.querySelector('img');
+        
+        if (containsImage) {
+            const originalHTML = element.innerHTML;
+            element.setAttribute('data-original-html', originalHTML);
+            
+            const textNodes = Array.from(element.childNodes)
+                .filter(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+            
+            for (const textNode of textNodes) {
+                const originalText = textNode.textContent.trim();
                 if (originalText) {
-                    element.setAttribute(attr, await this.translateText(originalText, targetLang));
+                    const translatedText = await this.translateText(originalText, targetLang);
+                    textNode.textContent = translatedText;
                 }
             }
+        } else {
+            const originalText = element.textContent.trim();
+            if (originalText) {
+                element.setAttribute('data-original-text', originalText);
+                const translatedText = await this.translateText(originalText, targetLang);
+                element.textContent = translatedText;
+            }
         }
 
-        // Traduire le contenu texte
-        for (const child of element.childNodes) {
-            await this.translateElement(child, targetLang);
+        if (element.hasAttribute('placeholder')) {
+            const originalPlaceholder = element.getAttribute('placeholder');
+            element.setAttribute('data-original-placeholder', originalPlaceholder);
+            const translatedPlaceholder = await this.translateText(originalPlaceholder, targetLang);
+            element.setAttribute('placeholder', translatedPlaceholder);
         }
     },
 
-    async translatePage(targetLang) {
-        // Préserver les icônes
-        const icons = document.querySelectorAll('i, .animated-icon, .fa, .fas, .fab, .far');
-        const iconStates = new Map();
-        
-        icons.forEach(icon => {
-            iconStates.set(icon, {
-                className: icon.className,
-                innerHTML: icon.innerHTML,
-                style: icon.getAttribute('style')
-            });
-        });
-
-        // Traduire le contenu
-        await this.translateElement(document.body, targetLang);
-
-        // Restaurer les icônes
-        icons.forEach(icon => {
-            const state = iconStates.get(icon);
-            if (state) {
-                icon.className = state.className;
-                icon.innerHTML = state.innerHTML;
-                if (state.style) icon.setAttribute('style', state.style);
+    async translateImageAttributes(img, targetLang) {
+        if (img.hasAttribute('alt')) {
+            const originalAlt = img.getAttribute('alt');
+            if (originalAlt && !img.hasAttribute('data-original-alt')) {
+                img.setAttribute('data-original-alt', originalAlt);
+                const translatedAlt = await this.translateText(originalAlt, targetLang);
+                img.setAttribute('alt', translatedAlt);
             }
-        });
+        }
+        if (img.hasAttribute('title')) {
+            const originalTitle = img.getAttribute('title');
+            if (originalTitle && !img.hasAttribute('data-original-title')) {
+                img.setAttribute('data-original-title', originalTitle);
+                const translatedTitle = await this.translateText(originalTitle, targetLang);
+                img.setAttribute('title', translatedTitle);
+            }
+        }
     }
 };
 
+// Initialisation
 document.addEventListener('DOMContentLoaded', () => {
     translationService.init();
 });
 
-// Gestion de la recherche
+// Patch pour la fonction de recherche
 const originalPerformSearch = window.performSearch;
 window.performSearch = async function() {
     const userLang = translationService.getUserLanguage().split('-')[0];
@@ -239,34 +242,38 @@ window.performSearch = async function() {
         
         setTimeout(async () => {
             const highlights = document.querySelectorAll('.jk4321_highlight');
-            await Promise.all(Array.from(highlights).map(async highlight => {
-                if (!highlight.querySelector('img, i, .fa, .fas, .fab, .far')) {
-                    highlight.textContent = await translationService.translateText(highlight.textContent, userLang);
+            for (const highlight of highlights) {
+                if (!highlight.querySelector('img')) {
+                    const translatedText = await translationService.translateText(highlight.textContent, userLang);
+                    highlight.textContent = translatedText;
                 }
-            }));
+            }
         }, 100);
     } else {
         originalPerformSearch();
     }
 };
 
-// Gestion des suggestions
+// Patch pour les suggestions
 const originalShowSuggestions = window.showSuggestions;
 window.showSuggestions = async function(query) {
     const userLang = translationService.getUserLanguage().split('-')[0];
     
     if (userLang !== 'fr') {
         const translatedQuery = await translationService.translateText(query, 'fr');
+        
         originalShowSuggestions(translatedQuery);
         
         setTimeout(async () => {
             const suggestions = document.querySelectorAll('.suggestion');
-            await Promise.all(Array.from(suggestions).map(async suggestion => {
+            for (const suggestion of suggestions) {
                 const snippetElement = suggestion.querySelector('a');
-                if (snippetElement && !snippetElement.querySelector('img, i, .fa, .fas, .fab, .far')) {
-                    snippetElement.innerHTML = await translationService.translateText(snippetElement.innerHTML, userLang);
+                if (snippetElement && !snippetElement.querySelector('img')) {
+                    const originalSnippet = snippetElement.innerHTML;
+                    const translatedSnippet = await translationService.translateText(originalSnippet, userLang);
+                    snippetElement.innerHTML = translatedSnippet;
                 }
-            }));
+            }
         }, 100);
     } else {
         originalShowSuggestions(query);
