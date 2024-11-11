@@ -6,16 +6,19 @@ const translationService = {
 
     jsContentCache: new Map(),
     translationCache: new Map(),
+    originalElements: new Map(),
 
     async init() {
         const userLang = this.getUserLanguage().split('-')[0];
         if (userLang !== 'fr') {
             await this.translateJavaScriptContent(userLang);
             await this.translatePage(userLang);
+            this.setupDynamicTranslation(userLang);
         }
     },
 
     async translateText(text, targetLang) {
+        if (!text || typeof text !== 'string') return text;
         const cacheKey = `${text}_${targetLang}`;
         if (this.translationCache.has(cacheKey)) {
             return this.translationCache.get(cacheKey);
@@ -38,6 +41,70 @@ const translationService = {
         }
     },
 
+    setupDynamicTranslation(targetLang) {
+        // Observer pour les modifications du DOM
+        const observer = new MutationObserver(async (mutations) => {
+            for (const mutation of mutations) {
+                if (mutation.type === 'childList') {
+                    for (const node of mutation.addedNodes) {
+                        if (node.nodeType === 1) { // Element node
+                            // Préserver les icônes et animations
+                            const icons = node.querySelectorAll('i, .animated-icon, .fa, .fas, .fab, .far');
+                            const iconStates = new Map();
+                            
+                            icons.forEach(icon => {
+                                iconStates.set(icon, {
+                                    className: icon.className,
+                                    innerHTML: icon.innerHTML,
+                                    style: icon.getAttribute('style')
+                                });
+                            });
+
+                            // Traduire le nouveau contenu
+                            await this.translateElement(node, targetLang);
+
+                            // Restaurer les icônes
+                            icons.forEach(icon => {
+                                const state = iconStates.get(icon);
+                                if (state) {
+                                    icon.className = state.className;
+                                    icon.innerHTML = state.innerHTML;
+                                    if (state.style) icon.setAttribute('style', state.style);
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
+        // Intercepter les alertes et messages dynamiques
+        const originalAlert = window.alert;
+        window.alert = async (message) => {
+            const translatedMessage = await this.translateText(message, targetLang);
+            originalAlert(translatedMessage);
+        };
+
+        // Intercepter les modifications de innerHTML
+        const originalDescriptor = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
+        Object.defineProperty(Element.prototype, 'innerHTML', {
+            set: async function(value) {
+                if (typeof value === 'string' && value.trim()) {
+                    const translatedValue = await translationService.translateText(value, targetLang);
+                    originalDescriptor.set.call(this, translatedValue);
+                } else {
+                    originalDescriptor.set.call(this, value);
+                }
+            },
+            get: originalDescriptor.get
+        });
+    },
+
     async translateJavaScriptContent(targetLang) {
         const jsFiles = [
             'common-elementss.js',
@@ -48,6 +115,21 @@ const translationService = {
             'scripts.js'
         ];
 
+        const processScript = async (content) => {
+            const stringMatches = content.match(/(['"])((?:(?!\1)[^\\]|\\[\s\S])*?)\1/g) || [];
+            let modifiedContent = content;
+
+            for (const match of stringMatches) {
+                const cleanStr = match.slice(1, -1);
+                if (cleanStr.length > 1 && /[a-zA-Z]/.test(cleanStr) && !cleanStr.includes('class=')) {
+                    const translated = await this.translateText(cleanStr, targetLang);
+                    modifiedContent = modifiedContent.replace(match, match[0] + translated + match[0]);
+                }
+            }
+
+            return modifiedContent;
+        };
+
         for (const file of jsFiles) {
             try {
                 const scripts = document.querySelectorAll(`script[src*="${file}"]`);
@@ -55,26 +137,9 @@ const translationService = {
                     const response = await fetch(script.src);
                     const content = await response.text();
                     
-                    // Extraction et traduction des chaînes de caractères
-                    const stringMatches = content.match(/(["'])((?:\\\1|(?:(?!\1)).)*)(\1)/g) || [];
-                    const translatedStrings = new Map();
-
-                    await Promise.all(stringMatches.map(async (str) => {
-                        const cleanStr = str.slice(1, -1);
-                        if (cleanStr.length > 1 && /[a-zA-Z]/.test(cleanStr)) {
-                            const translated = await this.translateText(cleanStr, targetLang);
-                            translatedStrings.set(str, str[0] + translated + str[0]);
-                        }
-                    }));
-
-                    let modifiedContent = content;
-                    translatedStrings.forEach((translated, original) => {
-                        modifiedContent = modifiedContent.replace(original, translated);
-                    });
-
+                    const modifiedContent = await processScript(content);
                     this.jsContentCache.set(file, modifiedContent);
 
-                    // Injection du contenu traduit
                     const newScript = document.createElement('script');
                     newScript.textContent = modifiedContent;
                     script.parentNode.replaceChild(newScript, script);
@@ -85,121 +150,70 @@ const translationService = {
         }
     },
 
-    cloneElementWithStyles(element) {
-        const clone = element.cloneNode(true);
-        const computedStyle = window.getComputedStyle(element);
-        
-        for (let prop of computedStyle) {
-            clone.style[prop] = computedStyle.getPropertyValue(prop);
+    async translateElement(element, targetLang) {
+        if (element.nodeType === Node.TEXT_NODE) {
+            const text = element.textContent.trim();
+            if (text) {
+                element.textContent = await this.translateText(text, targetLang);
+            }
+            return;
         }
-        
-        return clone;
+
+        if (element.nodeType !== Node.ELEMENT_NODE) return;
+
+        // Ignorer les éléments spécifiques
+        if (element.matches('i, .animated-icon, .fa, .fas, .fab, .far, script, style')) return;
+
+        // Sauvegarder l'état original
+        if (!this.originalElements.has(element)) {
+            this.originalElements.set(element, {
+                innerHTML: element.innerHTML,
+                textContent: element.textContent,
+                attributes: {}
+            });
+        }
+
+        // Traduire les attributs
+        for (const attr of ['placeholder', 'title', 'alt']) {
+            if (element.hasAttribute(attr)) {
+                const originalText = element.getAttribute(attr);
+                if (originalText) {
+                    element.setAttribute(attr, await this.translateText(originalText, targetLang));
+                }
+            }
+        }
+
+        // Traduire le contenu texte
+        for (const child of element.childNodes) {
+            await this.translateElement(child, targetLang);
+        }
     },
 
     async translatePage(targetLang) {
-        const images = document.querySelectorAll('img');
-        const imageStates = new Map();
+        // Préserver les icônes
+        const icons = document.querySelectorAll('i, .animated-icon, .fa, .fas, .fab, .far');
+        const iconStates = new Map();
         
-        images.forEach(img => {
-            imageStates.set(img, {
-                src: img.src,
-                style: img.getAttribute('style'),
-                className: img.className,
-                parentHTML: img.parentElement.innerHTML
+        icons.forEach(icon => {
+            iconStates.set(icon, {
+                className: icon.className,
+                innerHTML: icon.innerHTML,
+                style: icon.getAttribute('style')
             });
         });
 
-        const elements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, a, span, button, label, input[type="text"], textarea');
-        const translationPromises = [];
-        
-        for (const element of elements) {
-            if (element.hasAttribute('data-original-text')) continue;
+        // Traduire le contenu
+        await this.translateElement(document.body, targetLang);
 
-            const containsImage = element.querySelector('img');
-            
-            if (containsImage) {
-                const originalHTML = element.innerHTML;
-                element.setAttribute('data-original-html', originalHTML);
-                
-                const textNodes = Array.from(element.childNodes).filter(node => 
-                    node.nodeType === Node.TEXT_NODE && node.textContent.trim());
-                
-                for (const textNode of textNodes) {
-                    const originalText = textNode.textContent.trim();
-                    if (originalText) {
-                        translationPromises.push(
-                            this.translateText(originalText, targetLang)
-                                .then(translatedText => {
-                                    textNode.textContent = translatedText;
-                                })
-                        );
-                    }
-                }
-            } else {
-                const originalText = element.textContent.trim();
-                if (originalText) {
-                    element.setAttribute('data-original-text', originalText);
-                    translationPromises.push(
-                        this.translateText(originalText, targetLang)
-                            .then(translatedText => {
-                                element.textContent = translatedText;
-                            })
-                    );
-                }
-            }
-
-            if (element.hasAttribute('placeholder')) {
-                const originalPlaceholder = element.getAttribute('placeholder');
-                element.setAttribute('data-original-placeholder', originalPlaceholder);
-                translationPromises.push(
-                    this.translateText(originalPlaceholder, targetLang)
-                        .then(translatedPlaceholder => {
-                            element.setAttribute('placeholder', translatedPlaceholder);
-                        })
-                );
-            }
-        }
-
-        await Promise.all(translationPromises);
-
-        images.forEach(img => {
-            const state = imageStates.get(img);
+        // Restaurer les icônes
+        icons.forEach(icon => {
+            const state = iconStates.get(icon);
             if (state) {
-                img.src = state.src;
-                if (state.style) img.setAttribute('style', state.style);
-                img.className = state.className;
+                icon.className = state.className;
+                icon.innerHTML = state.innerHTML;
+                if (state.style) icon.setAttribute('style', state.style);
             }
         });
-
-        const imageTranslationPromises = [];
-        for (const img of images) {
-            if (img.hasAttribute('alt')) {
-                const originalAlt = img.getAttribute('alt');
-                if (originalAlt && !img.hasAttribute('data-original-alt')) {
-                    img.setAttribute('data-original-alt', originalAlt);
-                    imageTranslationPromises.push(
-                        this.translateText(originalAlt, targetLang)
-                            .then(translatedAlt => {
-                                img.setAttribute('alt', translatedAlt);
-                            })
-                    );
-                }
-            }
-            if (img.hasAttribute('title')) {
-                const originalTitle = img.getAttribute('title');
-                if (originalTitle && !img.hasAttribute('data-original-title')) {
-                    img.setAttribute('data-original-title', originalTitle);
-                    imageTranslationPromises.push(
-                        this.translateText(originalTitle, targetLang)
-                            .then(translatedTitle => {
-                                img.setAttribute('title', translatedTitle);
-                            })
-                    );
-                }
-            }
-        }
-
-        await Promise.all(imageTranslationPromises);
     }
 };
 
@@ -225,20 +239,11 @@ window.performSearch = async function() {
         
         setTimeout(async () => {
             const highlights = document.querySelectorAll('.jk4321_highlight');
-            const highlightPromises = [];
-            
-            for (const highlight of highlights) {
-                if (!highlight.querySelector('img')) {
-                    highlightPromises.push(
-                        translationService.translateText(highlight.textContent, userLang)
-                            .then(translatedText => {
-                                highlight.textContent = translatedText;
-                            })
-                    );
+            await Promise.all(Array.from(highlights).map(async highlight => {
+                if (!highlight.querySelector('img, i, .fa, .fas, .fab, .far')) {
+                    highlight.textContent = await translationService.translateText(highlight.textContent, userLang);
                 }
-            }
-            
-            await Promise.all(highlightPromises);
+            }));
         }, 100);
     } else {
         originalPerformSearch();
@@ -252,27 +257,16 @@ window.showSuggestions = async function(query) {
     
     if (userLang !== 'fr') {
         const translatedQuery = await translationService.translateText(query, 'fr');
-        
         originalShowSuggestions(translatedQuery);
         
         setTimeout(async () => {
             const suggestions = document.querySelectorAll('.suggestion');
-            const suggestionPromises = [];
-            
-            for (const suggestion of suggestions) {
+            await Promise.all(Array.from(suggestions).map(async suggestion => {
                 const snippetElement = suggestion.querySelector('a');
-                if (snippetElement && !snippetElement.querySelector('img')) {
-                    const originalSnippet = snippetElement.innerHTML;
-                    suggestionPromises.push(
-                        translationService.translateText(originalSnippet, userLang)
-                            .then(translatedSnippet => {
-                                snippetElement.innerHTML = translatedSnippet;
-                            })
-                    );
+                if (snippetElement && !snippetElement.querySelector('img, i, .fa, .fas, .fab, .far')) {
+                    snippetElement.innerHTML = await translationService.translateText(snippetElement.innerHTML, userLang);
                 }
-            }
-            
-            await Promise.all(suggestionPromises);
+            }));
         }, 100);
     } else {
         originalShowSuggestions(query);
