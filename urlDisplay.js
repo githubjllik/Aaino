@@ -1,6 +1,4 @@
-// urlDisplay.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Table de correspondance simple
     const pageNames = {
         'pg1.html': 'accueil',
         'pg2.html': 'medias-sociaux',
@@ -18,11 +16,19 @@ document.addEventListener('DOMContentLoaded', function() {
         'pg14.html': 'decouvrir'
     };
 
-    // Récupérer le nom de la page actuelle
-    const currentPage = window.location.pathname.split('/').pop();
+    // Créer un mapping inversé
+    const reversePageNames = Object.fromEntries(
+        Object.entries(pageNames).map(([key, value]) => [value, key])
+    );
+
+    const path = window.location.pathname.split('/').pop();
     
-    // Si on trouve une correspondance, modifier l'URL affichée
-    if (pageNames[currentPage]) {
-        history.replaceState(null, '', '/' + pageNames[currentPage]);
+    // Si l'URL est un nom convivial, rediriger vers la vraie page
+    if (reversePageNames[path]) {
+        window.location.href = reversePageNames[path];
+    }
+    // Si c'est une page normale, modifier l'URL affichée
+    else if (pageNames[path]) {
+        history.replaceState(null, '', '/' + pageNames[path]);
     }
 });
