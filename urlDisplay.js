@@ -1,6 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
+// urlDisplay.js
+(function() {
+    // Table de correspondance dans les deux sens
     const pageNames = {
-        'pg1.html': 'accueil',
+        'index.html': 'accueil',
         'pg2.html': 'medias-sociaux',
         'pg3.html': 'streaming',
         'pg4.html': 'apprendre',
@@ -16,19 +18,35 @@ document.addEventListener('DOMContentLoaded', function() {
         'pg14.html': 'decouvrir'
     };
 
-    // Créer un mapping inversé
-    const reversePageNames = Object.fromEntries(
-        Object.entries(pageNames).map(([key, value]) => [value, key])
-    );
+    // Créer la table inverse (nom personnalisé -> nom du fichier)
+    const reversePageNames = {};
+    for (let [key, value] of Object.entries(pageNames)) {
+        reversePageNames[value] = key;
+    }
 
-    const path = window.location.pathname.split('/').pop();
-    
-    // Si l'URL est un nom convivial, rediriger vers la vraie page
-    if (reversePageNames[path]) {
-        window.location.href = reversePageNames[path];
+    function handleURL() {
+        const path = window.location.pathname.replace(/^\//, '');
+        
+        // Si l'URL est déjà sous forme personnalisée
+        if (reversePageNames[path]) {
+            return; // Ne rien faire, c'est déjà au bon format
+        }
+        
+        // Si c'est une URL avec .html
+        if (pageNames[path]) {
+            history.replaceState(null, '', '/' + pageNames[path]);
+            return;
+        }
+
+        // Si l'URL ne correspond à rien de connu, rediriger vers l'accueil
+        if (path && path !== 'accueil') {
+            window.location.href = '/accueil';
+        }
     }
-    // Si c'est une page normale, modifier l'URL affichée
-    else if (pageNames[path]) {
-        history.replaceState(null, '', '/' + pageNames[path]);
-    }
-});
+
+    // Exécuter immédiatement
+    handleURL();
+
+    // Ajouter un gestionnaire pour les changements d'état de l'historique
+    window.addEventListener('popstate', handleURL);
+})();
