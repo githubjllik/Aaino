@@ -2,20 +2,23 @@
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').then(() => {
         const pageNames = {
-            'index.html': 'accueil',
-            'pg2.html': 'medias-sociaux',
+            'index.html': 'home',
+            'pg2.html': 'social-media',
             'pg3.html': 'streaming',
-            'pg4.html': 'apprendre',
-            'pg5.html': 'ia',
-            'pg6.html': 'editer',
-            'pg7.html': 'developper',
+            'pg4.html': 'learn',
+            'pg5.html': 'ai',
+            'pg6.html': 'edit',
+            'pg7.html': 'develop',
             'pg8.html': 'e-services',
-            'pg9.html': 'explorer',
-            'pg10.html': 'telecharger',
-            'pg11.html': 'mobiles-pc',
-            'pg12.html': 'rechercher',
+            'pg9.html': 'explore',
+            'pg10.html': 'download',
+            'pg11.html': 'devices',
+            'pg12.html': 'search',
             'pg13.html': 'darkweb',
-            'pg14.html': 'decouvrir'
+            'pg14.html': 'discover',
+            'pg15.html': 'about',
+            'nouveaux.html': 'new',
+            'search-results.html': 'search-results'
         };
 
         const currentPage = window.location.pathname.split('/').pop();
