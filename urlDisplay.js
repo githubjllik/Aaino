@@ -1,6 +1,8 @@
 // urlDisplay.js
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').then(() => {
+    navigator.serviceWorker.register('/sw.js', {
+        scope: '/'
+    }).then(() => {
         const pageNames = {
             'index.html': 'home',
             'pg2.html': 'social-media',
@@ -24,7 +26,10 @@ if ('serviceWorker' in navigator) {
         const currentPage = window.location.pathname.split('/').pop();
         
         if (pageNames[currentPage]) {
-            history.replaceState(null, '', '/' + pageNames[currentPage]);
+            const newPath = '/' + pageNames[currentPage];
+            if (window.location.pathname !== newPath) {
+                history.replaceState(null, '', newPath);
+            }
         }
     }).catch(error => {
         console.error('Service Worker registration failed:', error);

@@ -19,6 +19,12 @@ const routes = {
     '/search-results': '/search-results.html'
 };
 
+// Créer un mapping inverse (de .html vers les URLs personnalisées)
+const reverseRoutes = Object.entries(routes).reduce((acc, [key, value]) => {
+    acc[value] = key;
+    return acc;
+}, {});
+
 self.addEventListener('install', (event) => {
     self.skipWaiting();
 });
@@ -31,6 +37,7 @@ self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
     const path = url.pathname;
 
+    // Vérifier si c'est une URL personnalisée
     if (routes[path]) {
         event.respondWith(
             fetch(new Request(routes[path], {
@@ -38,7 +45,24 @@ self.addEventListener('fetch', (event) => {
                 method: event.request.method
             }))
         );
-    } else {
+    } 
+    // Vérifier si c'est une URL .html qui a une correspondance personnalisée
+    else if (reverseRoutes[path]) {
+        event.respondWith(
+            fetch(event.request).then(response => {
+                if (response.ok) {
+                    return response;
+                }
+                // Si la réponse n'est pas ok, essayer l'URL personnalisée
+                return fetch(new Request(path, {
+                    headers: event.request.headers,
+                    method: event.request.method
+                }));
+            })
+        );
+    }
+    // Pour toutes les autres requêtes
+    else {
         event.respondWith(fetch(event.request));
     }
 });
