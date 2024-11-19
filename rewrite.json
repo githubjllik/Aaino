@@ -1,8 +1,74 @@
-{
-  "routes": [
-    {
-      "source": "/:path",
-      "destination": "/index.html"
-    }
-  ]
-}
+[
+  {
+    "source": "/home",
+    "destination": "/index.html"
+  },
+  {
+    "source": "/social-media",
+    "destination": "/pg2.html"
+  },
+  {
+    "source": "/streaming",
+    "destination": "/pg3.html"
+  },
+  {
+    "source": "/learn",
+    "destination": "/pg4.html"
+  },
+  {
+    "source": "/ai",
+    "destination": "/pg5.html"
+  },
+  {
+    "source": "/edit",
+    "destination": "/pg6.html"
+  },
+  {
+    "source": "/develop",
+    "destination": "/pg7.html"
+  },
+  {
+    "source": "/e-services",
+    "destination": "/pg8.html"
+  },
+  {
+    "source": "/explore",
+    "destination": "/pg9.html"
+  },
+  {
+    "source": "/download",
+    "destination": "/pg10.html"
+  },
+  {
+    "source": "/devices",
+    "destination": "/pg11.html"
+  },
+  {
+    "source": "/search",
+    "destination": "/pg12.html"
+  },
+  {
+    "source": "/darkweb",
+    "destination": "/pg13.html"
+  },
+  {
+    "source": "/discover",
+    "destination": "/pg14.html"
+  },
+  {
+    "source": "/about",
+    "destination": "/pg15.html"
+  },
+  {
+    "source": "/new",
+    "destination": "/nouveaux.html"
+  },
+  {
+    "source": "/search-results",
+    "destination": "/search-results.html"
+  },
+  {
+    "source": "/*",
+    "destination": "/index.html"
+  }
+]
