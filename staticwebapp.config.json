@@ -1,0 +1,76 @@
+{
+  "navigationFallback": {
+    "rewrite": "index.html",
+    "exclude": ["/images/*.{png,jpg,gif}", "/css/*", "/js/*"]
+  },
+  "routes": [
+    {
+      "route": "/home",
+      "serve": "/index.html"
+    },
+    {
+      "route": "/social-media",
+      "serve": "/pg2.html"
+    },
+    {
+      "route": "/streaming",
+      "serve": "/pg3.html"
+    },
+    {
+      "route": "/learn",
+      "serve": "/pg4.html"
+    },
+    {
+      "route": "/ai",
+      "serve": "/pg5.html"
+    },
+    {
+      "route": "/edit",
+      "serve": "/pg6.html"
+    },
+    {
+      "route": "/develop",
+      "serve": "/pg7.html"
+    },
+    {
+      "route": "/e-services",
+      "serve": "/pg8.html"
+    },
+    {
+      "route": "/explore",
+      "serve": "/pg9.html"
+    },
+    {
+      "route": "/download",
+      "serve": "/pg10.html"
+    },
+    {
+      "route": "/devices",
+      "serve": "/pg11.html"
+    },
+    {
+      "route": "/search",
+      "serve": "/pg12.html"
+    },
+    {
+      "route": "/darkweb",
+      "serve": "/pg13.html"
+    },
+    {
+      "route": "/discover",
+      "serve": "/pg14.html"
+    },
+    {
+      "route": "/about",
+      "serve": "/pg15.html"
+    },
+    {
+      "route": "/new",
+      "serve": "/nouveaux.html"
+    },
+    {
+      "route": "/search-results",
+      "serve": "/search-results.html"
+    }
+  ]
+}

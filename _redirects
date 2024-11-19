@@ -1,18 +1,18 @@
-/                    /index.html      200
-/accueil            /index.html      200
-/medias-sociaux     /pg2.html       200
-/streaming          /pg3.html       200
-/apprendre          /pg4.html       200
-/ia                 /pg5.html       200
-/editer             /pg6.html       200
-/developper         /pg7.html       200
-/e-services         /pg8.html       200
-/explorer           /pg9.html       200
-/telecharger        /pg10.html      200
-/mobiles-pc         /pg11.html      200
-/rechercher         /pg12.html      200
-/darkweb            /pg13.html      200
-/decouvrir          /pg14.html      200
-
-# Règle de fallback - toujours mettre en dernier
-/*                   /index.html      200
+/home              /index.html     200
+/social-media      /pg2.html       200
+/streaming         /pg3.html       200
+/learn             /pg4.html       200
+/ai                /pg5.html       200
+/edit              /pg6.html       200
+/develop           /pg7.html       200
+/e-services        /pg8.html       200
+/explore           /pg9.html       200
+/download          /pg10.html      200
+/devices           /pg11.html      200
+/search            /pg12.html      200
+/darkweb           /pg13.html      200
+/discover          /pg14.html      200
+/about             /pg15.html      200
+/new               /nouveaux.html  200
+/search-results    /search-results.html 200
+/*                 /index.html     200
