@@ -186,8 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const link = e.target.closest('a');
         if (link) {
             const href = link.getAttribute('href');
-            // Vérifie si href est vide, égal à #, ou ne commence pas par http/https
-            if (!href || href === '#' || !href.match(/^https?:\/\//) || href === 'contact.html') {
+            if (!href || href === '#' || !href.match(/^https?:\/\//) || href === 'contact.html' || link.classList.contains('footer-cta')) {
                 e.preventDefault();
                 
                 const existingNotification = document.querySelector('.etherealNotificationCard');
@@ -202,8 +201,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 notificationCard.innerHTML = `
                     <button class="celestialDismissButton">×</button>
                     <div class="notificationContent">
-                        <h3>✨ Rejoignez l'aventure Aaino !</h3>
-                        <p>Nous sommes ravis de votre intérêt ! Nos réseaux sociaux sont en cours de déploiement pour vous offrir une expérience encore plus enrichissante. Revenez très bientôt pour découvrir toutes les nouvelles façons de rester connectés avec nous et notre communauté grandissante.</p>
+                        <h3>✨ Restons connectés !</h3>
+                        <p>
+                            Chers visiteurs passionnés,
+
+                            Nous sommes en train de créer quelque chose d'extraordinaire pour vous ! Notre espace communautaire et nos réseaux sociaux sont en cours de développement pour vous offrir une expérience unique et immersive.
+
+                            En attendant ce grand moment, nous serions ravis d'échanger avec vous directement. Partagez vos idées, vos suggestions ou simplement dites-nous bonjour !
+                        </p>
+                        <a href="mailto:contact@aaino.com" class="celestialEmailLink">
+                            <span class="emailIcon">✉️</span>
+                            <span class="emailText">contact@aaino.com</span>
+                        </a>
                     </div>
                 `;
                 
@@ -215,13 +224,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Utiliser la délégation d'événements sur le document pour capturer tous les clics
     document.addEventListener('click', function(e) {
         const validInteractionZones = [
             '.contacts',
             '.contact-icons',
             '.footer-column',
-            '.team-section'
+            '.team-section',
+            '.social-links',
+            '.footer-cta'
         ];
         
         const clickedInValidZone = validInteractionZones.some(selector => 
@@ -235,8 +245,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const quixoticGrid = document.querySelector('.quixotic-grid');
+    const footerContainers = document.querySelectorAll('.support-options, .footer-section .support-button, .footer-nav');
     let currentNotification = null;
     let currentBackdrop = null;
     
@@ -261,6 +276,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function crystalManifest(e) {
+        e.stopPropagation();
+        
         const linkElement = e.target.closest('a');
         if (!linkElement) return;
         
@@ -270,66 +287,307 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!href || href === '#' || !href.match(/^https?:\/\//)) {
             e.preventDefault();
             
-            // Si une notification est déjà affichée, on la ferme
             if (currentNotification) {
                 etherealDismiss();
                 return;
             }
             
-            // Création du backdrop
             currentBackdrop = document.createElement('div');
             currentBackdrop.className = 'mistVeil';
             document.body.appendChild(currentBackdrop);
             
-            // Définition du contenu selon le lien cliqué
+            setTimeout(() => {
+                currentBackdrop.style.opacity = '1';
+            }, 10);
+            
             const notificationContents = {
-                'Faire un don via PayPal': {
-                    icon: '💝',
-                    title: 'Votre soutien fait la différence !',
-                    message: 'Nous préparons un système de don sécurisé pour vous permettre de soutenir notre mission. Votre générosité nous aidera à enrichir davantage notre plateforme et à maintenir ce service gratuit pour tous. Revenez bientôt pour faire partie de cette belle aventure !'
+                'Contribuer': {
+                    icon: '💫',
+                    title: 'Un message pour tous les passionnés d\'Aaino',
+                    message: `Chers membres de notre communauté grandissante,
+
+Nous sommes ravis de vous annoncer que nous préparons quelque chose de spécial ! Bientôt, vous pourrez contribuer directement au développement d'Aaino d'une manière unique et significative. Votre soutien, quelle que soit sa forme, nous permettra de créer ensemble une plateforme encore plus extraordinaire.
+
+En attendant le lancement de notre système de contribution, continuez à partager votre passion et votre créativité. Chaque interaction, chaque moment passé sur Aaino compte énormément pour nous.
+
+Restez à l'écoute - l'avenir s'annonce passionnant ! ✨`
                 },
-                'Nous contacter': {
+                'Obtenir de l\'aide': {
                     icon: '🌟',
-                    title: 'Service personnalisé en préparation !',
-                    message: 'Notre équipe met en place un système de support sur mesure pour répondre à vos besoins spécifiques. Bientôt, vous aurez accès à une assistance personnalisée pour trouver exactement ce que vous cherchez. La découverte continue !'
+                    title: 'À toute notre communauté Aaino',
+                    message: `Chers explorateurs créatifs,
+
+Une grande transformation approche ! Nous mettons actuellement en place un système de support révolutionnaire qui changera votre façon d'interagir avec Aaino.
+
+Imaginez un espace où chaque question trouve sa réponse, où chaque défi devient une opportunité d'apprentissage, où l'entraide et le partage sont au cœur de chaque interaction.
+
+Cette vision devient réalité grâce à vous. Restez connectés - nous avons hâte de vous présenter ces nouvelles possibilités ! 🚀`
                 },
-                'Partager votre création': {
+                'Devenir créateur': {
                     icon: '✨',
-                    title: 'Votre espace créatif arrive !',
-                    message: 'Nous construisons une plateforme unique où votre créativité pourra s\'épanouir et briller. Préparez vos projets, car bientôt vous pourrez les partager avec une communauté passionnée et engagée. L\'avenir appartient aux créateurs !'
+                    title: 'À tous les créateurs de demain',
+                    message: `Chers artistes, innovateurs et rêveurs,
+
+L'espace créateur que nous construisons sera bien plus qu'une simple plateforme - ce sera un univers où vos idées prendront vie, où vos talents brilleront de mille feux.
+
+Préparez-vous à rejoindre une communauté vibrante où chaque création compte, où chaque voix est entendue, où chaque talent est célébré.
+
+Le futur de la créativité s'écrit ici, avec vous. Votre histoire fait partie de notre histoire. 🌈`
+                },
+                'Faire un don': {
+                    icon: '🎁',
+                    title: 'Merci de votre générosité',
+                    message: `Chers membres bienveillants,
+
+Votre désir de soutenir Aaino nous touche profondément. Notre système de dons est en cours de développement pour garantir une expérience transparente et sécurisée.
+
+Vos contributions futures nous permettront de maintenir Aaino gratuit et accessible à tous, tout en continuant à innover et à améliorer la plateforme.
+
+Restez à l'écoute pour plus d'informations sur les différentes façons de soutenir notre mission ! 🌟`
+                },
+                'Devenir sponsor': {
+                    icon: '💎',
+                    title: 'Devenez partenaire d\'Aaino',
+                    message: `Chers futurs partenaires,
+
+Nous sommes en train de créer un programme de parrainage unique qui offrira des avantages exceptionnels à nos sponsors. Votre soutien nous aidera à repousser les limites de l'innovation et de la créativité.
+
+Bientôt, vous pourrez rejoindre notre cercle de partenaires privilégiés et contribuer directement à l'avenir d'Aaino.
+
+Les détails de notre programme de parrainage seront dévoilés très prochainement ! ✨`
+                },
+                'Rejoindre la communauté': {
+                    icon: '🌟',
+                    title: 'Bienvenue dans la famille Aaino',
+                    message: `Chers futurs membres de notre communauté,
+
+Nous sommes ravis de votre intérêt pour rejoindre notre famille de créateurs. Notre plateforme communautaire est en cours de finalisation pour vous offrir une expérience unique et enrichissante.
+
+Bientôt, vous pourrez collaborer avec des créateurs passionnés, partager vos idées et contribuer à l'évolution d'Aaino.
+
+Préparez-vous à faire partie d'une aventure extraordinaire ! 🚀`
+                },
+                'Confidentialité': {
+                    icon: '🔒',
+                    title: 'Politique de confidentialité',
+                    message: `Chers utilisateurs d'Aaino,
+
+Nous accordons la plus haute importance à la protection de vos données personnelles. Notre politique de confidentialité est en cours de mise à jour pour refléter notre engagement envers la transparence et la sécurité.
+
+Nous mettons tout en œuvre pour garantir que vos informations sont traitées avec le plus grand soin et dans le respect des normes les plus strictes.
+
+Plus de détails seront bientôt disponibles sur notre nouvelle politique de confidentialité. 🛡️`
+                },
+                'CGU': {
+                    icon: '📜',
+                    title: 'Conditions Générales d\'Utilisation',
+                    message: `Chers membres d'Aaino,
+
+Nos Conditions Générales d'Utilisation sont en cours de finalisation pour garantir une expérience équitable et sécurisée pour tous les utilisateurs de notre plateforme.
+
+Ces conditions seront bientôt disponibles pour consultation, assurant une totale transparence sur vos droits et responsabilités en tant qu'utilisateur.
+
+Nous vous remercions de votre patience et de votre confiance. ⚖️`
+                },
+                'Mentions légales': {
+                    icon: '⚖️',
+                    title: 'Mentions Légales',
+                    message: `Chers visiteurs,
+
+Les mentions légales complètes d'Aaino sont en cours de préparation. Elles incluront toutes les informations juridiques nécessaires concernant notre société et l'utilisation de notre plateforme.
+
+Ces informations seront bientôt accessibles pour assurer une totale transparence sur notre identité et nos obligations légales.
+
+Merci de votre compréhension. 📋`
+                },
+                'Plan du site': {
+                    icon: '🗺️',
+                    title: 'Plan du Site',
+                    message: `Chers utilisateurs,
+
+Le plan du site complet d'Aaino est actuellement en développement. Il vous permettra de naviguer facilement à travers toutes nos sections et fonctionnalités.
+
+Cette carte interactive de notre plateforme sera bientôt disponible pour vous aider à explorer tout ce qu'Aaino a à offrir.
+
+Restez à l'écoute pour découvrir cette nouvelle fonctionnalité ! 🧭`
                 },
                 'default': {
-                    icon: '💌',
-                    title: 'Votre avis compte énormément !',
-                    message: 'Nous développons actuellement un espace dédié à vos retours et suggestions. Votre participation sera essentielle pour façonner l\'avenir d\'Aaino et créer ensemble une expérience encore plus enrichissante. À très bientôt !'
+                    icon: '💝',
+                    title: 'Un message du cœur',
+                    message: `Chers membres de la famille Aaino,
+
+Votre présence et votre engagement font d'Aaino un endroit unique. Nous construisons activement de nouveaux outils pour enrichir votre expérience et donner vie à vos idées les plus ambitieuses.
+
+Chaque suggestion, chaque retour que vous partagez façonne l'avenir de notre plateforme. Ensemble, nous créons quelque chose d'extraordinaire.
+
+Restez avec nous - le meilleur reste à venir ! 🌟`
                 }
             };
             
             const content = notificationContents[linkText] || notificationContents['default'];
             
-            // Création de la notification
             currentNotification = document.createElement('div');
             currentNotification.className = 'crystallineCard';
             currentNotification.innerHTML = `
                 <button class="prismClose">×</button>
                 <div class="notificationContent">
                     <h3>${content.icon} ${content.title}</h3>
-                    <p>${content.message}</p>
+                    <p>${content.message.split('\n\n').map(para => `<p>${para}</p>`).join('')}</p>
                 </div>
             `;
             
             document.body.appendChild(currentNotification);
             
-            // Ajout des événements de fermeture
-            currentNotification.querySelector('.prismClose').addEventListener('click', etherealDismiss);
-            currentBackdrop.addEventListener('click', etherealDismiss);
+            setTimeout(() => {
+                currentNotification.style.opacity = '1';
+                currentNotification.style.transform = 'translate(-50%, -50%)';
+            }, 10);
             
-            // Ajout de l'événement pour la touche Escape
+            currentNotification.querySelector('.prismClose').addEventListener('click', (e) => {
+                e.stopPropagation();
+                etherealDismiss();
+            });
+            
+            currentBackdrop.addEventListener('click', (e) => {
+                e.stopPropagation();
+                etherealDismiss();
+            });
+            
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') etherealDismiss();
             });
         }
     }
     
-    quixoticGrid.addEventListener('click', crystalManifest);
+    if (quixoticGrid) {
+        quixoticGrid.addEventListener('click', crystalManifest);
+    }
+    
+    footerContainers.forEach(container => {
+        container.addEventListener('click', crystalManifest);
+    });
 });
+
+
+
+
+(function() {
+  // Portée privée pour éviter les conflits
+  function showAainoMessage(type) {
+    const overlay = document.createElement('div');
+    overlay.className = 'aaino_overlay';
+    document.body.appendChild(overlay);
+
+    const message = document.createElement('div');
+    message.className = 'aaino_notification';
+    
+    if (type === 'site') {
+      message.innerHTML = `
+        <h4>✨ Vous y êtes déjà !</h4>
+        <p>Tel un explorateur averti, vous naviguez déjà au cœur même d'Aaino. Continuez votre voyage de découverte, les trésors du web n'attendent que vous !</p>
+        <button class="aaino_close_btn">Continuer l'exploration</button>
+      `;
+    } else {
+      message.innerHTML = `
+        <h4>🎯 Expert en devenir</h4>
+        <p>Votre présence ici prouve que vous maîtrisez déjà l'art de la navigation sur Aaino. Continuez d'explorer, chaque clic vous rapproche de nouvelles découvertes fascinantes !</p>
+        <button class="aaino_close_btn">Poursuivre l'aventure</button>
+      `;
+    }
+    
+    document.body.appendChild(message);
+    
+    function closeMessage() {
+      message.style.opacity = '0';
+      overlay.style.opacity = '0';
+      setTimeout(() => {
+        message.remove();
+        overlay.remove();
+      }, 300);
+    }
+
+    // Fermer en cliquant sur le bouton
+    message.querySelector('.aaino_close_btn').onclick = closeMessage;
+
+    // Fermer en cliquant sur l'overlay 
+    overlay.onclick = closeMessage;
+  }
+
+  // Ajout des event listeners
+  const siteBtn = document.getElementById('aaino_site_btn');
+  if (siteBtn) {
+    siteBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      showAainoMessage('site');
+    });
+  }
+
+  const tutoBtn = document.getElementById('aaino_tuto_btn');
+  if (tutoBtn) {
+    tutoBtn.addEventListener('click', function(e) {
+      e.preventDefault(); 
+      showAainoMessage('tuto');
+    });
+  }
+})();
+
+function verifyAge(isAdult) {
+    if (isAdult) {
+        document.getElementById('darkAgeVerification').style.display = 'none';
+    } else {
+        window.location.href = '/';
+    }
+}
+
+document.querySelectorAll('.app-item span').forEach(span => {
+    if (span.innerHTML === '➔') {
+        span.remove();
+    }
+});
+
+
+
+function twoSearchPageDynamicResize(element) {
+    element.style.height = 'auto';
+    const newHeight = Math.min(element.scrollHeight, 150);
+    element.style.height = newHeight + 'px';
+}
+
+// Pour les deux textareas
+const textareas = document.querySelectorAll('.er7890_search_field, .gh8765_fixed_input');
+textareas.forEach(textarea => {
+    textarea.addEventListener('input', function() {
+        twoSearchPageDynamicResize(this);
+    });
+    
+    // Réinitialiser la hauteur quand le contenu est vide
+    textarea.addEventListener('keyup', function(e) {
+        if (this.value === '') {
+            this.style.height = '40px'; // hauteur initiale
+        }
+    });
+});
+
+// Gestion du clic sur l'icône de fermeture dans qw4321_search
+const closeIcon = document.querySelector('#intro_close_icon');
+if (closeIcon) {
+    closeIcon.addEventListener('click', function() {
+        const searchField = document.querySelector('#intro_search_input');
+        if (searchField) {
+            searchField.style.height = '40px'; // réinitialise la hauteur
+            searchField.value = ''; // vide le contenu
+        }
+    });
+}
+
+// Gestion du clic sur l'icône de fermeture dans as6543_fixed_search
+const fixedCloseIcon = document.querySelector('#fixed_close_icon');
+if (fixedCloseIcon) {
+    fixedCloseIcon.addEventListener('click', function() {
+        const fixedSearchField = document.querySelector('#fixed_search_input');
+        if (fixedSearchField) {
+            fixedSearchField.style.height = '40px'; // réinitialise la hauteur
+            fixedSearchField.value = ''; // vide le contenu
+        }
+    });
+}

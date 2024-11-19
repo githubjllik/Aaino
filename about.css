@@ -1,4 +1,3 @@
-
         :root {
             --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-2: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
@@ -11,6 +10,7 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #f8f9fd;
@@ -18,23 +18,24 @@
             line-height: 1.6;
         }
 
-        main {
-            max-width: 1400px;
+        .about-container {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 40px 20px;
         }
 
-        .acc-hero {
-            position: relative;
-            padding: 80px 20px;
-            text-align: center;
+        .about-hero {
             background: #20202c;
-            border-radius: 0 0 var(--radius) var(--radius);
-            margin-bottom: 40px;
+            padding: 80px 20px;
+            border-radius: var(--radius);
+            color: white;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
             overflow: hidden;
         }
 
-        .acc-hero::before {
+        .about-hero::before {
             content: '';
             position: absolute;
             top: 0;
@@ -46,140 +47,88 @@
             opacity: 0.4;
         }
 
-        .acc-hero h1 {
-            font-size: 3.5em;
-            color: white;
+        .about-hero h1 {
+            font-size: 3em;
             margin-bottom: 20px;
             position: relative;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
-        .acc-hero p {
-            font-size: 1.2em;
-            color: rgba(255,255,255,0.9);
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .acc-search-bar {
-            max-width: 600px;
-            margin: -30px auto 40px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .acc-search-bar input {
-            width: 100%;
-            padding: 20px 30px;
-            border: none;
-            border-radius: 50px;
-            background: white;
-            box-shadow: var(--shadow);
-            font-size: 1.1em;
-        }
-
-        .acc-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            padding: 20px 0;
-        }
-
-        .acc-category-card {
+        .about-section {
             background: white;
             border-radius: var(--radius);
-            padding: 25px;
-            transition: all 0.3s ease;
+            padding: 40px;
+            margin-bottom: 30px;
             box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
         }
 
-        .acc-category-card:hover {
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .about-card {
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .about-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
 
-        .acc-category-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+        .about-icon {
             width: 60px;
             height: 60px;
-            border-radius: 15px;
-            margin-bottom: 20px;
             background: var(--gradient-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
             color: white;
             font-size: 1.5em;
         }
 
-        .acc-category-card h2 {
-            font-size: 1.5em;
+        .about-card h3 {
             margin-bottom: 15px;
             color: #2d3748;
+            font-size: 1.5em;
         }
 
-        .acc-category-card p {
-            color: #718096;
-            margin-bottom: 20px;
+        .team-section {
+            text-align: center;
+            padding: 40px 0;
         }
 
-        .acc-category-features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .acc-feature-tag {
-            background: #f7fafc;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            color: #4a5568;
-        }
-
-        .acc-explore-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 25px;
+        .contact-btn {
+            display: inline-block;
+            padding: 15px 30px;
             background: var(--gradient-2);
             color: white;
-            border-radius: 25px;
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            border-radius: 25px;
+            margin-top: 30px;
+            transition: transform 0.3s ease;
         }
 
-        .acc-explore-btn:hover {
-            transform: translateX(5px);
-        }
-
-        .acc-hero-logo {
-            width: 80px;
-            height: auto;
-            vertical-align: middle;
-            margin-right: 15px;
-            display: inline-block;
+        .contact-btn:hover {
+            transform: scale(1.05);
         }
 
         @media (max-width: 768px) {
-            .acc-hero h1 {
-                font-size: 2.5em;
+            .about-hero h1 {
+                font-size: 2em;
             }
-
-            .acc-categories {
-                grid-template-columns: 1fr;
+            
+            .about-section {
+                padding: 20px;
             }
         }
-        
-        
-        
-        
-        
-  :root {
+        :root {
     --primary-color: #3b82f6;
     --primary-dark: #1d4ed8;
     --secondary-color: #f8fafc;
@@ -208,24 +157,24 @@ body {
     letter-spacing: -0.01em;
 }
 
-main {
+.about-container {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 40px 20px;
 }
 
-.acc-hero {
-    position: relative;
-    padding: 3.5rem 2rem;
-    text-align: center;
+.about-hero {
     background: white;
+    padding: 3.5rem 2rem;
     border-radius: var(--border-radius);
-    margin: 3rem auto;
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
     overflow: hidden;
     box-shadow: var(--shadow-md);
 }
 
-.acc-hero::before {
+.about-hero::before {
     content: '';
     position: absolute;
     top: 0;
@@ -237,21 +186,21 @@ main {
     transition: opacity 0.3s ease;
 }
 
-.acc-hero:hover::before {
+.about-hero:hover::before {
     opacity: 1;
 }
 
-.acc-hero h1 {
+.about-hero h1 {
     font-size: clamp(1.5rem, 4vw, 2.5rem);
-    color: var(--text-color);
     margin-bottom: 2rem;
     position: relative;
     font-weight: 800;
     line-height: 1.2;
     padding-bottom: 1rem;
+    color: var(--text-color);
 }
 
-.acc-hero h1::after {
+.about-hero h1::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -263,108 +212,78 @@ main {
     border-radius: 2px;
 }
 
-.acc-hero p {
-    font-size: 1.05rem;
-    color: var(--text-light);
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-}
-
-.acc-search-bar {
-    max-width: 600px;
-    margin: 2.5rem auto;
-}
-
-.acc-search-bar input {
-    width: 100%;
-    padding: 1rem 1.5rem;
-    border: 2px solid rgba(148, 163, 184, 0.1);
-    border-radius: 1rem;
+.about-section {
     background: white;
-    box-shadow: var(--shadow-md);
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-}
-
-.acc-search-bar input:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-    outline: none;
-}
-
-.acc-categories {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 2rem;
-    padding: 20px 0;
-}
-
-.acc-category-card {
-    background: white;
-    border-radius: calc(var(--border-radius) - 0.25rem);
+    border-radius: var(--border-radius);
     padding: 2rem;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2rem;
+    margin-top: 2.5rem;
+}
+
+.about-card {
+    background: white;
+    padding: 2rem;
+    border-radius: calc(var(--border-radius) - 0.25rem);
     box-shadow: var(--shadow-sm);
-    position: relative;
-    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(148, 163, 184, 0.1);
     animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-.acc-category-card:hover {
+.about-card:hover {
     transform: translateY(-5px) scale(1.01);
     box-shadow: var(--shadow-lg);
     border-color: var(--accent-color);
 }
 
-.acc-category-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+.about-icon {
     width: 3rem;
     height: 3rem;
-    border-radius: 0.75rem;
-    margin-bottom: 1.25rem;
     background: var(--gradient);
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
     color: white;
     font-size: 1.5em;
     box-shadow: var(--shadow-sm);
     transition: transform 0.3s ease;
 }
 
-.acc-category-card:hover .acc-category-icon {
+.about-card:hover .about-icon {
     transform: scale(1.1) rotate(3deg);
 }
 
-.acc-category-card h2 {
+.about-card h3 {
     font-size: 1.35rem;
     margin-bottom: 1.25rem;
     color: var(--primary-dark);
     font-weight: 700;
 }
 
-.acc-category-card p {
-    color: var(--text-light);
-    font-size: 1.05rem;
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-}
-
-.acc-explore-btn {
+.contact-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
     padding: 0.875rem 1.75rem;
     background: var(--gradient);
     color: white;
-    border-radius: 0.75rem;
     text-decoration: none;
+    border-radius: 0.75rem;
     font-weight: 600;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.acc-explore-btn:hover {
+.contact-btn:hover {
     background: var(--gradient-hover);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
@@ -382,12 +301,37 @@ main {
 }
 
 @media (max-width: 768px) {
-    .acc-hero h1 {
+    .about-hero h1 {
         font-size: 2rem;
     }
-
-    .acc-categories {
+    
+    .about-grid {
         grid-template-columns: 1fr;
     }
+    
+    .about-section {
+        padding: 1.5rem;
+    }
 }
-  
+/* ... (reste du code précédent) ... */
+
+.about-hero {
+    background: white;
+    padding: 3.5rem 2rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.about-hero p {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* ... (reste du code reste identique) ... */

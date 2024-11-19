@@ -17,9 +17,10 @@ function loadTemplate() {
         <img src="svg/leftve.svg" alt="Fermer" class="search-icon" onclick="closeExpandedSearch()">
         <textarea id="search" placeholder="Rechercher..." oninput="zephyromorphicResize(this); showSuggestions(this.value)"></textarea>
         <img src="svg/clear.svg" alt="Effacer" class="search-icon" onclick="clearSearch()">
-        <button id="search-btn" onclick="performSearch()">
-            <img src="svg/searchn.svg" alt="Rechercher" class="search-icon">
-        </button>
+        <button id="search-btn" onclick="performSearch().catch(error => console.error('Erreur:', error))">
+    <img src="svg/searchn.svg" alt="Rechercher" class="search-icon">
+</button>
+
         <div id="suggestions" class="hidden"></div>
     </div>
     <div id="right-elements">

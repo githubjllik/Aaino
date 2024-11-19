@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Aaino" />
+<link rel="manifest" href="/site.webmanifest" />
+<title>Aaino | Découvrir plus</title>
+    <link rel="stylesheet" href="styles2.css">
+    <link rel="stylesheet" href="styles4.css">
+    <link rel="stylesheet" href="styles5.css">
+
+    <link rel="stylesheet" href="nfbodyeclipse.css">
+    
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    
+<!-- Lien vers votre fichier CSS -->
+<style>
+:root {
+  --primary-color: #3b82f6;
+  --primary-dark: #1d4ed8;
+  --secondary-color: #f8fafc;
+  --accent-color: #06b6d4;
+  --text-color: #1e293b;
+  --text-light: #64748b;
+  --success-color: #10b981;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.12);
+  --shadow-lg: 0 16px 32px rgba(0,0,0,0.15);
+  --gradient: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+  --gradient-hover: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
+  --border-radius: 1rem;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  color: var(--text-color);
+  line-height: 1.7;
+  background: #f1f5f9;
+  letter-spacing: -0.01em;
+}
+
+/* Sections */
+section {
+  padding: 3.5rem 2rem;
+  margin: 3rem auto;
+  max-width: 1280px;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+section:hover::before {
+  opacity: 1;
+}
+
+/* Titres */
+h1, h2 {
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 1rem;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+h1::after, h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: var(--gradient);
+  border-radius: 2px;
+}
+
+/* Items */
+.app-item {
+  background: white;
+  border-radius: calc(var(--border-radius) - 0.25rem);
+  padding: 2rem;
+  margin: 1.5rem 0;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.app-item:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-color);
+}
+
+/* Titres des items */
+.links-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.35rem;
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.links-title img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  object-fit: cover;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease;
+}
+
+.app-item:hover .links-title img {
+  transform: scale(1.1) rotate(3deg);
+}
+
+/* Description */
+.app-item p {
+  color: var(--text-light);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+/* Boutons */
+.buttons {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.button {
+  padding: 0.875rem 1.75rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  font-size: 1.05rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.view-site {
+  background: var(--gradient);
+  color: white;
+}
+
+.view-site:hover {
+  background: var(--gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.view-tuto {
+  background: white;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.view-tuto:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+/* Recherche */
+.qw4321_search_box {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  margin: 2.5rem 0;
+  border: 2px solid rgba(148, 163, 184, 0.1);
+  transition: all 0.3s ease;
+}
+
+.qw4321_search_box:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.er7890_search_field {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 1.1rem;
+  padding: 0.75rem;
+  color: var(--text-color);
+}
+
+/* Liste de navigation */
+.qt3 {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.vp7 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.vp7:hover {
+  transform: translateX(10px);
+  border-left: 4px solid var(--primary-color);
+  background: linear-gradient(to right, rgba(59, 130, 246, 0.05), white);
+}
+
+.wy5 {
+  background: var(--gradient);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.wy5:hover {
+  background: var(--gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .appListContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+  }
+}
+
+/* Animations sophistiquées */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.app-item {
+  animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(var(--animation-order, 0) * 100ms);
+}
+
+/* Effet de survol supplémentaire */
+.app-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.1) 0%,
+    rgba(6, 182, 212, 0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.app-item:hover::after {
+  opacity: 1;
+}
+</style>
+<style>
+/* ... [styles précédents restent identiques jusqu'aux styles des boutons] ... */
+
+/* Modification des styles des boutons pour éviter les conflits */
+.buttons {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  position: relative;
+  z-index: 2; /* Assure que les boutons sont au-dessus des autres éléments */
+}
+
+.button {
+  padding: 0.875rem 1.75rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  font-size: 1.05rem;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  isolation: isolate; /* Isole les boutons du contexte de superposition */
+}
+
+.view-site {
+  background: var(--gradient);
+  color: white;
+  pointer-events: auto; /* Force l'activation des événements de clic */
+}
+
+.view-site:hover {
+  background: var(--gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.view-tuto {
+  background: white;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  pointer-events: auto; /* Force l'activation des événements de clic */
+}
+
+.view-tuto:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+/* Modification de l'app-item pour éviter les conflits avec les boutons */
+.app-item {
+  /* ... autres styles ... */
+  pointer-events: none; /* Désactive les événements sur l'app-item lui-même */
+}
+
+/* Réactive les événements pour le contenu de l'app-item */
+.app-item > * {
+  pointer-events: auto;
+}
+
+/* Ajustement de l'effet de survol */
+.app-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.1) 0%,
+    rgba(6, 182, 212, 0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none; /* S'assure que l'effet de survol n'interfère pas */
+}
+
+/* Le reste des styles reste identique */
+</style>
+<style>
+:root {
+  --primary-color: #6366f1;  /* Indigo plus vif */
+  --primary-dark: #4f46e5;   /* Indigo foncé */
+  --secondary-color: #f8fafc;
+  --accent-color: #818cf8;   /* Violet clair */
+  --text-color: #1e293b;
+  --text-light: #64748b;
+  --success-color: #8b5cf6;  /* Violet */
+  --shadow-sm: 0 2px 8px rgba(99, 102, 241, 0.08);
+  --shadow-md: 0 8px 24px rgba(99, 102, 241, 0.12);
+  --shadow-lg: 0 16px 32px rgba(99, 102, 241, 0.15);
+  --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);  /* Indigo à Violet */
+  --gradient-hover: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);  /* Version plus foncée */
+  --border-radius: 1rem;
+}
+
+/* Le reste du CSS reste identique, seules les couleurs de base changent */
+.app-item {
+  /* ... autres styles ... */
+  border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.app-item:hover {
+  border-color: var(--accent-color);
+}
+
+.links-title {
+  color: var(--primary-dark);
+}
+
+.view-site:hover {
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.view-tuto:hover {
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+.qw4321_search_box:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.vp7:hover {
+  border-left: 4px solid var(--primary-color);
+  background: linear-gradient(to right, rgba(99, 102, 241, 0.05), white);
+}
+
+.wy5:hover {
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.app-item::after {
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.1) 0%,
+    rgba(139, 92, 246, 0.1) 100%
+  );
+}
+
+/* Animation de brillance sur les boutons */
+.button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(139, 92, 246, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(45deg);
+  }
+}
+</style>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --secondary: #0ea5e9;
+  --dark: #0f172a;
+  --light: #f8fafc;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+header {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: var(--transition);
+}
+
+.logo img {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: var(--transition);
+}
+
+.logo:hover img {
+  transform: rotate(5deg) scale(1.1);
+}
+
+.burger, .close {
+  background: transparent;
+  border: none;
+  font-size: 1.75rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: var(--transition);
+  color: var(--dark);
+}
+
+.burger:hover, .close:hover {
+  background: rgba(37, 99, 235, 0.1);
+  transform: scale(1.1);
+}
+
+.close {
+  display: none;
+}
+
+nav {
+  background: var(--light);
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  box-shadow: var(--shadow);
+}
+
+nav ul {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  margin: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+nav ul::-webkit-scrollbar {
+  display: none;
+}
+
+nav li a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--dark);
+  font-weight: 500;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+nav li a img {
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: var(--transition);
+}
+
+nav li a:hover {
+  background: var(--gradient);
+  color: white;
+  transform: translateY(-2px);
+}
+
+nav li a:hover img {
+  transform: scale(1.2);
+  filter: brightness(0) invert(1);
+}
+
+.burger-menu {
+  position: fixed;
+  top: 80px;
+  right: -100%;
+  width: 100%;
+  height: calc(100vh - 80px);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  transition: var(--transition);
+  padding: 2rem;
+  overflow-y: auto;
+  z-index: 98;
+}
+
+.burger-menu.active {
+  right: 0;
+}
+
+.burger-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.burger-menu li {
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateX(50px);
+  transition: var(--transition);
+}
+
+.burger-menu.active li {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: calc(var(--i) * 0.1s);
+}
+
+.burger-menu a {
+  display: block;
+  text-decoration: none;
+  color: var(--dark);
+  padding: 1rem;
+  border-radius: 12px;
+  transition: var(--transition);
+}
+
+.burger-menu a:hover {
+  background: var(--gradient);
+  color: white;
+  transform: translateX(10px);
+}
+
+.burger-menu a img {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+  transition: var(--transition);
+}
+
+.burger-menu a:hover img {
+  filter: brightness(0) invert(1);
+  transform: rotate(10deg);
+}
+
+.description {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-top: 0.5rem;
+  margin-left: 3rem;
+}
+
+.contacts {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.contacts p {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.contacts a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem;
+  border-radius: 12px;
+  background: white;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.contacts a:hover {
+  transform: translateY(-3px);
+  background: var(--gradient);
+  color: white;
+}
+
+.contacts a img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.contacts a:hover img {
+  filter: brightness(0) invert(1);
+}
+
+@media (min-width: 768px) {
+  .burger-menu {
+    width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    gap: 0.5rem;
+  }
+  
+  nav li a {
+    padding: 0.5rem 1rem;
+  }
+}
+.burger-menu {
+  position: fixed;
+  top: 120px; /* Modifié de 80px à 120px */
+  right: -100%;
+  width: 100%;
+  height: calc(100vh - 120px); /* Modifié de 80px à 120px */
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  transition: var(--transition);
+  padding: 2rem;
+  overflow-y: auto;
+  z-index: 98;
+}
+.burger-menu {
+  position: fixed;
+  top: 120px;
+  right: -100%;
+  width: 100%;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 100px 2rem 2rem;
+  overflow-y: auto;
+  z-index: 97;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+.burger-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.burger-menu::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+.burger-menu.active {
+  right: 0;
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.burger-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.burger-menu li {
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateX(50px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.burger-menu.active li {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: calc(var(--i) * 0.08s);
+}
+
+.burger-menu a {
+  display: flex;
+  align-items: flex-start;
+  text-decoration: none;
+  color: var(--dark);
+  padding: 1.2rem;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.burger-menu a:hover {
+  background: var(--gradient);
+  color: white;
+  transform: translateX(10px) translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+}
+
+.burger-menu a img {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1.2rem;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.burger-menu a:hover img {
+  filter: brightness(0) invert(1);
+  transform: rotate(10deg) scale(1.1);
+}
+
+.description {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-top: 0.5rem;
+  margin-left: 3.2rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.3s ease;
+}
+
+.burger-menu a:hover .description {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.contacts {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 800px;
+  margin: 3rem auto 0;
+}
+
+.contacts p {
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--dark);
+}
+
+.contacts a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1.2rem;
+  margin: 0.5rem;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.contacts a:hover {
+  transform: translateY(-3px);
+  background: var(--gradient);
+  color: white;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+}
+
+.contacts a img {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .burger-menu {
+    width: 450px;
+  }
+  
+  .burger-menu a {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .burger-menu {
+    padding: 80px 1rem 1rem;
+  }
+  
+  .burger-menu a {
+    padding: 1rem;
+  }
+  
+  .description {
+    margin-left: 3rem;
+    font-size: 0.85rem;
+  }
+  
+  .contacts a {
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+/* Style pour l'icône trois points */
+.three-dots-icon {
+  width: 24px !important;
+  height: 24px !important;
+  padding: 4px;
+  cursor: pointer;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  background: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.three-dots-icon:hover {
+  background: var(--secondary-color);
+  transform: scale(1.1);
+}
+
+/* Style pour le menu contextuel */
+.context-menu {
+  position: absolute;
+  top: 3.5rem;
+  right: 1rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-md);
+  padding: 0.5rem;
+  display: none;
+  z-index: 100;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  min-width: 200px;
+  max-width: calc(100% - 2rem);
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  color: var(--text-color);
+  font-size: 0.95rem;
+}
+
+.menu-item:hover {
+  background: var(--secondary-color);
+  transform: translateX(4px);
+}
+
+.menu-item .icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
+}
+
+/* Ajustement du titre pour l'icône */
+.links-title {
+  position: relative;
+  padding-right: 40px;
+}
+
+/* Animation pour le menu */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.context-menu[style*="display: block"] {
+  animation: fadeIn 0.2s ease forwards;
+}
+/* Style pour l'icône trois points */
+.three-dots-icon {
+  width: 24px !important;
+  height: 24px !important;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  background: white;
+  box-shadow: var(--shadow-sm);
+  position: absolute; /* Position absolue */
+  top: -25px; /* Déplacer vers le haut */
+  right: 0;
+  z-index: 10;
+}
+
+.three-dots-icon:hover {
+  background: var(--secondary-color);
+  transform: scale(1.1);
+}
+
+/* Ajustement du conteneur du titre */
+.links-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-right: 0;
+  padding-top: 30px; /* Ajouter un padding en haut pour l'espace de l'icône */
+  justify-content: flex-start;
+  position: relative;
+}
+
+/* Style pour le menu contextuel */
+.context-menu {
+  position: absolute;
+  top: 0; /* Positionner depuis le haut */
+  right: 0;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-md);
+  padding: 0.5rem;
+  display: none;
+  z-index: 100;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  min-width: 200px;
+  max-width: calc(100% - 2rem);
+}
+
+/* Le reste du CSS reste identique */
+.contact-icons {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    z-index: 1000;
+}
+
+.contact-icons a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    overflow: hidden;
+}
+
+.contact-icons a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.contact-icons a:hover {
+    transform: translateX(-1rem) scale(1.1);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-color);
+}
+
+.contact-icons a:hover::before {
+    opacity: 1;
+}
+
+.contact-icons img {
+    height: 1.75rem;
+    width: 1.75rem;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contact-icons a:hover img {
+    transform: rotate(360deg);
+    filter: brightness(0) invert(1);
+}
+
+/* Animation d'entrée */
+.contact-icons a {
+    animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: calc(var(--animation-order) * 100ms);
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Ajout d'un effet de pulse subtil */
+@keyframes pulseddd {
+    0% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    }
+}
+
+.contact-icons a:hover {
+    animation: pulseddd 2s infinite;
+}
+
+/* Style responsive */
+@media (max-width: 768px) {
+    .contact-icons {
+        right: 1rem;
+    }
+    
+    .contact-icons a {
+        padding: 0.5rem;
+    }
+    
+    .contact-icons img {
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+}
+.planner-trigger {
+    position: fixed;
+    top: 155px;
+    left: 20px;
+    width: 65px;
+    height: 65px;
+    background: var(--gradient);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 9;
+    box-shadow: var(--shadow-md);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.planner-trigger::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 2px;
+    background: var(--gradient);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.planner-trigger:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: var(--shadow-lg),
+                0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+.planner-trigger:hover::before {
+    opacity: 1;
+}
+
+.planner-trigger:active {
+    transform: translateY(2px) scale(0.95);
+}
+
+.planner-trigger img {
+    width: 32px;
+    height: 32px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: brightness(0) invert(1);
+    z-index: 9;
+}
+
+.planner-trigger:hover img {
+    transform: scale(1.15) rotate(5deg);
+}
+
+@keyframes floatggg {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+.planner-trigger {
+    animation: floatggg 3s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+    .planner-trigger {
+        width: 55px;
+        height: 55px;
+        left: 15px;
+    }
+    
+    .planner-trigger img {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+
+</style>
+
+
+
+
+</head>
+<body>
+        <header>
+            <div class="logo">
+                <a class="logo" href="index.html">
+                    <img src="logo.png" alt="logo">
+                    Aaino
+                </a>
+            </div>
+            <div class="collection">
+               <a class="collection" href="nouveaux.html" >
+                 <img src="svg/collection.png" alt="nouveaux">
+               </a>
+           </div>
+            <div id="search-container">
+                <div id="search-bar" class="hidden">
+                    <img src="svg/leftve.svg" alt="Fermer" class="search-icon" onclick="closeExpandedSearch()">
+                    <textarea id="search" placeholder="Rechercher..." oninput="zephyromorphicResize(this); showSuggestions(this.value)"></textarea>
+                    <img src="svg/clear.svg" alt="Effacer" class="search-icon" onclick="clearSearch()">
+                    <button id="search-btn" onclick="performSearch().catch(error => console.error('Erreur:', error))">
+    <img src="svg/searchn.svg" alt="Rechercher" class="search-icon">
+</button>
+
+                    <div id="suggestions" class="hidden"></div>
+                </div>
+                <div id="right-elements">
+                    <img src="svg/search.svg" alt="Rechercher" class="search-icon" id="toggle-search-icon" onclick="toggleSearch()">
+                    <div id="other-element"></div>
+                </div>
+            </div>
+
+            <button class="burger" id="burgerButton" onclick="toggleMenu()">☰</button>
+            <button class="close" id="closeButton" onclick="toggleMenu()">✖</button>
+        </header>
+        <nav>
+            <ul>
+                <li id="menu1"><a href="index.html"><img src="svg/accueil.svg" alt="Icon 1">Accueil</a></li>
+                <li id="menu2"><a href="pg2.html"><img src="svg/reseausocial4.svg" alt="Icon 2">Médias sociaux</a></li>
+                <li id="menu3"><a href="pg3.html"><img src="svg/streaming1.svg" alt="Icon 3">Streaming </a></li>
+                <li id="menu4"><a href="pg4.html"><img src="svg/Apprendre.svg" alt="Icon 4">Apprendre</a></li>
+                <li id="menu5"><a href="pg5.html"><img src="svg/bot.svg" alt="Icon 5">IA</a></li>
+                <li id="menu6"><a href="pg6.html"><img src="svg/edit.svg" alt="Icon 6">Éditer</a></li>
+                <li id="menu7"><a href="pg7.html"><img src="svg/developpeur2.svg" alt="Icon 7">Développer</a></li>
+                <li id="menu8"><a href="#"><img src="svg/marchebusiness.svg" alt="Icon 8">E-Services</a></li>
+                <li id="menu9"><a href="pg9.html"><img src="svg/explorer.svg" alt="Icon 9">Explorer le monde</a></li>
+                <li id="menu10"><a href="pg10.html"><img src="svg/telechargement.svg" alt="Icon 10">Télécharger</a></li>
+                <li id="menu11"><a href="pg11.html"><img src="svg/mobileetpc3.svg" alt="Icon 11">Mobiles et pc</a></li>
+                <li id="menu12"><a href="pg12.html"><img src="svg/searchweb.svg" alt="Icon 12">Rechercher</a></li>
+                <li id="menu13"><a href="pg13.html"><img src="svg/darkweb.svg" alt="Icon 13">Darkweb</a></li>
+                <li id="menu14"><a href="pg14.html"><img src="svg/decouvrir.svg" alt="Icon 14">Découvrir plus</a></li>
+                <li id="menu15"><a href="pg15.html"><img src="svg/moi2.svg" alt="Icon 15">À propos</a></li>
+            </ul>
+        </nav>
+        <div class="burger-menu" id="burgerMenu">
+            <ul>
+                <li>
+                    <a href="index.html"><img src="svg/accueil.svg" alt="Icon 1">Accueil
+                    <p class="description">Médias sociaux, Streaming, Apprendre, IA,Éditer, Développer, E-Services, ...</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="pg2.html"><img src="svg/reseausocial4.svg" alt="Icon 2">Médias sociaux
+                    <p class="description">Réseaux sociaux polyvalents, Réseaux sociaux de partage des vidéos, de discussions avec des personnages IA, plateformes de libre expression, ...</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="pg3.html"><img src="svg/streaming1.svg" alt="Icon 3">Streaming 
+                    <p class="description">Sites de streaming populaires, sites de streaming gratuits pour des films, des séries,des animes, des télénovelas, ...</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="pg4.html"><img src="svg/Apprendre.svg" alt="Icon 4">Apprendre
+                    <p class="description">Plateformes populaires pour tout apprendre, Sites gratuits pour tout apprendre, Sites pour apprendre la programmation, sites pour apprendre le Marketing digital, livres gratuits ...</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="pg5.html"><img src="svg/bot.svg" alt="IA">IA
+                    <p class="description">Sites des IA populaires, Sites pour des IA de création des contenus, sites pour des IA gratuits, ...</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="pg6.html"><img src="svg/edit.svg" alt="Icon 6">Éditer
+                    <p class="description">Sites de montages photo, Sites de montages vidéos, Sites pour tout créer avec l'IA, Sites pour créer des sites, Sites pour créer des applications, ...</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="pg7.html"><img src="svg/developpeur2.svg" alt="Icon 7">Développer
+                    <p class="description">Sites pour débuter la programmation, Plateformes populaires des développeurs, sites d'outils des développeurs, chaînes youtube pour développeurs, ...</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="pg8.html"><img src="svg/marchebusiness.svg" alt="Icon 8">E-Services
+                    <p class="description">Sites populaires de ventes en ligne, sites de freelance, Sites pour des transactions en ligne pour tous les pays,...</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="pg9.html"><img src="svg/explorer.svg" alt="Icon 9">Explorer le monde
+                    <p class="description">Sites pour parcourir des lieux magnifiques partout dans le monde ,...</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="pg10.html"><img src="svg/telechargement.svg" alt="Icon 10">Télécharger
+                    <p class="description">Sites pour télécharger des vidéos, sites pour télécharger des films, des séries, des animes, Sites gratuits pour télécharger des applications, des logiciels pc, des jeux android,pc,ppsspp,ps2,ps3,ps4,ps5,xbox,switch,..</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="pg11.html"><img src="svg/mobileetpc3.svg" alt="Icon 11">Mobiles et Pc
+                    <p class="description">Sites utiles pour ton téléphone, sites utiles pour ton pc,....</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="pg12.html"><img src="svg/decouvrir.svg" alt="Icon 12">Découvrir plus
+                    <p class="description">Découvrez d'autres sites incroyables ...</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="pg13.html"><img src="svg/moi2.svg" alt="Icon 13">À Propos</a>
+                </li>
+            </ul>
+            <div class="contacts">
+                <p>Contactez-nous :</p>
+                <a href="mailto:avotreservicejllik@gmail.com" target="_blank"><img src="svg/gmailnoir.svg" alt="Gmail">Gmail</a>
+                <a href="https://www.facebook.com/profile.php?id=61565834743434" target="_blank"><img src="svg/facebooknoir.svg" alt="Facebook">Facebook</a>
+                <a href="https://www.tiktok.com/@avotreservicejllik" target="_blank"><img src="svg/tiktoknoirs.svg" alt="Tiktok">Tiktok</a>
+                <a href="https://www.instagram.com/avotreservicejllik?igsh=MmRqNWV3NHVkdXY3" target="_blank"><img src="svg/instagramnoire.svg" alt="Instagram">Instagram</a>
+                <a href="https://tinyurl.com/44eydy5n" target="_blank"><img src="svg/twitterxnoires.svg" alt="x">X</a>
+                <a href="https://github.com/Avotreservicejllik" target="_blank"><img src="svg/github.svg" alt="GitHub">GitHub</a>
+            </div>
+        </div>
+    
+<main>
+  <section id="introduction">
+    <h1>Bienvenue dans la section Découvrir plus</h1>
+    <p>Bienvenue, chers explorateurs !
+
+      Je suis ravi de vous accueillir dans cet espace où vous découvrirez une sélection incontournable de sites à explorer. Ici, vous trouverez des ressources fascinantes et des expériences enrichissantes qui éveilleront votre curiosité et nourriront votre soif de découverte.
+
+      Laissez-vous inspirer par tout ce que vous allez découvrir. Chaque visite est une nouvelle occasion de vous émerveiller et d’apprendre quelque chose de nouveau. 
+
+      Nous sommes impatients de vous accompagner dans cette aventure passionnante et de vous offrir des trésors à chaque coin. Revenez souvent pour explorer les dernières nouveautés et continuer à élargir vos horizons. Votre voyage commence ici, et nous sommes enchantés de vous y guider !</p>
+    <p><strong>Alors, que cherchez-vous ?</strong></p>
+            <div class="qw4321_search_box">
+                <input type="text" id="intro_search_input" class="er7890_search_field" placeholder="Rechercher...">
+                <div id="intro_close_icon" class="hj6789_close_icon">
+                    <img src="svg/close.svg" alt="Effacer">
+                </div>
+                <button id="intro_search_button" class="ty5678_search_btn">
+                    <img src="svg/searchword.svg" alt="Rechercher">
+                </button>
+            </div>
+    <div class="zx9">
+    <ul class="qt3" id="listContainer">
+        <li class="vp7">
+            <span class="lm2">Les sites incroyables à découvrir en <span class="current-year"></span></span>
+            <a href="#lien1" class="wy5">Voir</a>
+        </li>
+        <li class="vp7">
+            <span class="lm2">Les sites utiles à découvrir en <span class="current-year"></span></span>
+            <a href="#lien2" class="wy5">Voir</a>
+        </li>
+        <li class="vp7">
+            <span class="lm2">Les chaines tiktok à suivre pour découvrir plus en <span class="current-year"></span></span>
+            <a href="#lien3" class="wy5">Voir</a>
+        </li>
+    </ul>
+    <div class="jk4" id="buttonContainer"></div>
+</div>
+
+</section>
+    <section id="lien1" class="section-offset">
+    <h2>Les sites incroyables à découvrir en <span class="current-year"></span></h2>
+    <div class="appListContainer">
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/similaireweb2.jpg" alt="logo">Similarweb</h3>
+            <p>SimilarWeb est un outil d'analyse web qui fournit des données sur le trafic des sites internet, leur audience, les sources de trafic et les performances. Il permet aux utilisateurs de comparer des sites, d'analyser des concurrents et de découvrir des tendances du marché numérique.</p>
+            <div class="buttons">
+                <a href="https://www.similarweb.com/fr/" target="_blank" class="button view-site">Voir le site</a>
+                <a href="#" class="button view-tuto">Voir le tuto</a>
+            </div>
+        </div>
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/alternativeto.png" alt="logo">AlternativeTo</h3>
+            <p>AlternativeTo est une plateforme qui permet de trouver des alternatives à des logiciels et applications populaires. Les utilisateurs peuvent rechercher des outils en fonction de catégories, de fonctionnalités et de plateformes, tout en consultant des avis et des notes d'autres utilisateurs.</p>
+            <div class="buttons">
+                <a href="https://alternativeto.net/" target="_blank" class="button view-site">Voir le site</a>
+                <a href="#" class="button view-tuto">Voir le tuto</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="view-toggle-container"></div>
+</section>
+<section id="lien2" class="section-offset">
+    <h2>Les sites utiles pour mobiles et pc en <span class="current-year"></span></h2>
+    <div class="appListContainer">
+        
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/ninite.jpg" alt="logo">Ninite</h3>
+            <p>Ninite est un site qui permet de télécharger et d'installer plusieurs applications Windows en une seule fois. Il propose une interface simple où les utilisateurs peuvent sélectionner des logiciels gratuits, puis générer un installateur unique qui effectue les installations en arrière-plan sans intervention. Idéal pour configurer rapidement un nouvel ordinateur.</p>
+            <div class="buttons">
+                <a href="https://ninite.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+            </div>
+        </div>
+
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/webcatalog.png" alt="logo">Webcatalog</h3>
+            <p>WebCatalog est un site qui permet de télécharger et d'installer des applications web en tant que programmes de bureau. Il offre une interface simple pour gérer des applications en ligne comme Slack, Trello et WhatsApp, tout en permettant des notifications et un accès hors ligne. Idéal pour centraliser l'utilisation des services web.</p>
+            <div class="buttons">
+                <a href="https://webcatalog.io/fr/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+            </div>
+        </div>
+
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/addrom.png" alt="logo">AddROM</h3>
+            <p>AddROM est un site qui propose des solutions pour accéder aux appareils Android après un réinitialisation d'usine, en fournissant des tutoriels et des outils adaptés.</p>
+            <div class="buttons">
+                <a href="https://addrom.com/bypass/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+            </div>
+        </div>
+
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/frpbypassrom.png" alt="logo">Frpbypass</h3>
+            <p>Frpypass est un site qui propose des solutions et des outils pour réinitialiser les appareils Android verrouillés après un formatage.</p>
+            <div class="buttons">
+                <a href="https://frpbypass.romstage.com/addrom/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+            </div>
+        </div>
+
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/word.jpg" alt="logo">Word.new</h3>
+            <p>Word.new est une plateforme en ligne qui permet de créer instantanément un document Word vierge en un clic, sans avoir besoin de naviguer dans un menu ou une application. C'est une solution rapide pour commencer à rédiger des documents directement via votre navigateur.</p>
+            <div class="buttons">
+                <a href="https://word.new" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+            </div>
+        </div>
+
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/itopeasy.jpg" alt="logo">iTop Easy Desktop</h3>
+            <p>iTop Easy Desktop est un logiciel qui organise et classe les fichiers et dossiers sur le bureau de manière propre et efficace. Il permet de créer des groupes personnalisés, de trier les éléments rapidement, et d'améliorer la productivité avec une interface claire et intuitive.</p>
+            <div class="buttons">
+                <a href="https://itop-easy-desktop.fr.uptodown.com/windows" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+            </div>
+        </div>
+
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/winlator.jpg" alt="logo">Winlator</h3>
+            <p>Winlator est un émulateur Windows pour Android qui permet d'exécuter des applications Windows sur des appareils Android. Il offre une interface utilisateur intuitive et prend en charge de nombreuses applications de bureau.</p>
+            <div class="buttons">
+                <a href="https://winlator.fr.uptodown.com/android" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+                <a href="https://youtu.be/KdsGK5hRAeQ?si=PCEfx-YBTsLzDYIz" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+            </div>
+        </div>
+
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/limbo.jpg" alt="logo">Limbo</h3>
+            <p>Limbo est un émulateur qui permet d'exécuter des systèmes d'exploitation comme Windows et Linux sur des appareils Android. Il offre une interface simple et prend en charge divers formats d'image disque, idéal pour tester des systèmes d'exploitation sur mobile.</p>
+            <div class="buttons">
+                <a href="https://f-droid.org/fr/packages/com.limbo.emu.main/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+                <a href="https://youtu.be/Lsq8jZmvtVk?si=31HsSMt2u_QAKIcv" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+            </div>
+        </div>
+
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/exagear.webp" alt="logo">Exagear</h3>
+            <p>Exagear est un émulateur qui permet de faire fonctionner des applications Windows sur des appareils Android. Il offre une interface conviviale et supporte divers logiciels, rendant l'accès aux applications de bureau possible sur mobile.</p>
+            <div class="buttons">
+                <a href="https://com-egw302-benchmark.fr.uptodown.com/android" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+                <a href="https://youtu.be/Krvl4sIWhTE?si=rA0Vxc_MIriTZJlr" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+            </div>
+        </div>
+
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/realvnc.png" alt="logo">VNC Viewer</h3>
+            <p>VNC Viewer pour Android permet d'accéder à distance à des ordinateurs depuis un appareil mobile. Il offre une interface conviviale, un accès sécurisé via cryptage, et prend en charge le partage d'écran, idéal pour le support technique et la gestion à distance.</p>
+            <div class="buttons">
+                <a href="https://vnc-viewer.fr.uptodown.com/android" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+                <a href="https://youtu.be/lvJxZTC3fHI?si=MonTZUnNjx8vJ6xw" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+            </div>
+        </div>
+
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/teamview.jpg" alt="logo">TeamViewer</h3>
+            <p>TeamViewer permet l'accès à distance à des ordinateurs et appareils mobiles. Il offre des fonctionnalités de partage d'écran, d'assistance technique, et de transfert de fichiers, le tout avec un cryptage sécurisé. Idéal pour le support à distance et la collaboration.</p>
+            <div class="buttons">
+                <a href="https://www.teamviewer.com/fr/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+                <a href="https://youtu.be/qZRWH6vZrAY?si=Za-hQQx2KJgkRR2H" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+            </div>
+        </div>
+
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/mobox.jpg" alt="logo">Mobox</h3>
+            <p>Mobox Emulator permet d'exécuter des logiciels PC sur Android en utilisant l'environnement Termux. Il facilite l'accès aux applications de bureau, offrant une expérience similaire à celle d'un ordinateur sur un appareil mobile.</p>
+            <div class="buttons">
+                <a href="https://github.com/olegos2/mobox" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+                <a href="https://youtu.be/IXnKqXtvl9o?si=58wMvlcUxfoo-vV7" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+            </div>
+        </div>
+
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/userland.png" alt="logo">Userland</h3>
+            <p>UserLAnd permet d'exécuter des distributions Linux sur Android sans nécessiter de root. Il facilite l'installation et l'utilisation d'environnements Linux, permettant d'accéder à des outils et applications Linux directement sur un appareil mobile.</p>
+            <div class="buttons">
+                <a href="https://userland.fr.uptodown.com/android" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+                <a href="https://youtu.be/7c8kztGZq6I?si=ju59S-Vj0Q1viJsM" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
+            </div>
+        </div>
+    
+    </div>
+    <div class="view-toggle-container"></div>
+</section>
+
+<section id="lien3" class="section-offset">
+    <h2>Les chaines tiktok à suivre pour découvrir plus en <span class="current-year"></span></h2>
+    <div class="appListContainer">
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/maxime.jpg" alt="logo">Maxime Astuces</h3>
+            <p>Pour plus de découvertes</p>
+            <div class="buttons">
+                <a href="https://vm.tiktok.com/ZMhFN8YaD/" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
+            </div>
+        </div>
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/gabriel.jpg" alt="logo">Gabriel l'astucieux</h3>
+            <p>Pour plus de découvertes</p>
+            <div class="buttons">
+                <a href="https://vm.tiktok.com/ZMhFNYoPy/" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne </a>
+            </div>
+        </div>
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/victor.webp" alt="fb">Victor Web3</h3>
+            <p>Pour plus de découvertes</p>
+            <div class="buttons">
+                <a href="https://vm.tiktok.com/ZMhFNBPHA/" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
+            </div>
+        </div>
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/melissa.webp" alt="fb">Melissa Tauqnam</h3>
+            <p>Pour plus de découvertes</p>
+            <div class="buttons">
+                <a href="https://vm.tiktok.com/ZMhFNxW29/" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
+            </div>
+        </div>
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/hugues.jpg" alt="fb">Hugues T</h3>
+            <p>Pour plus de découvertes</p>
+            <div class="buttons">
+                <a href="https://vm.tiktok.com/ZMhFNgn6M/" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
+            </div>
+        </div>
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/disiz.webp" alt="fb">Disiz Yyov</h3>
+            <p>Pour plus de découvertes</p>
+            <div class="buttons">
+                <a href="https://vm.tiktok.com/ZMhFNvQxo/" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
+            </div>
+        </div>
+        <div class="app-item">
+            <h3 class="links-title"><img src="logo/xavier.webp" alt="fb">Xavier Dom</h3>
+            <p>Pour plus de découvertes</p>
+            <div class="buttons">
+                <a href="https://vm.tiktok.com/ZMhFNbJN4/" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="view-toggle-container"></div>
+</section>
+ 
+</main>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+
+<script src="common-elementss.js"></script>
+<common-elements></common-elements>
+    
+
+<script src="script0.js"></script>
+<script src="search.js"></script>
+<script src="calendar-events.js"></script>
+    <script src="calendar.js"></script>
+<script src="scripts.js"></script>
+<script>
+  document.querySelectorAll('.app-item span').forEach(span => {
+    if (span.innerHTML === '➔') {
+        span.remove();
+    }
+});
+
+</script>
+
+</body>
+</html>

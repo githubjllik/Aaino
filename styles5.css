@@ -1,179 +1,4 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
-
-.gradient-1 { 
-  background: linear-gradient(120deg, #6366f1, #8b5cf6);
-}
-.gradient-2 {
-  background: linear-gradient(120deg, #ec4899, #8b5cf6); 
-}
-.gradient-3 {
-  background: linear-gradient(120deg, #06b6d4, #3b82f6);
-}
-.gradient-4 {
-  background: linear-gradient(120deg, #f43f5e, #ec4899);
-}
-
-#zephyr-engagement-hub {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  max-width: 1400px;
-  margin: 3rem auto;
-  padding: 3rem;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(250, 250, 250, 0.95));
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 32px;
-}
-
-.quixotic-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2.5rem;
-  padding: 1rem;
-}
-
-.serendipity-card {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 2.5rem;
-  border-radius: 24px;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.serendipity-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 5px;
-  opacity: 0.8;
-}
-
-.serendipity-card:nth-child(1)::before {
-  background: linear-gradient(120deg, #6366f1, #8b5cf6);
-}
-
-.serendipity-card:nth-child(2)::before {
-  background: linear-gradient(120deg, #ec4899, #8b5cf6);
-}
-
-.serendipity-card:nth-child(3)::before {
-  background: linear-gradient(120deg, #06b6d4, #3b82f6);
-}
-
-.serendipity-card:nth-child(4)::before {
-  background: linear-gradient(120deg, #f43f5e, #ec4899);
-}
-
-.serendipity-card h2 {
-  color: #333333;
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.serendipity-card p {
-  color: rgba(0, 0, 0, 0.8);
-  line-height: 1.8;
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
-  font-weight: 400;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.ephemeral-glyph {
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-right: 1rem;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
-.quantum-link {
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1.1rem;
-  padding: 1rem 2rem;
-  border-radius: 99px;
-  display: inline-flex;
-  align-items: center;
-  position: relative;
-  background-size: 200% auto;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.serendipity-card:nth-child(1) .quantum-link {
-  background: linear-gradient(120deg, #6366f1, #8b5cf6);
-}
-
-.serendipity-card:nth-child(2) .quantum-link {
-  background: linear-gradient(120deg, #ec4899, #8b5cf6);
-}
-
-.serendipity-card:nth-child(3) .quantum-link {
-  background: linear-gradient(120deg, #06b6d4, #3b82f6);
-}
-
-.serendipity-card:nth-child(4) .quantum-link {
-  background: linear-gradient(120deg, #f43f5e, #ec4899);
-}
-
-.zephyr-svg {
-  width: 1.2rem;
-  height: 1.2rem;
-  margin-left: 0.8rem;
-}
-
-@media (max-width: 768px) {
-  #zephyr-engagement-hub {
-    padding: 2rem 1.5rem;
-    margin: 2rem 1rem;
-  }
-
-  .serendipity-card {
-    padding: 2rem;
-  }
-}
-
-/* Mode sombre */
-body.eclipse-mode #zephyr-engagement-hub {
-  background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(30, 30, 30, 0.95));
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-body.eclipse-mode .serendipity-card {
-  background: rgba(40, 40, 40, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-}
-
-body.eclipse-mode .serendipity-card h2 {
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-body.eclipse-mode .serendipity-card p {
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-body.eclipse-mode .ephemeral-glyph {
-  fill: currentColor;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-}
-
-body.eclipse-mode .quantum-link {
-  color: #ffffff !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-
-
 .custom_youtube_modal_container_unique {
     display: none;
     position: fixed;
@@ -623,4 +448,315 @@ body.eclipse-mode .quantum-link {
 
 @keyframes fadeOutmas {
     to { opacity: 0; visibility: hidden; }
+}
+
+
+
+.aaino_notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  color: #2d3436;
+  padding: 2.5rem;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1),
+              0 4px 12px rgba(0,0,0,0.05),
+              0 0 0 1px rgba(0,0,0,0.03);
+  max-width: 90%;
+  width: 450px;
+  text-align: center;
+  animation: aainoSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.aaino_notification h4 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  background: linear-gradient(135deg, #2B2F77 0%, #1E69FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+
+.aaino_notification p {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  color: #4a4a4a;
+  font-weight: 400;
+}
+
+.aaino_close_btn {
+  background: linear-gradient(135deg, #1E69FF 0%, #2B2F77 100%);
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 100px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(30, 105, 255, 0.3);
+}
+
+.aaino_close_btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(30, 105, 255, 0.4);
+}
+
+.aaino_close_btn:active {
+  transform: translateY(0);
+}
+
+@keyframes aainoSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -45%);
+  } 
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Ajout de l'overlay pour fermer en cliquant ailleurs */
+.aaino_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(3px);
+  z-index: 999;
+  animation: fadeInaaino 0.3s ease;
+}
+
+@keyframes fadeInaaino {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+
+.ethereal-email-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 20px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.ethereal-email-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+}
+
+.email-icon {
+    margin-right: 8px;
+    font-size: 1.1em;
+}
+
+.etherealNotificationCard p {
+    white-space: pre-line;
+    margin-bottom: 5px;
+}
+.etherealNotificationCard {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1),
+                0 8px 20px rgba(0, 0, 0, 0.08),
+                0 0 0 1px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    max-width: 480px;
+    text-align: center;
+    animation: crystallineEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(22, 93, 255, 0.15);
+}
+
+.luminousBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+    z-index: 999;
+    animation: nebulousAppear 0.3s ease-out;
+}
+
+@keyframes nebulousAppear {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes crystallineEntrance {
+    0% { 
+        opacity: 0;
+        transform: translate(-50%, -45%);
+    }
+    100% { 
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.etherealNotificationCard h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.8em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.3;
+}
+
+.etherealNotificationCard p {
+    margin: 0;
+    line-height: 1.7;
+    font-size: 1.1em;
+    color: #374151;
+    font-weight: 400;
+}
+
+.celestialDismissButton {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.06);
+    border: none;
+    color: #4b5563;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.2s ease;
+}
+
+.celestialDismissButton:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
+}
+
+.notificationContent {
+    position: relative;
+    padding: 10px;
+}
+
+.etherealNotificationCard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.5), rgba(79, 70, 229, 0.5));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+@media (max-width: 640px) {
+    .etherealNotificationCard {
+        width: 90%;
+        padding: 25px 20px;
+    }
+    
+    .etherealNotificationCard h3 {
+        font-size: 1.5em;
+    }
+    
+    .etherealNotificationCard p {
+        font-size: 1em;
+    }
+}
+
+.ethereal-email-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 20px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.ethereal-email-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+}
+
+.email-icon {
+    margin-right: 8px;
+    font-size: 1.1em;
+}
+
+.etherealNotificationCard p {
+    white-space: pre-line;
+    margin-bottom: 5px;
+}
+.celestialEmailLink {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 25px;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    border-radius: 30px;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+}
+
+.celestialEmailLink:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
+.emailIcon {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.emailText {
+    font-size: 1.1em;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 640px) {
+    .celestialEmailLink {
+        padding: 10px 20px;
+    }
+    
+    .emailText {
+        font-size: 1em;
+    }
 }

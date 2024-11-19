@@ -9,7 +9,7 @@ function loadTemplate() {
             </div>
             <div class="collection">
                <a class="collection" href="nouveaux.html" >
-                 <img src="svg/collection.png" alt="nouveaux">
+                 <img src="svg/collection.svg" alt="nouveaux">
                </a>
            </div>
             <div id="search-container">
@@ -17,9 +17,10 @@ function loadTemplate() {
                     <img src="svg/leftve.svg" alt="Fermer" class="search-icon" onclick="closeExpandedSearch()">
                     <textarea id="search" placeholder="Rechercher..." oninput="zephyromorphicResize(this); showSuggestions(this.value)"></textarea>
                     <img src="svg/clear.svg" alt="Effacer" class="search-icon" onclick="clearSearch()">
-                    <button id="search-btn" onclick="performSearch()">
-                        <img src="svg/searchn.svg" alt="Rechercher" class="search-icon">
-                    </button>
+                    <button id="search-btn" onclick="performSearch().catch(error => console.error('Erreur:', error))">
+    <img src="svg/searchn.svg" alt="Rechercher" class="search-icon">
+</button>
+
                     <div id="suggestions" class="hidden"></div>
                 </div>
                 <div id="right-elements">
@@ -118,127 +119,158 @@ function loadTemplate() {
             </ul>
             <div class="contacts">
                 <p>Contactez-nous :</p>
-                <a href="mailto:avotreservicejllik@gmail.com" target="_blank"><img src="svg/gmailnoir.svg" alt="Gmail">Gmail</a>
-                <a href="https://www.facebook.com/profile.php?id=61565834743434" target="_blank"><img src="svg/facebooknoir.svg" alt="Facebook">Facebook</a>
-                <a href="https://www.tiktok.com/@avotreservicejllik" target="_blank"><img src="svg/tiktoknoirs.svg" alt="Tiktok">Tiktok</a>
-                <a href="https://www.instagram.com/avotreservicejllik?igsh=MmRqNWV3NHVkdXY3" target="_blank"><img src="svg/instagramnoire.svg" alt="Instagram">Instagram</a>
-                <a href="https://tinyurl.com/44eydy5n" target="_blank"><img src="svg/twitterxnoires.svg" alt="x">X</a>
-                <a href="https://github.com/Avotreservicejllik" target="_blank"><img src="svg/github.svg" alt="GitHub">GitHub</a>
+                <a href="#" target="_blank"><img src="svg/gmailnoir.svg" alt="Gmail">Gmail</a>
+                <a href="#" target="_blank"><img src="svg/facebooknoir.svg" alt="Facebook">Facebook</a>
+                <a href="#" target="_blank"><img src="svg/tiktoknoirs.svg" alt="Tiktok">Tiktok</a>
+                <a href="#" target="_blank"><img src="svg/instagramnoire.svg" alt="Instagram">Instagram</a>
+                <a href="#"><img src="svg/twitterxnoires.svg" alt="x">X</a>
+                <a href="#"><img src="svg/github.svg" alt="GitHub">GitHub</a>
             </div>
         </div>
     `;
 
     const mainContent = `
-        <section id="a-consulter">
-            <h2>À voir :</h2>
-            <div class="options-consultation">
-                <div class="option-item">
-                    <p>Si le site n'est pas dans votre langue, regarder le tuto, ça marche dans n'importe quel navigateur</p>
-                    <a href="https://youtu.be/5l_sSz9eOjs?si=JSjh4Rm07Y4NzfiT" class="bouton-tuto">Voir le tuto</a>
-                </div>
-                
-                <div class="option-item">
-                    <p>Si vous avez un problème de géo-restriction (le site n'est pas accessible dans votre région), utilisez un VPN et changez de localiser, regarder le tuto pour comprendre comment ça marche </p>
-                    <a href="https://youtu.be/8rIS50kFwkA?si=o3Zc7nfDYoJTgrV5" target="_blank" class="bouton-tuto">Voir le tuto</a>
-                </div>
-                
-                <div class="option-item">
-                    <p>Si vous souhaitez télécharger rapidement des fichiers volumineux depuis votre Android, comme des vidéos en streaming, logiciels ou fichiers de grande taille, l'application 1DM est idéale avec son accélérateur et sa gestion des téléchargements interrompus.</p>
-                    <a href="https://youtu.be/36daLliE3jE?si=KPz080ygkVBnzaSA" target="_blank" class="bouton-tuto">Voir le tuto</a>
-                </div>
-                
-                <div class="option-item">
-                    <p>Si vous souhaitez télécharger rapidement des fichiers volumineux depuis votre PC, comme des vidéos en streaming, logiciels ou fichiers de grande taille, Net Download Manager est idéal avec son accélérateur et sa reprise de téléchargements interrompus.</p>
-                    <a href="https://youtu.be/GNXxzDez7D0?si=0DuNsKkpTgt8dbgY" target="_blank" class="bouton-tuto">Voir le tuto</a>
-                </div>
+        
+        <section class="serendipity-section">
+    <div class="quixotic-grid">
+        <div class="serendipity-card" data-aos="fade-up">
+            <div class="card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
             </div>
-        </section>
-        <div class="quixotic-grid">
-            <div class="serendipity-card">
-                <h2>
-                    <img class="ephemeral-glyph" src="svg/heartt.svg" alt="Icône cœur">
-                    Soutenez-nous
-                </h2>
-                <p>Votre expérience sur Aaino vous a été utile ? Votre soutien nous aidera à continuer notre mission de partage et de découverte. Chaque contribution compte !</p>
-                <a href="#" class="quantum-link">Faire un don via PayPal
-                    <img class="zephyr-svg" src="svg/rightt.png" alt="Flèche">
-                </a>
-            </div>
-
-            <div class="serendipity-card">
-                <h2>
-                    <img class="ephemeral-glyph" src="svg/loupe.svg" alt="Icône loupe">
-                    Besoin d'aide ?
-                </h2>
-                <p>Vous n'avez pas trouvé ce que vous cherchiez ? Notre base de données regorge de ressources non publiées. Contactez-nous pour une recherche personnalisée.</p>
-                <a href="#" class="quantum-link">Nous contacter
-                    <img class="zephyr-svg" src="svg/rightt.png" alt="Flèche">
-                </a>
-            </div>
-
-            <div class="serendipity-card">
-                <h2>
-                    <img class="ephemeral-glyph" src="svg/whatshot.svg" alt="Icône ampoule">
-                    Créateurs, brillez !
-                </h2>
-                <p>Développeurs, blogueurs, créateurs de contenu : partagez votre travail avec notre communauté. Gagnez en visibilité et atteignez des millions de visiteurs potentiels.</p>
-                <a href="#" class="quantum-link">Partager votre création
-                    <img class="zephyr-svg" src="svg/rightt.png" alt="Flèche">
-                </a>
-            </div>
-
-            <div class="serendipity-card">
-                <h2>
-                    <img class="ephemeral-glyph" src="svg/feedback.svg" alt="Icône message">
-                    Vos suggestions
-                </h2>
-                <p>Aidez-nous à améliorer votre expérience ! Partagez vos idées, recommandations ou signalez des bugs pour rendre Aaino encore plus utile et performant.</p>
-                <a href="mailto:votre@email.com" class="quantum-link">Nous écrire
-                    <img class="zephyr-svg" src="svg/rightt.png" alt="Flèche">
-                </a>
-            </div>
+            <h2>Soutenez notre Mission</h2>
+            <p>Participez à l'évolution d'Aaino. Votre soutien nous permet d'innover et d'améliorer continuellement notre plateforme pour toute la communauté.</p>
+            <a href="#" class="quantum-link">
+                Contribuer
+                <span class="arrow">→</span>
+            </a>
         </div>
+
+        <div class="serendipity-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </div>
+            <h2>Support Personnalisé</h2>
+            <p>Notre équipe est là pour vous guider. Accédez à des ressources exclusives et bénéficiez d'une assistance sur mesure pour vos recherches.</p>
+            <a href="#" class="quantum-link">
+                Obtenir de l'aide
+                <span class="arrow">→</span>
+            </a>
+        </div>
+
+        <div class="serendipity-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+            </div>
+            <h2>Espace Créateurs</h2>
+            <p>Rejoignez notre communauté de créateurs. Partagez votre expertise et vos créations avec des millions d'utilisateurs passionnés.</p>
+            <a href="#" class="quantum-link">
+                Devenir créateur
+                <span class="arrow">→</span>
+            </a>
+        </div>
+
+        <div class="serendipity-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                </svg>
+            </div>
+            <h2>Votre Avis Compte</h2>
+            <p>Contribuez à l'amélioration d'Aaino. Partagez vos suggestions et idées pour façonner ensemble l'avenir de la plateforme.</p>
+            <a href="#" class="quantum-link">
+                Donner mon avis
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </div>
+</section>
     `;
     
     const footerTemplate = `
-        <footer>
-            <div class="footer-columns">
-                <div class="footer-column">
-                    <h3>À propos d'Aaino</h3>
-                    <p>
-                        Aaino est votre point de départ pour explorer le web, du connu à l'insolite. Notre mission est de réduire le temps que vous passez à chercher des contenus difficiles à trouver sur Internet. Que vous recherchiez des sites, applications, logiciels ou fichiers spécifiques, nous sommes là pour vous guider efficacement vers vos découvertes.
-                    </p>
-                </div>
-
-                <div class="footer-column">
-                    <h3>Pour les créateurs</h3>
-                    <p>
-                        Développeurs, blogueurs et créateurs de contenu, Aaino est votre vitrine ! Partagez vos projets et gagnez en visibilité. Contactez-nous par email à [createurs@aaino.com] pour nous présenter votre site, blog ou page. Incluez une description détaillée de votre projet pour que nous puissions le mettre en valeur efficacement.
-                    </p>
-                </div>
-
-                <div class="footer-column">
-                    <h3>Soutenez Aaino</h3>
-                    <p>
-                        Aidez-nous à continuer d'améliorer la plateforme et à offrir un service toujours plus performant. Votre soutien est crucial pour maintenir et développer Aaino. Faites un don sur notre page <a href="https://www.buymeacoffee.com/votre-lien">Buy Me a Coffee</a> ou contactez-nous pour d'autres formes de partenariat.
-                    </p>
-                </div>
-
-                <div class="footer-column">
-                    <h3>Contactez-nous</h3>
-                    <p>
-                        Vous n'avez pas trouvé ce que vous cherchiez ? Besoin d'une assistance personnalisée ? Contactez-nous via notre <a href="#">formulaire de contact</a> ou par email à [contact@aaino.com]. Suivez-nous aussi sur nos réseaux sociaux pour les dernières mises à jour :
-                        <br><a href="https://www.facebook.com/votre-lien">Facebook</a>
-                        <br><a href="https://www.twitter.com/votre-lien">Twitter</a>
-                        <br><a href="https://www.instagram.com/votre-lien">Instagram</a>
-                    </p>
+        <footer class="modern-footer">
+  <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="currentColor" d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,224C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
+    <div class="footer-content">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h3>À propos d'Aaino</h3>
+                <p>Votre passerelle vers un web sans limites. Nous simplifions vos découvertes en ligne, en vous guidant vers les contenus qui comptent vraiment pour vous.</p>
+                <div class="footer-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">2M+</span>
+                        <span class="stat-label">Utilisateurs</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50k+</span>
+                        <span class="stat-label">Ressources</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="footer-bottom">
-                &copy; 2024 Aaino. Tous droits réservés. | <a href="#">Politique de confidentialité</a> | <a href="#">Conditions générales d'utilisation</a>
+            <div class="footer-section">
+                <h3>Espace Créateurs</h3>
+                <p>Propulsez vos projets vers de nouveaux sommets. Rejoignez notre communauté de créateurs et bénéficiez d'une visibilité exceptionnelle.</p>
+                <a href="#" class="footer-cta">Rejoindre la communauté →</a>
             </div>
-        </footer>
+
+            <div class="footer-section">
+                <h3>Support & Contribution</h3>
+                <p>Ensemble, construisons l'avenir d'Aaino. Votre soutien alimente notre innovation continue.</p>
+                <div class="support-options">
+                    <a href="#" class="support-button">
+                        <svg class="paypal-icon" width="18" height="18" viewBox="0 0 24 24">
+                            <path d="M7.144 19.532l1.049-5.751c.11-.89.808-1.232 1.1-1.232h2.877c3.14 0 5.577-1.262 6.269-4.082.998-4.087-1.744-5.935-4.637-5.935H6.823c-.636 0-1.17.407-1.285 1.04L2.834 19.532c-.284 1.644 1.393 3.322 4.31 0z"/>
+                        </svg>
+                        Faire un don
+                    </a>
+                    <a href="#" class="support-button">
+                        <svg class="sponsor-icon" width="18" height="18" viewBox="0 0 24 24">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                        Devenir sponsor
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Restons Connectés</h3>
+                <p>Suivez notre actualité et rejoignez la conversation sur nos réseaux sociaux.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <svg class="social-icon" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg class="social-icon" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg class="social-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <div class="footer-bottom-content">
+            <p>&copy; 2024 Aaino. Tous droits réservés.</p>
+            <nav class="footer-nav">
+                <a href="#">Confidentialité</a>
+                <a href="#">CGU</a>
+                <a href="#">Mentions légales</a>
+                <a href="#">Plan du site</a>
+            </nav>
+        </div>
+    </div>
+</footer>
     `;
     
     // Insérer le header et la nav au début du body

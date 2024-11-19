@@ -1,4 +1,4 @@
-function initializeNavigation() {
+  function initializeNavigation() {
     // Éléments du DOM
     const preloader = document.getElementById('preloader');
     const nav = document.querySelector('nav');
@@ -9,8 +9,28 @@ function initializeNavigation() {
     const searchIcon = document.getElementById('toggle-search-icon');
     const searchBar = document.getElementById('search-bar');
 
-    let isUserScrolling = false; // Variable pour détecter le scroll manuel
+    let isUserScrolling = false;
     let scrollTimeout;
+
+    // Fonction pour mettre à jour la couleur du SVG actif
+    function updateActiveSVG(menuItem) {
+    // Réinitialiser tous les SVG
+    document.querySelectorAll('nav ul li img').forEach(svg => {
+        svg.removeAttribute('style');
+        svg.classList.remove('active-svg');
+        
+        if (svg.classList.contains('white-svg') && !svg.closest('li').classList.contains('active')) {
+            svg.style.filter = 'brightness(0) invert(1)';
+        }
+    });
+    
+    // Mettre à jour le SVG actif
+    const activeSVG = menuItem.querySelector('img');
+    if (activeSVG) {
+        activeSVG.classList.add('active-svg');
+    }
+}
+
 
     // Fonction pour masquer le preloader
     function hidePreloader() {
@@ -103,6 +123,7 @@ function initializeNavigation() {
         item.addEventListener('click', () => {
             document.querySelectorAll('nav ul li').forEach(li => li.classList.remove('active'));
             item.classList.add('active');
+            updateActiveSVG(item);
         });
     });
 
@@ -111,8 +132,9 @@ function initializeNavigation() {
         mutations.forEach((mutation) => {
             if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
                 if (mutation.target.classList.contains('active')) {
-                    isUserScrolling = false; // Réinitialiser pour permettre le scroll automatique
+                    isUserScrolling = false;
                     scrollToActiveMenu();
+                    updateActiveSVG(mutation.target);
                 }
             }
         });
@@ -141,6 +163,12 @@ function initializeNavigation() {
             setTimeout(hidePreloader, 1000);
         } else {
             setTimeout(hidePreloader, 2000);
+        }
+
+        // Initialiser le SVG actif au chargement
+        const initialActiveItem = document.querySelector('nav ul li.active');
+        if (initialActiveItem) {
+            updateActiveSVG(initialActiveItem);
         }
     });
 
@@ -194,28 +222,109 @@ function initializeNavigation() {
     }
 }
 
-
 // Initialiser la navigation
-document.addEventListener('DOMContentLoaded', initializeNavigation);
+document.addEventListener('DOMContentLoaded', function() {
+    initializeNavigation();
+
+    // Gestion des SVG en mode sombre
+    const svgs = document.querySelectorAll('img[src$=".svg"]');
+    svgs.forEach(svg => {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            canvas.width = this.width;
+            canvas.height = this.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(this, 0, 0);
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            let isWhite = true;
+            for (let i = 0; i < data.length; i += 4) {
+                if (data[i] < 250 || data[i+1] < 250 || data[i+2] < 250) {
+                    isWhite = false;
+                    break;
+                }
+            }
+            if (isWhite) {
+                svg.classList.add('white-svg');
+                if (!svg.closest('li.active')) {
+                    svg.style.filter = 'invert(1) brightness(100%)';
+                }
+            }
+            
+            if (svg.closest('li.active')) {
+                const blueFilter = 'invert(37%) sepia(74%) saturate(1303%) hue-rotate(206deg) brightness(99%) contrast(96%)';
+                svg.style.filter = blueFilter;
+            }
+        };
+        img.src = svg.src;
+    });
+});
 
 // Script pour faire apparaître les boutons de défilement
-window.onscroll = function() {
+
+let scrollTimeout;
+const scrollThreshold = 150;
+const scrollDuration = 1000;
+
+function showScrollButtons() {
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     const scrollDownBtn = document.getElementById('scrollDownBtn');
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        scrollTopBtn.style.display = "block";
-        scrollDownBtn.style.display = "none";
+    const scrollPosition = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    
+    if (scrollPosition > scrollThreshold) {
+        scrollTopBtn.style.display = "flex";
+        scrollDownBtn.style.display = scrollPosition >= maxScroll - 20 ? "none" : "flex";
     } else {
         scrollTopBtn.style.display = "none";
-        scrollDownBtn.style.display = "block";
+        scrollDownBtn.style.display = "flex";
     }
-};
-document.getElementById('scrollTopBtn').onclick = function() {
-    window.scrollTo({top: 0, behavior: 'smooth'});
-};
-document.getElementById('scrollDownBtn').onclick = function() {
-    window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
-};
+}
+
+function smoothScroll(target, duration) {
+    const start = window.scrollY;
+    const distance = target - start;
+    let startTime = null;
+
+    function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        
+        const ease = t => t < 0.5 
+            ? 4 * t * t * t 
+            : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+        
+        window.scrollTo(0, start + (distance * ease(progress)));
+        
+        if (timeElapsed < duration) {
+            requestAnimationFrame(animation);
+        }
+    }
+    
+    requestAnimationFrame(animation);
+}
+
+window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+    }
+    
+    scrollTimeout = setTimeout(showScrollButtons, 100);
+});
+
+document.getElementById('scrollTopBtn').addEventListener('click', () => {
+    smoothScroll(0, scrollDuration);
+});
+
+document.getElementById('scrollDownBtn').addEventListener('click', () => {
+    smoothScroll(document.documentElement.scrollHeight, scrollDuration);
+});
+
+// Initial check
+showScrollButtons();
+
 
 function toggleMenu() {
     const menu = document.getElementById('burgerMenu');
@@ -896,11 +1005,17 @@ document.addEventListener('DOMContentLoaded', function() {
   // Créer les menus contextuels pour tous les liens
   document.querySelectorAll('.links-title').forEach(title => {
     if (!title.querySelector('.three-dots-icon')) {
+      const threeDotContainer = document.createElement('div');
+      threeDotContainer.className = 'three-dots-icon';
+      
       const threeDots = document.createElement('img');
-      threeDots.src = 'svg/three.svg';
+      threeDots.src = 'svg/three22.svg';
       threeDots.alt = 'Options';
-      threeDots.className = 'three-dots-icon';
-      title.appendChild(threeDots);
+      threeDots.style.width = '100%';
+      threeDots.style.height = '100%';
+      
+      threeDotContainer.appendChild(threeDots);
+      title.appendChild(threeDotContainer);
     }
     if (!title.querySelector('.context-menu')) {
       createContextMenu(title);
@@ -909,9 +1024,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Gestion des clics sur les points de suspension
   document.addEventListener('click', function(e) {
-    if (e.target.matches('.three-dots-icon')) {
+    // Vérifie si le clic est sur l'icône ou son conteneur
+    if (e.target.matches('.three-dots-icon') || e.target.closest('.three-dots-icon')) {
       e.stopPropagation();
-      const menu = e.target.nextElementSibling;
+      const container = e.target.classList.contains('three-dots-icon') ? e.target : e.target.closest('.three-dots-icon');
+      const menu = container.nextElementSibling;
       document.querySelectorAll('.context-menu').forEach(m => {
         if (m !== menu) m.style.display = 'none';
       });
@@ -934,7 +1051,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Gestion des clics sur les éléments du menu
+  // Le reste du code reste inchangé
   document.addEventListener('click', function(e) {
     if (e.target.closest('.menu-item')) {
       e.stopPropagation();
@@ -943,7 +1060,6 @@ document.addEventListener('DOMContentLoaded', function() {
       const linksTitle = menuItem.closest('.links-title');
       let link, title;
 
-      // Chercher le lien dans view-site ou view-channel
       const viewSite = linksTitle.nextElementSibling.nextElementSibling.querySelector('.view-site');
       const viewChannel = linksTitle.nextElementSibling.nextElementSibling.querySelector('.view-channel a');
       
@@ -973,6 +1089,7 @@ document.addEventListener('DOMContentLoaded', function() {
       menuItem.closest('.context-menu').style.display = 'none';
     }
   });
+
 
   function showErrorMessage(action) {
     const errorMessage = document.createElement('div');

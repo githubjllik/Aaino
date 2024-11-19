@@ -4,148 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>À propos - Aaino</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-            <link rel="stylesheet" href="styles2.css">
+<script src="loader.js"></script>
+<script src="config.js"></script>
+    <link rel="stylesheet" href="styles2.css">
     <link rel="stylesheet" href="styles4.css">
     <link rel="stylesheet" href="styles5.css">
-    <link rel="stylesheet" href="navfoot.css">
+         <link rel="stylesheet" href="about.css">
     <link rel="stylesheet" href="nfbodyeclipse.css">
-    <link rel="stylesheet" href="nouveaux.css">
-    <style>
-        :root {
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
-            --shadow: 0 10px 20px rgba(0,0,0,0.1);
-            --radius: 16px;
-        }
+    <link rel="stylesheet" href="stylelight.css">
+       <link rel="stylesheet" href="styledark.css">
+    
+    
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f8f9fd;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .about-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .about-hero {
-            background: #20202c;
-            padding: 80px 20px;
-            border-radius: var(--radius);
-            color: white;
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='rgba(255,255,255,0.1)' d='M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,213.3C1248,235,1344,213,1392,202.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
-            background-size: cover;
-            opacity: 0.4;
-        }
-
-        .about-hero h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .about-section {
-            background: white;
-            border-radius: var(--radius);
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .about-card {
-            background: white;
-            padding: 30px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-        }
-
-        .about-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .about-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            color: white;
-            font-size: 1.5em;
-        }
-
-        .about-card h3 {
-            margin-bottom: 15px;
-            color: #2d3748;
-            font-size: 1.5em;
-        }
-
-        .team-section {
-            text-align: center;
-            padding: 40px 0;
-        }
-
-        .contact-btn {
-            display: inline-block;
-            padding: 15px 30px;
-            background: var(--gradient-2);
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            margin-top: 30px;
-            transition: transform 0.3s ease;
-        }
-
-        .contact-btn:hover {
-            transform: scale(1.05);
-        }
-
-        @media (max-width: 768px) {
-            .about-hero h1 {
-                font-size: 2em;
-            }
-            
-            .about-section {
-                padding: 20px;
-            }
-        }
-    </style>
 </head>
 <body>
-    <div class="about-container">
+  <main>
+        <div class="about-container">
         <section class="about-hero">
             <h1><img src="logo.png" alt="Logo Aaino" style="width: 80px; vertical-align: middle; margin-right: 15px;">À propos d'Aaino</h1>
             <p>Votre guide dans l'exploration du web</p>
@@ -185,16 +66,25 @@
         <section class="team-section">
             <h2>Rejoignez l'Aventure</h2>
             <p>Que vous soyez créateur de contenu, développeur ou simple explorateur du web, nous sommes là pour vous accompagner dans votre voyage numérique.</p>
-            <a href="contact.html" class="contact-btn">
+            <a href="#" class="contact-btn">
                 <i class="fas fa-paper-plane"></i> Contactez-nous
             </a>
         </section>
     </div>
-            <script src="template0.js"></script>
+  </main>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script src="common-elementss.js"></script>
+<common-elements></common-elements>
+    
+<script src="template.js"></script>
 <script src="script0.js"></script>
 <script src="search.js"></script>
 <script src="calendar-events.js"></script>
+<script src="gallery-photos.js"></script>
     <script src="calendar.js"></script>
 <script src="scripts.js"></script>
+<script src="translation-service.js"></script>
 </body>
 </html>

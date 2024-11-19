@@ -4,48 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aaino | Quoi de neuf ?</title>
+<script src="loader.js"></script>
+<script src="config.js"></script>
     <link rel="stylesheet" href="styles2.css">
     <link rel="stylesheet" href="styles4.css">
     <link rel="stylesheet" href="styles5.css">
-    <link rel="stylesheet" href="navfoot.css">
+   
     <link rel="stylesheet" href="nfbodyeclipse.css">
+    <link rel="stylesheet" href="stylelight.css">
+       <link rel="stylesheet" href="styledark.css">
+    
+    
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="nouveaux.css">
+    
 </head>
 <body>
 
     <main class="mainii">
         <h1>Quoi de neuf ?</h1>
         <nav class="navii">
-            <div class="nav-filters">
-               <button class="filter-btn" onclick="filterContent('all')">Tout</button>
-                <button class="filter-btn" onclick="filterContent('week')">Cette semaine</button>
-                <button class="filter-btn" onclick="filterContent('month')">Ce mois</button>
-                <button class="filter-btn" onclick="filterContent('year')">Cette année</button>
-               
-            </div>
-           <div class="custom-filter">
-    <div class="select-wrapper-month">
-        <fieldset class="month-fieldset">
-            <legend class="month-legend">Mois</legend>
-            <button class="month-button"></button>
-        </fieldset>
-        <div class="month-options"></div>
-        <select id="monthSelect"></select>
+    <div class="nav-filters">
+        <button class="filter-btn" onclick="filterContent('all')">Tout</button>
+        <button class="filter-btn" onclick="filterContent('week')">Cette semaine</button>
+        <button class="filter-btn" onclick="filterContent('month')">Ce mois</button>
+        <button class="filter-btn" onclick="filterContent('year')">Cette année</button>
     </div>
-    
-    <div class="select-wrapper-year">
-        <fieldset class="year-fieldset">
-            <legend class="year-legend">Année</legend>
-            <button class="year-button"></button>
-        </fieldset>
-        <div class="year-options"></div>
-        <select id="yearSelect"></select>
+    <div class="custom-filter">
+        <div class="select-wrapper-month">
+            <fieldset class="month-fieldset">
+                <legend class="month-legend">Mois</legend>
+                <button class="month-button"></button>
+            </fieldset>
+            <div class="month-options"></div>
+            <select id="monthSelect"></select>
+        </div>
+        
+        <div class="select-wrapper-year">
+            <fieldset class="year-fieldset">
+                <legend class="year-legend">Année</legend>
+                <button class="year-button"></button>
+            </fieldset>
+            <div class="year-options"></div>
+            <select id="yearSelect"></select>
+        </div>
+        
+        <button class="filter-btn" onclick="applyCustomFilter()">Appliquer</button>
     </div>
-    
-    <button class="filter-btn" onclick="applyCustomFilter()">Appliquer</button>
-</div>
+</nav>
+<button class="toggle-nav" aria-label="Toggle navigation">
+    <span class="chevron"></span>
+</button>
 
-        </nav>
         <div id="new-content-container"></div>
        
 
@@ -54,14 +67,15 @@
 
 <script src="common-elementss.js"></script>
 <common-elements></common-elements>
-
     
-<script src="template0.js"></script>
+<script src="template.js"></script>
 <script src="script0.js"></script>
 <script src="search.js"></script>
 <script src="calendar-events.js"></script>
+<script src="gallery-photos.js"></script>
     <script src="calendar.js"></script>
 <script src="scripts.js"></script>
+<script src="translation-service.js"></script>
         <script src="nouveaux.js"></script>
 </body>
 </html>

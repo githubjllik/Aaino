@@ -10,14 +10,21 @@
 <meta name="apple-mobile-web-app-title" content="Aaino" />
 <link rel="manifest" href="/site.webmanifest" />
 <title>Aaino | Rechercher </title>
-<link rel="stylesheet" href="styles.css"> 
-<link rel="stylesheet" href="styles2.css">
-<link rel="stylesheet" href="styles3.css">
-<link rel="stylesheet" href="styles4.css">
-<link rel="stylesheet" href="styles5.css">
-<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="loader.js"></script>
+<script src="config.js"></script>
+    <link rel="stylesheet" href="styles2.css">
+    <link rel="stylesheet" href="styles4.css">
+    <link rel="stylesheet" href="styles5.css">
+   
+    <link rel="stylesheet" href="nfbodyeclipse.css">
+    <link rel="stylesheet" href="stylelight.css">
+       <link rel="stylesheet" href="styledark.css">
+    
+    
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -33,7 +40,7 @@
       Prenez le contrôle de votre expérience en ligne et transformez chaque recherche en une découverte enrichissante. Votre quête d'information commence ici !</p>
     <p><strong>Alors, que cherchez-vous ?</strong></p>
     <div class="qw4321_search_box">
-        <input type="text" id="intro_search_input" class="er7890_search_field" placeholder="Rechercher...">
+        <textarea id="intro_search_input" class="er7890_search_field" placeholder="Rechercher..." rows="1"></textarea>
         <div id="intro_close_icon" class="hj6789_close_icon">
             <img src="svg/close.svg" alt="Effacer">
         </div>
@@ -378,163 +385,20 @@
   </section>
 </main>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 <script src="common-elementss.js"></script>
 <common-elements></common-elements>
+    
 <script src="template.js"></script>
 <script src="script0.js"></script>
 <script src="search.js"></script>
 <script src="calendar-events.js"></script>
-<script src="calendar.js"></script>
+<script src="gallery-photos.js"></script>
+    <script src="calendar.js"></script>
 <script src="scripts.js"></script>
-<style>
-.aaino_notification {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  color: #2d3436;
-  padding: 2.5rem;
-  border-radius: 24px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.1),
-              0 4px 12px rgba(0,0,0,0.05),
-              0 0 0 1px rgba(0,0,0,0.03);
-  max-width: 90%;
-  width: 450px;
-  text-align: center;
-  animation: aainoSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 1000;
-  border: 1px solid rgba(255,255,255,0.1);
-}
+<script src="translation-service.js"></script>
 
-.aaino_notification h4 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 1.2rem;
-  background: linear-gradient(135deg, #2B2F77 0%, #1E69FF 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: -0.02em;
-}
-
-.aaino_notification p {
-  font-size: 1.15rem;
-  line-height: 1.7;
-  margin-bottom: 2rem;
-  color: #4a4a4a;
-  font-weight: 400;
-}
-
-.aaino_close_btn {
-  background: linear-gradient(135deg, #1E69FF 0%, #2B2F77 100%);
-  border: none;
-  padding: 0.8rem 2rem;
-  border-radius: 100px;
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(30, 105, 255, 0.3);
-}
-
-.aaino_close_btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(30, 105, 255, 0.4);
-}
-
-.aaino_close_btn:active {
-  transform: translateY(0);
-}
-
-@keyframes aainoSlideIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -45%);
-  } 
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
-
-/* Ajout de l'overlay pour fermer en cliquant ailleurs */
-.aaino_overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(3px);
-  z-index: 999;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-</style>
-
-<script>
-document.getElementById('aaino_site_btn').addEventListener('click', function(e) {
-  e.preventDefault();
-  showAainoMessage('site');
-});
-
-document.getElementById('aaino_tuto_btn').addEventListener('click', function(e) {
-  e.preventDefault();
-  showAainoMessage('tuto');
-});
-
-function showAainoMessage(type) {
-  // Créer l'overlay
-  const overlay = document.createElement('div');
-  overlay.className = 'aaino_overlay';
-  document.body.appendChild(overlay);
-
-  const message = document.createElement('div');
-  message.className = 'aaino_notification';
-  
-  if (type === 'site') {
-    message.innerHTML = `
-      <h4>✨ Vous y êtes déjà !</h4>
-      <p>Tel un explorateur averti, vous naviguez déjà au cœur même d'Aaino. Continuez votre voyage de découverte, les trésors du web n'attendent que vous !</p>
-      <button class="aaino_close_btn">Continuer l'exploration</button>
-    `;
-  } else {
-    message.innerHTML = `
-      <h4>🎯 Expert en devenir</h4>
-      <p>Votre présence ici prouve que vous maîtrisez déjà l'art de la navigation sur Aaino. Continuez d'explorer, chaque clic vous rapproche de nouvelles découvertes fascinantes !</p>
-      <button class="aaino_close_btn">Poursuivre l'aventure</button>
-    `;
-  }
-  
-  document.body.appendChild(message);
-  
-  // Fermer en cliquant sur le bouton
-  message.querySelector('.aaino_close_btn').onclick = function() {
-    closeMessage(message, overlay);
-  };
-
-  // Fermer en cliquant sur l'overlay
-  overlay.onclick = function() {
-    closeMessage(message, overlay);
-  };
-}
-
-function closeMessage(message, overlay) {
-  message.style.opacity = '0';
-  overlay.style.opacity = '0';
-  setTimeout(() => {
-    message.remove();
-    overlay.remove();
-  }, 300);
-}
-</script>
 
 </body>
 </html>

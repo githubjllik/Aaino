@@ -1113,3 +1113,130 @@ document.addEventListener('DOMContentLoaded', function() {
         renderFolderTree();
         updateBreadcrumb();
     
+        
+
+        let gal_currentFolder = null;
+        let gal_currentImageIndex = 0;
+
+        const gal_foldersContainer = document.querySelector('.gal-folders');
+        const gal_galleryContainer = document.querySelector('.gal-gallery');
+        const gal_fullscreen = document.querySelector('.gal-fullscreen');
+        const gal_fullscreenImage = gal_fullscreen.querySelector('img');
+        const gal_backBtn = document.querySelector('.gal-back-btn');
+
+        function gal_renderFolders() {
+            gal_foldersContainer.innerHTML = gal_folders.map((folder, index) => `
+                <div class="gal-folder" data-index="${index}">
+                    <div class="gal-folder-preview">
+                        ${folder.images.slice(0, 4).map(src => `
+                            <img src="${src}" alt="">
+                        `).join('')}
+                    </div>
+                    <h3>${folder.name}</h3>
+                    <p>${folder.images.length} photos</p>
+                </div>
+            `).join('');
+        }
+
+        function gal_renderGallery(folderIndex, view = 'grid') {
+            gal_currentFolder = gal_folders[folderIndex];
+            gal_galleryContainer.className = `gal-gallery ${view}`;
+            gal_galleryContainer.innerHTML = gal_currentFolder.images.map((src, index) => `
+                <div class="gal-gallery-item" data-index="${index}">
+                    <img src="${src}" alt="">
+                </div>
+            `).join('');
+            
+            gal_foldersContainer.style.display = 'none';
+            gal_galleryContainer.style.display = 'grid';
+            gal_backBtn.style.display = 'block';
+        }
+
+        gal_foldersContainer.addEventListener('click', (e) => {
+            const folder = e.target.closest('.gal-folder');
+            if (folder) {
+                gal_renderGallery(folder.dataset.index);
+            }
+        });
+
+        gal_galleryContainer.addEventListener('click', (e) => {
+            const item = e.target.closest('.gal-gallery-item');
+            if (item) {
+                gal_currentImageIndex = parseInt(item.dataset.index);
+                gal_showFullscreen(gal_currentImageIndex);
+            }
+        });
+
+        document.querySelectorAll('.gal-view-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (gal_currentFolder) {
+                    gal_renderGallery(gal_folders.indexOf(gal_currentFolder), btn.dataset.view);
+                }
+            });
+        });
+
+        gal_backBtn.addEventListener('click', () => {
+            gal_foldersContainer.style.display = 'grid';
+            gal_galleryContainer.style.display = 'none';
+            gal_backBtn.style.display = 'none';
+            gal_currentFolder = null;
+        });
+
+        function gal_showFullscreen(index) {
+            gal_fullscreenImage.src = gal_currentFolder.images[index];
+            gal_fullscreen.style.display = 'block';
+        }
+
+        function gal_hideFullscreen() {
+            gal_fullscreen.style.display = 'none';
+        }
+
+        document.querySelector('.gal-close-btn').addEventListener('click', gal_hideFullscreen);
+        
+        document.querySelector('.gal-prev-btn').addEventListener('click', () => {
+            gal_currentImageIndex = (gal_currentImageIndex - 1 + gal_currentFolder.images.length) % gal_currentFolder.images.length;
+            gal_showFullscreen(gal_currentImageIndex);
+        });
+
+        document.querySelector('.gal-next-btn').addEventListener('click', () => {
+            gal_currentImageIndex = (gal_currentImageIndex + 1) % gal_currentFolder.images.length;
+            gal_showFullscreen(gal_currentImageIndex);
+        });
+
+        let gal_touchStartX = 0;
+        let gal_touchStartY = 0;
+
+        gal_fullscreen.addEventListener('touchstart', (e) => {
+            gal_touchStartX = e.touches[0].clientX;
+            gal_touchStartY = e.touches[0].clientY;
+        });
+
+        gal_fullscreen.addEventListener('touchmove', (e) => {
+            if (!gal_touchStartX || !gal_touchStartY) return;
+
+            const touchEndX = e.touches[0].clientX;
+            const touchEndY = e.touches[0].clientY;
+
+            const deltaX = gal_touchStartX - touchEndX;
+            const deltaY = gal_touchStartY - touchEndY;
+
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (deltaX > 50) {
+                    gal_currentImageIndex = (gal_currentImageIndex + 1) % gal_currentFolder.images.length;
+                    gal_showFullscreen(gal_currentImageIndex);
+                } else if (deltaX < -50) {
+                    gal_currentImageIndex = (gal_currentImageIndex - 1 + gal_currentFolder.images.length) % gal_currentFolder.images.length;
+                    gal_showFullscreen(gal_currentImageIndex);
+                }
+            } else {
+                if (deltaY > 50 || deltaY < -50) {
+                    gal_hideFullscreen();
+                }
+            }
+
+            gal_touchStartX = 0;
+            gal_touchStartY = 0;
+        });
+
+        gal_renderFolders();
+    

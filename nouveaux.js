@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Créer un tableau de promesses pour charger tous les scripts
     const scriptsToLoad = [
         'common-elementss.js',
-        'template0.js',
+        'template.js',
         'script0.js', 
         'search.js',
         'calendar.js',
@@ -14,9 +14,10 @@ document.addEventListener('DOMContentLoaded', function() {
         'styles2.css',
         'styles4.css', 
         'styles5.css',
-        'navfoot.css',
         'nfbodyeclipse.css',
-        'nouveaux.css'
+        'nouveaux.css',
+        'stylelight.css',
+        'styledark.css',
     ];
 
     // Fonction pour charger un script
@@ -59,36 +60,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initializeMainCode() {
     const pageTitles = {
-        'pg1.html': 'Acceuil',
-        'pg2.html': 'Médias sociaux',
-        'pg3.html': 'Streaming',
-        'pg4.html': 'Apprendre', 
-        'pg5.html': 'IA',
-        'pg6.html': 'Éditer',
-        'pg7.html': 'Développer',
-        'pg8.html': 'E-Services',
-        'pg9.html': 'Explorer le monde',
-        'pg10.html': 'Télécharger',
-        'pg11.html': 'Mobiles et pc',
-        'pg12.html': 'Découvrir plus',
-        'pg13.html': 'À Propos'
-    };
+    'pg1.html': 'Acceuil',
+    'pg2.html': 'Médias sociaux',
+    'pg3.html': 'Streaming',
+    'pg4.html': 'Apprendre',
+    'pg5.html': 'IA',
+    'pg6.html': 'Éditer',
+    'pg7.html': 'Développer',
+    'pg8.html': 'E-Services',
+    'pg9.html': 'Explorer le monde',
+    'pg10.html': 'Télécharger',
+    'pg11.html': 'Mobiles et pc',
+    'pg12.html': 'Rechercher',
+    'pg13.html': 'Darkweb',
+    'pg14.html': 'Découvrir plus',
+};
 
-    const pageImages = {
-        'pg1.html': 'img/accueil.jpg',
-        'pg2.html': 'img/socialmedia.jpg', 
-        'pg3.html': 'img/streaming.jpg',
-        'pg4.html': 'img/apprendre.jpg',
-        'pg5.html': 'img/ia.jpg',
-        'pg6.html': 'img/editer.jpg',
-        'pg7.html': 'img/developper.jpg',
-        'pg8.html': 'img/eservices.jpg', 
-        'pg9.html': 'img/explorer.jpg',
-        'pg10.html': 'img/telecharger.png',
-        'pg11.html': 'img/mobilespc.jpg',
-        'pg12.html': 'img/decouvrir2.jpg',
-        'pg13.html': 'img/apropos.jpg'
-    };
+const pageImages = {
+    'pg1.html': 'img/accueil.jpg',
+    'pg2.html': 'img/socialmedia.jpg',
+    'pg3.html': 'img/streaming.jpg',
+    'pg4.html': 'img/apprendre.jpg',
+    'pg5.html': 'img/ia.jpg',
+    'pg6.html': 'img/editer.jpg',
+    'pg7.html': 'img/developper.jpg',
+    'pg8.html': 'img/eservices.jpg',
+    'pg9.html': 'img/explorer.jpg',
+    'pg10.html': 'img/telecharger.png',
+    'pg11.html': 'img/mobilespc.jpg',
+    'pg12.html': 'img/rechercher.jpg',
+    'pg13.html': 'img/darkweb.jpg',
+    'pg14.html': 'img/decouvrir2.jpg',
+};
 
     const pages = Object.keys(pageTitles);
 
@@ -317,78 +320,104 @@ function initializeMainCode() {
     };
 
     function displayContents(contents) {
-        const container = document.getElementById('new-content-container');
-        if (!container) {
-            console.error('Container not found');
-            return;
-        }
-        container.innerHTML = '';
+    const container = document.getElementById('new-content-container');
+    if (!container) {
+        console.error('Container not found');
+        return;
+    }
+    container.innerHTML = '';
 
-        if (contents.length === 0) {
-            container.innerHTML = '<div class="no-content">Aucun nouveau contenu pour cette période.</div>';
-            return;
-        }
-
-        contents.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-
-        const contentsByPage = contents.reduce((acc, content) => {
-            if (!acc[content.page]) {
-                acc[content.page] = [];
-            }
-            acc[content.page].push(content);
-            return acc;
-        }, {});
-
-        Object.entries(contentsByPage).forEach(([page, pageContents]) => {
-            const pageSection = document.createElement('div');
-            pageSection.className = 'page-section';
-            
-            const sliderId = `slider-${page.replace('.html', '')}`;
-            
-            pageSection.innerHTML = `
-                <div class="page-header">
-                    <img src="${pageImages[page]}" alt="${pageTitles[page]}">
-                    <h2>${pageTitles[page]}</h2>
+    if (contents.length === 0) {
+        container.innerHTML = `
+            <div class="no-content">
+                <div class="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" class="empty-icon">
+                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-7-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M13 2v7h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <p>Aucun nouveau contenu pour cette période</p>
                 </div>
-                <div class="scroll-buttons">
-                    <button class="scroll-btn" onclick="scrollContents('${sliderId}', -1)">
-                        <img src="svg/leftarr2.svg" alt="Précédent">
+            </div>`;
+        return;
+    }
+
+    contents.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    const contentsByPage = contents.reduce((acc, content) => {
+        if (!acc[content.page]) {
+            acc[content.page] = [];
+        }
+        acc[content.page].push(content);
+        return acc;
+    }, {});
+
+    Object.entries(contentsByPage).forEach(([page, pageContents], index) => {
+        const pageSection = document.createElement('div');
+        pageSection.className = 'page-section';
+        pageSection.style.setProperty('--animation-order', index);
+        
+        const sliderId = `slider-${page.replace('.html', '')}`;
+        
+        pageSection.innerHTML = `
+            <div class="page-header">
+                <div class="header-content">
+                    <img src="${pageImages[page]}" alt="${pageTitles[page]}" class="page-icon">
+                    <h2 class="page-title">${pageTitles[page]}</h2>
+                </div>
+                <div class="scroll-controls">
+                    <button class="scroll-btn prev" onclick="scrollContents('${sliderId}', -1)" aria-label="Précédent">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 18l-6-6 6-6"/>
+                        </svg>
                     </button>
-                    <button class="scroll-btn" onclick="scrollContents('${sliderId}', 1)">
-                        <img src="svg/rightarr2.svg" alt="Suivant">
+                    <button class="scroll-btn next" onclick="scrollContents('${sliderId}', 1)" aria-label="Suivant">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
                     </button>
                 </div>
+            </div>
+            <div class="slider-container">
                 <div id="${sliderId}" class="contents-slider"></div>
-            `;
+            </div>
+        `;
 
-            const slider = pageSection.querySelector('.contents-slider');
+        const slider = pageSection.querySelector('.contents-slider');
+        
+        pageContents.forEach((content) => {
+            const contentElement = document.createElement('div');
+            contentElement.className = 'new-content';
             
-            pageContents.forEach(content => {
-                const contentElement = document.createElement('div');
-                contentElement.className = 'new-content';
-                
-                let contentHtml = content.content;
-                let buttonsHtml = '';
-                
-                const buttonsMatch = contentHtml.match(/<div class="buttons">(.*?)<\/div>/s);
-                if (buttonsMatch) {
-                    buttonsHtml = buttonsMatch[0];
-                    contentHtml = contentHtml.replace(buttonsMatch[0], '');
-                }
+            let contentHtml = content.content;
+            let buttonsHtml = '';
+            
+            const buttonsMatch = contentHtml.match(/<div class="buttons">(.*?)<\/div>/s);
+            if (buttonsMatch) {
+                buttonsHtml = buttonsMatch[0];
+                contentHtml = contentHtml.replace(buttonsMatch[0], '');
+            }
 
-                contentElement.innerHTML = `
-                    <div class="content-timestamp">${formatDateTime(content.timestamp)}</div>
+            contentElement.innerHTML = `
+                <div class="content-inner">
+                    <div class="content-timestamp">
+                        <svg viewBox="0 0 24 24" fill="none" class="time-icon">
+                            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        ${formatDateTime(content.timestamp)}
+                    </div>
                     <div class="content-body">${contentHtml}</div>
                     ${buttonsHtml}
-                    <a href="${content.page}" class="content-link">Voir dans la page</a>
-                `;
-                
-                slider.appendChild(contentElement);
-            });
-
-            container.appendChild(pageSection);
+                </div>
+            `;
+            
+            slider.appendChild(contentElement);
         });
-    }
+
+        container.appendChild(pageSection);
+    });
+}
+
 
     // Initialize
     initializeDateFilters();
@@ -396,19 +425,45 @@ function initializeMainCode() {
 
     // Gestion du scroll
     window.addEventListener('scroll', function() {
-        const navii = document.querySelector('.navii');
-        if (!navii) return;
-        
-        const stopPosition = 200;
+    const navii = document.querySelector('.navii');
+    const toggleBtn = document.querySelector('.toggle-nav');
+    if (!navii || !toggleBtn) return;
+    
+    const stopPosition = 200;
 
-        if (window.scrollY >= stopPosition) {
-            navii.style.position = 'fixed';
-            navii.style.top = '100px';
-        } else {
-            navii.style.position = 'sticky';
-            navii.style.top = '0';
+    if (window.scrollY >= stopPosition) {
+        navii.style.position = 'fixed';
+        navii.style.top = '155px';
+        toggleBtn.style.display = 'block';
+        // Positionner initialement le bouton sous le navii
+        if (!toggleBtn.classList.contains('active')) {
+            toggleBtn.style.top = (155 + navii.offsetHeight + 10) + 'px';
         }
-    });
+    } else {
+        navii.style.position = 'sticky';
+        navii.style.top = '155px';
+        toggleBtn.style.display = 'none';
+        navii.classList.remove('hidden');
+        toggleBtn.classList.remove('active');
+    }
+});
+
+document.querySelector('.toggle-nav').addEventListener('click', function() {
+    const navii = document.querySelector('.navii');
+    const isHidden = navii.classList.contains('hidden');
+    
+    if (isHidden) {
+        navii.classList.remove('hidden');
+        this.classList.remove('active');
+        // Retour à la position sous le navii
+        this.style.top = (155 + navii.offsetHeight + 10) + 'px';
+    } else {
+        navii.classList.add('hidden');
+        this.classList.add('active');
+        // Animation vers la position 155
+        this.style.top = '155px';
+    }
+});
 
     function positionOptions(button, optionsContainer) {
         const rect = button.getBoundingClientRect();

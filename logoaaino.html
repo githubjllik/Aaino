@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: #fff;
+}
+
+.logo-container {
+  width: 500px;
+  height: 500px;
+  position: relative;
+  background: #1e293b;
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 350px;
+  height: 350px;
+  position: relative;
+  margin: 20px;
+}
+
+.logo path {
+  fill: #1e293b;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: url(#gradient1);
+  filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
+}
+
+.logo path {
+  mix-blend-mode: destination-out;
+}
+
+.logo-strokes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>
+</head>
+<body>
+<div class="logo-container">
+  <!-- Modifié le viewBox pour ajouter plus d'espace à droite (28 -> 30) -->
+  <svg class="logo" viewBox="-2 -2 30 28" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#8b5cf6" />
+        <stop offset="50%" style="stop-color:#3b82f6" />
+        <stop offset="100%" style="stop-color:#06b6d4" />
+      </linearGradient>
+    </defs>
+    <g class="logo-strokes">
+      <path d="M8.23,2.08L15.56,19.50A2.92 2.92 0 0 1 14.01,23.32L14.01,23.32A2.92 2.92 0 0 1 10.19,21.76L2.86,4.35A2.92 2.92 0 0 1 4.41,0.53L4.41,0.53A2.92 2.92 0 0 1 8.23,2.08z"/>
+      <path d="M5.74,8.77L20.24,8.77A3.42 3.42 0 0 1 23.66,12.18L23.66,12.18A3.42 3.42 0 0 1 20.24,15.60L5.74,15.60A3.42 3.42 0 0 1 2.32,12.18L2.32,12.18A3.42 3.42 0 0 1 5.74,8.77z"/>
+      <path d="M20.76,1.11L20.76,1.11A3.27 3.27 0 0 1 22.55,5.38L15.93,21.47A3.27 3.27 0 0 1 11.66,23.26L11.66,23.26A3.27 3.27 0 0 1 9.88,18.98L16.49,2.90A3.27 3.27 0 0 1 20.76,1.11z"/>
+    </g>
+  </svg>
+</div>
+</body>
+</html>

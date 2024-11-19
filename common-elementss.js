@@ -26,7 +26,8 @@ class CommonElements extends HTMLElement {
                     <div class="df2109_search_icon" id="fixed_search_icon">
                         <img src="svg/searchword.svg" alt="Rechercher">
                     </div>
-                    <input type="text" id="fixed_search_input" class="gh8765_fixed_input" placeholder="Rechercher...">
+                   <textarea id="fixed_search_input" class="gh8765_fixed_input" placeholder="Rechercher..." rows="1"></textarea>
+
                     <button id="fixed_search_button" class="ty5678_search_btn" style="display: none;">
                         <img src="svg/searchword.svg" alt="Rechercher">
                     </button>
@@ -44,8 +45,16 @@ class CommonElements extends HTMLElement {
                         <img src="svg/down.svg" alt="Suivant" class="xv7391_icon_svg">
                     </button>
                 </div>
-                <button id="scrollTopBtn" class="scroll-button">↑</button>
-                <button id="scrollDownBtn" class="scroll-button">↓</button>
+                <button id="scrollTopBtn" class="scroll-button" aria-label="Scroll to top">
+    <svg class="scroll-icon" viewBox="0 0 24 24">
+        <path d="M12 4l8 8h-6v8h-4v-8H4z"></path>
+    </svg>
+</button>
+<button id="scrollDownBtn" class="scroll-button" aria-label="Scroll to bottom">
+    <svg class="scroll-icon" viewBox="0 0 24 24">
+        <path d="M12 20l-8-8h6V4h4v8h6z"></path>
+    </svg>
+</button>
                 <div class="galaxy-wrapper">
                     <div class="zephyr-control-panel">
                         <img src="svg/top.svg" class="quasar-icon" id="nebula-toggle" alt="Toggle">
@@ -105,6 +114,7 @@ class CommonElements extends HTMLElement {
                     <a href="#" onclick="switchSection('convtemps-section')">Convertisseur de temps⏳⏲️🕰️</a>
                     <a href="#" onclick="switchSection('calculator-section')">Calculatrice➗✖️➕</a>
                     <a href="#" onclick="switchSection('notes-section')">Notes📝📋️✍️</a>
+                     <a href="#" onclick="switchSection('gallery-section')">Galerie photos🖼️📸🤳</a>
                     <!--
                     <a href="#" onclick="switchSection('new-section-3')">Nouvelle Section 3</a>
                     -->
@@ -365,7 +375,41 @@ class CommonElements extends HTMLElement {
         </div>
     </div>
             </div>
-            
+            <div id="gallery-section" class="section-content">
+                <h2>Galerie photos</h2>
+                 <div class="gal-container">
+        <button class="gal-back-btn">
+            <i class="fas fa-arrow-left"></i> Retour
+        </button>
+        
+        <div class="gal-view-controls">
+            <button class="gal-view-btn" data-view="grid">
+                <i class="fas fa-th"></i> Grille
+            </button>
+            <button class="gal-view-btn" data-view="list">
+                <i class="fas fa-list"></i> Liste
+            </button>
+        </div>
+
+        <div class="gal-folders"></div>
+        <div class="gal-gallery"></div>
+    </div>
+
+    <div class="gal-fullscreen">
+        <div class="gal-fullscreen-content">
+            <button class="gal-nav-btn gal-prev-btn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <img src="" alt="">
+            <button class="gal-nav-btn gal-next-btn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <button class="gal-close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+            </div>
             <!--
             <div id="new-section-3" class="section-content">
                 <h2>Nouvelle Section 3</h2>
@@ -387,11 +431,11 @@ class CommonElements extends HTMLElement {
         </div>
     </div>
 <div class="contact-icons">
-    <a href="mailto:avotreservicejllik@gmail.com" target="_blank"><img src="svg/gmailcolore.svg" alt="Gmail"></a>
-    <a href="https://www.facebook.com/profile.php?id=61565834743434" target="_blank"><img src="svg/facebookcolore2.svg" alt="Facebook"></a>
-    <a href="https://www.tiktok.com/@avotreservicejllik" target="_blank"><img src="svg/tiktokcolore.svg" alt="Tiktok"></a>
-    <a href="https://www.instagram.com/avotreservicejllik?igsh=MmRqNWV3NHVkdXY3" target="_blank"><img src="svg/instagramcolore.svg" alt="Instagram"></a>
-    <a href="https://github.com/Avotreservicejllik" target="_blank"><img src="svg/github.svg" alt="GitHub"></a>
+    <a href="#" target="_blank" style="--animation-order: 1"><img src="svg/gmail2z.png" alt="Gmail"></a>
+    <a href="#" target="_blank" style="--animation-order: 2"><img src="svg/facebook2z.png" alt="Facebook"></a>
+    <a href="#" target="_blank" style="--animation-order: 3"><img src="svg/tiktok2z.png" alt="Tiktok"></a>
+    <a href="#" target="_blank" style="--animation-order: 4"><img src="svg/instagram2z.png" alt="Instagram"></a>
+    <a href="#" target="_blank" style="--animation-order: 5"><img src="svg/github2z.png" alt="GitHub"></a>
 </div>
 
 <div id="yt_custom_modal_wrapper_2024" class="custom_youtube_modal_container_unique">
@@ -403,6 +447,168 @@ class CommonElements extends HTMLElement {
 <div class="mascot" id="searchMascot">
     <div class="mascot-speech">Cliquez ici pour rechercher !</div>
     <div>💁‍♀️</div>
+</div>
+<div id="language-selector">
+  <button id="current-language">
+    <span id="current-language-flag">🇫🇷</span>
+    <span id="current-language-text">Français</span>
+  </button>
+  <div id="language-dropdown">
+    <div class="language-option" data-lang="fr">
+      <span class="flag">🇫🇷</span>
+      <span class="lang-name">Français</span>
+    </div>
+    <div class="language-option" data-lang="en">
+      <span class="flag">🇬🇧</span>
+      <span class="lang-name">English</span>
+    </div>
+    <div class="language-option" data-lang="es">
+      <span class="flag">🇪🇸</span>
+      <span class="lang-name">Español</span>
+    </div>
+    <div class="language-option" data-lang="de">
+      <span class="flag">🇩🇪</span>
+      <span class="lang-name">Deutsch</span>
+    </div>
+        <div class="language-option" data-lang="zh">
+      <span class="flag">🇨🇳</span>
+      <span class="lang-name">中文</span>
+    </div>
+    <div class="language-option" data-lang="hi">
+      <span class="flag">🇮🇳</span>
+      <span class="lang-name">हिंदी</span>
+    </div>
+    <div class="language-option" data-lang="ar">
+      <span class="flag">🇸🇦</span>
+      <span class="lang-name">العربية</span>
+    </div>
+    <div class="language-option" data-lang="ru">
+      <span class="flag">🇷🇺</span>
+      <span class="lang-name">Русский</span>
+    </div>
+    <div class="language-option" data-lang="ja">
+      <span class="flag">🇯🇵</span>
+      <span class="lang-name">日本語</span>
+    </div>
+    <div class="language-option" data-lang="sw">
+      <span class="flag">🇹🇿</span>
+      <span class="lang-name">Kiswahili</span>
+    </div>
+    <div class="language-option" data-lang="tr">
+      <span class="flag">🇹🇷</span>
+      <span class="lang-name">Türkçe</span>
+    </div>
+    <div class="language-option" data-lang="te">
+      <span class="flag">🇮🇳</span>
+      <span class="lang-name">తెలుగు</span>
+    </div>
+    <div class="language-option" data-lang="bn">
+      <span class="flag">🇧🇩</span>
+      <span class="lang-name">বাংলা</span>
+    </div>
+    <div class="language-option" data-lang="ko">
+      <span class="flag">🇰🇷</span>
+      <span class="lang-name">한국어</span>
+    </div>
+    <div class="language-option" data-lang="tl">
+      <span class="flag">🇵🇭</span>
+      <span class="lang-name">Tagalog</span>
+    </div>
+    <div class="language-option" data-lang="yo">
+      <span class="flag">🇳🇬</span>
+      <span class="lang-name">Yorùbá</span>
+    </div>
+    <div class="language-option" data-lang="uk">
+      <span class="flag">🇺🇦</span>
+      <span class="lang-name">Українська</span>
+    </div>
+    <div class="language-option" data-lang="ha">
+      <span class="flag">🇳🇬</span>
+      <span class="lang-name">Hausa</span>
+    </div>
+    <div class="language-option" data-lang="pt">
+      <span class="flag">🇵🇹</span>
+      <span class="lang-name">Português</span>
+    </div>
+    <div class="language-option" data-lang="it">
+      <span class="flag">🇮🇹</span>
+      <span class="lang-name">Italiano</span>
+    </div>
+    <div class="language-option" data-lang="ht">
+      <span class="flag">🇭🇹</span>
+      <span class="lang-name">Kreyòl</span>
+    </div>
+        <div class="language-option" data-lang="my">
+      <span class="flag">🇲🇲</span>
+      <span class="lang-name">မြန်မာစာ</span>
+    </div>
+    <div class="language-option" data-lang="nl">
+      <span class="flag">🇳🇱</span>
+      <span class="lang-name">Nederlands</span>
+    </div>
+    <div class="language-option" data-lang="vi">
+      <span class="flag">🇻🇳</span>
+      <span class="lang-name">Tiếng Việt</span>
+    </div>
+    <div class="language-option" data-lang="th">
+      <span class="flag">🇹🇭</span>
+      <span class="lang-name">ไทย</span>
+    </div>
+    <div class="language-option" data-lang="fa">
+      <span class="flag">🇮🇷</span>
+      <span class="lang-name">فارسی</span>
+    </div>
+    <div class="language-option" data-lang="el">
+      <span class="flag">🇬🇷</span>
+      <span class="lang-name">Ελληνικά</span>
+    </div>
+    <div class="language-option" data-lang="ro">
+      <span class="flag">🇷🇴</span>
+      <span class="lang-name">Română</span>
+    </div>
+    <div class="language-option" data-lang="hu">
+      <span class="flag">🇭🇺</span>
+      <span class="lang-name">Magyar</span>
+    </div>
+    <div class="language-option" data-lang="cs">
+      <span class="flag">🇨🇿</span>
+      <span class="lang-name">Čeština</span>
+    </div>
+    <div class="language-option" data-lang="pl">
+      <span class="flag">🇵🇱</span>
+      <span class="lang-name">Polski</span>
+    </div>
+    <div class="language-option" data-lang="he">
+      <span class="flag">🇮🇱</span>
+      <span class="lang-name">עברית</span>
+    </div>
+    <div class="language-option" data-lang="ms">
+      <span class="flag">🇲🇾</span>
+      <span class="lang-name">Bahasa Melayu</span>
+    </div>
+    <div class="language-option" data-lang="id">
+      <span class="flag">🇮🇩</span>
+      <span class="lang-name">Bahasa Indonesia</span>
+    </div>
+    <div class="language-option" data-lang="am">
+      <span class="flag">🇪🇹</span>
+      <span class="lang-name">አማርኛ</span>
+    </div>
+    <div class="language-option" data-lang="ur">
+      <span class="flag">🇵🇰</span>
+      <span class="lang-name">اردو</span>
+    </div>
+    <div class="language-option" data-lang="mr">
+      <span class="flag">🇮🇳</span>
+      <span class="lang-name">मराठी</span>
+    </div>
+    <div class="language-option" data-lang="ta">
+      <span class="flag">🇱🇰</span>
+      <span class="lang-name">தமிழ்</span>
+    </div>
+
+
+  </div>
 </div>
 
         `;

@@ -1,7 +1,7 @@
 let currentPage = 1;
 let resultsPerPage = 10;
 
-const pages = ['pg1.html', 'pg2.html', 'pg3.html', 'pg4.html', 'pg5.html', 'pg6.html', 'pg7.html', 'pg8.html', 'pg9.html', 'pg10.html', 'pg11.html', 'pg12.html', 'pg13.html'];
+const pages = ['pg1.html', 'pg2.html', 'pg3.html', 'pg4.html', 'pg5.html', 'pg6.html', 'pg7.html', 'pg8.html', 'pg9.html', 'pg10.html', 'pg11.html', 'pg12.html', 'pg13.html','pg14.html'];
 
 const pageTitles = {
     'pg1.html': 'Acceuil',
@@ -17,6 +17,7 @@ const pageTitles = {
     'pg11.html': 'Mobiles et pc',
     'pg12.html': 'Rechercher',
     'pg13.html': 'Darkweb',
+    'pg14.html': 'Découvrir plus',
 };
 
 const pageImages = {
@@ -33,6 +34,7 @@ const pageImages = {
     'pg11.html': 'img/mobilespc.jpg',
     'pg12.html': 'img/rechercher.jpg',
     'pg13.html': 'img/darkweb.jpg',
+    'pg14.html': 'img/decouvrir2.jpg',
 };
 
 function toggleSearch() {
@@ -95,7 +97,7 @@ function clearSearch() {
 let typingTimer;
 const doneTypingInterval = 500;
 
-function showSuggestions(query) {
+async function showSuggestions(query) {
     const suggestionsDiv = document.getElementById('suggestions');
     suggestionsDiv.innerHTML = '';
 
@@ -107,9 +109,12 @@ function showSuggestions(query) {
     clearTimeout(typingTimer);
 
     typingTimer = setTimeout(async () => {
+        // Traduire la requête en français
+        const translatedQuery = await translationService.translateSearchQuery(query);
+        
         const uniqueSuggestions = new Set();
         const resultCounts = {};
-        const searchWords = query.trim().toLowerCase().split(/\s+/).filter(word => word.length > 0);
+        const searchWords = translatedQuery.trim().toLowerCase().split(/\s+/).filter(word => word.length > 0);
 
         const searchProcessBatch = async (contents, startIndex, batchSize) => {
             return new Promise(resolve => {
@@ -196,13 +201,14 @@ function showSuggestions(query) {
                                 const suggestion = document.createElement('div');
                                 suggestion.className = 'suggestion';
                                 suggestion.innerHTML = `
-                                    <img src="${pageImages[page]}" alt="${pageTitles[page]}" class="suggestion-img">
-                                    <a href="${page}#${query}">
-                                        ${pageTitles[page]} 
-                                        <span class="result-count">(${maxCount} résultat${maxCount > 1 ? 's' : ''})</span>
-                                        <br>Section: ${snippet}...
-                                    </a>
-                                `;
+    <img src="${pageImages[page]}" alt="${pageTitles[page]}" class="suggestion-img">
+    <a href="${page}#${query}">
+        ${pageTitles[page]} 
+        <span class="result-count">(${maxCount} résultat${maxCount > 1 ? 's' : ''})</span>
+        <div class="snippet">Section: ${snippet}...</div>
+    </a>
+`;
+
                                 suggestionsDiv.appendChild(suggestion);
                             }
                         }
@@ -286,15 +292,40 @@ function fetchPageContent(page) {
         });
 }
 
-function performSearch() {
-    const query = document.getElementById('search').value;
+async function performSearch() {
+    const query = document.getElementById('search').value.trim();
     if (query.length === 0) return;
-    openResultsPage(query);
+    
+    try {
+        // Détection et traduction avant la redirection
+        const translatedQuery = await translateQuery(query);
+        openResultsPage(translatedQuery);
+    } catch (error) {
+        console.error('Erreur lors de la traduction:', error);
+        // En cas d'erreur, utiliser la requête originale
+        openResultsPage(query);
+    }
 }
 
 function openResultsPage(query) {
-    window.location.href = `search-results.html?query=${query}`;
+    window.location.href = `search-results.html?query=${encodeURIComponent(query)}`;
 }
+
+async function translateQuery(query) {
+    try {
+        const response = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=fr&dt=t&q=${encodeURIComponent(query)}`);
+        if (!response.ok) throw new Error('Erreur de traduction');
+        
+        const data = await response.json();
+        const translatedText = data[0].map(item => item[0]).join('');
+        console.log(`Traduction de "${query}" vers "${translatedText}"`); // Pour le débogage
+        return translatedText;
+    } catch (error) {
+        console.error('Erreur de traduction:', error);
+        return query; // En cas d'erreur, retourner la requête originale
+    }
+}
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const accSearchInput = document.querySelector('.acc-search-bar input');
