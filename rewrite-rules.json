@@ -1,0 +1,18 @@
+{
+  "routes": [
+    { "source": "/accueil", "destination": "/index.html" },
+    { "source": "/medias-sociaux", "destination": "/pg2.html" },
+    { "source": "/streaming", "destination": "/pg3.html" },
+    { "source": "/apprendre", "destination": "/pg4.html" },
+    { "source": "/ia", "destination": "/pg5.html" },
+    { "source": "/editer", "destination": "/pg6.html" },
+    { "source": "/developper", "destination": "/pg7.html" },
+    { "source": "/e-services", "destination": "/pg8.html" },
+    { "source": "/explorer", "destination": "/pg9.html" },
+    { "source": "/telecharger", "destination": "/pg10.html" },
+    { "source": "/mobiles-pc", "destination": "/pg11.html" },
+    { "source": "/rechercher", "destination": "/pg12.html" },
+    { "source": "/darkweb", "destination": "/pg13.html" },
+    { "source": "/decouvrir", "destination": "/pg14.html" }
+  ]
+}

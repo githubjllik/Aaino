@@ -1,6 +1,6 @@
 // urlDisplay.js
-(function() {
-    // Table de correspondance dans les deux sens
+document.addEventListener('DOMContentLoaded', function() {
+    // Table de correspondance simple
     const pageNames = {
         'index.html': 'accueil',
         'pg2.html': 'medias-sociaux',
@@ -18,35 +18,11 @@
         'pg14.html': 'decouvrir'
     };
 
-    // Créer la table inverse (nom personnalisé -> nom du fichier)
-    const reversePageNames = {};
-    for (let [key, value] of Object.entries(pageNames)) {
-        reversePageNames[value] = key;
+    // Récupérer le nom de la page actuelle
+    const currentPage = window.location.pathname.split('/').pop();
+    
+    // Si la page actuelle est un fichier HTML, modifier l'URL
+    if (currentPage.endsWith('.html') && pageNames[currentPage]) {
+        history.replaceState(null, '', '/' + pageNames[currentPage]);
     }
-
-    function handleURL() {
-        const path = window.location.pathname.replace(/^\//, '');
-        
-        // Si l'URL est déjà sous forme personnalisée
-        if (reversePageNames[path]) {
-            return; // Ne rien faire, c'est déjà au bon format
-        }
-        
-        // Si c'est une URL avec .html
-        if (pageNames[path]) {
-            history.replaceState(null, '', '/' + pageNames[path]);
-            return;
-        }
-
-        // Si l'URL ne correspond à rien de connu, rediriger vers l'accueil
-        if (path && path !== 'accueil') {
-            window.location.href = '/accueil';
-        }
-    }
-
-    // Exécuter immédiatement
-    handleURL();
-
-    // Ajouter un gestionnaire pour les changements d'état de l'historique
-    window.addEventListener('popstate', handleURL);
-})();
+});

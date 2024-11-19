@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: aaino
+    buildCommand: echo "Static site, no build needed"
+    staticPublishPath: .
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
