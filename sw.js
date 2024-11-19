@@ -1,4 +1,3 @@
-// sw.js
 const routes = {
     '/home': '/index.html',
     '/social-media': '/pg2.html',
