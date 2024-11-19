@@ -1,62 +1,54 @@
-// Attendre que le DOM soit complètement chargé
-document.addEventListener('DOMContentLoaded', function() {
-    // Créer un tableau de promesses pour charger tous les scripts
-    const scriptsToLoad = [
-        'common-elementss.js',
-        'template.js',
-        'script0.js', 
-        'search.js',
-        'calendar.js',
-        'scripts.js'
-    ];
-
-    const stylesheetsToLoad = [
-        'styles2.css',
-        'styles4.css', 
-        'styles5.css',
-        'nfbodyeclipse.css',
-        'nouveaux.css',
-        'stylelight.css',
-        'styledark.css',
-    ];
-
-    // Fonction pour charger un script
-    function loadScript(src) {
-        return new Promise((resolve, reject) => {
-            const script = document.createElement('script');
-            script.src = src;
-            script.onload = resolve;
-            script.onerror = reject;
-            document.body.appendChild(script);
+// Création d'une fonction qui attend que tous les éléments nécessaires soient chargés
+function waitForElements(selectors) {
+    return new Promise((resolve) => {
+        const observer = new MutationObserver((mutations, obs) => {
+            const allElementsExist = selectors.every(selector => 
+                document.querySelector(selector)
+            );
+            
+            if (allElementsExist) {
+                obs.disconnect();
+                resolve();
+            }
         });
+
+        observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true
+        });
+
+        // Vérification immédiate au cas où les éléments sont déjà présents
+        if (selectors.every(selector => document.querySelector(selector))) {
+            observer.disconnect();
+            resolve();
+        }
+    });
+}
+
+// Fonction principale qui initialise tout
+async function initializeApp() {
+    try {
+        // Attendre que les éléments essentiels soient présents
+        await waitForElements([
+            '.navii',
+            '#new-content-container',
+            '.month-button',
+            '.year-button',
+            '.month-options',
+            '.year-options'
+        ]);
+
+        // Une fois que tout est prêt, on initialise le code principal
+        initializeMainCode();
+    } catch (error) {
+        console.error('Erreur lors de l\'initialisation:', error);
     }
+}
 
-    // Fonction pour charger une feuille de style
-    function loadStylesheet(href) {
-        return new Promise((resolve, reject) => {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = href;
-            link.onload = resolve;
-            link.onerror = reject;
-            document.head.appendChild(link);
-        });
-    }
+// Lancer l'initialisation quand le DOM est chargé
+document.addEventListener('DOMContentLoaded', initializeApp);
 
-    // Charger d'abord toutes les feuilles de style
-    Promise.all(stylesheetsToLoad.map(loadStylesheet))
-        .then(() => {
-            // Ensuite charger tous les scripts
-            return Promise.all(scriptsToLoad.map(loadScript));
-        })
-        .then(() => {
-            // Une fois que tout est chargé, exécuter le code principal
-            initializeMainCode();
-        })
-        .catch(error => {
-            console.error('Erreur lors du chargement des ressources:', error);
-        });
-});
+
 
 function initializeMainCode() {
     const pageTitles = {

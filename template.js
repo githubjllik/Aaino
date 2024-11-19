@@ -52,81 +52,92 @@ function loadTemplate() {
             </ul>
         </nav>
         <div class="burger-menu" id="burgerMenu">
-            <ul>
-                <li>
-                    <a href="index.html"><img src="svg/accueil.svg" alt="Icon 1">Accueil
-                    <p class="description">Médias sociaux, Streaming, Apprendre, IA,Éditer, Développer, E-Services, ...</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="pg2.html"><img src="svg/reseausocial4.svg" alt="Icon 2">Médias sociaux
-                    <p class="description">Réseaux sociaux polyvalents, Réseaux sociaux de partage des vidéos, de discussions avec des personnages IA, plateformes de libre expression, ...</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="pg3.html"><img src="svg/streaming1.svg" alt="Icon 3">Streaming 
-                    <p class="description">Sites de streaming populaires, sites de streaming gratuits pour des films, des séries,des animes, des télénovelas, ...</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="pg4.html"><img src="svg/Apprendre.svg" alt="Icon 4">Apprendre
-                    <p class="description">Plateformes populaires pour tout apprendre, Sites gratuits pour tout apprendre, Sites pour apprendre la programmation, sites pour apprendre le Marketing digital, livres gratuits ...</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="pg5.html"><img src="svg/bot.svg" alt="IA">IA
-                    <p class="description">Sites des IA populaires, Sites pour des IA de création des contenus, sites pour des IA gratuits, ...</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="pg6.html"><img src="svg/edit.svg" alt="Icon 6">Éditer
-                    <p class="description">Sites de montages photo, Sites de montages vidéos, Sites pour tout créer avec l'IA, Sites pour créer des sites, Sites pour créer des applications, ...</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="pg7.html"><img src="svg/developpeur2.svg" alt="Icon 7">Développer
-                    <p class="description">Sites pour débuter la programmation, Plateformes populaires des développeurs, sites d'outils des développeurs, chaînes youtube pour développeurs, ...</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="pg8.html"><img src="svg/marchebusiness.svg" alt="Icon 8">E-Services
-                    <p class="description">Sites populaires de ventes en ligne, sites de freelance, Sites pour des transactions en ligne pour tous les pays,...</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="pg9.html"><img src="svg/explorer.svg" alt="Icon 9">Explorer le monde
-                    <p class="description">Sites pour parcourir des lieux magnifiques partout dans le monde ,...</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="pg10.html"><img src="svg/telechargement.svg" alt="Icon 10">Télécharger
-                    <p class="description">Sites pour télécharger des vidéos, sites pour télécharger des films, des séries, des animes, Sites gratuits pour télécharger des applications, des logiciels pc, des jeux android,pc,ppsspp,ps2,ps3,ps4,ps5,xbox,switch,..</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="pg11.html"><img src="svg/mobileetpc3.svg" alt="Icon 11">Mobiles et Pc
-                    <p class="description">Sites utiles pour ton téléphone, sites utiles pour ton pc,....</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="pg12.html"><img src="svg/decouvrir.svg" alt="Icon 12">Découvrir plus
-                    <p class="description">Découvrez d'autres sites incroyables ...</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="pg13.html"><img src="svg/moi2.svg" alt="Icon 13">À Propos</a>
-                </li>
-            </ul>
-            <div class="contacts">
-                <p>Contactez-nous :</p>
-                <a href="#" target="_blank"><img src="svg/gmailnoir.svg" alt="Gmail">Gmail</a>
-                <a href="#" target="_blank"><img src="svg/facebooknoir.svg" alt="Facebook">Facebook</a>
-                <a href="#" target="_blank"><img src="svg/tiktoknoirs.svg" alt="Tiktok">Tiktok</a>
-                <a href="#" target="_blank"><img src="svg/instagramnoire.svg" alt="Instagram">Instagram</a>
-                <a href="#"><img src="svg/twitterxnoires.svg" alt="x">X</a>
-                <a href="#"><img src="svg/github.svg" alt="GitHub">GitHub</a>
-            </div>
-        </div>
+    <ul>
+        <li>
+            <a href="index.html"><img src="svg/accueil.svg" alt="Icon 1">Accueil
+            <p class="description">Médias sociaux, Streaming, Apprendre, IA, Éditer, Développer, E-Services, Explorer le monde, ...</p>
+            </a>
+        </li>
+        <li>
+            <a href="pg2.html"><img src="svg/reseausocial4.svg" alt="Icon 2">Médias sociaux
+            <p class="description">Réseaux sociaux polyvalents, Réseaux sociaux de partage des vidéos, de discussions avec des personnages IA, plateformes de libre expression, ...</p>
+            </a>
+        </li>
+        <li>
+            <a href="pg3.html"><img src="svg/streaming1.svg" alt="Icon 3">Streaming 
+            <p class="description">Sites de streaming populaires, sites de streaming gratuits pour des films, des séries, des animes, des télénovelas, ...</p>
+            </a>
+        </li>
+        <li>
+            <a href="pg4.html"><img src="svg/Apprendre.svg" alt="Icon 4">Apprendre
+            <p class="description">Plateformes populaires pour tout apprendre, Sites gratuits pour tout apprendre, Sites pour apprendre la programmation, sites pour apprendre le Marketing digital, livres gratuits ...</p>
+            </a>
+        </li>
+        <li>
+            <a href="pg5.html"><img src="svg/bot.svg" alt="Icon 5">IA
+            <p class="description">Sites des IA populaires, Sites pour des IA de création des contenus, sites pour des IA gratuits, ...</p>
+            </a>
+        </li>
+        <li>
+            <a href="pg6.html"><img src="svg/edit.svg" alt="Icon 6">Éditer
+            <p class="description">Sites de montages photo, Sites de montages vidéos, Sites pour tout créer avec l'IA, Sites pour créer des sites, Sites pour créer des applications, ...</p>
+            </a>
+        </li>
+        <li>
+            <a href="pg7.html"><img src="svg/developpeur2.svg" alt="Icon 7">Développer
+            <p class="description">Sites pour débuter la programmation, Plateformes populaires des développeurs, sites d'outils des développeurs, chaînes youtube pour développeurs, ...</p>
+            </a>
+        </li>
+        <li>
+            <a href="pg8.html"><img src="svg/marchebusiness.svg" alt="Icon 8">E-Services
+            <p class="description">Sites populaires de ventes en ligne, sites de freelance, Sites pour des transactions en ligne pour tous les pays, ...</p>
+            </a>
+        </li>
+        <li>
+            <a href="pg9.html"><img src="svg/explorer.svg" alt="Icon 9">Explorer le monde
+            <p class="description">Sites pour parcourir des lieux magnifiques partout dans le monde, ...</p>
+            </a>
+        </li>
+        <li>
+            <a href="pg10.html"><img src="svg/telechargement.svg" alt="Icon 10">Télécharger
+            <p class="description">Sites pour télécharger des vidéos, films, séries, animes, applications, logiciels pc, jeux android, pc, ppsspp, ps2, ps3, ps4, ps5, xbox, switch, ...</p>
+            </a>
+        </li>
+        <li>
+            <a href="pg11.html"><img src="svg/mobileetpc3.svg" alt="Icon 11">Mobiles et pc
+            <p class="description">Sites utiles pour ton téléphone, sites utiles pour ton pc, ...</p>
+            </a>
+        </li>
+        <li>
+            <a href="pg12.html"><img src="svg/searchweb.svg" alt="Icon 12">Rechercher
+            <p class="description">Moteurs de recherche et outils de recherche avancée, ...</p>
+            </a>
+        </li>
+        <li>
+            <a href="pg13.html"><img src="svg/darkweb.svg" alt="Icon 13">Darkweb
+            <p class="description">Guide et ressources sur le darkweb, ...</p>
+            </a>
+        </li>
+        <li>
+            <a href="pg14.html"><img src="svg/decouvrir.svg" alt="Icon 14">Découvrir plus
+            <p class="description">Découvrez d'autres sites incroyables ...</p>
+            </a>
+        </li>
+        <li>
+            <a href="pg15.html"><img src="svg/moi2.svg" alt="Icon 15">À propos</a>
+        </li>
+    </ul>
+    <div class="contacts">
+        <p>Contactez-nous :</p>
+        <a href="#" target="_blank"><img src="svg/gmailnoir.svg" alt="Gmail">Gmail</a>
+        <a href="#" target="_blank"><img src="svg/facebooknoir.svg" alt="Facebook">Facebook</a>
+        <a href="#" target="_blank"><img src="svg/tiktoknoirs.svg" alt="Tiktok">Tiktok</a>
+        <a href="#" target="_blank"><img src="svg/instagramnoire.svg" alt="Instagram">Instagram</a>
+        <a href="#"><img src="svg/twitterxnoires.svg" alt="x">X</a>
+        <a href="#"><img src="svg/github.svg" alt="GitHub">GitHub</a>
+    </div>
+</div>
+
     `;
 
     const mainContent = `

@@ -1332,3 +1332,26 @@ body.eclipse-mode .as6543_fixed_search.active {
     background-color: #1e293b;
     box-shadow: 0 2px 5px rgba(139, 92, 246, 0.2);
 }
+
+body.eclipse-mode #suggestions {
+    background-color: #1e293b;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+body.eclipse-mode .suggestion {
+    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+body.eclipse-mode .suggestion:hover {
+    background-color: rgba(139, 92, 246, 0.1);
+}
+
+body.eclipse-mode .suggestion a {
+    color: var(--text-color);
+}
+
+body.eclipse-mode .no-results {
+    color: var(--accent-color);
+    background-color: #1e293b;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}

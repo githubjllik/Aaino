@@ -1,10 +1,9 @@
 let currentPage = 1;
 let resultsPerPage = 10;
 
-const pages = ['pg1.html', 'pg2.html', 'pg3.html', 'pg4.html', 'pg5.html', 'pg6.html', 'pg7.html', 'pg8.html', 'pg9.html', 'pg10.html', 'pg11.html', 'pg12.html', 'pg13.html','pg14.html'];
+const pages = ['pg2.html', 'pg3.html', 'pg4.html', 'pg5.html', 'pg6.html', 'pg7.html', 'pg8.html', 'pg9.html', 'pg10.html', 'pg11.html', 'pg12.html', 'pg13.html','pg14.html'];
 
 const pageTitles = {
-    'pg1.html': 'Acceuil',
     'pg2.html': 'Médias sociaux',
     'pg3.html': 'Streaming',
     'pg4.html': 'Apprendre',
