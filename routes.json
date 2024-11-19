@@ -1,0 +1,72 @@
+{
+  "routes": [
+    {
+      "src": "/home",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/social-media",
+      "dest": "/pg2.html"
+    },
+    {
+      "src": "/streaming",
+      "dest": "/pg3.html"
+    },
+    {
+      "src": "/learn",
+      "dest": "/pg4.html"
+    },
+    {
+      "src": "/ai",
+      "dest": "/pg5.html"
+    },
+    {
+      "src": "/edit",
+      "dest": "/pg6.html"
+    },
+    {
+      "src": "/develop",
+      "dest": "/pg7.html"
+    },
+    {
+      "src": "/e-services",
+      "dest": "/pg8.html"
+    },
+    {
+      "src": "/explore",
+      "dest": "/pg9.html"
+    },
+    {
+      "src": "/download",
+      "dest": "/pg10.html"
+    },
+    {
+      "src": "/devices",
+      "dest": "/pg11.html"
+    },
+    {
+      "src": "/search",
+      "dest": "/pg12.html"
+    },
+    {
+      "src": "/darkweb",
+      "dest": "/pg13.html"
+    },
+    {
+      "src": "/discover",
+      "dest": "/pg14.html"
+    },
+    {
+      "src": "/about",
+      "dest": "/pg15.html"
+    },
+    {
+      "src": "/new",
+      "dest": "/nouveaux.html"
+    },
+    {
+      "src": "/search-results",
+      "dest": "/search-results.html"
+    }
+  ]
+}

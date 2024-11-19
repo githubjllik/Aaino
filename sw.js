@@ -1,4 +1,3 @@
-// sw.js
 const routes = {
     '/home': '/index.html',
     '/social-media': '/pg2.html',
@@ -19,50 +18,57 @@ const routes = {
     '/search-results': '/search-results.html'
 };
 
-// Créer un mapping inverse (de .html vers les URLs personnalisées)
-const reverseRoutes = Object.entries(routes).reduce((acc, [key, value]) => {
-    acc[value] = key;
-    return acc;
-}, {});
-
 self.addEventListener('install', (event) => {
-    self.skipWaiting();
+    event.waitUntil(
+        Promise.all([
+            self.skipWaiting(),
+            caches.open('routes-cache').then(cache => {
+                return cache.addAll(Object.values(routes));
+            })
+        ])
+    );
 });
 
 self.addEventListener('activate', (event) => {
-    event.waitUntil(clients.claim());
+    event.waitUntil(
+        Promise.all([
+            clients.claim(),
+            caches.keys().then(cacheNames => {
+                return Promise.all(
+                    cacheNames.map(cacheName => {
+                        if (cacheName !== 'routes-cache') {
+                            return caches.delete(cacheName);
+                        }
+                    })
+                );
+            })
+        ])
+    );
 });
 
 self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
     const path = url.pathname;
 
-    // Vérifier si c'est une URL personnalisée
     if (routes[path]) {
         event.respondWith(
-            fetch(new Request(routes[path], {
-                headers: event.request.headers,
-                method: event.request.method
-            }))
+            caches.match(routes[path])
+                .then(response => {
+                    return response || fetch(new Request(routes[path], {
+                        headers: event.request.headers,
+                        method: event.request.method
+                    }));
+                })
+                .catch(() => fetch(event.request))
         );
-    } 
-    // Vérifier si c'est une URL .html qui a une correspondance personnalisée
-    else if (reverseRoutes[path]) {
+    } else {
         event.respondWith(
-            fetch(event.request).then(response => {
-                if (response.ok) {
-                    return response;
-                }
-                // Si la réponse n'est pas ok, essayer l'URL personnalisée
-                return fetch(new Request(path, {
-                    headers: event.request.headers,
-                    method: event.request.method
-                }));
-            })
+            fetch(event.request)
+                .catch(() => {
+                    if (event.request.mode === 'navigate') {
+                        return caches.match('/index.html');
+                    }
+                })
         );
-    }
-    // Pour toutes les autres requêtes
-    else {
-        event.respondWith(fetch(event.request));
     }
 });
