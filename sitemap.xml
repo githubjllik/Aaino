@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <!-- Page d'accueil -->
+    <url>
+        <loc>https://votre-site.onrender.com/</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/home" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Réseaux sociaux -->
+    <url>
+        <loc>https://votre-site.onrender.com/social-media</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/pg2.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Streaming -->
+    <url>
+        <loc>https://votre-site.onrender.com/streaming</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/pg3.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Apprendre -->
+    <url>
+        <loc>https://votre-site.onrender.com/learn</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/pg4.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- IA -->
+    <url>
+        <loc>https://votre-site.onrender.com/ai</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/pg5.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Edition -->
+    <url>
+        <loc>https://votre-site.onrender.com/edit</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/pg6.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Développement -->
+    <url>
+        <loc>https://votre-site.onrender.com/develop</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/pg7.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Services en ligne -->
+    <url>
+        <loc>https://votre-site.onrender.com/e-services</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/pg8.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Explorer -->
+    <url>
+        <loc>https://votre-site.onrender.com/explore</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/pg9.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Téléchargement -->
+    <url>
+        <loc>https://votre-site.onrender.com/download</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/pg10.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Appareils -->
+    <url>
+        <loc>https://votre-site.onrender.com/devices</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/pg11.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Recherche -->
+    <url>
+        <loc>https://votre-site.onrender.com/search</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/pg12.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- Dark Web -->
+    <url>
+        <loc>https://votre-site.onrender.com/darkweb</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/pg13.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- Découvrir -->
+    <url>
+        <loc>https://votre-site.onrender.com/discover</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/pg14.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- À propos -->
+    <url>
+        <loc>https://votre-site.onrender.com/about</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/pg15.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <!-- Nouveautés -->
+    <url>
+        <loc>https://votre-site.onrender.com/new</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/nouveaux.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Résultats de recherche -->
+    <url>
+        <loc>https://votre-site.onrender.com/search-results</loc>
+        <xhtml:link rel="alternate" href="https://votre-site.onrender.com/search-results.html" />
+        <lastmod>2024-11-20</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.4</priority>
+    </url>
+</urlset>
