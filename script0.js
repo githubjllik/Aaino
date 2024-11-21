@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                             En attendant ce grand moment, nous serions ravis d'échanger avec vous directement. Partagez vos idées, vos suggestions ou simplement dites-nous bonjour !
                         </p>
-                        <a href="mailto:contact@aaino.com" class="celestialEmailLink">
+                        <a href="mailto:aainojllik@gmail.com" class="celestialEmailLink">
                             <span class="emailIcon">✉️</span>
                             <span class="emailText">contact@aaino.com</span>
                         </a>
