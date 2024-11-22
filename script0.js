@@ -591,3 +591,46 @@ if (fixedCloseIcon) {
         }
     });
 }
+
+
+
+
+// Création dynamique du bouton
+function createHideControl() {
+    const button = document.createElement('button');
+    button.id = 'hideControl';
+    
+    const img = document.createElement('img');
+    img.id = 'toggleIcon';
+    img.src = 'svg/eyeopen.svg';
+    img.alt = 'Toggle Menu';
+    
+    button.appendChild(img);
+    document.body.appendChild(button);
+}
+
+// Gestion de l'état
+function initializeHideControl() {
+    const hideControl = document.getElementById('hideControl');
+    const toggleIcon = document.getElementById('toggleIcon');
+    
+    // Restaurer l'état précédent
+    const isHidden = localStorage.getItem('elementsHidden') === 'true';
+    if (isHidden) {
+        document.body.classList.add('elements-hidden');
+        toggleIcon.src = 'svg/eyeclose.svg';
+    }
+
+    hideControl.addEventListener('click', function() {
+        const isCurrentlyHidden = document.body.classList.toggle('elements-hidden');
+        toggleIcon.src = isCurrentlyHidden ? 'svg/eyeclose.svg' : 'svg/eyeopen.svg';
+        // Sauvegarder l'état
+        localStorage.setItem('elementsHidden', isCurrentlyHidden);
+    });
+}
+
+// Initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    createHideControl();
+    initializeHideControl();
+});
