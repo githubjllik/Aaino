@@ -297,24 +297,47 @@ function loadTemplate() {
     document.body.insertAdjacentHTML('beforeend', footerTemplate);
 
     // Gérer la classe active
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const menuItems = document.querySelectorAll('nav ul li');
-    
-    menuItems.forEach((item, index) => {
-        const link = item.querySelector('a');
-        if (link) {
-            const href = link.getAttribute('href');
-            if (currentPage === 'index.html' && href === 'index.html') {
-                item.classList.add('active');
-            }
-            else if (currentPage === href) {
-                item.classList.add('active');
-            }
-            else if (href === '#' && currentPage === `pg${index + 1}.html`) {
-                item.classList.add('active');
-            }
+    // Gérer la classe active
+const menuItems = document.querySelectorAll('nav ul li');
+
+const pageMapping = {
+    'index.html': 'home',
+    'pg2.html': 'social-media',
+    'pg3.html': 'streaming',
+    'pg4.html': 'learn',
+    'pg5.html': 'ai',
+    'pg6.html': 'edit',
+    'pg7.html': 'develop',
+    'pg8.html': 'e-services',
+    'pg9.html': 'explore',
+    'pg10.html': 'download',
+    'pg11.html': 'devices',
+    'pg12.html': 'search',
+    'pg13.html': 'darkweb',
+    'pg14.html': 'discover',
+    'pg15.html': 'about',
+    'nouveaux.html': 'new',
+    'search-results.html': 'search-results'
+};
+
+menuItems.forEach((item, index) => {
+    const link = item.querySelector('a');
+    if (link) {
+        const href = link.getAttribute('href');
+        const currentPath = window.location.pathname;
+        const currentPageName = currentPath.split('/').pop() || 'index.html';
+        const currentRoute = Object.keys(pageMapping).find(key => 
+            pageMapping[key] === currentPath.split('/')[1] || 
+            key === currentPageName
+        );
+
+        if (currentRoute === href || 
+            (href === '#' && currentRoute === `pg${index + 1}.html`)) {
+            item.classList.add('active');
         }
-    });
+    }
+});
+
 }
 
 // Appeler la fonction quand le DOM est chargé

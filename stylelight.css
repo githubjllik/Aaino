@@ -539,7 +539,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 102;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -598,7 +598,7 @@ nav {
   top: 80px;
   left: 0;
   right: 0;
-  z-index: 99;
+  z-index: 101;
   box-shadow: var(--shadow);
 }
 
@@ -657,7 +657,7 @@ nav li a:hover img {
   transition: var(--transition);
   padding: 2rem;
   overflow-y: auto;
-  z-index: 98;
+  z-index: 100;
 }
 
 .burger-menu.active {
@@ -781,11 +781,11 @@ nav li a:hover img {
   transition: var(--transition);
   padding: 2rem;
   overflow-y: auto;
-  z-index: 98;
+  z-index: 100;
 }
 .burger-menu {
   position: fixed;
-  top: 120px;
+  top: 80px;
   right: -100%;
   width: 100%;
   height: 100vh;
@@ -794,7 +794,7 @@ nav li a:hover img {
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 100px 2rem 2rem;
   overflow-y: auto;
-  z-index: 97;
+  z-index: 100;
   scrollbar-width: thin;
   scrollbar-color: var(--primary) transparent;
 }
