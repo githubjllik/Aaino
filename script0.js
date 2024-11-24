@@ -634,3 +634,222 @@ document.addEventListener('DOMContentLoaded', function() {
     createHideControl();
     initializeHideControl();
 });
+
+
+
+
+
+const SUPABASE_URL = 'https://hfdstpfqtxajyhdqognf.supabase.co'
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhmZHN0cGZxdHhhanloZHFvZ25mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI0NDIwMDYsImV4cCI6MjA0ODAxODAwNn0.HmvO99_hh184LG9rOKTrT_79NxnEBfh468iFN7QgDVg'
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+
+let currentUser = null;
+
+// Gestion de l'authentification
+async function signInWithProvider(provider) {
+    try {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+            provider: provider
+        })
+        if (error) throw error
+        return data
+    } catch (error) {
+        console.error('Erreur d\'authentification:', error)
+    }
+}
+
+// Création du bouton de publication
+function createPublishButton() {
+    const publishButton = document.createElement('button')
+    publishButton.textContent = 'Publier un site'
+    publishButton.onclick = showPublishForm
+    
+    const intro = document.getElementById('introduction')
+    const searchText = intro.querySelector('strong')
+    searchText.parentNode.insertBefore(publishButton, searchText.nextSibling)
+}
+
+// Affichage du formulaire de publication
+function showPublishForm() {
+    if (!currentUser) {
+        showAuthDialog()
+        return
+    }
+    
+    const form = document.createElement('div')
+    form.className = 'publish-form'
+    form.innerHTML = `
+        <h2>Publication d'un nouveau site</h2>
+        <div id="step1">
+            <label>Titre du site (max 30 caractères):
+                <input type="text" id="siteTitle" maxlength="30">
+                <div class="char-counter"><span>0</span>/30</div>
+            </label>
+            <input type="file" id="siteImage" accept="image/*">
+            <img id="imagePreview" class="preview-image hidden">
+        </div>
+        
+        <div id="step2" class="hidden">
+            <label>Description (300-500 caractères):
+                <textarea id="siteDescription" minlength="300" maxlength="500"></textarea>
+                <div class="char-counter"><span>0</span>/500</div>
+            </label>
+        </div>
+        
+        <div id="step3" class="hidden">
+            <label>Lien du site (obligatoire):
+                <input type="url" id="siteUrl" required>
+            </label>
+            <label>Lien du tutoriel (optionnel):
+                <input type="url" id="tutorialUrl">
+            </label>
+        </div>
+        
+        <div id="step4" class="hidden">
+            <h3>Contacts (max 4)</h3>
+            <button id="addContact">Ajouter un contact</button>
+            <div id="contactsList"></div>
+        </div>
+        
+        <div id="step5" class="hidden">
+            <h3>Section de publication</h3>
+            <select id="sectionSelect"></select>
+            <button id="createNewSection">Créer nouvelle section</button>
+        </div>
+        
+        <div class="form-navigation">
+            <button id="prevStep" class="hidden">Précédent</button>
+            <button id="nextStep">Suivant</button>
+            <button id="publishButton" class="hidden">Publier</button>
+        </div>
+    `
+    
+    document.body.appendChild(form)
+    initFormHandlers()
+}
+
+// Initialisation des gestionnaires de formulaire
+function initFormHandlers() {
+    let currentStep = 1
+    const maxSteps = 5
+    
+    const prevButton = document.getElementById('prevStep')
+    const nextButton = document.getElementById('nextStep')
+    const publishButton = document.getElementById('publishButton')
+    
+    function updateNavButtons() {
+        prevButton.classList.toggle('hidden', currentStep === 1)
+        nextButton.classList.toggle('hidden', currentStep === maxSteps)
+        publishButton.classList.toggle('hidden', currentStep !== maxSteps)
+    }
+    
+    // Gestionnaire de navigation entre les étapes
+    nextButton.onclick = () => {
+        if (validateCurrentStep()) {
+            document.getElementById(`step${currentStep}`).classList.add('hidden')
+            currentStep++
+            document.getElementById(`step${currentStep}`).classList.remove('hidden')
+            updateNavButtons()
+        }
+    }
+    
+    prevButton.onclick = () => {
+        document.getElementById(`step${currentStep}`).classList.add('hidden')
+        currentStep--
+        document.getElementById(`step${currentStep}`).classList.remove('hidden')
+        updateNavButtons()
+    }
+    
+    // Publication finale
+    publishButton.onclick = async () => {
+        if (await validateAllSteps()) {
+            publishSite()
+        }
+    }
+    
+    initImageHandler()
+    initContactsHandler()
+    initSectionHandler()
+}
+
+// Validation et publication du site
+async function publishSite() {
+    const siteData = collectFormData()
+    
+    try {
+        const { data, error } = await supabase
+            .from('sites')
+            .insert([siteData])
+        
+        if (error) throw error
+        
+        // Ajout dynamique du nouveau site dans le DOM
+        addSiteToDOM(siteData)
+        
+        // Fermeture du formulaire
+        document.querySelector('.publish-form').remove()
+        
+        showSuccessMessage('Site publié avec succès!')
+    } catch (error) {
+        showErrorMessage('Erreur lors de la publication:', error)
+    }
+}
+
+// Collection des données du formulaire
+function collectFormData() {
+    return {
+        title: document.getElementById('siteTitle').value,
+        description: document.getElementById('siteDescription').value,
+        siteUrl: document.getElementById('siteUrl').value,
+        tutorialUrl: document.getElementById('tutorialUrl').value,
+        imageUrl: document.getElementById('imagePreview').src,
+        section: document.getElementById('sectionSelect').value,
+        contacts: getContactsList(),
+        author: currentUser.user_metadata.full_name,
+        authorId: currentUser.id,
+        publishDate: new Date().toISOString()
+    }
+}
+
+// Ajout du site dans le DOM
+function addSiteToDOM(siteData) {
+    const appItem = createAppItemElement(siteData)
+    const section = document.querySelector(`#${siteData.section}`)
+    section.querySelector('.appListContainer').appendChild(appItem)
+}
+
+// Création d'un élément app-item
+function createAppItemElement(data) {
+    const appItem = document.createElement('div')
+    appItem.className = 'app-item'
+    appItem.innerHTML = `
+        <h3 class="links-title">
+            <img src="${data.imageUrl}" alt="logo">
+            ${data.title}
+            <span class="author">par ${data.authorId === currentUser.id ? 'vous' : data.author}</span>
+        </h3>
+        <p>${data.description}</p>
+        <div class="contacts">
+            ${createContactsHTML(data.contacts)}
+        </div>
+        <div class="buttons">
+            <a href="${data.siteUrl}" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
+            ${data.tutorialUrl ? `<a href="${data.tutorialUrl}" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>` : ''}
+        </div>
+        <div class="publication-date">${new Date(data.publishDate).toLocaleString()}</div>
+    `
+    
+    // Ajout des options de modification/suppression pour l'auteur
+    if (data.authorId === currentUser.id) {
+        addAuthorOptions(appItem, data.id)
+    }
+    
+    return appItem
+}
+
+// Initialisation au chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+    createPublishButton()
+    checkAuthState()
+    loadExistingSites()
+})

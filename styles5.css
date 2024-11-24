@@ -806,3 +806,53 @@
 .elements-hidden #language-selector {
     display: none !important;
 }
+
+
+
+
+        .publish-form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+
+        .contact-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .preview-image {
+            max-width: 200px;
+            margin: 10px 0;
+        }
+    
