@@ -27,7 +27,8 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@octokit/rest"></script>
 
 <!-- Lien vers votre fichier CSS -->
 </head>
@@ -47,6 +48,7 @@
             <img src="svg/searchword.svg" alt="Rechercher">
         </button>
     </div>
+    <button id="publishBtn" class="publish-btn">Publier</button>
     <div class="zx9">
     <ul class="qt3" id="listContainer">
         <li class="vp7">
@@ -444,7 +446,62 @@
 </section>
 
 </main>
+<div id="publishModal" class="modal">
+    <div class="modal-content">
+        <h2>Nouvelle publication</h2>
+        <form id="publishForm">
+            <div class="form-group">
+                <label>Type de publication:</label>
+                <select id="publicationType">
+                    <option value="site">Site</option>
+                    <option value="page">Page</option>
+                </select>
+            </div>
 
+            <div class="form-group">
+                <label>Nom (max 30 caractères):</label>
+                <input type="text" id="siteName" maxlength="30" required>
+            </div>
+
+            <div class="form-group">
+                <label>Image:</label>
+                <input type="file" id="siteImage" accept="image/*" required>
+            </div>
+
+            <div class="form-group">
+                <label>Description (300-500 caractères):</label>
+                <textarea id="siteDescription" minlength="300" maxlength="500" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Lien du site:</label>
+                <input type="url" id="siteUrl" required>
+            </div>
+
+            <div class="form-group tutorial-field">
+                <label>Lien du tutoriel (optionnel):</label>
+                <input type="url" id="tutorialUrl">
+            </div>
+
+            <div class="form-group">
+                <label>Contacts:</label>
+                <div class="contacts-container" id="contactsContainer">
+                    <button type="button" id="addContactBtn">+ Ajouter un contact</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Section:</label>
+                <select id="sectionSelect">
+                    <!-- Sections existantes -->
+                </select>
+                <button type="button" id="newSectionBtn">Créer une nouvelle section</button>
+            </div>
+
+            <button type="submit">Publier</button>
+        </form>
+    </div>
+</div>
 
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>

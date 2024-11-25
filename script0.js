@@ -634,3 +634,232 @@ document.addEventListener('DOMContentLoaded', function() {
     createHideControl();
     initializeHideControl();
 });
+
+
+
+
+class PublishingSystem {
+    constructor() {
+        this.authenticated = false;
+        this.currentUser = null;
+        this.octokit = null;
+        this.repoOwner = 'githubjllik';
+        this.repoName = 'donneesAaino';
+        
+        this.init();
+    }
+
+    init() {
+        this.initializeGitHubAuth();
+        this.initializeGoogleAuth();
+        this.setupEventListeners();
+        this.loadExistingSections();
+    }
+
+    initializeGitHubAuth() {
+        // Configuration de l'authentification GitHub OAuth
+        const clientId = 'Ov23liI9uNYVYXtuRZSP';
+        const redirectUri = window.location.origin + '/callback';
+        
+        if (!this.authenticated) {
+            const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=repo,user`;
+            
+            document.getElementById('githubAuthBtn').onclick = () => {
+                window.location.href = githubAuthUrl;
+            };
+        }
+    }
+
+    initializeGoogleAuth() {
+        // Configuration de l'authentification Google
+        gapi.load('auth2', () => {
+            gapi.auth2.init({
+                client_id: '326595284772-dqo2sut2crmk4khksab3uglvn19rlt5q.apps.googleusercontent.com'
+            });
+        });
+    }
+
+    async handleAuthentication() {
+        if (!this.authenticated) {
+            document.getElementById('authModal').style.display = 'block';
+            return false;
+        }
+        return true;
+    }
+
+    setupEventListeners() {
+        document.getElementById('publishBtn').addEventListener('click', async () => {
+            if (await this.handleAuthentication()) {
+                document.getElementById('publishModal').style.display = 'block';
+            }
+        });
+
+        document.getElementById('publishForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await this.handlePublish();
+        });
+
+        document.getElementById('addContactBtn').addEventListener('click', () => {
+            this.addContactField();
+        });
+
+        document.getElementById('publicationType').addEventListener('change', (e) => {
+            const tutorialField = document.querySelector('.tutorial-field');
+            tutorialField.style.display = e.target.value === 'site' ? 'block' : 'none';
+        });
+    }
+
+    async handlePublish() {
+        const formData = this.getFormData();
+        
+        try {
+            // Traitement de l'image
+            const imageData = await this.processImage();
+            
+            // Création du contenu
+            const content = this.createContentObject(formData, imageData);
+            
+            // Sauvegarde sur GitHub
+            await this.saveToGitHub(content);
+            
+            // Mise à jour de l'interface
+            this.updateUI(content);
+            
+            document.getElementById('publishModal').style.display = 'none';
+        } catch (error) {
+            console.error('Erreur lors de la publication:', error);
+            alert('Une erreur est survenue lors de la publication');
+        }
+    }
+
+    async processImage() {
+        const file = document.getElementById('siteImage').files[0];
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 554;
+                    canvas.height = 554;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, 554, 554);
+                    resolve(canvas.toDataURL('image/jpeg', 0.8));
+                };
+                img.src = e.target.result;
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    }
+
+    async saveToGitHub(content) {
+        const path = `data/posts/${Date.now()}.json`;
+        const message = `Nouvelle publication: ${content.title}`;
+        
+        await this.octokit.repos.createOrUpdateFileContents({
+            owner: this.repoOwner,
+            repo: this.repoName,
+            path,
+            message,
+            content: Buffer.from(JSON.stringify(content)).toString('base64'),
+            branch: 'main'
+        });
+    }
+
+    updateUI(content) {
+        const section = document.querySelector(`#${content.section}`);
+        const container = section.querySelector('.appListContainer');
+        
+        const newItem = this.createPostElement(content);
+        container.insertBefore(newItem, container.firstChild);
+    }
+
+    createPostElement(content) {
+        const div = document.createElement('div');
+        div.className = 'app-item';
+        div.innerHTML = `
+            <h3 class="links-title">
+                <img src="${content.image}" alt="logo">
+                ${content.title}
+                <span class="author">par ${content.author}</span>
+                <div class="three-dots-icon">
+                    <img src="svg/three22.svg" alt="Options">
+                </div>
+            </h3>
+            <p>${content.description}</p>
+            <p class="contacts">${this.formatContacts(content.contacts)}</p>
+            <div class="buttons">
+                <a href="${content.siteUrl}" target="_blank" class="button view-site">
+                    Voir le site <span>&#10132;</span>
+                </a>
+                ${content.tutorialUrl ? `
+                    <a href="${content.tutorialUrl}" target="_blank" class="button view-tuto">
+                        Voir le tuto <span>&#10132;</span>
+                    </a>
+                ` : ''}
+            </div>
+            <div class="post-meta">
+                Publié le ${new Date(content.timestamp).toLocaleString()}
+            </div>
+        `;
+        return div;
+    }
+
+    formatContacts(contacts) {
+        return contacts.map(contact => `
+            <a href="${contact.value}" class="contact-link ${contact.type}">
+                <img src="icons/${contact.type}.svg" alt="${contact.type}">
+            </a>
+        `).join('');
+    }
+
+    // Méthodes pour la gestion du profil
+    async loadUserProfile() {
+        if (!this.authenticated) return;
+
+        const userPosts = await this.getUserPosts();
+        this.updateProfileUI(userPosts);
+    }
+
+    async getUserPosts() {
+        // Récupération des posts de l'utilisateur depuis GitHub
+        const response = await this.octokit.repos.getContent({
+            owner: this.repoOwner,
+            repo: this.repoName,
+            path: 'data/posts'
+        });
+
+        const posts = await Promise.all(response.data
+            .filter(file => file.name.endsWith('.json'))
+            .map(async file => {
+                const content = await this.octokit.repos.getContent({
+                    owner: this.repoOwner,
+                    repo: this.repoName,
+                    path: file.path
+                });
+                return JSON.parse(Buffer.from(content.data.content, 'base64').toString());
+            }));
+
+        return posts.filter(post => post.authorId === this.currentUser.id);
+    }
+
+    updateProfileUI(posts) {
+        const profileSection = document.querySelector('.profile-section');
+        profileSection.innerHTML = `
+            <h2>Profil de ${this.currentUser.name}</h2>
+            <div class="user-info">
+                <img src="${this.currentUser.avatar_url}" alt="Photo de profil">
+                <p>Membre depuis: ${new Date(this.currentUser.created_at).toLocaleDateString()}</p>
+            </div>
+            <div class="user-posts">
+                <h3>Mes publications (${posts.length})</h3>
+                ${posts.map(post => this.createPostElement(post)).join('')}
+            </div>
+            <button id="logoutBtn">Se déconnecter</button>
+        `;
+    }
+}
+
+// Initialisation du système
+const publishingSystem = new PublishingSystem();
