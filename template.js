@@ -52,16 +52,7 @@ function loadTemplate() {
             </ul>
         </nav>
         <div class="burger-menu" id="burgerMenu">
-        <div class="user-profile">
-    <div class="profile-container">
-        <img id="userAvatar" src="svg/default-avatar.svg" alt="Avatar">
-        <span id="userName">Visiteur anonyme</span>
-    </div>
-    <div class="profile-actions">
-        <button id="viewProfileBtn">Voir le profil</button>
-        <button id="authButton">Se connecter</button>
-    </div>
-</div>
+        
     <ul>
         <li>
             <a href="index.html"><img src="svg/accueil.svg" alt="Icon 1">Accueil
