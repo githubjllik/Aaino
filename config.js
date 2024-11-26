@@ -1,32 +1,4 @@
-const pageConfig = {
-        commonStyles: [
-            'styles2.css',
-            'styles4.css',
-            'styles5.css',
-            'nfbodyeclipse.css',
-            'stylelight.css',
-            'styledark.css',
-            'https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css',
-            'https://unpkg.com/leaflet/dist/leaflet.css',
-            'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
-        ],
-        commonScripts: [
-            'https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js',
-            'https://unpkg.com/leaflet/dist/leaflet.js',
-            'common-elementss.js',
-            'template.js',
-            'script0.js',
-            'search.js',
-            'calendar-events.js',
-            'gallery-photos.js',
-            'calendar.js',
-            'scripts.js',
-            'translation-service.js'
-        ],
+const SUPABASE_URL = 'https://hfdstpfqtxajyhdqognf.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhmZHN0cGZxdHhhanloZHFvZ25mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI0NDIwMDYsImV4cCI6MjA0ODAxODAwNn0.HmvO99_hh184LG9rOKTrT_79NxnEBfh468iFN7QgDVg';
 
-    };
-
-    // Initialisation du chargement
-    document.addEventListener('DOMContentLoaded', () => {
-        resourceLoader.init(pageConfig);
-    });
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);

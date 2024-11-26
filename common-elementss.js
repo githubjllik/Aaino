@@ -610,7 +610,20 @@ class CommonElements extends HTMLElement {
 
   </div>
 </div>
-
+<div id="authModal" class="auth-modal">
+    <div class="auth-content">
+        <span class="close-modal">&times;</span>
+        <h2>Se connecter</h2>
+        <button onclick="signInWithGoogle()" class="google-btn">
+            <img src="svg/google.svg" alt="Google">
+            Connexion avec Google
+        </button>
+        <button onclick="signInWithGithub()" class="github-btn">
+            <img src="svg/github.svg" alt="GitHub">
+            Connexion avec GitHub
+        </button>
+    </div>
+</div>
         `;
     }
 }
