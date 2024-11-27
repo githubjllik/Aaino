@@ -1,103 +1,100 @@
-// Gestion de l'état de l'authentification
-auth.onAuthStateChanged(async (user) => {
-    const userAvatar = document.getElementById('userAvatar');
-    const userName = document.getElementById('userName');
-    const authBtn = document.getElementById('authBtn');
-    const profileBtn = document.getElementById('profileBtn');
+let currentUser = null;
 
-    if (user) {
-        // Utilisateur connecté
-        userName.textContent = user.displayName || 'Utilisateur';
-        userAvatar.src = user.photoURL || 'svg/default-avatar.svg';
-        authBtn.textContent = 'Se déconnecter';
-        
-        // Récupérer les données additionnelles de l'utilisateur
-        const userDoc = await db.collection('users').doc(user.uid).get();
-        if (!userDoc.exists) {
-            // Créer un profil utilisateur s'il n'existe pas
-            await db.collection('users').doc(user.uid).set({
-                displayName: user.displayName,
-                email: user.email,
-                photoURL: user.photoURL,
-                createdAt: new Date()
-            });
-        }
-    } else {
-        // Utilisateur non connecté
-        userName.textContent = 'Visiteur anonyme';
-        userAvatar.src = 'svg/default-avatar.svg';
-        authBtn.textContent = 'Se connecter';
-    }
-});
-
-// Gestion des boutons d'authentification
-document.getElementById('authBtn').addEventListener('click', async () => {
-    if (auth.currentUser) {
-        // Déconnexion
-        try {
-            await auth.signOut();
-        } catch (error) {
-            console.error('Erreur de déconnexion:', error);
-        }
-    } else {
-        // Afficher la modal de connexion
-        showAuthModal();
-    }
-});
-
-// Gestion du bouton profil
-document.getElementById('profileBtn').addEventListener('click', () => {
-    if (auth.currentUser) {
-        window.location.href = '/profile.html';
-    } else {
-        alert('Veuillez vous connecter pour accéder à votre profil');
-    }
-});
-
-// Modal de connexion
-function showAuthModal() {
-    const modal = document.createElement('div');
-    modal.className = 'auth-modal';
-    modal.innerHTML = `
-        <div class="auth-modal-content">
-            <h2>Se connecter</h2>
-            <button id="googleAuth">
-                <img src="svg/google.svg" alt="Google">
-                Continuer avec Google
-            </button>
-            <button id="githubAuth">
-                <img src="svg/github.svg" alt="GitHub">
-                Continuer avec GitHub
-            </button>
-            <button class="close-modal">×</button>
-        </div>
-    `;
-    document.body.appendChild(modal);
-
-    // Gestion de la connexion Google
-    document.getElementById('googleAuth').addEventListener('click', async () => {
-        try {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            await auth.signInWithPopup(provider);
-            modal.remove();
-        } catch (error) {
-            console.error('Erreur de connexion Google:', error);
-        }
-    });
-
-    // Gestion de la connexion GitHub
-    document.getElementById('githubAuth').addEventListener('click', async () => {
-        try {
-            const provider = new firebase.auth.GithubAuthProvider();
-            await auth.signInWithPopup(provider);
-            modal.remove();
-        } catch (error) {
-            console.error('Erreur de connexion GitHub:', error);
-        }
-    });
-
-    // Fermer la modal
-    document.querySelector('.close-modal').addEventListener('click', () => {
-        modal.remove();
-    });
+async function handleAuth() {
+  if (!currentUser) {
+    // Afficher modal de connexion
+    showAuthModal();
+  } else {
+    // Déconnexion
+    await supabase.auth.signOut();
+    updateUIForLogout();
+  }
 }
+
+function showAuthModal() {
+  const modal = document.createElement('div');
+  modal.className = 'auth-modal';
+  modal.innerHTML = `
+    <div class="modal-content">
+      <button class="close-button" onclick="closeAuthModal()">×</button>
+      <h2>Se connecter avec</h2>
+      <button onclick="signInWithGoogle()">Google</button>
+      <button onclick="signInWithGithub()">GitHub</button>
+    </div>
+  `;
+  
+  // Fermer en cliquant en dehors
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeAuthModal();
+    }
+  });
+  
+  document.body.appendChild(modal);
+}
+
+function closeAuthModal() {
+  const modal = document.querySelector('.auth-modal');
+  if (modal) {
+    modal.remove();
+  }
+}
+
+
+async function signInWithGoogle() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google'
+  });
+  
+  if (error) console.error('Erreur Google:', error.message);
+}
+
+async function signInWithGithub() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'github'
+  });
+  
+  if (error) console.error('Erreur GitHub:', error.message);
+}
+
+
+function handleAuthResponse(user, error) {
+  if (error) {
+    console.error('Erreur d\'authentification:', error.message);
+    return;
+  }
+  
+  currentUser = user;
+  updateUIForLogin(user);
+}
+
+function updateUIForLogin(user) {
+  document.getElementById('profileImage').src = user.user_metadata.avatar_url;
+  document.getElementById('profileName').textContent = user.user_metadata.full_name;
+  document.getElementById('authButton').textContent = 'Se déconnecter';
+}
+
+function updateUIForLogout() {
+  document.getElementById('profileImage').src = 'svg/default-avatar.svg';
+  document.getElementById('profileName').textContent = 'Visiteur anonyme';
+  document.getElementById('authButton').textContent = 'Se connecter';
+  currentUser = null;
+}
+
+async function handleViewProfile() {
+  if (!currentUser) {
+    alert('Veuillez vous connecter pour voir votre profil');
+    return;
+  }
+  window.location.href = '/profile.html';
+}
+
+// Écouter les changements d'authentification
+supabase.auth.onAuthStateChange((event, session) => {
+  if (event === 'SIGNED_IN') {
+    currentUser = session.user;
+    updateUIForLogin(session.user);
+  } else if (event === 'SIGNED_OUT') {
+    updateUIForLogout();
+  }
+});

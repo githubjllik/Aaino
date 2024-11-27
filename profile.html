@@ -1,35 +1,16 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Utilisateur</title>
-    <!-- Vos CSS habituels -->
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore.js"></script>
+    <title>Profil</title>
+    <!-- Vos imports CSS habituels -->
 </head>
 <body>
-    <div class="profile-container">
-        <div class="profile-header">
-            <div class="profile-photo-container">
-                <img id="profilePhoto" src="svg/default-avatar.svg" alt="Photo de profil">
-                <button id="changePhoto">Changer la photo</button>
-                <input type="file" id="photoInput" accept="image/*" style="display: none;">
-            </div>
-            <div class="profile-info">
-                <h2 id="profileName">Chargement...</h2>
-                <p id="profileEmail">Chargement...</p>
-            </div>
-        </div>
-        <div class="profile-details">
-            <!-- Ajoutez d'autres informations de profil ici -->
+    <div id="profilePage">
+        <h1>Mon Profil</h1>
+        <div id="profileData">
+            <!-- Sera rempli dynamiquement -->
         </div>
     </div>
-
-    <script src="firebase-config.js"></script>
     <script src="profile.js"></script>
 </body>
 </html>
