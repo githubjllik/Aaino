@@ -1,100 +1,140 @@
-let currentUser = null;
+// Configuration Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyBjhrMdvjGYeT1Yfi_VHGQtqGPHXQRc_DY",
+  authDomain: "aaino-a7a5a.firebaseapp.com",
+  projectId: "aaino-a7a5a",
+  storageBucket: "aaino-a7a5a.firebasestorage.app",
+  messagingSenderId: "549385586794",
+  appId: "1:549385586794:web:4c93d25fad41acca27a213"
+};
 
-async function handleAuth() {
-  if (!currentUser) {
-    // Afficher modal de connexion
-    showAuthModal();
-  } else {
-    // Déconnexion
-    await supabase.auth.signOut();
-    updateUIForLogout();
-  }
-}
+// Initialiser Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-function showAuthModal() {
-  const modal = document.createElement('div');
-  modal.className = 'auth-modal';
-  modal.innerHTML = `
-    <div class="modal-content">
-      <button class="close-button" onclick="closeAuthModal()">×</button>
-      <h2>Se connecter avec</h2>
-      <button onclick="signInWithGoogle()">Google</button>
-      <button onclick="signInWithGithub()">GitHub</button>
+// Éléments DOM
+const authButton = document.getElementById('auth-button');
+const viewActivities = document.getElementById('view-activities');
+const userName = document.getElementById('user-name');
+const userAvatar = document.getElementById('user-avatar');
+const connectionStatus = document.getElementById('connection-status');
+
+// Créer le modal d'authentification
+const modal = document.createElement('div');
+modal.className = 'auth-modal';
+modal.innerHTML = `
+    <div class="auth-modal-content">
+        <h2>Se connecter / S'inscrire</h2>
+        <div class="auth-providers">
+            <button class="auth-provider-button" id="google-auth">
+                <img src="svg/google-icon.svg" alt="Google">
+                Continuer avec Google
+            </button>
+            <button class="auth-provider-button" id="github-auth">
+                <img src="svg/github-icon.svg" alt="GitHub">
+                Continuer avec GitHub
+            </button>
+        </div>
+        <div class="email-form">
+            <input type="email" id="email" placeholder="Votre email">
+            <input type="password" id="password" placeholder="Mot de passe">
+            <button id="email-auth">S'inscrire / Se connecter avec email</button>
+        </div>
     </div>
-  `;
-  
-  // Fermer en cliquant en dehors
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeAuthModal();
+`;
+document.body.appendChild(modal);
+
+// Gestionnaire d'authentification
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        // Utilisateur connecté
+        userName.textContent = user.displayName || user.email;
+        userAvatar.src = user.photoURL || 'svg/user-default.svg';
+        connectionStatus.textContent = 'connecté';
+        connectionStatus.style.color = '#4CAF50';
+        authButton.textContent = 'Se déconnecter';
+    } else {
+        // Utilisateur déconnecté
+        userName.textContent = 'Visiteur anonyme';
+        userAvatar.src = 'svg/user-default.svg';
+        connectionStatus.textContent = 'déconnecté';
+        connectionStatus.style.color = '#666';
+        authButton.textContent = 'Se connecter/S\'inscrire';
     }
-  });
-  
-  document.body.appendChild(modal);
-}
+});
 
-function closeAuthModal() {
-  const modal = document.querySelector('.auth-modal');
-  if (modal) {
-    modal.remove();
-  }
-}
+// Gestionnaires d'événements
+authButton.addEventListener('click', () => {
+    if (auth.currentUser) {
+        // Déconnexion
+        auth.signOut();
+    } else {
+        // Afficher le modal de connexion
+        modal.style.display = 'block';
+    }
+});
 
+viewActivities.addEventListener('click', () => {
+    if (!auth.currentUser) {
+        alert('Veuillez vous connecter pour voir vos activités');
+        modal.style.display = 'block';
+        return;
+    }
+    // Ajoutez ici la logique pour afficher les activités
+});
 
-async function signInWithGoogle() {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'google'
-  });
-  
-  if (error) console.error('Erreur Google:', error.message);
-}
+// Authentification Google
+document.getElementById('google-auth').addEventListener('click', () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider)
+        .then(() => {
+            modal.style.display = 'none';
+        })
+        .catch((error) => {
+            console.error('Erreur de connexion Google:', error);
+            alert('Erreur de connexion avec Google');
+        });
+});
 
-async function signInWithGithub() {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'github'
-  });
-  
-  if (error) console.error('Erreur GitHub:', error.message);
-}
+// Authentification GitHub
+document.getElementById('github-auth').addEventListener('click', () => {
+    const provider = new firebase.auth.GithubAuthProvider();
+    auth.signInWithPopup(provider)
+        .then(() => {
+            modal.style.display = 'none';
+        })
+        .catch((error) => {
+            console.error('Erreur de connexion GitHub:', error);
+            alert('Erreur de connexion avec GitHub');
+        });
+});
 
+// Authentification par email
+document.getElementById('email-auth').addEventListener('click', () => {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-function handleAuthResponse(user, error) {
-  if (error) {
-    console.error('Erreur d\'authentification:', error.message);
-    return;
-  }
-  
-  currentUser = user;
-  updateUIForLogin(user);
-}
+    // Essayer de se connecter
+    auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+            modal.style.display = 'none';
+        })
+        .catch(() => {
+            // Si la connexion échoue, essayer de créer un compte
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    modal.style.display = 'none';
+                })
+                .catch((error) => {
+                    console.error('Erreur d\'authentification:', error);
+                    alert('Erreur d\'authentification par email');
+                });
+        });
+});
 
-function updateUIForLogin(user) {
-  document.getElementById('profileImage').src = user.user_metadata.avatar_url;
-  document.getElementById('profileName').textContent = user.user_metadata.full_name;
-  document.getElementById('authButton').textContent = 'Se déconnecter';
-}
-
-function updateUIForLogout() {
-  document.getElementById('profileImage').src = 'svg/default-avatar.svg';
-  document.getElementById('profileName').textContent = 'Visiteur anonyme';
-  document.getElementById('authButton').textContent = 'Se connecter';
-  currentUser = null;
-}
-
-async function handleViewProfile() {
-  if (!currentUser) {
-    alert('Veuillez vous connecter pour voir votre profil');
-    return;
-  }
-  window.location.href = '/profile.html';
-}
-
-// Écouter les changements d'authentification
-supabase.auth.onAuthStateChange((event, session) => {
-  if (event === 'SIGNED_IN') {
-    currentUser = session.user;
-    updateUIForLogin(session.user);
-  } else if (event === 'SIGNED_OUT') {
-    updateUIForLogout();
-  }
+// Fermer le modal en cliquant à l'extérieur
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.style.display = 'none';
+    }
 });
