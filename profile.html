@@ -4,70 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Utilisateur</title>
-    <style>
-        .profile-page {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .profile-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .profile-info {
-            flex-grow: 1;
-        }
-
-        .profile-name {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .profile-email {
-            color: #666;
-        }
-
-        .profile-actions {
-            margin-top: 20px;
-        }
-
-        .avatar-upload {
-            margin-top: 20px;
-        }
-    </style>
+    <!-- Vos CSS habituels -->
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore.js"></script>
 </head>
 <body>
-    <div class="profile-page">
+    <div class="profile-container">
         <div class="profile-header">
-            <img id="profileAvatar" class="profile-avatar" src="svg/default-avatar.svg" alt="Avatar">
+            <div class="profile-photo-container">
+                <img id="profilePhoto" src="svg/default-avatar.svg" alt="Photo de profil">
+                <button id="changePhoto">Changer la photo</button>
+                <input type="file" id="photoInput" accept="image/*" style="display: none;">
+            </div>
             <div class="profile-info">
-                <h1 id="profileName" class="profile-name">Chargement...</h1>
-                <div id="profileEmail" class="profile-email">Chargement...</div>
-                <div class="profile-actions">
-                    <input type="file" id="avatarUpload" accept="image/*" style="display: none">
-                    <button onclick="document.getElementById('avatarUpload').click()">
-                        Changer l'avatar
-                    </button>
-                </div>
+                <h2 id="profileName">Chargement...</h2>
+                <p id="profileEmail">Chargement...</p>
             </div>
         </div>
+        <div class="profile-details">
+            <!-- Ajoutez d'autres informations de profil ici -->
+        </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase-config.js"></script>
-<script src="js/profile.js"></script>
-<script>
-    new Profile();
-</script>
+
+    <script src="firebase-config.js"></script>
+    <script src="profile.js"></script>
 </body>
 </html>

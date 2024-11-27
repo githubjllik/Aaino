@@ -1,106 +1,61 @@
-let currentUser = null;
-
-async function initProfile() {
-    const session = await supabase.auth.getSession();
-    if (!session) {
-        window.location.href = 'index.html';
+// Vérification de l'authentification
+auth.onAuthStateChanged(async (user) => {
+    if (!user) {
+        window.location.href = '/index.html';
         return;
     }
 
-    currentUser = session.user;
-    loadUserProfile();
-}
+    // Afficher les informations de base
+    document.getElementById('profileName').textContent = user.displayName;
+    document.getElementById('profileEmail').textContent = user.email;
+    document.getElementById('profilePhoto').src = user.photoURL || 'svg/default-avatar.svg';
 
-async function loadUserProfile() {
-    const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('user_id', currentUser.id)
-        .single();
-
-    if (error) {
-        console.error('Erreur lors du chargement du profil:', error);
-        return;
+    // Récupérer les données additionnelles
+    const userDoc = await db.collection('users').doc(user.uid).get();
+    if (userDoc.exists) {
+        const userData = userDoc.data();
+        // Afficher d'autres données si nécessaire
     }
+});
 
-    // Mettre à jour l'interface
-    document.getElementById('profileAvatar').src = currentUser.user_metadata.avatar_url || 'svg/default-avatar.svg';
-    document.getElementById('profileName').textContent = currentUser.user_metadata.full_name || 'Sans nom';
-    document.getElementById('profileEmail').textContent = currentUser.email;
+// Gestion du changement de photo
+document.getElementById('changePhoto').addEventListener('click', () => {
+    document.getElementById('photoInput').click();
+});
 
-    if (data) {
-        document.getElementById('displayName').value = data.display_name || '';
-        document.getElementById('bio').value = data.bio || '';
-        document.getElementById('location').value = data.location || '';
-        document.getElementById('visitCount').textContent = data.visit_count || 0;
-        document.getElementById('lastLogin').textContent = new Date(data.last_login).toLocaleDateString();
-    }
-}
-
-async function updateProfile(formData) {
-    const { data, error } = await supabase
-        .from('profiles')
-        .upsert({
-            user_id: currentUser.id,
-            display_name: formData.displayName,
-            bio: formData.bio,
-            location: formData.location,
-            updated_at: new Date()
-        });
-
-    if (error) {
-        console.error('Erreur lors de la mise à jour du profil:', error);
-        return false;
-    }
-
-    return true;
-}
-
-// Gestion de l'upload d'avatar
-document.getElementById('avatarInput').addEventListener('change', async (event) => {
-    const file = event.target.files[0];
+document.getElementById('photoInput').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
     if (!file) return;
 
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${currentUser.id}-${Math.random()}.${fileExt}`;
+    try {
+        // Supprimer l'ancienne photo si elle existe
+        const user = auth.currentUser;
+        if (user.photoURL && user.photoURL.includes('firebasestorage')) {
+            try {
+                const oldPhotoRef = storage.refFromURL(user.photoURL);
+                await oldPhotoRef.delete();
+            } catch (error) {
+                console.error('Erreur lors de la suppression de l\'ancienne photo:', error);
+            }
+        }
 
-    const { data, error } = await supabase.storage
-        .from('avatars')
-        .upload(fileName, file, {
-            upsert: true
+        // Upload de la nouvelle photo
+        const storageRef = storage.ref();
+        const photoRef = storageRef.child(`profile-photos/${user.uid}`);
+        await photoRef.put(file);
+        const photoURL = await photoRef.getDownloadURL();
+
+        // Mettre à jour le profil utilisateur
+        await user.updateProfile({ photoURL });
+        document.getElementById('profilePhoto').src = photoURL;
+
+        // Mettre à jour dans Firestore
+        await db.collection('users').doc(user.uid).update({
+            photoURL: photoURL
         });
 
-    if (error) {
-        console.error('Erreur lors de l\'upload:', error);
-        return;
-    }
-
-    const { data: { publicUrl } } = supabase.storage
-        .from('avatars')
-        .getPublicUrl(fileName);
-
-    // Mettre à jour l'avatar dans la base de données
-    await supabase.auth.updateUser({
-        data: { avatar_url: publicUrl }
-    });
-
-    document.getElementById('profileAvatar').src = publicUrl;
-});
-
-// Gestion du formulaire
-document.getElementById('profileForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = {
-        displayName: document.getElementById('displayName').value,
-        bio: document.getElementById('bio').value,
-        location: document.getElementById('location').value
-    };
-
-    const success = await updateProfile(formData);
-    if (success) {
-        alert('Profil mis à jour avec succès!');
+    } catch (error) {
+        console.error('Erreur lors du changement de photo:', error);
+        alert('Erreur lors du changement de photo. Veuillez réessayer.');
     }
 });
-
-// Initialisation
-document.addEventListener('DOMContentLoaded', initProfile);
