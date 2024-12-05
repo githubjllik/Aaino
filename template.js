@@ -52,7 +52,16 @@ function loadTemplate() {
             </ul>
         </nav>
         <div class="burger-menu" id="burgerMenu">
-        
+            <div class="user-profile" style="display: none;">
+        <img class="user-avatar" src="default-avatar.png" alt="Profile">
+        <div class="user-info">
+            <span class="user-name">Visiteur anonyme</span>
+            <span class="user-status"></span>
+        </div>
+    </div>
+    
+    <button class="auth-button" onclick="authManager.showAuthModal()">Se connecter/S'inscrire</button>
+<button class="view-activities" onclick="authManager.checkActivities()">Voir vos activités</button>
     <ul>
         <li>
             <a href="index.html"><img src="svg/accueil.svg" alt="Icon 1">Accueil
