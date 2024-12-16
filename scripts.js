@@ -263,67 +263,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Script pour faire apparaître les boutons de défilement
 
-let scrollTimeout;
-const scrollThreshold = 150;
-const scrollDuration = 1000;
-
-function showScrollButtons() {
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
-    const scrollDownBtn = document.getElementById('scrollDownBtn');
-    const scrollPosition = window.scrollY;
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    
-    if (scrollPosition > scrollThreshold) {
-        scrollTopBtn.style.display = "flex";
-        scrollDownBtn.style.display = scrollPosition >= maxScroll - 20 ? "none" : "flex";
-    } else {
-        scrollTopBtn.style.display = "none";
-        scrollDownBtn.style.display = "flex";
-    }
-}
-
-function smoothScroll(target, duration) {
-    const start = window.scrollY;
-    const distance = target - start;
-    let startTime = null;
-
-    function animation(currentTime) {
-        if (startTime === null) startTime = currentTime;
-        const timeElapsed = currentTime - startTime;
-        const progress = Math.min(timeElapsed / duration, 1);
-        
-        const ease = t => t < 0.5 
-            ? 4 * t * t * t 
-            : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-        
-        window.scrollTo(0, start + (distance * ease(progress)));
-        
-        if (timeElapsed < duration) {
-            requestAnimationFrame(animation);
-        }
-    }
-    
-    requestAnimationFrame(animation);
-}
-
-window.addEventListener('scroll', () => {
-    if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-    }
-    
-    scrollTimeout = setTimeout(showScrollButtons, 100);
-});
-
-document.getElementById('scrollTopBtn').addEventListener('click', () => {
-    smoothScroll(0, scrollDuration);
-});
-
-document.getElementById('scrollDownBtn').addEventListener('click', () => {
-    smoothScroll(document.documentElement.scrollHeight, scrollDuration);
-});
-
-// Initial check
-showScrollButtons();
 
 
 function toggleMenu() {

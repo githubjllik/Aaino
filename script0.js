@@ -82,10 +82,24 @@ document.addEventListener('DOMContentLoaded', function() {
     
     
     
-document.addEventListener('DOMContentLoaded', function() {
-    const sections = document.querySelectorAll('.section-offset');
+document.addEventListener('DOMContentLoaded', function () {
+    const observeDynamicContent = () => {
+        const containerObserver = new MutationObserver(() => {
+            // Rechercher et configurer les nouvelles sections dynamiques
+            const sections = document.querySelectorAll('.section-offset');
+            sections.forEach(section => {
+                if (!section.dataset.initialized) {
+                    initializeSection(section);
+                    section.dataset.initialized = "true"; // Éviter de réinitialiser les sections déjà configurées
+                }
+            });
+        });
 
-    sections.forEach(section => {
+        // Observer le body pour détecter les modifications dans le DOM global
+        containerObserver.observe(document.body, { childList: true, subtree: true });
+    };
+
+    const initializeSection = (section) => {
         const appListContainer = section.querySelector('.appListContainer');
         const viewToggleContainer = section.querySelector('.view-toggle-container');
         let items = section.querySelectorAll('.app-item');
@@ -118,6 +132,8 @@ document.addEventListener('DOMContentLoaded', function() {
         viewToggleContainer.appendChild(viewLessBtn);
 
         function updateView() {
+            // Mettre à jour la liste des items dans le cas où des éléments sont ajoutés dynamiquement
+            items = section.querySelectorAll('.app-item');
             items.forEach((item, index) => {
                 item.style.display = index < visibleItems ? 'block' : 'none';
             });
@@ -126,123 +142,50 @@ document.addEventListener('DOMContentLoaded', function() {
             viewLessBtn.style.display = visibleItems > 4 ? 'inline-block' : 'none';
         }
 
-        viewMoreBtn.addEventListener('click', function() {
+        viewMoreBtn.addEventListener('click', function () {
             visibleItems = Math.min(visibleItems + increment, items.length);
             updateView();
         });
 
-        viewLessBtn.addEventListener('click', function() {
-    // Calculer la position avant de réduire
-    const targetElement = items[3];
-    const elementPosition = targetElement.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset;
+        viewLessBtn.addEventListener('click', function () {
+            // Calculer la position avant de réduire
+            const targetElement = items[3];
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset;
 
-    // Faire défiler d'abord
-    window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
+            // Faire défiler d'abord
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+
+            // Réduire ensuite
+            setTimeout(() => {
+                visibleItems = 4;
+                updateView();
+            }, 100);
+        });
+
+        updateView();
+    };
+
+    // Initialiser les sections déjà dans la page
+    document.querySelectorAll('.section-offset').forEach(section => {
+        initializeSection(section);
+        section.dataset.initialized = "true";
     });
 
-    // Réduire ensuite
-    setTimeout(() => {
-        visibleItems = 4;
-        updateView();
-    }, 100);
+    // Observer les changements dynamiques
+    observeDynamicContent();
 });
 
-
-        updateView();
-    });
-});
 
 
 // Charger l'API YouTube
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    const socialNetworkHub = document.querySelector('.contacts');
-    const connectivityIconsContainer = document.querySelector('.contact-icons');
-    
-    function dismissNotification() {
-        const notificationCard = document.querySelector('.etherealNotificationCard');
-        const backdrop = document.querySelector('.luminousBackdrop');
-        if (notificationCard) {
-            notificationCard.style.opacity = '0';
-            notificationCard.style.transform = 'translate(-50%, -45%)';
-            notificationCard.style.transition = 'all 0.3s ease-out';
-            if (backdrop) {
-                backdrop.style.opacity = '0';
-                backdrop.style.transition = 'opacity 0.3s ease-out';
-            }
-            setTimeout(() => {
-                notificationCard.remove();
-                if (backdrop) backdrop.remove();
-            }, 300);
-        }
-    }
-    
-    function displayNotification(e) {
-        const link = e.target.closest('a');
-        if (link) {
-            const href = link.getAttribute('href');
-            if (!href || href === '#' || !href.match(/^https?:\/\//) || href === 'contact.html' || link.classList.contains('footer-cta')) {
-                e.preventDefault();
-                
-                const existingNotification = document.querySelector('.etherealNotificationCard');
-                if (existingNotification) existingNotification.remove();
-                
-                const backdrop = document.createElement('div');
-                backdrop.className = 'luminousBackdrop';
-                document.body.appendChild(backdrop);
-                
-                const notificationCard = document.createElement('div');
-                notificationCard.className = 'etherealNotificationCard';
-                notificationCard.innerHTML = `
-                    <button class="celestialDismissButton">×</button>
-                    <div class="notificationContent">
-                        <h3>✨ Restons connectés !</h3>
-                        <p>
-                            Chers visiteurs passionnés,
 
-                            Nous sommes en train de créer quelque chose d'extraordinaire pour vous ! Notre espace communautaire et nos réseaux sociaux sont en cours de développement pour vous offrir une expérience unique et immersive.
-
-                            En attendant ce grand moment, nous serions ravis d'échanger avec vous directement. Partagez vos idées, vos suggestions ou simplement dites-nous bonjour !
-                        </p>
-                        <a href="mailto:aainojllik@gmail.com" class="celestialEmailLink">
-                            <span class="emailIcon">✉️</span>
-                            <span class="emailText">contact@aaino.com</span>
-                        </a>
-                    </div>
-                `;
-                
-                document.body.appendChild(notificationCard);
-                
-                notificationCard.querySelector('.celestialDismissButton').addEventListener('click', dismissNotification);
-                backdrop.addEventListener('click', dismissNotification);
-            }
-        }
-    }
-    
-    document.addEventListener('click', function(e) {
-        const validInteractionZones = [
-            '.contacts',
-            '.contact-icons',
-            '.footer-column',
-            '.team-section',
-            '.social-links',
-            '.footer-cta'
-        ];
-        
-        const clickedInValidZone = validInteractionZones.some(selector => 
-            e.target.closest(selector)
-        );
-        
-        if (clickedInValidZone) {
-            displayNotification(e);
-        }
-    });
-});
 
 
 

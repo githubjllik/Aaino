@@ -7,27 +7,6 @@ function loadTemplate() {
                     Aaino
                 </a>
             </div>
-            <div class="collection">
-               <a class="collection" href="nouveaux.html" >
-                 <img src="svg/collection.svg" alt="nouveaux">
-               </a>
-           </div>
-            <div id="search-container">
-                <div id="search-bar" class="hidden">
-                    <img src="svg/leftve.svg" alt="Fermer" class="search-icon" onclick="closeExpandedSearch()">
-                    <textarea id="search" placeholder="Rechercher..." oninput="zephyromorphicResize(this); showSuggestions(this.value)"></textarea>
-                    <img src="svg/clear.svg" alt="Effacer" class="search-icon" onclick="clearSearch()">
-                    <button id="search-btn" onclick="performSearch().catch(error => console.error('Erreur:', error))">
-    <img src="svg/searchn.svg" alt="Rechercher" class="search-icon">
-</button>
-
-                    <div id="suggestions" class="hidden"></div>
-                </div>
-                <div id="right-elements">
-                    <img src="svg/search.svg" alt="Rechercher" class="search-icon" id="toggle-search-icon" onclick="toggleSearch()">
-                    <div id="other-element"></div>
-                </div>
-            </div>
 
             <button class="burger" id="burgerButton" onclick="toggleMenu()">☰</button>
             <button class="close" id="closeButton" onclick="toggleMenu()">✖</button>
@@ -42,18 +21,17 @@ function loadTemplate() {
                 <li id="menu6"><a href="pg6.html"><img src="svg/edit.svg" alt="Icon 6">Éditer</a></li>
                 <li id="menu7"><a href="pg7.html"><img src="svg/developpeur2.svg" alt="Icon 7">Développer</a></li>
                 <li id="menu8"><a href="#"><img src="svg/marchebusiness.svg" alt="Icon 8">E-Services</a></li>
-                <li id="menu9"><a href="pg9.html"><img src="svg/explorer.svg" alt="Icon 9">Explorer le monde</a></li>
-                <li id="menu10"><a href="pg10.html"><img src="svg/telechargement.svg" alt="Icon 10">Télécharger</a></li>
-                <li id="menu11"><a href="pg11.html"><img src="svg/mobileetpc3.svg" alt="Icon 11">Mobiles et pc</a></li>
-                <li id="menu12"><a href="pg12.html"><img src="svg/searchweb.svg" alt="Icon 12">Rechercher</a></li>
-                <li id="menu13"><a href="pg13.html"><img src="svg/darkweb.svg" alt="Icon 13">Darkweb</a></li>
+                <li id="menu9"><a href="pg9.html"><img src="svg2/crypto.svg" alt="Icon 9">Cryptomonnaie</a></li>
+                <li id="menu10"><a href="pg10.html"><img src="svg/explorer.svg" alt="Icon 10">Explorer le monde</a></li>
+                <li id="menu11"><a href="pg11.html"><img src="svg/telechargement.svg" alt="Icon 11">Télécharger</a></li>
+                <li id="menu12"><a href="pg12.html"><img src="svg/mobileetpc3.svg" alt="Icon 12">Mobiles et pc</a></li>
+                <li id="menu13"><a href="pg13.html"><img src="svg/searchweb.svg" alt="Icon 13">Rechercher</a></li>
                 <li id="menu14"><a href="pg14.html"><img src="svg/decouvrir.svg" alt="Icon 14">Découvrir plus</a></li>
-                <li id="menu15"><a href="pg15.html"><img src="svg/moi2.svg" alt="Icon 15">À propos</a></li>
             </ul>
         </nav>
         <div class="burger-menu" id="burgerMenu">
             <div class="user-profile" style="display: none;">
-        <img class="user-avatar" src="default-avatar.png" alt="Profile">
+        <img class="user-avatar" src="svg2/defautprofil.jpg" alt="Profile">
         <div class="user-info">
             <span class="user-name">Visiteur anonyme</span>
             <span class="user-status"></span>
@@ -104,37 +82,39 @@ function loadTemplate() {
             </a>
         </li>
         <li>
-            <a href="pg9.html"><img src="svg/explorer.svg" alt="Icon 9">Explorer le monde
+    <a href="pg9.html"><img src="svg2/crypto.svg" alt="Icon 9">Cryptomonnaie
+    <p class="description">Sites populaires de cryptomonnaie, sites d'actualités crypto, sites d'échanges crypto, sites de mining crypto, ...</p>
+    </a>
+</li>
+
+        <li>
+            <a href="pg10.html"><img src="svg/explorer.svg" alt="Icon 10">Explorer le monde
             <p class="description">Sites pour parcourir des lieux magnifiques partout dans le monde, ...</p>
             </a>
         </li>
         <li>
-            <a href="pg10.html"><img src="svg/telechargement.svg" alt="Icon 10">Télécharger
+            <a href="pg11.html"><img src="svg/telechargement.svg" alt="Icon 11">Télécharger
             <p class="description">Sites pour télécharger des vidéos, films, séries, animes, applications, logiciels pc, jeux android, pc, ppsspp, ps2, ps3, ps4, ps5, xbox, switch, ...</p>
             </a>
         </li>
         <li>
-            <a href="pg11.html"><img src="svg/mobileetpc3.svg" alt="Icon 11">Mobiles et pc
+            <a href="pg12.html"><img src="svg/mobileetpc3.svg" alt="Icon 12">Mobiles et pc
             <p class="description">Sites utiles pour ton téléphone, sites utiles pour ton pc, ...</p>
             </a>
         </li>
         <li>
-            <a href="pg12.html"><img src="svg/searchweb.svg" alt="Icon 12">Rechercher
+            <a href="pg13.html"><img src="svg/searchweb.svg" alt="Icon 13">Rechercher
             <p class="description">Moteurs de recherche et outils de recherche avancée, ...</p>
             </a>
         </li>
-        <li>
-            <a href="pg13.html"><img src="svg/darkweb.svg" alt="Icon 13">Darkweb
-            <p class="description">Guide et ressources sur le darkweb, ...</p>
-            </a>
-        </li>
+
         <li>
             <a href="pg14.html"><img src="svg/decouvrir.svg" alt="Icon 14">Découvrir plus
             <p class="description">Découvrez d'autres sites incroyables ...</p>
             </a>
         </li>
         <li>
-            <a href="pg15.html"><img src="svg/moi2.svg" alt="Icon 15">À propos</a>
+            <a href="about.html"><img src="svg/moi2.svg" alt="about">À propos</a>
         </li>
     </ul>
     <div class="contacts">
@@ -152,70 +132,65 @@ function loadTemplate() {
 
     const mainContent = `
         
-        <section class="serendipity-section">
+       <section class="serendipity-section">
     <div class="quixotic-grid">
         <div class="serendipity-card" data-aos="fade-up">
             <div class="card-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
                 </svg>
             </div>
-            <h2>Soutenez notre Mission</h2>
-            <p>Participez à l'évolution d'Aaino. Votre soutien nous permet d'innover et d'améliorer continuellement notre plateforme pour toute la communauté.</p>
-            <a href="#" class="quantum-link">
-                Contribuer
-                <span class="arrow">→</span>
-            </a>
+            <h2>Partagez vos Découvertes</h2>
+            <p>Enrichissez la communauté avec vos trouvailles web. Chaque lien partagé est une nouvelle source d'inspiration pour tous.</p>
         </div>
 
         <div class="serendipity-card" data-aos="fade-up" data-aos-delay="100">
             <div class="card-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    <path d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2v-6a2 2 0 012-2h8z"/>
+                    <path d="M7 13H5a2 2 0 01-2-2V5a2 2 0 012-2h8l4 4v2"/>
                 </svg>
             </div>
-            <h2>Support Personnalisé</h2>
-            <p>Notre équipe est là pour vous guider. Accédez à des ressources exclusives et bénéficiez d'une assistance sur mesure pour vos recherches.</p>
-            <a href="#" class="quantum-link">
-                Obtenir de l'aide
-                <span class="arrow">→</span>
-            </a>
+            <h2>Échangez vos Idées</h2>
+            <p>Participez aux discussions dans les commentaires. Vos perspectives enrichissent le débat et créent une communauté vivante.</p>
         </div>
 
         <div class="serendipity-card" data-aos="fade-up" data-aos-delay="200">
             <div class="card-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 255.000000 266.000000" preserveAspectRatio="xMidYMid meet">
+                    <g transform="translate(0.000000,266.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none">
+                        <path d="M1029 2216 c-7 -16 -27 -34 -43 -41 l-29 -12 29 -14 c16 -8 35 -27 43 -43 l14 -29 12 29 c7 16 25 36 41 43 21 10 25 15 14 19 -23 7 -51 35 -60 57 -7 19 -9 18 -21 -9z"/>
+                        <path d="M1320 2116 c-89 -27 -258 -95 -340 -136 -69 -35 -93 -62 -110 -127 -7 -26 -16 -51 -19 -55 -4 -4 -26 -1 -49 7 -30 11 -48 12 -62 5 -19 -10 -21 -21 -36 -180 -9 -92 -44 -220 -84 -305 -20 -44 -78 -138 -129 -210 -70 -99 -91 -137 -91 -162 0 -26 33 -83 144 -252 88 -134 152 -222 165 -226 11 -3 94 -1 183 5 90 6 378 26 641 44 437 30 480 35 498 53 42 41 33 127 -15 159 -23 15 -41 15 -183 5 -87 -7 -169 -14 -183 -17 -14 -3 -22 -3 -18 1 3 4 120 42 259 85 187 58 258 84 271 100 45 55 1 160 -65 160 -18 0 -133 -32 -257 -70 -123 -38 -226 -68 -227 -66 -2 2 115 72 259 156 145 84 273 163 286 177 34 37 30 87 -12 129 -20 20 -44 34 -59 34 -14 0 -124 -58 -248 -131 -123 -72 -232 -135 -243 -141 -23 -12 -23 -13 66 117 65 96 71 108 112 259 l44 159 -25 25 c-22 22 -31 24 -87 20 l-61 -5 -25 80 c-33 110 -113 269 -150 301 -38 31 -53 32 -150 2z m113 -74 c29 -32 105 -204 132 -299 38 -132 36 -140 -55 -185 -41 -20 -125 -54 -186 -74 l-110 -36 -40 20 c-21 11 -87 54 -146 96 -116 82 -118 85 -106 176 15 118 25 138 87 169 118 60 349 150 387 151 11 0 28 -8 37 -18z m-445 -539 c125 -90 185 -123 224 -123 40 0 227 59 290 91 21 11 38 17 38 14 0 -39 -164 -256 -233 -309 -36 -28 -131 -56 -188 -56 -140 0 -239 102 -239 247 0 45 28 183 37 183 2 0 34 -21 71 -47z"/>
+                        <path d="M1305 1970 c-38 -17 -104 -40 -145 -51 -41 -12 -88 -28 -103 -36 -24 -12 -27 -16 -15 -30 14 -18 223 -123 243 -123 17 0 25 23 25 74 0 38 6 49 55 101 87 91 63 117 -60 65z"/>
+                        <path d="M1402 1803 c-22 -56 -32 -110 -32 -171 0 -79 13 -86 89 -46 55 29 56 30 54 71 -3 68 -56 173 -88 173 -7 0 -17 -12 -23 -27z"/>
+                        <path d="M980 1753 c0 -10 16 -41 36 -70 39 -56 68 -70 127 -58 63 13 68 16 65 38 -2 16 -25 33 -88 64 -92 46 -140 55 -140 26z"/>
+                        <path d="M1718 2049 c-16 -37 -61 -79 -84 -79 -8 0 -14 -4 -14 -10 0 -5 7 -10 16 -10 9 0 31 -15 50 -34 19 -19 34 -41 34 -50 0 -9 5 -16 10 -16 6 0 10 7 10 16 0 9 15 31 34 50 19 19 41 34 50 34 9 0 16 5 16 10 0 6 -6 10 -14 10 -25 0 -75 50 -84 83 l-9 32 -15 -36z"/>
+                    </g>
                 </svg>
             </div>
-            <h2>Espace Créateurs</h2>
-            <p>Rejoignez notre communauté de créateurs. Partagez votre expertise et vos créations avec des millions d'utilisateurs passionnés.</p>
-            <a href="#" class="quantum-link">
-                Devenir créateur
-                <span class="arrow">→</span>
-            </a>
+            <h2>Marquez vos Pépites</h2>
+            <p>Identifiez les meilleures ressources avec des "pépites". Aidez la communauté à repérer le contenu qui fait la différence.</p>
         </div>
 
         <div class="serendipity-card" data-aos="fade-up" data-aos-delay="300">
             <div class="card-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 16v-4M12 8h.01"/>
                 </svg>
             </div>
-            <h2>Votre Avis Compte</h2>
-            <p>Contribuez à l'amélioration d'Aaino. Partagez vos suggestions et idées pour façonner ensemble l'avenir de la plateforme.</p>
-            <a href="#" class="quantum-link">
-                Donner mon avis
-                <span class="arrow">→</span>
-            </a>
+            <h2>Explorez les Tendances</h2>
+            <p>Découvrez les liens les plus visités et commentés. Restez à l'affût des découvertes qui passionnent la communauté.</p>
         </div>
     </div>
 </section>
+
     `;
     
     const footerTemplate = `
-        <footer class="modern-footer">
-  <div class="footer-wave">
+<footer class="modern-footer">
+    <div class="footer-wave">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path fill="currentColor" d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,224C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
         </svg>
@@ -224,41 +199,38 @@ function loadTemplate() {
         <div class="footer-grid">
             <div class="footer-section">
                 <h3>À propos d'Aaino</h3>
-                <p>Votre passerelle vers un web sans limites. Nous simplifions vos découvertes en ligne, en vous guidant vers les contenus qui comptent vraiment pour vous.</p>
-                <div class="footer-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">2M+</span>
-                        <span class="stat-label">Utilisateurs</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">50k+</span>
-                        <span class="stat-label">Ressources</span>
-                    </div>
-                </div>
+                <p>Votre hub de partage de découvertes web. Ensemble, construisons une bibliothèque collaborative des meilleures ressources en ligne.</p>
+                <a href="/about" class="learn-more-link">
+                    <span>En savoir plus</span>
+                    <svg class="arrow-icon" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
+                    </svg>
+                </a>
             </div>
 
-            <div class="footer-section">
-                <h3>Espace Créateurs</h3>
-                <p>Propulsez vos projets vers de nouveaux sommets. Rejoignez notre communauté de créateurs et bénéficiez d'une visibilité exceptionnelle.</p>
-                <a href="#" class="footer-cta">Rejoindre la communauté →</a>
-            </div>
+         <div class="footer-section">
+    <h3>Espace Communauté</h3>
+    <p>Partagez vos découvertes, échangez avec d'autres passionnés et contribuez à enrichir notre collection de ressources web.</p>
+    <a href="#" class="footer-cta" onclick="authManager.handleCommunityJoin(event)">Rejoindre la communauté →</a>
+</div>
+
 
             <div class="footer-section">
-                <h3>Support & Contribution</h3>
-                <p>Ensemble, construisons l'avenir d'Aaino. Votre soutien alimente notre innovation continue.</p>
-                <div class="support-options">
-                    <a href="#" class="support-button">
-                        <svg class="paypal-icon" width="18" height="18" viewBox="0 0 24 24">
-                            <path d="M7.144 19.532l1.049-5.751c.11-.89.808-1.232 1.1-1.232h2.877c3.14 0 5.577-1.262 6.269-4.082.998-4.087-1.744-5.935-4.637-5.935H6.823c-.636 0-1.17.407-1.285 1.04L2.834 19.532c-.284 1.644 1.393 3.322 4.31 0z"/>
+                <h3>Partagez vos Trouvailles</h3>
+                <p>Vous avez découvert un site intéressant ? Partagez-le avec notre communauté et voyez l'impact de vos contributions.</p>
+                <div class="feature-highlights">
+                    <div class="feature">
+                        <svg class="feature-icon" width="18" height="18" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v-2h-2v2zm0-4h2V7h-2v6z"/>
                         </svg>
-                        Faire un don
-                    </a>
-                    <a href="#" class="support-button">
-                        <svg class="sponsor-icon" width="18" height="18" viewBox="0 0 24 24">
-                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        <span>Statistiques de visites</span>
+                    </div>
+                    <div class="feature">
+                        <svg class="feature-icon" width="18" height="18" viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
                         </svg>
-                        Devenir sponsor
-                    </a>
+                        <span>Commentaires</span>
+                    </div>
                 </div>
             </div>
 
@@ -292,6 +264,7 @@ function loadTemplate() {
         </div>
     </div>
 </footer>
+
     `;
     
     // Insérer le header et la nav au début du body
@@ -319,13 +292,13 @@ const pageMapping = {
     'pg6.html': 'edit',
     'pg7.html': 'develop',
     'pg8.html': 'e-services',
-    'pg9.html': 'explore',
-    'pg10.html': 'download',
-    'pg11.html': 'devices',
-    'pg12.html': 'search',
-    'pg13.html': 'darkweb',
+    'pg9.html': 'cryptocurrency',
+    'pg10.html': 'explore',
+    'pg11.html': 'download',
+    'pg12.html': 'devices',
+    'pg13.html': 'search',
     'pg14.html': 'discover',
-    'pg15.html': 'about',
+    'about.html': 'about',
     'nouveaux.html': 'new',
     'search-results.html': 'search-results'
 };

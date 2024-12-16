@@ -33,23 +33,23 @@
       "dest": "/pg8.html"
     },
     {
-      "src": "/explore",
+      "src": "/cryptocurrency",
       "dest": "/pg9.html"
     },
     {
-      "src": "/download",
+      "src": "/explore",
       "dest": "/pg10.html"
     },
     {
-      "src": "/devices",
+      "src": "/download",
       "dest": "/pg11.html"
     },
     {
-      "src": "/search",
+      "src": "/devices",
       "dest": "/pg12.html"
     },
     {
-      "src": "/darkweb",
+      "src": "/search",
       "dest": "/pg13.html"
     },
     {
@@ -58,7 +58,7 @@
     },
     {
       "src": "/about",
-      "dest": "/pg15.html"
+      "dest": "/about.html"
     },
     {
       "src": "/new",

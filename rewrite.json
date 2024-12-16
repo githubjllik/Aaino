@@ -32,23 +32,23 @@
     "destination": "/pg8.html"
   },
   {
-    "source": "/explore",
+    "source": "/cryptocurrency",
     "destination": "/pg9.html"
   },
   {
-    "source": "/download",
+    "source": "/explore",
     "destination": "/pg10.html"
   },
   {
-    "source": "/devices",
+    "source": "/download",
     "destination": "/pg11.html"
   },
   {
-    "source": "/search",
+    "source": "/devices",
     "destination": "/pg12.html"
   },
   {
-    "source": "/darkweb",
+    "source": "/search",
     "destination": "/pg13.html"
   },
   {
@@ -57,7 +57,7 @@
   },
   {
     "source": "/about",
-    "destination": "/pg15.html"
+    "destination": "/about.html"
   },
   {
     "source": "/new",

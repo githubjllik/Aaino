@@ -37,23 +37,23 @@
       "serve": "/pg8.html"
     },
     {
-      "route": "/explore",
+      "route": "/cryptocurrency",
       "serve": "/pg9.html"
     },
     {
-      "route": "/download",
+      "route": "/explore",
       "serve": "/pg10.html"
     },
     {
-      "route": "/devices",
+      "route": "/download",
       "serve": "/pg11.html"
     },
     {
-      "route": "/search",
+      "route": "/devices",
       "serve": "/pg12.html"
     },
     {
-      "route": "/darkweb",
+      "route": "/search",
       "serve": "/pg13.html"
     },
     {
@@ -62,7 +62,7 @@
     },
     {
       "route": "/about",
-      "serve": "/pg15.html"
+      "serve": "/about.html"
     },
     {
       "route": "/new",
