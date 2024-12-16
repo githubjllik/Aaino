@@ -10,9 +10,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="Aaino" />
 <link rel="manifest" href="/site.webmanifest" />
-<title>Aaino | Download</title>
-<script src="loader.js"></script>
-<script src="config.js"></script>
+<title>Aaino | Explore the World</title>
     <link rel="stylesheet" href="styles2.css">
     <link rel="stylesheet" href="styles4.css">
     <link rel="stylesheet" href="styles5.css">
@@ -26,7 +24,7 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YM5YD3S15F"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -35,23 +33,66 @@
 
   gtag('config', 'G-YM5YD3S15F');
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <!-- Lien vers votre fichier CSS -->
+<link rel="stylesheet" href="stylepublish.css">
+    
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+// À mettre dans le head, avant vos autres scripts
+document.addEventListener('DOMContentLoaded', function() {
+  // Activer le cache pour les ressources
+  if ('caches' in window) {
+    caches.open('site-static').then(cache => {
+      // Mettre en cache les ressources importantes
+      const stylesheets = Array.from(document.styleSheets).map(sheet => sheet.href).filter(Boolean);
+      const scripts = Array.from(document.scripts).map(script => script.src).filter(Boolean);
+      cache.addAll([...stylesheets, ...scripts]);
+    });
+  }
 
+  // S'assurer que les ressources sont chargées dans l'ordre
+  const head = document.getElementsByTagName('head')[0];
+  const existingLinks = Array.from(document.getElementsByTagName('link'));
+  const existingScripts = Array.from(document.getElementsByTagName('script'));
+
+  // Réorganiser les styles
+  existingLinks
+    .filter(link => link.rel === 'stylesheet')
+    .forEach(link => {
+      head.appendChild(link.cloneNode(true));
+      link.remove();
+    });
+
+  // Réorganiser les scripts
+  existingScripts
+    .filter(script => script.src)
+    .forEach(script => {
+      const newScript = document.createElement('script');
+      newScript.src = script.src;
+      newScript.async = false;
+      head.appendChild(newScript);
+      script.remove();
+    });
+});
+</script>
 </head>
 <body>
 
 <main>
-  <section id="introduction">
-    <h1>Bienvenue dans la section Télécharger</h1>
-    <p>Bienvenue, chers passionnés de téléchargement !
-
-      Je suis ravi de vous accueillir dans cet espace où vous découvrirez une variété exceptionnelle de sites dédiés à tous vos besoins en matière de téléchargement. Que vous soyez à la recherche de contenus variés ou de ressources utiles, vous êtes au bon endroit.
-
-     Plongez dans cette sélection soigneusement choisie et laissez-vous émerveiller par tout ce que vous pouvez découvrir. Chaque visite est une nouvelle occasion de trouver des trésors et d'enrichir votre expérience numérique.
-
-      Nous sommes impatients de vous accompagner dans cette aventure et de vous offrir des ressources qui vous raviront. Revenez souvent pour explorer les dernières nouveautés et continuer à élargir vos horizons. Votre voyage dans le monde du téléchargement commence ici, et nous sommes enchantés de vous y guider !</p>
-    <p><strong>Alors, que cherchez-vous ?</strong></p>
-    <div class="qw4321_search_box">
+  <section id="introduction" class="modern-intro">
+    <div class="intro-content">
+        <h1>Explorer le Monde</h1>
+        <div class="animated-bar"></div>
+        <p class="intro-text">
+            Embarquez pour un voyage virtuel à travers des sites web fascinants. Découvrez des lieux incroyables sélectionnés par notre communauté ou partagez vos propres trouvailles immersives.
+        </p>
+        <div class="category-preview">
+            <p class="sharing-invite">Les publications apparaîtront ici, classées par catégories ↓</p>
+        </div>
+    </div>
+        <div class="qw4321_search_box">
         <textarea id="intro_search_input" class="er7890_search_field" placeholder="Rechercher..." rows="1"></textarea>
         <div id="intro_close_icon" class="hj6789_close_icon">
             <img src="svg/close.svg" alt="Effacer">
@@ -60,276 +101,12 @@
             <img src="svg/searchword.svg" alt="Rechercher">
         </button>
     </div>
-    <div class="zx9">
-    <ul class="qt3" id="listContainer">
-      <li class="vp7">
-          <span class="lm2">Les gestionnaires de téléchargement en <span class="current-year"></span></span>
-          <a href="#lien1" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites de téléchargement des applications et logiciels populaires en <span class="current-year"></span></span>
-            <a href="#lien2" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites de téléchargement des applications, logiciels, films, séries, Jeux (Mobiles, PC, PSP, PS2, PS3, PS4, PS5, XBOX, SWITCH...etc) <span class="gratuits">GRATUITS</span> en <span class="current-year"></span></span>
-            <a href="#lien3" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites pour télécharger des vidéos de vos réseaux sociaux en <span class="current-year"></span></span>
-            <a href="#lien4" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Petit bonus: plateforme pour tout télécharger en <span class="current-year"></span></span>
-            <a href="#lien5" class="wy5">Voir</a>
-        </li>
-    </ul>
-    <div class="jk4" id="buttonContainer"></div>
-</div>
-
-</section>
-    <section id="lien1" class="section-offset">
-    <h2>Les gestionnaires de téléchargement en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-      <div class="app-item">
-        <h3 class="links-title"><img src="logo2/1dm.jpg" alt="logo">1DM</h3>
-        <p>1DM est une application Android combinant un gestionnaire de téléchargement puissant et un navigateur intégré. Elle prend en charge les téléchargements rapides, y compris les torrents et les vidéos en streaming, avec un bloqueur de publicités intégré. Son interface permet de gérer facilement les téléchargements multiples et d'optimiser les vitesses.
-
-</p>
-        <div class="buttons">
-          <a href="https://vicky-bonick-idm.fr.uptodown.com/android" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-        </div>
-      </div>
-      <div class="app-item">
-        <h3 class="links-title"><img src="logo2/amerigo.jpg" alt="logo">Amerigo</h3>
-        <p>Amerigo est une application de gestion de fichiers pour Android et iOS, permettant de télécharger, organiser et lire des fichiers multimédias. Elle offre une gestion fluide des fichiers avec un support pour le stockage cloud et une interface intuitive pour un accès facile aux documents et vidéos.
-
-</p>
-        <div class="buttons">
-          <a href="https://www.amerigo-app.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-        </div>
-      </div>
-      <div class="app-item">
-        <h3 class="links-title"><img src="logo2/neat3.jpg" alt="logo">Neat Download Manager</h3>
-        <p>Neat Download Manager est un gestionnaire de téléchargement disponible sur Windows et macOS. Il permet d'accélérer les vitesses de téléchargement, de reprendre les téléchargements interrompus, et de gérer la bande passante. Il prend en charge les protocoles HTTP, FTP et HTTPS, et s'intègre aux navigateurs pour une gestion simple des téléchargements. Il propose également des options pour organiser les fichiers téléchargés et permet de gérer efficacement les fichiers volumineux grâce à la possibilité de les télécharger de manière progressive.
-</p>
-        <div class="buttons">
-          <a href="https://www.neatdownloadmanager.com/index.php/en/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-          <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-        </div>
-      </div>
-    </div>
-    <div class="view-toggle-container"></div>
-  </section>
-    <section id="lien2" class="section-offset">
-    <h2>Les sites de téléchargement des applications et logiciels populaires en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/uptodown.png" alt="logo">Uptodown</h3>
-            <p>Uptodown est une plateforme de téléchargement d'applications et de logiciels, offrant des versions gratuites pour divers systèmes d'exploitation, avec des avis d'utilisateurs et des mises à jour régulières.</p>
-            <div class="buttons">
-                <a href="https://fr.uptodown.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/malavida.jpg" alt="logo">Malavida</h3>
-            <p>Malavida est un site de téléchargement d'applications et de logiciels gratuits, proposant des avis, des guides et des versions pour différentes plateformes, tout en assurant la sécurité des fichiers proposés.</p>
-            <div class="buttons">
-                <a href="https://fr.malavida.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/clubic.png" alt="logo">Clubic</h3>
-            <p>Clubic est un site d'actualités et de téléchargements informatiques, offrant des tests de logiciels, des comparatifs de produits, des guides et des tutoriels, le tout axé sur la technologie et l'innovation.</p>
-            <div class="buttons">
-                <a href="https://www.clubic.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/softonic2.png" alt="logo">Softonic</h3>
-            <p>Softonic est une plateforme de téléchargement de logiciels, offrant des critiques, des comparatifs et des actualités technologiques, permettant aux utilisateurs de trouver et d'installer facilement des applications pour différents systèmes d'exploitation.</p>
-            <div class="buttons">
-                <a href="https://fr.softonic.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/freegamepick.jpg" alt="logo">Freegamepick</h3>
-            <p>FreeGamePick est un site de téléchargement proposant une large sélection de jeux gratuits pour PC. Les utilisateurs peuvent accéder à divers genres, tels que des jeux d'action, de puzzle, et d'aventure, avec des options faciles à installer. Le site est idéal pour ceux qui cherchent à découvrir de nouveaux jeux sans frais.</p>
-            <div class="buttons">
-                <a href="https://freegamepick.net/fr/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-    <section id="lien3" class="section-offset">
-    <h2>Les sites de téléchargement des applications, logiciels, films, séries, Jeux (Mobiles, PC, PSP, PS2, PS3, PS4, PS5, XBOX, SWITCH...etc) <span class="gratuits">GRATUITS</span> en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/zonetelechargement2.jpg" alt="logo">Zone-telechargement</h3>
-            <p>Zone-Téléchargement est un site permettant de télécharger gratuitement des films, séries, eBooks, musiques, animes, logiciels, apps mobiles, jeux, et émissions TV.</p>
-            <div class="buttons">
-                <a href="https://www.zone-telechargement.meme/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/tirexo.jpg" alt="logo">Tirexo</h3>
-            <p>Tirexo est un site de téléchargement gratuit proposant des films, séries, musiques, eBooks, logiciels, animes, jeux, et apps mobiles.</p>
-            <div class="buttons">
-                <a href="https://www.tirexo.gdn/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/torrent9.png" alt="logo">Torrent9</h3>
-            <p>Torrent9 est un site de partage de fichiers torrent permettant de télécharger gratuitement des films, séries, musiques, logiciels, jeux, et eBooks.</p>
-            <div class="buttons">
-                <a href="https://www1.torrent9.site/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/gamepciso.jpg" alt="logo">GamePCISO</h3>
-            <p>GamePCISO est un site de téléchargement gratuit de jeux vidéo pour PC et consoles, incluant PS5, PS4, PS3, PS2, PSP, PS Vita, Xbox, Wii, Wii U, 3DS, DS et Switch, au format ISO.</p>
-            <div class="buttons">
-                <a href="https://gamepciso.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/Jojojuju9.jpg" alt="logo">Jojojuju9</h3>
-            <p>Jojojuju9 est un site de téléchargement gratuit qui propose des logiciels et des jeux PC.</p>
-            <div class="buttons">
-                <a href="https://jojojuju9.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/igetintopc.png" alt="logo">Igetintopc</h3>
-            <p>Igetintopc est un site de téléchargement gratuit offrant une large sélection de logiciels et d'applications pour PC. Les utilisateurs peuvent accéder à des versions complètes et des tutoriels d'installation.</p>
-            <div class="buttons">
-                <a href="https://igetintopc.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/liteapks.jpg" alt="logo">Liteapks</h3>
-            <p>Liteapks est un site dédié au téléchargement d'applications Android légères et optimisées. Il propose des fichiers APK gratuits, permettant aux utilisateurs d'accéder facilement à des applications variées tout en économisant de l'espace de stockage.</p>
-            <div class="buttons">
-                <a href="https://liteapks.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/apkaward.png" alt="logo">ApkAward</h3>
-            <p>APKAward est un site de téléchargement d'applications Android, offrant une vaste sélection de fichiers APK gratuits. Il permet aux utilisateurs d'accéder à des applications et jeux variés, souvent modifiés pour des fonctionnalités supplémentaires ou des performances améliorées.</p>
-            <div class="buttons">
-                <a href="https://apkaward.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/happymod.jpg" alt="logo">HappyMod</h3>
-            <p>HappyMod est un site de téléchargement d'applications Android qui propose des versions gratuites de jeux et d'applications. Les utilisateurs peuvent accéder à des fichiers APK offrant des fonctionnalités supplémentaires sans frais.</p>
-            <div class="buttons">
-                <a href="https://happymod.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/coolrom.jpg" alt="logo">CoolROM</h3>
-            <p>CoolROM est un site de téléchargement spécialisé dans les émulateurs et les ROMs de jeux vidéo. Il propose des jeux pour différentes consoles, notamment NES, SNES, Game Boy, PlayStation, et plus. Les utilisateurs peuvent trouver des fichiers gratuits pour jouer à des classiques sur leurs appareils.</p>
-            <div class="buttons">
-                <a href="https://m.coolrom.com.au/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-    <section id="lien4" class="section-offset">
-    <h2>Les sites pour télécharger des vidéos de vos réseaux sociaux en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/vidmate.jpg" alt="logo">Vidmate</h3>
-            <p>VidMate est une application mobile qui permet de télécharger des vidéos et des musiques depuis divers sites de streaming. Elle offre une interface simple pour choisir la qualité et le format de téléchargement, facilitant l'accès à du contenu multimédia sans connexion Internet.</p>
-            <div class="buttons">
-                <a href="https://www.vidmateapp.com/fr" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/snaptube.jpg" alt="logo">Snaptube</h3>
-            <p>Snaptube est une application mobile permettant de télécharger des vidéos et de la musique à partir de plusieurs plateformes de streaming. Elle offre des options de format et de qualité, ainsi qu'une interface intuitive pour un accès facile au contenu multimédia hors ligne.</p>
-            <div class="buttons">
-                <a href="https://www.snaptube.com/fr/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/tubemate.jpg" alt="logo">Tubemate</h3>
-            <p>Tubemate est une application Android qui permet de télécharger des vidéos et de la musique depuis des sites de streaming. Elle offre des options de qualité variées, la possibilité de télécharger des sous-titres et une interface conviviale pour gérer facilement les téléchargements.</p>
-            <div class="buttons">
-                <a href="https://tubemate.fr.uptodown.com/android" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/seal.png" alt="logo">Seal</h3>
-            <p>Seal est une application mobile qui permet de télécharger des vidéos et de la musique depuis diverses plateformes. Elle supporte également le téléchargement de sous-titres, offrant une expérience complète pour les utilisateurs souhaitant accéder à leur contenu hors ligne. L'interface est intuitive et facilite la recherche et le téléchargement rapide de fichiers multimédias.</p>
-            <div class="buttons">
-                <a href="https://seal.fr.uptodown.com/android" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/snaptik.jpg" alt="logo">Snaptik</h3>
-            <p>Snaptik est un outil en ligne permettant de télécharger des vidéos TikTok sans filigrane. Il offre une interface simple et rapide, prenant en charge divers formats vidéo. Les utilisateurs peuvent également sauvegarder des vidéos directement sur leurs appareils en un clic.</p>
-            <div class="buttons">
-                <a href="https://snaptik.app/fr1" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/blackhole.jpg" alt="logo">Blackhole</h3>
-            <p>Blackhole est une application qui permet de télécharger facilement n'importe quelle vidéo en utilisant leurs liens. Elle offre une interface simple et pratique pour gérer vos téléchargements.</p>
-            <div class="buttons">
-                <a href="https://play.google.com/store/apps/details?id=com.fawazapp.blackhole" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-
-<section id="lien5" class="section-offset">
-    <h2>Petit bonus: plateforme pour tout télécharger en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/telegram3.png" alt="logo">Telegram</h3>
-            <p>L'application Télécharger est idéale pour obtenir n'importe quel type de fichier en effectuant simplement une recherche sur ce que vous voulez. Son interface intuitive facilite la gestion et l'organisation de tous vos téléchargements.</p>
-            <div class="buttons">
-                <a href="https://web.telegram.org/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    </div>
-    <div class="view-toggle-container"></div>
 </section>
 
  
 </main>
+
+
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
@@ -345,6 +122,19 @@
 <script src="scripts.js"></script>
 <script src="translation-service.js"></script>
 <script src="urlDisplay.js"></script>
+<!-- À la fin du body -->
+<script src="auth.js"></script>
+<script src="publish.js"></script>
+<script src="publishDisplay.js"></script>
+<script src="publishother.js"></script>
+
+
+
+
+
+
+
+
 <!-- Inizio Codice ShinyStat -->
 <script src="//codice.shinystat.com/cgi-bin/getcod.cgi?USER=SS-52025661-7459d"></script>
 <noscript>

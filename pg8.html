@@ -12,8 +12,6 @@
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 <title>Aaino | E-Services</title>
-<script src="loader.js"></script>
-<script src="config.js"></script>
     <link rel="stylesheet" href="styles2.css">
     <link rel="stylesheet" href="styles4.css">
     <link rel="stylesheet" href="styles5.css">
@@ -27,7 +25,7 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YM5YD3S15F"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -36,24 +34,66 @@
 
   gtag('config', 'G-YM5YD3S15F');
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <!-- Lien vers votre fichier CSS -->
+<link rel="stylesheet" href="stylepublish.css">
+    
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+// À mettre dans le head, avant vos autres scripts
+document.addEventListener('DOMContentLoaded', function() {
+  // Activer le cache pour les ressources
+  if ('caches' in window) {
+    caches.open('site-static').then(cache => {
+      // Mettre en cache les ressources importantes
+      const stylesheets = Array.from(document.styleSheets).map(sheet => sheet.href).filter(Boolean);
+      const scripts = Array.from(document.scripts).map(script => script.src).filter(Boolean);
+      cache.addAll([...stylesheets, ...scripts]);
+    });
+  }
 
+  // S'assurer que les ressources sont chargées dans l'ordre
+  const head = document.getElementsByTagName('head')[0];
+  const existingLinks = Array.from(document.getElementsByTagName('link'));
+  const existingScripts = Array.from(document.getElementsByTagName('script'));
 
+  // Réorganiser les styles
+  existingLinks
+    .filter(link => link.rel === 'stylesheet')
+    .forEach(link => {
+      head.appendChild(link.cloneNode(true));
+      link.remove();
+    });
+
+  // Réorganiser les scripts
+  existingScripts
+    .filter(script => script.src)
+    .forEach(script => {
+      const newScript = document.createElement('script');
+      newScript.src = script.src;
+      newScript.async = false;
+      head.appendChild(newScript);
+      script.remove();
+    });
+});
+</script>
 </head>
 <body>
 
 <main>
-  <section id="introduction">
-    <h1>Bienvenue dans la section E-Services</h1>
-    <p>Bienvenue à tous les explorateurs des E-services !
-
-      Je suis ravi de vous accueillir dans cet espace où vous découvrirez une gamme exceptionnelle de sites dédiés à tout ce qui touche aux services en ligne. Ici, vous trouverez des ressources pour gérer vos activités numériques avec aisance, optimiser vos transactions, et explorer des opportunités passionnantes.
-
-      Laissez-vous guider par votre curiosité et explorez les diverses solutions que nous avons rassemblées pour vous. Chaque visite est une chance de découvrir quelque chose de nouveau et d’utile pour améliorer votre quotidien numérique.
-
-      Nous sommes impatients de vous accompagner dans cette aventure et de vous offrir les outils pour enrichir votre expérience en ligne. Revenez souvent pour ne rien manquer des dernières nouveautés et continuer à découvrir des ressources inspirantes. Vous êtes au cœur de cette exploration, et nous sommes ravis de vous y conduire !</p>
-    <p><strong>Alors, que cherchez-vous ?</strong></p>
-    <div class="qw4321_search_box">
+  <section id="introduction" class="modern-intro">
+    <div class="intro-content">
+        <h1>E-Services</h1>
+        <div class="animated-bar"></div>
+        <p class="intro-text">
+            Découvrez une sélection de services en ligne innovants qui simplifient votre quotidien numérique. Explorez les ressources partagées par notre communauté ou contribuez avec vos découvertes.
+        </p>
+        <div class="category-preview">
+            <p class="sharing-invite">Les publications apparaîtront ici, classées par catégories ↓</p>
+        </div>
+    </div>
+        <div class="qw4321_search_box">
         <textarea id="intro_search_input" class="er7890_search_field" placeholder="Rechercher..." rows="1"></textarea>
         <div id="intro_close_icon" class="hj6789_close_icon">
             <img src="svg/close.svg" alt="Effacer">
@@ -62,268 +102,8 @@
             <img src="svg/searchword.svg" alt="Rechercher">
         </button>
     </div>
-    <div class="zx9">
-    <ul class="qt3" id="listContainer">
-        <li class="vp7">
-            <span class="lm2">Les sites de ventes en ligne en  <span class="annee-actuelle"></span></span>
-            <a href="#lien1" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites de freelance en ligne en  <span class="annee-actuelle"></span></span>
-            <a href="#lien2" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites de paiement en ligne en  <span class="annee-actuelle"></span></span>
-            <a href="#lien3" class="wy5">Voir</a>
-        </li>
-    </ul>
-    <div class="jk4" id="buttonContainer"></div>
-</div>
-
-</section>
-    <section id="lien1" class="section-offset">
-    <h2>Les sites de ventes en ligne en <span class="annee-actuelle"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/amazon.png" alt="logo">Amazon</h3>
-            <p>Amazon est une plateforme de commerce en ligne offrant une vaste gamme de produits, services de streaming, et solutions cloud, accessible dans le monde entier.</p>
-            <div class="buttons">
-                <a href="https://www.amazon.fr/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/ebay.jpg" alt="logo">eBay</h3>
-            <p>eBay est une plateforme d'enchères et de vente en ligne permettant aux utilisateurs d'acheter et vendre divers articles neufs ou d'occasion.</p>
-            <div class="buttons">
-                <a href="https://www.ebay.fr/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/alibaba.png" alt="logo">Alibaba</h3>
-            <p>Alibaba est une plateforme en ligne spécialisée dans le commerce de gros, reliant fournisseurs et acheteurs à travers le monde pour des produits en grande quantité.</p>
-            <div class="buttons">
-                <a href="https://www.alibaba.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/jumia2.png" alt="logo">Jumia</h3>
-            <p>Jumia est une plateforme de e-commerce en Afrique, offrant une large gamme de produits, allant de l'électronique à la mode, avec des services de livraison et paiement en ligne.</p>
-            <div class="buttons">
-                <a href="https://www.jumia.ma/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/myntra.jpg" alt="logo">Myntra</h3>
-            <p>Myntra est une plateforme de commerce en ligne en Inde spécialisée dans la vente de vêtements, d'accessoires et de produits de beauté. Elle offre une large gamme de marques et permet aux utilisateurs d'acheter des articles de mode directement depuis leur site web ou leur application.</p>
-            <div class="buttons">
-                <a href="https://www.myntra.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/rakuten.png" alt="logo">Rakuten</h3>
-            <p>Rakuten est une plateforme de commerce en ligne japonaise proposant une vaste sélection de produits allant des vêtements aux appareils électroniques. Les utilisateurs peuvent acheter et vendre des articles neufs et d'occasion.</p>
-            <div class="buttons">
-                <a href="https://fr.shopping.rakuten.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/afribaba.jpg" alt="logo">Afribaba</h3>
-            <p>Afribaba est un site de petites annonces pour l'Afrique, permettant aux utilisateurs d'acheter, vendre ou échanger divers produits et services, tels que véhicules, immobilier, et emplois.</p>
-            <div class="buttons">
-                <a href="https://www.afribaba.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/facebook.jpg" alt="logo">Facebook Markeplace</h3>
-            <p>Facebook Marketplace est une plateforme intégrée à Facebook permettant aux utilisateurs d'acheter, vendre et échanger des produits localement, allant des articles ménagers aux véhicules.</p>
-            <div class="buttons">
-                <a href="https://www.facebook.com/marketplace/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/etsy.png" alt="logo">Etsy</h3>
-            <p>Etsy est une marketplace en ligne dédiée à la vente de produits faits main, vintage et uniques, incluant des créations artisanales, des bijoux, des vêtements et des articles de décoration.</p>
-            <div class="buttons">
-                <a href="https://www.etsy.com/fr/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    
-    </div>
-    <div class="view-toggle-container"></div>
 </section>
 
-    <section id="lien2" class="section-offset">
-    <h2>Les sites de freelance en ligne en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/fiverr.png" alt="logo">Fiverr</h3>
-            <p>Fiverr est une plateforme de freelancing où les utilisateurs peuvent acheter et vendre des services variés, allant de la conception graphique à la rédaction, avec des offres à partir de 5 USD.</p>
-            <div class="buttons">
-                <a href="https://fr.fiverr.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/upwork.png" alt="logo">Upwork</h3>
-            <p>Upwork est une plateforme de freelancing permettant aux professionnels de proposer et de trouver des missions dans divers domaines, tels que le développement, la rédaction et le design, avec un système de gestion de projets et de paiements sécurisé.</p>
-            <div class="buttons">
-                <a href="https://www.upwork.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/freelancer.png" alt="logo">Freelancer</h3>
-            <p>Freelancer est une plateforme de travail indépendant où les freelances peuvent trouver des projets dans divers domaines, tels que le développement, le design et la rédaction, et où les clients peuvent embaucher des freelances pour des missions spécifiques.</p>
-            <div class="buttons">
-                <a href="https://www.fr.freelancer.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/freelance.jpg" alt="logo">Freelance.com</h3>
-            <p>Freelance.com est une plateforme de mise en relation entre freelances et entreprises, offrant des services dans des domaines variés comme le développement, le design et le marketing. Les entreprises publient des projets, tandis que les freelances postulent pour les missions correspondantes.</p>
-            <div class="buttons">
-                <a href="https://www.freelance.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/kickstarter3.png" alt="logo">Kickstarter</h3>
-            <p>Kickstarter est une plateforme de financement participatif où les créateurs peuvent lancer des projets innovants, et les soutiens peuvent financer des idées en échange de récompenses. Elle est utilisée pour financer des projets dans divers domaines tels que la technologie, l'art et le design.</p>
-            <div class="buttons">
-                <a href="https://www.kickstarter.com/?lang=fr" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/guru.png" alt="logo">Guru</h3>
-            <p>Guru est une plateforme de freelancing où les professionnels indépendants peuvent proposer leurs services, et les clients peuvent publier des projets et embaucher des freelances pour divers travaux. Elle permet de gérer les contrats, les paiements, et les collaborations en ligne.</p>
-            <div class="buttons">
-                <a href="https://www.guru.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/toptal.png" alt="logo">Toptal</h3>
-            <p>Toptal est une plateforme de freelancing qui connecte des entreprises avec des freelances hautement qualifiés dans les domaines du développement logiciel, du design et de la finance. Elle se concentre sur les talents de haut niveau et propose un processus de sélection rigoureux.</p>
-            <div class="buttons">
-                <a href="https://www.toptal.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/people.png" alt="logo">PeoplePerHour</h3>
-            <p>PeoplePerHour est une plateforme de freelancing qui permet aux entreprises de trouver des freelances pour des projets à court terme dans divers domaines tels que le développement web, le design graphique et la rédaction. Elle facilite la gestion des projets et la communication entre les clients et les freelances.</p>
-            <div class="buttons">
-                <a href="https://www.peopleperhour.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-
-<section id="lien3" class="section-offset">
-    <h2>Les sites de paiement en ligne en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/paypal.jpg" alt="logo">Paypal</h3>
-            <p>PayPal est une plateforme de paiement en ligne permettant d'envoyer et de recevoir de l'argent, d'effectuer des achats sécurisés et de gérer des transactions internationales.</p>
-            <div class="buttons">
-                <a href="https://www.paypal.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/stripe2.png" alt="logo">Stripe</h3>
-            <p>Stripe est une plateforme de paiement en ligne conçue pour les entreprises, permettant de gérer les transactions, les abonnements et les paiements internationaux de manière sécurisée.</p>
-            <div class="buttons">
-                <a href="https://stripe.com/fr" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/flutterwave.png" alt="logo">Flutterwave</h3>
-            <p>Flutterwave est une plateforme de paiement qui permet aux entreprises en Afrique et à l'international de traiter des paiements en ligne, via mobile ou par carte, en facilitant les transactions dans plusieurs devises.</p>
-            <div class="buttons">
-                <a href="https://flutterwave.com/cm" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/dusupay.jpg" alt="logo">Dusupay</h3>
-            <p>Dusupay est une plateforme de paiement en ligne qui permet aux entreprises d'accepter et d'envoyer des paiements en Afrique, en connectant divers modes de paiement locaux tels que les portefeuilles mobiles et les cartes bancaires.</p>
-            <div class="buttons">
-                <a href="https://dusupay.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/payoneer.jpg" alt="logo">Payoneer</h3>
-            <p>Payoneer est une plateforme de paiements en ligne permettant de recevoir et d'envoyer des fonds à l'international, avec des services de transfert bancaire, cartes de débit et paiements pour freelances et entreprises.</p>
-            <div class="buttons">
-                <a href="https://www.payoneer.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/2checkout.png" alt="logo">2Checkout</h3>
-            <p>2Checkout est une plateforme de paiement en ligne qui permet aux entreprises d'accepter des paiements dans plusieurs devises et via différentes méthodes, avec des solutions pour les ventes globales et les abonnements.</p>
-            <div class="buttons">
-                <a href="https://go.2checkout.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/googlepay.png" alt="logo">Google Pay</h3>
-            <p>Google Pay est un service de paiement numérique permettant de réaliser des achats en ligne, en magasin, et de transférer de l'argent entre particuliers, en utilisant un smartphone ou une carte enregistrée.</p>
-            <div class="buttons">
-                <a href="https://pay.google.com/intl/fr_fr/about/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/applepay.png" alt="logo">Apple Pay</h3>
-            <p>Apple Pay est un service de paiement mobile permettant aux utilisateurs d'effectuer des transactions sécurisées en magasin, en ligne et dans des applications en utilisant des appareils Apple, grâce à la technologie NFC et à l'intégration de cartes de crédit et de débit.</p>
-            <div class="buttons">
-                <a href="https://www.apple.com/fr/apple-pay/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/buymeacoffe.png" alt="logo">Buymeacoffee</h3>
-            <p>Buy Me a Coffee est une plateforme permettant aux créateurs de contenu de recevoir des dons et du soutien financier directement de leurs fans ou abonnés.</p>
-            <div class="buttons">
-                <a href="https://buymeacoffee.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
- 
 </main>
 
 
@@ -344,6 +124,19 @@
 <script src="scripts.js"></script>
 <script src="translation-service.js"></script>
 <script src="urlDisplay.js"></script>
+<!-- À la fin du body -->
+<script src="auth.js"></script>
+<script src="publish.js"></script>
+<script src="publishDisplay.js"></script>
+<script src="publishother.js"></script>
+
+
+
+
+
+
+
+
 <!-- Inizio Codice ShinyStat -->
 <script src="//codice.shinystat.com/cgi-bin/getcod.cgi?USER=SS-52025661-7459d"></script>
 <noscript>

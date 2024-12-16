@@ -1,14 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Profil</title>
-    <!-- Vos imports CSS habituels -->
+    <!-- Vos meta tags et CSS existants -->
+    <link rel="stylesheet" href="profile.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <div id="profilePage">
-        <h1>Mon Profil</h1>
-        <div id="profileData">
-            <!-- Sera rempli dynamiquement -->
+    <div class="profile-container">
+        <div class="profile-header">
+            <img id="profileImage" src="svg/default-avatar.svg" alt="Profile">
+            <h1 id="profileName">Chargement...</h1>
+        </div>
+        
+        <div class="profile-details">
+            <div class="profile-info">
+                <h2>Informations</h2>
+                <p>Email: <span id="profileEmail">Chargement...</span></p>
+                <p>Membre depuis: <span id="profileJoinDate">Chargement...</span></p>
+            </div>
+            
+            <div class="profile-actions">
+                <button id="updateAvatarBtn">Changer l'avatar</button>
+                <input type="file" id="avatarInput" hidden accept="image/*">
+                <button id="logoutBtn">Se déconnecter</button>
+            </div>
         </div>
     </div>
     <script src="profile.js"></script>

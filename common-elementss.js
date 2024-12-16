@@ -45,16 +45,7 @@ class CommonElements extends HTMLElement {
                         <img src="svg/down.svg" alt="Suivant" class="xv7391_icon_svg">
                     </button>
                 </div>
-                <button id="scrollTopBtn" class="scroll-button" aria-label="Scroll to top">
-    <svg class="scroll-icon" viewBox="0 0 24 24">
-        <path d="M12 4l8 8h-6v8h-4v-8H4z"></path>
-    </svg>
-</button>
-<button id="scrollDownBtn" class="scroll-button" aria-label="Scroll to bottom">
-    <svg class="scroll-icon" viewBox="0 0 24 24">
-        <path d="M12 20l-8-8h6V4h4v8h6z"></path>
-    </svg>
-</button>
+             
                 <div class="galaxy-wrapper">
                     <div class="zephyr-control-panel">
                         <img src="svg/top.svg" class="quasar-icon" id="nebula-toggle" alt="Toggle">
@@ -430,13 +421,7 @@ class CommonElements extends HTMLElement {
             <div class="tuto-suggestion"></div>
         </div>
     </div>
-<div class="contact-icons">
-    <a href="#" target="_blank" style="--animation-order: 1"><img src="svg/gmail2z.png" alt="Gmail"></a>
-    <a href="#" target="_blank" style="--animation-order: 2"><img src="svg/facebook2z.png" alt="Facebook"></a>
-    <a href="#" target="_blank" style="--animation-order: 3"><img src="svg/tiktok2z.png" alt="Tiktok"></a>
-    <a href="#" target="_blank" style="--animation-order: 4"><img src="svg/instagram2z.png" alt="Instagram"></a>
-    <a href="#" target="_blank" style="--animation-order: 5"><img src="svg/github2z.png" alt="GitHub"></a>
-</div>
+
 
 <div id="yt_custom_modal_wrapper_2024" class="custom_youtube_modal_container_unique">
     <div class="custom_youtube_modal_inner_box_specific">
@@ -610,7 +595,166 @@ class CommonElements extends HTMLElement {
 
   </div>
 </div>
+<button id="publishButton" class="floating-publish-button">
+  <i class="fas fa-plus plus-icon"></i>
+</button>
 
+<div id="publishMenu" class="publish-menu hidden">
+  <button data-type="site">
+    <i class="fas fa-globe-americas menu-icon"></i>
+    Publier un site
+  </button>
+  <button data-type="page">
+<i class="fas fa-share-nodes menu-icon"></i>
+
+    Publier une page
+  </button>
+  <button data-type="other">
+    <i class="fas fa-shapes menu-icon"></i>
+    Autres
+  </button>
+  <button data-type="info">
+    <i class="fas fa-lightbulb menu-icon"></i>
+    Infos
+  </button>
+</div>
+
+<div id="infosModal" class="infos-modal">
+    <div class="infos-modal-content">
+        <span class="infos-modal-close">&times;</span>
+    <div class="infos-container">
+        <div class="infos-header">
+            <h1>Partagez vos Découvertes Web</h1>
+            <p>Découvrez comment partager et interagir avec notre communauté passionnée. Chaque lien partagé est une nouvelle opportunité d'apprentissage et de découverte.</p>
+        </div>
+
+        <div class="infos-section">
+            <h2 class="infos-section-title">Types de Publications</h2>
+            
+            <div class="infos-card">
+                <div class="infos-icon-container">
+                    <img src="svg2/site.svg" alt="Site Web" class="infos-icon">
+                </div>
+                <div class="infos-content">
+                    <h3>Publier un Site Web</h3>
+                    <p>Partagez ces pépites du web que vous venez de découvrir ! Idéal pour les sites complets qui méritent une visibilité particulière.</p>
+                    <div class="infos-features">
+                        <span class="infos-feature">Sites d'actualités</span>
+                        <span class="infos-feature">Blogs</span>
+                        <span class="infos-feature">Plateformes</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="infos-card">
+                <div class="infos-icon-container">
+                    <img src="svg2/page.svg" alt="Page" class="infos-icon">
+                </div>
+                <div class="infos-content">
+                    <h3>Publier une Page</h3>
+                    <p>Le lieu idéal pour partager des pages spécifiques qui méritent l'attention : chaînes YouTube, profils sociaux remarquables, articles captivants...</p>
+                    <div class="infos-features">
+                        <span class="infos-feature">Réseaux sociaux</span>
+                        <span class="infos-feature">Chaînes vidéo</span>
+                        <span class="infos-feature">Articles</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="infos-card">
+                <div class="infos-icon-container">
+                    <img src="svg2/shapes.svg" alt="Autres" class="infos-icon">
+                </div>
+                <div class="infos-content">
+                    <h3>Autres Contenus</h3>
+                    <p>L'espace dédié à tout ce qui sort des sentiers battus : bots innovants, programmes de parrainage intéressants, outils web uniques...</p>
+                    <div class="infos-features">
+                        <span class="infos-feature">Bots</span>
+                        <span class="infos-feature">Parrainages</span>
+                        <span class="infos-feature">Outils</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="infos-section">
+            <h2 class="infos-section-title">Interactions et Mesures d'Impact</h2>
+
+            <div class="infos-card">
+                <div class="infos-icon-container">
+                    <img src="svg2/visitors.svg" alt="Visiteurs" class="infos-icon">
+                </div>
+                <div class="infos-content">
+                    <h3>Compteur de Visiteurs</h3>
+                    <p>Suivez en temps réel l'impact de vos partages ! Chaque clic représente une personne intéressée par votre découverte. Un excellent indicateur de la pertinence de votre contenu.</p>
+                </div>
+            </div>
+
+            <div class="infos-card">
+                <div class="infos-icon-container">
+                    <img src="svg2/readers.svg" alt="Lecteurs" class="infos-icon">
+                </div>
+                <div class="infos-content">
+                    <h3>Suivi des Lecteurs</h3>
+                    <p>Mesurez l'engagement réel ! Ce compteur vous montre combien de personnes ont véritablement exploré votre contenu en profondeur.</p>
+                </div>
+            </div>
+
+            <div class="infos-card">
+                <div class="infos-icon-container">
+                    <img src="svg2/comments.svg" alt="Commentaires" class="infos-icon">
+                </div>
+                <div class="infos-content">
+                    <h3>Espace Commentaires</h3>
+                    <p>Le cœur battant de notre communauté ! Partagez vos impressions, répondez aux questions, donnez plus de contexte. C'est aussi l'endroit idéal pour les futurs visiteurs qui souhaitent des avis authentiques avant d'explorer votre lien.</p>
+                </div>
+            </div>
+
+            <div class="infos-card">
+                <div class="infos-icon-container">
+                    <img src="svg2/pepites.svg" alt="Pépites" class="infos-icon">
+                </div>
+                <div class="infos-content">
+                    <h3>Badge "Pépite"</h3>
+                    <p>La distinction suprême ! Quand votre partage reçoit ce badge, c'est que la communauté le considère comme une véritable pépite d'or dans l'océan du web. Une reconnaissance spéciale pour les contenus exceptionnels.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="infos-section">
+            <h2 class="infos-section-title">Gestion de vos Publications</h2>
+
+            <div class="infos-card">
+                <div class="infos-icon-container">
+                    <img src="svg2/edittt.svg" alt="Édition" class="infos-icon">
+                </div>
+                <div class="infos-content">
+                    <h3>Options de Personnalisation</h3>
+                    <p>Gardez vos partages pertinents et à jour ! Modifiez la description, actualisez les liens, ajoutez des informations complémentaires... Votre contenu évolue, vos publications aussi !</p>
+                </div>
+            </div>
+
+            <div class="infos-alert">
+                <h4>⚠️ À propos de la suppression</h4>
+                <p>La suppression d'une publication est irréversible et retire une ressource potentiellement précieuse pour la communauté. Privilégiez plutôt la mise à jour de vos contenus pour maintenir notre bibliothèque collective vivante et enrichissante.</p>
+            </div>
+        </div>
+        <div class="infos-categorization">
+    <div class="categorization-content">
+        <h4>📑 Organisation des Publications</h4>
+        <p>Vos publications sont automatiquement intégrées dans leur contexte approprié. Lorsque vous partagez du contenu, il apparaîtra dans la catégorie où vous naviguez actuellement, ainsi que dans la section spécifique que vous aurez sélectionnée lors de la publication. Cette organisation intelligente garantit que chaque ressource atteigne son public cible et maintient notre plateforme parfaitement structurée.</p>
+    </div>
+</div>
+
+
+
+        <div class="infos-footer">
+            <h3>Rejoignez l'Aventure !</h3>
+            <p>Chaque jour, notre communauté grandit et découvre de nouvelles merveilles du web. Vos partages enrichissent cette expérience collective. Alors n'hésitez plus, partagez vos découvertes !</p>
+        </div>
+    </div>
+    </div>
+</div>
         `;
     }
 }

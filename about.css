@@ -1,337 +1,433 @@
-        :root {
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
-            --shadow: 0 10px 20px rgba(0,0,0,0.1);
-            --radius: 16px;
-        }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f8f9fd;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .about-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .about-hero {
-            background: #20202c;
-            padding: 80px 20px;
-            border-radius: var(--radius);
-            color: white;
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='rgba(255,255,255,0.1)' d='M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,213.3C1248,235,1344,213,1392,202.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
-            background-size: cover;
-            opacity: 0.4;
-        }
-
-        .about-hero h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .about-section {
-            background: white;
-            border-radius: var(--radius);
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .about-card {
-            background: white;
-            padding: 30px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-        }
-
-        .about-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .about-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            color: white;
-            font-size: 1.5em;
-        }
-
-        .about-card h3 {
-            margin-bottom: 15px;
-            color: #2d3748;
-            font-size: 1.5em;
-        }
-
-        .team-section {
-            text-align: center;
-            padding: 40px 0;
-        }
-
-        .contact-btn {
-            display: inline-block;
-            padding: 15px 30px;
-            background: var(--gradient-2);
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            margin-top: 30px;
-            transition: transform 0.3s ease;
-        }
-
-        .contact-btn:hover {
-            transform: scale(1.05);
-        }
-
-        @media (max-width: 768px) {
-            .about-hero h1 {
-                font-size: 2em;
-            }
-            
-            .about-section {
-                padding: 20px;
-            }
-        }
-        :root {
-    --primary-color: #3b82f6;
-    --primary-dark: #1d4ed8;
-    --secondary-color: #f8fafc;
-    --accent-color: #06b6d4;
-    --text-color: #1e293b;
-    --text-light: #64748b;
-    --gradient: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-    --gradient-hover: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
-    --shadow-md: 0 8px 24px rgba(0,0,0,0.12);
-    --shadow-lg: 0 16px 32px rgba(0,0,0,0.15);
-    --border-radius: 1rem;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    background: #f1f5f9;
-    color: var(--text-color);
-    line-height: 1.7;
-    letter-spacing: -0.01em;
-}
-
-.about-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
-.about-hero {
-    background: white;
-    padding: 3.5rem 2rem;
-    border-radius: var(--border-radius);
-    text-align: center;
-    margin-bottom: 3rem;
-    position: relative;
+.appraino-main {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #e2e8f0;
+    min-height: 100vh;
     overflow: hidden;
-    box-shadow: var(--shadow-md);
 }
 
-.about-hero::before {
-    content: '';
+.appraino-hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 2rem;
+}
+
+.appraino-hero-text {
+    text-align: center;
+    z-index: 2;
+}
+
+.appraino-overline {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.appraino-brand {
+    font-size: 8rem;
+    font-weight: 900;
+    margin: 0;
+    line-height: 1;
+    position: relative;
+}
+
+.appraino-gradient-text {
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.appraino-dot {
+    width: 24px;
+    height: 24px;
+    background: #a855f7;
+    display: inline-block;
+    border-radius: 50%;
+    margin-left: 8px;
+    animation: pulse 2s infinite;
+}
+
+.appraino-tagline {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    color: #94a3b8;
+}
+
+.appraino-floating-elements {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px;
-    background: var(--gradient);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    height: 100%;
+    pointer-events: none;
 }
 
-.about-hero:hover::before {
-    opacity: 1;
-}
-
-.about-hero h1 {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    margin-bottom: 2rem;
-    position: relative;
-    font-weight: 800;
-    line-height: 1.2;
-    padding-bottom: 1rem;
-    color: var(--text-color);
-}
-
-.about-hero h1::after {
-    content: '';
+.appraino-floating-link {
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background: var(--gradient);
-    border-radius: 2px;
+    width: 40px;
+    height: 40px;
+    animation: float 20s infinite linear;
 }
 
-.about-section {
-    background: white;
-    border-radius: var(--border-radius);
-    padding: 2rem;
+.appraino-link-icon {
+    width: 100%;
+    height: 100%;
+    fill: rgba(99, 102, 241, 0.1);
+}
+
+.appraino-manifesto {
+    padding: 8rem 2rem;
+    background: #1a237e;
+    clip-path: polygon(0 0, 100% 5%, 100% 95%, 0 100%);
+}
+
+.appraino-manifesto-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.appraino-section-title {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.appraino-text-reveal p {
+    font-size: 1.5rem;
     margin-bottom: 2rem;
-    box-shadow: var(--shadow-md);
-    border: 1px solid rgba(148, 163, 184, 0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: reveal 0.8s ease forwards;
 }
 
-.about-grid {
+.appraino-features {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    margin-top: 2.5rem;
+    padding: 4rem 2rem;
+    background: #0f172a;
 }
 
-.about-card {
-    background: white;
+.appraino-feature-card {
+    background: rgba(255, 255, 255, 0.05);
     padding: 2rem;
-    border-radius: calc(var(--border-radius) - 0.25rem);
-    box-shadow: var(--shadow-sm);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(148, 163, 184, 0.1);
-    animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.about-card:hover {
-    transform: translateY(-5px) scale(1.01);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--accent-color);
-}
-
-.about-icon {
-    width: 3rem;
-    height: 3rem;
-    background: var(--gradient);
-    border-radius: 0.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.25rem;
-    color: white;
-    font-size: 1.5em;
-    box-shadow: var(--shadow-sm);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease;
 }
 
-.about-card:hover .about-icon {
-    transform: scale(1.1) rotate(3deg);
+.appraino-feature-card:hover {
+    transform: translateY(-10px);
 }
 
-.about-card h3 {
-    font-size: 1.35rem;
-    margin-bottom: 1.25rem;
-    color: var(--primary-dark);
-    font-weight: 700;
-}
-
-.contact-btn {
-    display: inline-flex;
+.appraino-feature-icon {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.875rem 1.75rem;
-    background: var(--gradient);
-    color: white;
-    text-decoration: none;
-    border-radius: 0.75rem;
-    font-weight: 600;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    justify-content: center;
+    margin-bottom: 1.5rem;
 }
 
-.contact-btn:hover {
-    background: var(--gradient-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+.appraino-pulse {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.2);
+    animation: pulse 2s infinite;
 }
 
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.appraino-vision {
+    padding: 8rem 2rem;
+    background: #1e293b;
+}
+
+.appraino-vision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.appraino-vision-numbers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.appraino-stat {
+    text-align: center;
+}
+
+.appraino-counter {
+    font-size: 4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    -webkit-background-clip: text;
+    color: transparent;
+    display: block;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(100vw, 100vh) rotate(360deg); }
+}
+
+@keyframes reveal {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 768px) {
-    .about-hero h1 {
-        font-size: 2rem;
+    .appraino-brand {
+        font-size: 4rem;
     }
     
-    .about-grid {
+    .appraino-vision-grid {
         grid-template-columns: 1fr;
     }
     
-    .about-section {
-        padding: 1.5rem;
+    .appraino-section-title {
+        font-size: 2rem;
     }
 }
-/* ... (reste du code précédent) ... */
 
-.about-hero {
-    background: white;
-    padding: 3.5rem 2rem;
-    border-radius: var(--border-radius);
-    text-align: center;
-    margin-bottom: 3rem;
+/* ... reste du code ... */
+
+.appraino-feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+    color: #ffffff; /* Ajout de la couleur blanche pour le texte */
+}
+
+.appraino-feature-card h3 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.appraino-feature-card p {
+    color: #e2e8f0;
+    line-height: 1.6;
+}
+
+.appraino-feature-icon i {
+    color: #6366f1; /* Couleur des icônes */
+    font-size: 2rem;
     position: relative;
+    z-index: 2;
+}
+
+.appraino-vision-text h2 {
+    color: #ffffff;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.appraino-vision-text p {
+    color: #e2e8f0;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.appraino-stat-label {
+    color: #e2e8f0;
+    font-size: 1.1rem;
+    display: block;
+    margin-top: 0.5rem;
+}
+
+/* ... reste du code ... */
+
+.appraino-main {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    color: #334155;
+    min-height: 100vh;
     overflow: hidden;
-    box-shadow: var(--shadow-md);
 }
 
-.about-hero p {
-    font-size: 1.05rem;
-    color: var(--text-light);
-    max-width: 800px;
-    margin: 0 auto;
+.appraino-hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
+    padding: 2rem;
 }
 
-/* ... (reste du code reste identique) ... */
+.appraino-hero-text {
+    text-align: center;
+    z-index: 2;
+}
+
+.appraino-overline {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.9rem;
+    color: #64748b;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.appraino-brand {
+    font-size: 8rem;
+    font-weight: 900;
+    margin: 0;
+    line-height: 1;
+    position: relative;
+    color: #1e293b;
+}
+
+.appraino-gradient-text {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.appraino-dot {
+    width: 24px;
+    height: 24px;
+    background: #8b5cf6;
+    display: inline-block;
+    border-radius: 50%;
+    margin-left: 8px;
+    animation: pulse 2s infinite;
+}
+
+.appraino-tagline {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    color: #64748b;
+}
+
+.appraino-manifesto {
+    padding: 8rem 2rem;
+    background: #e0e7ff;
+    clip-path: polygon(0 0, 100% 5%, 100% 95%, 0 100%);
+}
+
+.appraino-section-title {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.appraino-text-reveal p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: #334155;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: reveal 0.8s ease forwards;
+}
+
+.appraino-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 4rem 2rem;
+    background: #f8fafc;
+}
+
+.appraino-feature-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.appraino-feature-card h3 {
+    color: #1e293b;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.appraino-feature-card p {
+    color: #475569;
+    line-height: 1.6;
+}
+
+.appraino-feature-icon i {
+    color: #3b82f6;
+    font-size: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.appraino-pulse {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.2);
+    animation: pulse 2s infinite;
+}
+
+.appraino-vision {
+    padding: 8rem 2rem;
+    background: #f1f5f9;
+}
+
+.appraino-vision-text h2 {
+    color: #1e293b;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.appraino-vision-text p {
+    color: #475569;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.appraino-counter {
+    font-size: 4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    color: transparent;
+    display: block;
+}
+
+.appraino-stat-label {
+    color: #64748b;
+    font-size: 1.1rem;
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.appraino-link-icon {
+    width: 100%;
+    height: 100%;
+    fill: rgba(59, 130, 246, 0.1);
+}
+
+/* Les animations restent identiques */

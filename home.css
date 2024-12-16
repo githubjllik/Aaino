@@ -1,0 +1,283 @@
+
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.section-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    position: relative;
+    top: 4px;
+}
+
+.category-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.4rem;
+    color: #1a1a2e;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(to right, #f8fafc, #f1f5f9);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 
+        0 2px 4px rgba(0,0,0,0.02),
+        0 1px 2px rgba(0,0,0,0.03);
+    backdrop-filter: blur(10px);
+}
+
+.category-link::after {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.category-link:hover {
+    background: linear-gradient(to right, #fff, #f8fafc);
+    border-color: rgba(203, 213, 225, 0.9);
+    box-shadow: 
+        0 4px 12px rgba(0,0,0,0.03),
+        0 2px 4px rgba(0,0,0,0.04);
+    transform: translateY(-1px);
+    color: #2563eb;
+}
+
+.category-link:hover::after {
+    transform: translateX(5px);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E");
+}
+
+@media (hover: hover) {
+    .category-link:active {
+        transform: translateY(0);
+        box-shadow: 
+            0 2px 4px rgba(0,0,0,0.02),
+            0 1px 2px rgba(0,0,0,0.03);
+    }
+}
+
+@media (max-width: 768px) {
+    .category-link {
+        font-size: 0.88rem;
+        padding: 0.6rem 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .category-link {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+  .appListContainer {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    
+    /* Alignement des éléments */
+    align-items: stretch;
+    padding: 20px 0; /* Supprime le padding horizontal */
+}
+
+.appListContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.app-item {
+    flex: 0 0 auto;
+    width: 400px; /* Largeur fixe par défaut */
+    scroll-snap-align: start; /* Changé de 'center' à 'start' */
+    scroll-snap-stop: always;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    box-sizing: border-box;
+    margin: 0;
+    padding: 20px;
+    
+    position: relative;
+    overflow: visible;
+}
+
+/* Styles pour les écrans mobiles */
+@media (max-width: 768px) {
+    .appListContainer {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .app-item {
+        width: 90%; /* Largeur relative sur mobile */
+        min-width: 250px;
+        max-width: 400px;
+        padding: 15px;
+    }
+}
+
+/* Ajustement pour le premier élément */
+.appListContainer .app-item:first-child {
+    margin-left: 20px; /* Espace au début */
+}
+
+/* Ajustement pour le dernier élément */
+.appListContainer .app-item:last-child {
+    margin-right: 20px; /* Espace à la fin */
+}
+
+/* Reste des styles inchangé */
+.app-item h3 {
+    font-size: clamp(16px, 2.5vw, 20px);
+    margin-bottom: 10px;
+}
+
+.app-item p {
+    font-size: clamp(14px, 2vw, 16px);
+    flex-grow: 1;
+    margin: 10px 0;
+}
+
+.app-item .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: auto;
+}
+.btngcdr-nav-buttons {
+    position: relative;
+    width: 100%;
+}
+
+.btngcdr-prev, .btngcdr-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.btngcdr-prev {
+    left: 10px;
+}
+
+.btngcdr-next {
+    right: 10px;
+}
+
+/* Pour gérer l'affichage des flèches sur mobile */
+@media (max-width: 768px) {
+    .btngcdr-prev, .btngcdr-next {
+        width: 32px;
+        height: 32px;
+    }
+}
+.btngcdr-prev img, .btngcdr-next img {
+    width: 20px;  /* ou la taille souhaitée */
+    height: 20px; /* ou la taille souhaitée */
+}
+
+    .intro {
+      text-align: center;
+      padding: 4rem 2rem;
+      margin: 1rem auto 4rem;
+      background: linear-gradient(165deg, #f8faff 0%, #eef2ff 100%);
+      border-radius: 16px;
+      box-shadow: 
+        0 8px 30px rgba(0,0,0,0.04),
+        0 2px 8px rgba(0,0,0,0.02);
+      max-width: 1200px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .intro::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #4776E6 0%, #8E54E9 100%);
+    }
+    
+    .intro h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(135deg, #2b3bff 0%, #4776E6 50%, #8E54E9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -1px;
+      font-weight: 800;
+    }
+    
+    .intro p {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #1f2937;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+    
+    .intro small {
+      color: #4b5563;
+      font-size: 1.1rem;
+      display: block;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .intro {
+        padding: 3rem 1.5rem;
+        margin: 0.5rem 1rem 3rem;
+      }
+      
+      .intro h1 {
+        font-size: 2.8rem;
+      }
+      
+      .intro p {
+        font-size: 1.4rem;
+      }
+
+      .intro small {
+        font-size: 1rem;
+      }
+    }
+  

@@ -11,8 +11,6 @@
 <meta name="apple-mobile-web-app-title" content="Aaino" />
 <link rel="manifest" href="/site.webmanifest" />
 <title>Aaino | Develop</title>
-<script src="loader.js"></script>
-<script src="config.js"></script>
     <link rel="stylesheet" href="styles2.css">
     <link rel="stylesheet" href="styles4.css">
     <link rel="stylesheet" href="styles5.css">
@@ -26,7 +24,7 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YM5YD3S15F"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -35,18 +33,66 @@
 
   gtag('config', 'G-YM5YD3S15F');
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <!-- Lien vers votre fichier CSS -->
+<link rel="stylesheet" href="stylepublish.css">
+    
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+// À mettre dans le head, avant vos autres scripts
+document.addEventListener('DOMContentLoaded', function() {
+  // Activer le cache pour les ressources
+  if ('caches' in window) {
+    caches.open('site-static').then(cache => {
+      // Mettre en cache les ressources importantes
+      const stylesheets = Array.from(document.styleSheets).map(sheet => sheet.href).filter(Boolean);
+      const scripts = Array.from(document.scripts).map(script => script.src).filter(Boolean);
+      cache.addAll([...stylesheets, ...scripts]);
+    });
+  }
 
+  // S'assurer que les ressources sont chargées dans l'ordre
+  const head = document.getElementsByTagName('head')[0];
+  const existingLinks = Array.from(document.getElementsByTagName('link'));
+  const existingScripts = Array.from(document.getElementsByTagName('script'));
+
+  // Réorganiser les styles
+  existingLinks
+    .filter(link => link.rel === 'stylesheet')
+    .forEach(link => {
+      head.appendChild(link.cloneNode(true));
+      link.remove();
+    });
+
+  // Réorganiser les scripts
+  existingScripts
+    .filter(script => script.src)
+    .forEach(script => {
+      const newScript = document.createElement('script');
+      newScript.src = script.src;
+      newScript.async = false;
+      head.appendChild(newScript);
+      script.remove();
+    });
+});
+</script>
 </head>
 <body>
 
 <main>
-  <section id="introduction">
-    <h1>Bienvenue dans la section Développer</h1>
-    <p>Bienvenue, chers développeurs !
-      J'ai spécialement créé cette section rien que pour vous, car c'est grâce à votre passion et votre expertise que notre monde numérique est aussi riche et innovant. Ici, vous trouverez une sélection des meilleures plateformes, conçues pour vous aider à perfectionner vos compétences, explorer de nouveaux outils, et trouver des ressources adaptées à tous les niveaux, du débutant au professionnel. Chaque visite vous offrira de nouvelles découvertes, car vous êtes au cœur de ce voyage. Revenez souvent pour continuer à explorer, apprendre et grandir avec nous. Votre contribution est inestimable, et ce site est votre espace pour briller encore plus !</p>
-    <p><strong>Alors, que cherchez-vous ?</strong></p>
-    <div class="qw4321_search_box">
+  <section id="introduction" class="modern-intro">
+    <div class="intro-content">
+        <h1>Développer</h1>
+        <div class="animated-bar"></div>
+        <p class="intro-text">
+            Explorez et partagez les meilleures plateformes, outils et ressources pour les développeurs. Découvrez des trésors numériques sélectionnés par notre communauté ou contribuez en partageant vos découvertes.
+        </p>
+        <div class="category-preview">
+            <p class="sharing-invite">Les publications apparaîtront ici, classées par catégories ↓</p>
+        </div>
+    </div>
+        <div class="qw4321_search_box">
         <textarea id="intro_search_input" class="er7890_search_field" placeholder="Rechercher..." rows="1"></textarea>
         <div id="intro_close_icon" class="hj6789_close_icon">
             <img src="svg/close.svg" alt="Effacer">
@@ -55,623 +101,6 @@
             <img src="svg/searchword.svg" alt="Rechercher">
         </button>
     </div>
-    <div class="zx9">
-    <ul class="qt3" id="listContainer">
-        <li class="vp7">
-            <span class="lm2">Les sites pour apprendre à coder en <span class="current-year"></span></span>
-            <a href="#lien1" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les plateformes pour développeurs en <span class="current-year"></span></span>
-            <a href="#lien2" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites pour des outils de développement en <span class="current-year"></span></span>
-            <a href="#lien3" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites IA pour développeurs en <span class="current-year"></span></span>
-            <a href="#lien4" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites populaires pour l'hébergement en <span class="current-year"></span></span>
-            <a href="#lien5" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites pour l'hébergement gratuit + nom de domaine gratuit en <span class="current-year"></span></span>
-            <a href="#lien6" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites utiles pour développeurs freelance en <span class="current-year"></span></span>
-            <a href="#lien7" class="wy5">Voir</a>
-        </li>
-                <li class="vp7">
-            <span class="lm2">Les marchés de développeurs en <span class="current-year"></span></span>
-            <a href="#lien8" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les chaines youtubes pour apprendre à programmer en <span class="current-year"></span></span>
-            <a href="#lien9" class="wy5">Voir</a>
-        </li>
-    </ul>
-    <div class="jk4" id="buttonContainer"></div>
-</div>
-
-
-</section>
-    <section id="lien1" class="section-offset">
-    <h2>Les sites pour apprendre à coder en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/w3schools2.png" alt="logo">W3Schools</h3>
-            <p>W3Schools est un site web offrant des tutoriels et des références gratuites sur le développement web, incluant HTML, CSS, JavaScript, et autres technologies.</p>
-            <div class="buttons">
-                <a href="https://www.w3schools.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/tutorialspoint2.png" alt="logo">Tutorialspoint</h3>
-            <p>Tutorialspoint est un site web proposant des tutoriels gratuits et des cours sur divers langages de programmation, technologies et outils de développement.</p>
-            <div class="buttons">
-                <a href="https://www.tutorialspoint.com/index.htm" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/freecodecamp2.jpg" alt="logo">Freecodecamp</h3>
-            <p>FreeCodeCamp est une plateforme éducative en ligne gratuite offrant des cours, des projets pratiques, et des certifications gratuites en développement web et en programmation.</p>
-            <div class="buttons">
-                <a href="https://www.freecodecamp.org/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-
-<section id="lien2" class="section-offset">
-    <h2>Les plateformes pour développeurs en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/github.jpg" alt="logo">Github</h3>
-            <p>GitHub est une plateforme de gestion de versions et de collaboration pour le développement logiciel, permettant de stocker, partager et gérer du code source.</p>
-            <div class="buttons">
-                <a href="https://github.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/stackoverflow2.png" alt="logo">Stackoverflow</h3>
-            <p>Stack Overflow est un site de questions-réponses pour les développeurs, permettant de poser des questions et d'obtenir des réponses sur des problèmes de programmation.</p>
-            <div class="buttons">
-                <a href="https://stackoverflow.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/replit2.png" alt="logo">Replit</h3>
-            <p>Replit est une plateforme en ligne qui permet de coder, collaborer et héberger des projets dans plusieurs langages de programmation. Elle est idéale pour le développement, l'apprentissage, et l'exécution de code directement dans le navigateur.</p>
-            <div class="buttons">
-                <a href="https://replit.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-    <section id="lien3" class="section-offset">
-    <h2>Les sites pour outils de développement en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/mdn2.png" alt="logo">MDN</h3>
-            <p>MDN Web Docs est une ressource gratuite offrant des documentations détaillées et des tutoriels sur les technologies web comme HTML, CSS et JavaScript.</p>
-            <div class="buttons">
-                <a href="https://developer.mozilla.org/fr/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/devdocs.png" alt="logo">Devdocs</h3>
-            <p>DevDocs est un site de documentation pour les développeurs, offrant un accès rapide et intégré à des références techniques pour divers langages et frameworks.</p>
-            <div class="buttons">
-                <a href="https://devdocs.io/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/w3c.png" alt="logo">W3C</h3>
-            <p>W3C est une organisation qui élabore des standards et des recommandations pour le web, visant à garantir l'interopérabilité et l'accessibilité des technologies web.</p>
-            <div class="buttons">
-                <a href="https://www.w3.org/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/w3cvalidator2.jpg" alt="logo">W3C Validator</h3>
-            <p>W3C Validator est un outil en ligne qui vérifie la conformité des pages web aux standards du W3C pour HTML, XHTML et CSS.</p>
-            <div class="buttons">
-                <a href="https://validator.w3.org/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/htmlcheatsheet.jpg" alt="logo">HTML Cheatsheet</h3>
-            <p>HTML Cheatsheet est un site fournissant des références rapides et des exemples de balises HTML et d'attributs pour faciliter la création de pages web.</p>
-            <div class="buttons">
-                <a href="https://htmlcheatsheet.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/svgrepo.png" alt="logo">SVG Repo</h3>
-            <p>SVGRepo est une bibliothèque en ligne qui offre des millions d'icônes et illustrations SVG gratuites pour les projets de design et développement.</p>
-            <div class="buttons">
-                <a href="https://www.svgrepo.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/convertio.png" alt="logo">Convertio</h3>
-            <p>Convertio est un outil en ligne gratuit qui permet de convertir divers formats de fichiers, incluant documents, images, vidéos et plus, directement depuis le navigateur.</p>
-            <div class="buttons">
-                <a href="https://convertio.co/fr/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/webutility.png" alt="logo">WebUtility</h3>
-            <p>WebUtility est un site gratuit offrant des outils en ligne pour convertir, compresser, et optimiser divers types de fichiers, ainsi que générer des codes et analyser des données.</p>
-            <div class="buttons">
-                <a href="https://webutility.io/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/lunapic2.png" alt="logo">Lunapic</h3>
-            <p>Lunapic est un éditeur d'images gratuit en ligne qui permet de retoucher, dessiner, et appliquer des effets sur des photos.</p>
-            <div class="buttons">
-                <a href="https://www5.lunapic.com/editor/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/webskills .jpg" alt="logo">Webskills</h3>
-            <p>Le projet WebSkills de GitHub, géré par andreasbm, est une ressource éducative qui répertorie des compétences et technologies essentielles pour le développement web.</p>
-            <div class="buttons">
-                <a href="https://andreasbm.github.io/web-skills/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/Zeal.jpg" alt="logo">Zealdocs</h3>
-            <p>Zealdocs est un logiciel de documentation hors ligne qui offre un accès à des documentations complètes sur divers langages de programmation.</p>
-            <div class="buttons">
-                <a href="https://zealdocs.org/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/visualstudio.jpg" alt="logo">Visual Studio Code</h3>
-            <p>Visual Studio Code est un éditeur de code source léger et puissant, développé par Microsoft. Il prend en charge de nombreux langages de programmation.</p>
-            <div class="buttons">
-                <a href="https://code.visualstudio.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/acode.png" alt="logo">Acode</h3>
-            <p>Acode est un éditeur de code léger pour Android, conçu pour le développement web. Il prend en charge plusieurs langages de programmation.</p>
-            <div class="buttons">
-                <a href="https://acode.app/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/termux.png" alt="logo">Termux</h3>
-            <p>Termux est une application Android qui fournit un environnement de terminal Linux. Elle permet d'exécuter des commandes et d'installer des paquets.</p>
-            <div class="buttons">
-                <a href="https://termux.dev/en/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/ksweb.webp" alt="logo">KSWeb</h3>
-            <p>KSWeb est une application Android qui transforme votre appareil en serveur web local, permettant d’héberger des sites avec PHP, MySQL et un serveur HTTP.</p>
-            <div class="buttons">
-                <a href="https://ksweb.en.uptodown.com/android" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/userland.png" alt="logo">Userland</h3>
-            <p>UserLAnd permet d'exécuter des distributions Linux sur Android sans nécessiter de root. Il facilite l'installation et l'utilisation d'environnements Linux.</p>
-            <div class="buttons">
-                <a href="https://userland.fr.uptodown.com/android" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="https://youtu.be/7c8kztGZq6I?si=ju59S-Vj0Q1viJsM" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/dotphoto.jpg" alt="logo">Dotphoto</h3>
-            <p>Dotphoto est une application qui permet de modifier des photos et des vidéos en offrant des fonctionnalités telles que la compression et le redimensionnement.</p>
-            <div class="buttons">
-                <a href="https://www.google.com/amp/s/apkpure.com/image-compress-and-resize/dot.photo.compress.app/amp" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/favicon.png" alt="logo">Favicon.io</h3>
-            <p>Favicon.io est un générateur gratuit en ligne permettant de créer des favicons à partir de texte, d'images ou d'emoji.</p>
-            <div class="buttons">
-                <a href="https://favicon.io/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/appsgeyser.jpg" alt="logo">AppsGeyser</h3>
-            <p>AppsGeyser est une plateforme gratuite qui permet de créer des applications Android sans compétences en programmation.</p>
-            <div class="buttons">
-                <a href="https://appsgeyser.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/tinyurl.png" alt="logo">TinyURL</h3>
-            <p>TinyURL est un service gratuit qui permet de raccourcir les liens longs pour les rendre plus faciles à partager et à mémoriser.</p>
-            <div class="buttons">
-                <a href="https://tinyurl.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/bitly.png" alt="logo">Bitly</h3>
-            <p>Bitly est un service gratuit de raccourcissement de liens offrant des outils de gestion et de suivi des performances des URL.</p>
-            <div class="buttons">
-                <a href="https://bitly.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo2/googleanalytics.jpg" alt="logo">Google Analytics</h3>
-            <p>Google Analytics est un outil gratuit qui permet d'analyser et de suivre le trafic et les performances d'un site web.</p>
-            <div class="buttons">
-                <a href="https://analytics.google.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="https://youtu.be/HjFpLSGUWxk?si=fq3Lm4FAQwPr49uH" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo2/shinystat.png" alt="logo">ShinyStat</h3>
-            <p>ShinyStat est une plateforme d'analyse web gratuite qui fournit des statistiques en temps réel sur le trafic et le comportement des visiteurs.</p>
-            <div class="buttons">
-                <a href="https://www.shinystat.com/fr/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-
-    <section id="lien4" class="section-offset">
-    <h2>Les sites IA pour développeurs en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/llamacoder.jpg" alt="logo">LlamaCoder</h3>
-            <p>LlamaCoder AI est un site proposant des outils d'intelligence artificielle pour la génération de code et l'assistance au développement logiciel.</p>
-            <div class="buttons">
-                <a href="https://llamacoder.together.ai/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/websim.jpg" alt="logo">Websim Ai</h3>
-            <p>Websim AI est un site qui utilise l'intelligence artificielle pour créer automatiquement des sites web et des applications à partir de descriptions textuelles, simplifiant ainsi le développement numérique.</p>
-            <div class="buttons">
-                <a href="https://websim.ai/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="https://m.youtube.com/watch?v=1yuIzcR2KdQ" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-
-<section id="lien5" class="section-offset">
-    <h2>Les sites populaires pour l'hébergement en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/hostinger.png" alt="logo">Hostinger</h3>
-            <p>Hostinger est un fournisseur d'hébergement web offrant des services de gestion de domaine, d'hébergement partagé, de VPS, et de construction de sites à des prix compétitifs.</p>
-            <div class="buttons">
-                <a href="https://www.hostinger.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-
-<section id="lien6" class="section-offset">
-    <h2>Les sites d'hébergement gratuit + nom de domaine gratuit en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/github.jpg" alt="logo">Github</h3>
-            <p>GitHub est une plateforme de développement collaborative qui permet l'hébergement gratuit de projets open source, la gestion de versions et le partage de code. Idéal pour les développeurs souhaitant héberger gratuitement leurs projets de logiciels.</p>
-            <div class="buttons">
-                <a href="https://github.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="https://youtu.be/djU_aaovN5s?feature=shared" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo2/render.png" alt="logo">Render</h3>
-            <p>Render est une plateforme d'hébergement cloud qui permet de déployer des applications web, des bases de données, et des microservices facilement. Elle propose des options gratuites pour les projets personnels et inclut un support SSL automatique.</p>
-            <div class="buttons">
-                <a href="https://render.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="https://youtu.be/YYC48fKPmZo?si=QYtX4Dr8MeVzcjD9" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo2/vercel.png" alt="logo">Vercel</h3>
-            <p>Vercel est une plateforme d'hébergement rapide et gratuite pour les applications front-end, notamment celles basées sur Next.js, avec des déploiements automatiques via Git et un CDN intégré.</p>
-            <div class="buttons">
-                <a href="https://vercel.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="https://youtu.be/I-RR5lieSEY?si=7rWEBb9GHV5oOMKu" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/netlify.png" alt="logo">Netlify</h3>
-            <p>Netlify est une plateforme d'hébergement web qui permet de déployer des sites statiques rapidement et facilement. Elle offre des fonctionnalités telles que l'intégration continue, des certificats SSL gratuits, et un CDN performant. Les utilisateurs peuvent gérer leurs projets via une interface conviviale et bénéficier d'un plan gratuit avec des fonctionnalités essentielles.</p>
-            <div class="buttons">
-                <a href="https://www.netlify.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="https://youtu.be/ZDIOv5cJa1k?si=Ijd7wgm79qn7bGOk" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo2/cloudfare.jpg" alt="logo">Cloudfare</h3>
-            <p>Cloudflare offre des services gratuits de sécurité, performance web, et DNS, ainsi qu'un hébergement serverless gratuit. Cela permet aux développeurs de déployer des sites et applications sans gérer de serveurs, tout en profitant d'une protection avancée et d'une performance optimisée, le tout sans frais.</p>
-            <div class="buttons">
-                <a href="https://www.cloudflare.com/fr-fr/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="https://youtu.be/L4yRnx_9m5Y?si=sZW6ljWIUS5M0V44" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/freenom.jpg" alt="logo">Freenom</h3>
-            <p>Freenom est un site qui permet d'obtenir des noms de domaine gratuits, notamment avec les extensions .tk, .ml, .ga, .cf et .gq. Il offre également des options de gestion DNS et d'hébergement. Les utilisateurs peuvent enregistrer des domaines pour une durée illimitée, tant qu'ils respectent les conditions d'utilisation.</p>
-            <div class="buttons">
-                <a href="https://www.freenom.com/fr/index.html?lang=fr" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/netfy.png" alt="logo">Netfy</h3>
-            <p>Netfy propose des noms de domaine gratuits à vie pour des projets web. Il permet d'héberger des sites statiques, offre un déploiement facile, et inclut des certificats SSL. La plateforme est idéale pour les développeurs souhaitant un hébergement simple et accessible.</p>
-            <div class="buttons">
-                <a href="https://netfy.org/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="https://youtube.com/shorts/fhrQBbZgQiY?si=qJg_M-n7UDAQuL7Y" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-    <section id="lien7" class="section-offset">
-    <h2>Les sites pour développeurs freelance en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/kickstarter3.png" alt="fb">Kickstarter</h3>
-            <p>Kickstarter est une plateforme de financement participatif essentielle pour les développeurs freelance, leur permettant de lancer et de financer leurs projets innovants en recueillant des fonds auprès des contributeurs.</p>
-            <div class="buttons">
-                <a href="https://www.kickstarter.com/?lang=fr" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/freelancer.png" alt="fb">Freelancer</h3>
-            <p>Freelancer est une plateforme de mise en relation entre freelances et clients, permettant de trouver et de proposer des projets dans divers domaines professionnels.</p>
-            <div class="buttons">
-                <a href="https://www.fr.freelancer.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-    <section id="lien8" class="section-offset">
-    <h2>Les marchés de développeurs en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo2/sideproject.jpg" alt="fb">Sideprojectors</h3>
-            <p>Sideprojectors est une plateforme où les créateurs peuvent acheter, vendre ou collaborer sur des projets secondaires. Elle met en relation des entrepreneurs et des développeurs, favorisant l’échange d’idées, d'opportunités de monétisation et le développement de produits inachevés ou sous-utilisés.
-
-</p>
-            <div class="buttons">
-                <a href="https://www.sideprojectors.com/#/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo2/indiemaker.png" alt="fb">Indiemaker</h3>
-            <p>IndieMaker est une plateforme pour créateurs indépendants qui souhaitent acheter, vendre, ou échanger des projets numériques. Elle aide les entrepreneurs à monétiser leurs idées, trouver des partenaires, et accéder à des ressources pour développer leurs produits et communautés.
-
-</p>
-            <div class="buttons">
-                <a href="https://indiemaker.co/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-
-<section id="lien9" class="section-offset">
-    <h2>Les chaines youtube pour apprendre à programmer en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/pierre.jpg" alt="logo">Pierre Giraud</h3>
-            <p>La chaîne YouTube de Pierre Giraud propose des tutoriels clairs et accessibles sur le développement web, notamment HTML, CSS, JavaScript et d'autres technologies.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@pierregiraudcom?si=EYzgbIKQl9SOLNrV" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/grafikart.jpg" alt="logo">Grafikart</h3>
-            <p>La chaîne YouTube Grafikart offre des tutoriels détaillés sur le développement web, incluant PHP, JavaScript, et des frameworks populaires.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@grafikart?si=ni2Fg3y9h7WJMeSO" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/ronasdev2.jpg" alt="logo">Ronasdev</h3>
-            <p>La chaîne YouTube Ronasdev propose des tutoriels et des projets sur le développement web et le design, avec des focus sur JavaScript, React, et la création d'applications.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@ronasdev?si=H53DFBCxvmAWLPb9" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/algomius.jpg" alt="logo">Algomius</h3>
-            <p>La chaîne YouTube Algomius se concentre sur les tutoriels de programmation et les concepts d'algorithmique, avec des vidéos pédagogiques en Python et autres langages.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@algomius?si=TSLbkbdEg-22gLaD" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/lesteachersdunet.jpg" alt="logo">LES TEACHERS DU NET</h3>
-            <p>La chaîne YouTube LES TEACHERS DU NET propose des cours et tutoriels en développement web, incluant HTML, CSS, et JavaScript, avec un contenu éducatif en français.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@teachersdunet?si=EXhHFv7JrZtXjF3E" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/getcodeknowledge2.png" alt="logo">GetCodingKnowledge</h3>
-            <p>La chaîne YouTube GetCodingKnowledge propose des tutoriels sur le développement web, couvrant HTML, CSS, JavaScript, ainsi que divers frameworks.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@getcodingknowledge?si=rnnRsAVGHmrNMnpB" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/bproodev2.jpg" alt="logo">Bproo Dev</h3>
-            <p>La chaîne YouTube Bproo Dev offre des tutoriels sur le développement web, avec un accent sur les technologies modernes et les frameworks.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@bproodev?si=YwAy0qYgLzLXCf_D" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/drcmind.jpg" alt="fb">DrcMind</h3>
-            <p>La chaîne YouTube DrcMind propose des tutoriels en développement web moderne, incluant des guides pratiques sur JavaScript, PHP, et divers frameworks.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@drcmind?si=ItQ_AToXIiObCnpo" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/hec.png" alt="fb">HEC Développement d'applications Web</h3>
-            <p>La chaîne YouTube HEC Développement d'applications Web propose des tutoriels et des ressources sur le développement web, couvrant des technologies comme HTML, CSS, JavaScript et frameworks, idéale pour les débutants et les développeurs souhaitant approfondir leurs compétences.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@hec-developpementdapplicat1961?si=4oItH7VYQoJ_rsFz" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/fromscratch.jpg" alt="fb">From Scratch le développement web de zéro</h3>
-            <p>La chaîne YouTube From Scratch le développement web de zéro offre des tutoriels complets pour apprendre le développement web depuis les bases, incluant HTML, CSS, JavaScript et d'autres technologies, idéale pour les débutants souhaitant acquérir des compétences pratiques.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/channel/UCHGLV13U7YRbjrKpqfbtyYg?si=AETvKyEsvbtMoi7k" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/melvynx.jpg" alt="fb">Melvynx Apprendre à coder</h3>
-            <p>La chaîne Melvynx Apprendre à coder se concentre sur les technologies JavaScript, notamment Next.js, Node.js et React. Elle propose des tutoriels pratiques et accessibles pour aider les débutants à développer des applications web modernes et performantes.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@melvynxdev?si=eXWg7Axg6lk6umtC" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/dgeodev.jpg" alt="fb">Dgeo Dev</h3>
-            <p>La chaîne Dgeo Dev propose des formations accélérées pour apprendre HTML, CSS, JavaScript, React et Shopify à travers des projets pratiques. Elle vise à faciliter l'apprentissage en offrant des tutoriels directement applicables.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@dgeodev?si=tPFnGoLzxERDpiXj" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/remotemonkey.jpg" alt="fb">Remote Monkey</h3>
-            <p>La chaîne Remote Monkey propose des formations accélérées sur React, Next.js, Tailwind CSS et Firebase, en se concentrant sur des projets complexes pour aider les développeurs à acquérir rapidement des compétences pratiques en développement web.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@remotemonkey?si=xGZEtoByyv4a3QpT" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/donaldprogrammeur.jpg" alt="fb">Donald Programmeur</h3>
-            <p>La chaîne Donald Programmeur se concentre sur Django, proposant des tutoriels et des projets pratiques pour aider les développeurs à maîtriser ce framework de développement web rapidement.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@donaldprogrammeur?si=8WRexwcMR0iNZQou" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/kgcodingbypreshansir.jpg" alt="fb">Complete Coding by Prashant Sir</h3>
-            <p>La chaîne Complete Coding by Prashant Sir offre des cours sur HTML, CSS, JavaScript, React, Java, C, C++, et Node.js. Chaque vidéo inclut des notes détaillées et des versions PDF, ainsi que des certifications gratuites pour les apprenants.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@completecodingbyprashantsir?si=c6HC3Qu52IYAXrFn" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/thapatechnical.jpg" alt="fb">Thapa Technical</h3>
-            <p>La chaîne Thapa Technical propose des tutoriels sur le développement web et mobile, incluant HTML, CSS, JavaScript, React, et Node.js. Les cours sont accompagnés de notes explicatives dans les vidéos, disponibles en version PDF gratuitement, facilitant ainsi l'apprentissage pour les débutants et les développeurs intermédiaires.</p>
-            <div class="buttons">
-                <a href="https://youtube.com/@thapatechnical?si=ZEcRTgvedkBJSlQD" target="_blank" class="button view-site" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-            </div>
-        </div>
-    
-    </div>
-    <div class="view-toggle-container"></div>
 </section>
 </main>
 
@@ -689,6 +118,19 @@
 <script src="scripts.js"></script>
 <script src="translation-service.js"></script>
 <script src="urlDisplay.js"></script>
+<!-- À la fin du body -->
+<script src="auth.js"></script>
+<script src="publish.js"></script>
+<script src="publishDisplay.js"></script>
+<script src="publishother.js"></script>
+
+
+
+
+
+
+
+
 <!-- Inizio Codice ShinyStat -->
 <script src="//codice.shinystat.com/cgi-bin/getcod.cgi?USER=SS-52025661-7459d"></script>
 <noscript>

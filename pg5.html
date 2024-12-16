@@ -11,8 +11,6 @@
 <meta name="apple-mobile-web-app-title" content="Aaino" />
 <link rel="manifest" href="/site.webmanifest" />
 <title>Aaino | AI </title>
-<script src="loader.js"></script>
-<script src="config.js"></script>
     <link rel="stylesheet" href="styles2.css">
     <link rel="stylesheet" href="styles4.css">
     <link rel="stylesheet" href="styles5.css">
@@ -26,7 +24,7 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YM5YD3S15F"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -35,22 +33,66 @@
 
   gtag('config', 'G-YM5YD3S15F');
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <!-- Lien vers votre fichier CSS -->
+<link rel="stylesheet" href="stylepublish.css">
+    
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+// À mettre dans le head, avant vos autres scripts
+document.addEventListener('DOMContentLoaded', function() {
+  // Activer le cache pour les ressources
+  if ('caches' in window) {
+    caches.open('site-static').then(cache => {
+      // Mettre en cache les ressources importantes
+      const stylesheets = Array.from(document.styleSheets).map(sheet => sheet.href).filter(Boolean);
+      const scripts = Array.from(document.scripts).map(script => script.src).filter(Boolean);
+      cache.addAll([...stylesheets, ...scripts]);
+    });
+  }
 
+  // S'assurer que les ressources sont chargées dans l'ordre
+  const head = document.getElementsByTagName('head')[0];
+  const existingLinks = Array.from(document.getElementsByTagName('link'));
+  const existingScripts = Array.from(document.getElementsByTagName('script'));
+
+  // Réorganiser les styles
+  existingLinks
+    .filter(link => link.rel === 'stylesheet')
+    .forEach(link => {
+      head.appendChild(link.cloneNode(true));
+      link.remove();
+    });
+
+  // Réorganiser les scripts
+  existingScripts
+    .filter(script => script.src)
+    .forEach(script => {
+      const newScript = document.createElement('script');
+      newScript.src = script.src;
+      newScript.async = false;
+      head.appendChild(newScript);
+      script.remove();
+    });
+});
+</script>
 </head>
 <body>
 
 <main>
-  <section id="introduction">
-    <h1>Bienvenue dans la section IA</h1>
-    <p>Bienvenue à tous les passionnés d’intelligence artificielle !
-       Je suis ravi de vous accueillir dans cet espace dédié aux incroyables possibilités offertes par les IA. Ici, vous découvrirez une sélection soigneusement choisie des meilleurs sites et ressources pour explorer, apprendre et tirer parti des avancées en intelligence artificielle.
-
-      Laissez-vous émerveiller par les outils et plateformes innovants qui transformeront vos projets et nourriront votre curiosité. Chaque visite est une opportunité de découvrir quelque chose de fascinant et de vous plonger davantage dans l’univers de l’IA.
-
-      Nous sommes impatients de vous accompagner dans cette aventure excitante. Revenez souvent pour explorer les dernières nouveautés et continuer à enrichir vos connaissances. Vous êtes au cœur de cette exploration, et nous sommes ravis de vous y guider !</p>
-    <p><strong>Alors, que cherchez-vous ?</strong></p>
-    <div class="qw4321_search_box">
+  <section id="introduction" class="modern-intro">
+    <div class="intro-content">
+        <h1>Intelligence Artificielle</h1>
+        <div class="animated-bar"></div>
+        <p class="intro-text">
+            Explorez les meilleures ressources et outils d'IA du web. Découvrez des innovations fascinantes sélectionnées par notre communauté ou contribuez en partageant vos découvertes.
+        </p>
+        <div class="category-preview">
+            <p class="sharing-invite">Les publications apparaîtront ici, classées par catégories ↓</p>
+        </div>
+    </div>
+        <div class="qw4321_search_box">
         <textarea id="intro_search_input" class="er7890_search_field" placeholder="Rechercher..." rows="1"></textarea>
         <div id="intro_close_icon" class="hj6789_close_icon">
             <img src="svg/close.svg" alt="Effacer">
@@ -59,104 +101,6 @@
             <img src="svg/searchword.svg" alt="Rechercher">
         </button>
     </div>
-    <div class="zx9">
-    <ul class="qt3" id="listContainer">
-        <li class="vp7">
-            <span class="lm2">Les sites d'outils IA en <span class="current-year"></span></span>
-            <a href="#lien1" class="wy5">Voir</a>
-        </li>
-    </ul>
-    <div class="jk4" id="buttonContainer"></div>
-</div>
-
-</section>
-    <section id="lien1" class="section-offset">
-    <h2>Les sites d'outils IA en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/chatgpt4.jpg" alt="logo">Chatgpt</h3>
-            <p>ChatGPT est un service en ligne de conversation automatisée utilisant l'intelligence artificielle pour répondre aux questions, fournir des conseils et générer du texte en langage naturel.</p>
-            <div class="buttons">
-                <a href="https://openai.com/chatgpt/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/claudeai.jpg" alt="logo">Claude AI</h3>
-            <p>Claude AI est un service de conversation basé sur l'intelligence artificielle, conçu pour générer des réponses et des textes en langage naturel, offrant une assistance automatisée et interactive.</p>
-            <div class="buttons">
-                <a href="https://claude.ai/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/gemini.jpg" alt="logo">Gemini</h3>
-            <p>Gemini est un modèle d'intelligence artificielle développé par Google, axé sur la génération de texte, la compréhension du langage naturel et l'assistance virtuelle, offrant des réponses contextuelles et précises.</p>
-            <div class="buttons">
-                <a href="https://gemini.google.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/perplexity.png" alt="logo">Perplexity</h3>
-            <p>Perplexity est un moteur de recherche alimenté par l'IA qui fournit des réponses instantanées et contextuelles aux questions, avec une interface conviviale pour explorer diverses informations.</p>
-            <div class="buttons">
-                <a href="https://www.perplexity.ai/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/coze.jpg" alt="logo">Coze</h3>
-            <p>Coze est une plateforme de développement d'applications et de chatbots alimentée par IA pour tous les niveaux de compétence. Elle permet de créer des solutions intelligentes sans nécessiter d'expérience en programmation.</p>
-            <div class="buttons">
-                <a href="https://www.coze.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/elevenlabs.png" alt="logo">Elevenlabs</h3>
-            <p>Eleven Labs est une plateforme de génération de voix et de texte IA offrant des outils pour créer des voix réalistes et des narrations personnalisées à partir de texte.</p>
-            <div class="buttons">
-                <a href="https://elevenlabs.io/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/huggingface.png" alt="logo">Huggingface</h3>
-            <p>Hugging Face est une plateforme de traitement du langage naturel (NLP) offrant des modèles IA, des outils open-source, et des API pour le développement et l'entraînement de modèles de langage avancés.</p>
-            <div class="buttons">
-                <a href="https://huggingface.co/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/bestfreeai.jpg" alt="logo">BestFreeAIWebsites</h3>
-            <p>BestFreeAIWebsites répertorie des outils d'intelligence artificielle gratuits et utiles, facilitant l'accès à divers services IA pour les utilisateurs et développeurs.</p>
-            <div class="buttons">
-                <a href="https://bestfreeaiwebsites.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/aixploria.webp" alt="logo"> Aixploria</h3>
-            <p>Aixploria est un répertoire d'outils et de ressources d'intelligence artificielle, offrant une liste organisée pour explorer et intégrer des solutions IA dans des projets.</p>
-            <div class="buttons">
-                <a href="https://www.aixploria.com/en/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    
-    </div>
-    <div class="view-toggle-container"></div>
 </section>
 
  
@@ -176,6 +120,19 @@
 <script src="scripts.js"></script>
 <script src="translation-service.js"></script>
 <script src="urlDisplay.js"></script>
+<!-- À la fin du body -->
+<script src="auth.js"></script>
+<script src="publish.js"></script>
+<script src="publishDisplay.js"></script>
+<script src="publishother.js"></script>
+
+
+
+
+
+
+
+
 <!-- Inizio Codice ShinyStat -->
 <script src="//codice.shinystat.com/cgi-bin/getcod.cgi?USER=SS-52025661-7459d"></script>
 <noscript>

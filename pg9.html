@@ -4,15 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#ffffff">
-<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="Aaino" />
-<link rel="manifest" href="/site.webmanifest" />
-<title>Aaino | Explore the World</title>
-<script src="loader.js"></script>
-<script src="config.js"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<title>Aaino | Cryptocurrency</title>
     <link rel="stylesheet" href="styles2.css">
     <link rel="stylesheet" href="styles4.css">
     <link rel="stylesheet" href="styles5.css">
@@ -26,7 +25,7 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YM5YD3S15F"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -35,23 +34,66 @@
 
   gtag('config', 'G-YM5YD3S15F');
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <!-- Lien vers votre fichier CSS -->
+<link rel="stylesheet" href="stylepublish.css">
+    
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+// À mettre dans le head, avant vos autres scripts
+document.addEventListener('DOMContentLoaded', function() {
+  // Activer le cache pour les ressources
+  if ('caches' in window) {
+    caches.open('site-static').then(cache => {
+      // Mettre en cache les ressources importantes
+      const stylesheets = Array.from(document.styleSheets).map(sheet => sheet.href).filter(Boolean);
+      const scripts = Array.from(document.scripts).map(script => script.src).filter(Boolean);
+      cache.addAll([...stylesheets, ...scripts]);
+    });
+  }
 
+  // S'assurer que les ressources sont chargées dans l'ordre
+  const head = document.getElementsByTagName('head')[0];
+  const existingLinks = Array.from(document.getElementsByTagName('link'));
+  const existingScripts = Array.from(document.getElementsByTagName('script'));
+
+  // Réorganiser les styles
+  existingLinks
+    .filter(link => link.rel === 'stylesheet')
+    .forEach(link => {
+      head.appendChild(link.cloneNode(true));
+      link.remove();
+    });
+
+  // Réorganiser les scripts
+  existingScripts
+    .filter(script => script.src)
+    .forEach(script => {
+      const newScript = document.createElement('script');
+      newScript.src = script.src;
+      newScript.async = false;
+      head.appendChild(newScript);
+      script.remove();
+    });
+});
+</script>
 </head>
 <body>
 
 <main>
-  <section id="introduction">
-    <h1>Bienvenue dans la section Explorer le monde</h1>
-    <p>Bienvenue, chers explorateurs du monde virtuel !
-
-      Je suis ravi de vous accueillir dans cet espace dédié à des sites web fascinants qui vous permettront de découvrir des lieux incroyables à travers le monde, tout en restant confortablement chez vous. Vous aurez l'opportunité de vivre des expériences immersives et de vous immerger dans des environnements variés comme si vous y étiez réellement.
-
-      Explorez ces sites avec curiosité et émerveillement, et laissez-vous transporter par des découvertes uniques. Chaque visite est une chance de vivre de nouvelles aventures et de vous inspirer.
-
-      Nous sommes impatients de vous accompagner dans cette exploration virtuelle et de vous offrir des expériences enrichissantes. Revenez souvent pour découvrir encore plus de merveilles et continuer à enrichir vos connaissances. Votre voyage virtuel commence ici, et nous sommes ravis de vous y guider !</p>
-    <p><strong>Alors, que cherchez-vous ?</strong></p>
-    <div class="qw4321_search_box">
+<section id="introduction" class="modern-intro">
+    <div class="intro-content">
+        <h1>Cryptomonnaie</h1>
+        <div class="animated-bar"></div>
+        <p class="intro-text">
+            Plongez dans l'univers fascinant des cryptomonnaies et de la blockchain. Explorez des ressources fiables sélectionnées par notre communauté ou partagez vos découvertes dans ce domaine innovant.
+        </p>
+        <div class="category-preview">
+            <p class="sharing-invite">Les publications apparaîtront ici, classées par catégories ↓</p>
+        </div>
+    </div>
+        <div class="qw4321_search_box">
         <textarea id="intro_search_input" class="er7890_search_field" placeholder="Rechercher..." rows="1"></textarea>
         <div id="intro_close_icon" class="hj6789_close_icon">
             <img src="svg/close.svg" alt="Effacer">
@@ -60,102 +102,14 @@
             <img src="svg/searchword.svg" alt="Rechercher">
         </button>
     </div>
-    <div class="zx9">
-    <ul class="qt3" id="listContainer">
-        <li class="vp7">
-            <span class="lm2">Les sites pour parcourir des lieux magnifiques à travers le monde en <span class="current-year"></span></span>
-            <a href="#lien1" class="wy5">Voir</a>
-        </li>
-    </ul>
-    <div class="jk4" id="buttonContainer"></div>
-</div>
-
 </section>
-    <section id="lien1" class="section-offset">
-    <h2>Les sites pour parcourir des lieux magnifiques dans le monde en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/citywalks.png" alt="logo">Citywalks</h3>
-            <p>CityWalks est un site qui offre des visites virtuelles en direct de diverses villes, permettant aux utilisateurs de découvrir des attractions et des sites touristiques en temps réel grâce à des diffusions en direct.</p>
-            <div class="buttons">
-                <a href="https://citywalks.live/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/worldcam.png" alt="logo">WorldCam</h3>
-            <p>WorldCam propose des flux en direct de caméras du monde entier, permettant aux utilisateurs de visionner des vues en temps réel de lieux célèbres, de paysages urbains et de scènes naturelles.</p>
-            <div class="buttons">
-                <a href="https://worldcam.live/en" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/windowswap.jpg" alt="logo">Window-Swap</h3>
-            <p>Window-Swap permet aux utilisateurs de découvrir des vues de fenêtres du monde entier en échangeant des vidéos de leurs propres fenêtres, offrant ainsi un aperçu unique de la vie quotidienne dans divers endroits.</p>
-            <div class="buttons">
-                <a href="https://www.window-swap.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/drivenlisten.jpg" alt="logo">Drivenlisten</h3>
-            <p>Drivenlisten permet de parcourir des lieux dans le monde comme si vous conduisiez, tout en écoutant de la musique, offrant une expérience immersive de voyage virtuel.</p>
-            <div class="buttons">
-                <a href="https://drivenlisten.com/#" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/radio.png" alt="logo">Radio Garden</h3>
-            <p>Radio Garden permet d'écouter en direct des stations de radio du monde entier en naviguant sur une carte interactive.</p>
-            <div class="buttons">
-                <a href="http://radio.garden/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/drivenandlisten.png" alt="logo">Driven and Listen</h3>
-            <p>Driven and Listen est un site web qui permet aux utilisateurs de parcourir des villes du monde entier en simulant une expérience de conduite tout en écoutant de la musique et des sons ambiants de la ville.</p>
-            <div class="buttons">
-                <a href="https://driveandlisten.herokuapp.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/mapcrunch.jpg" alt="logo">MapCrunch</h3>
-            <p>MapCrunch est un site web qui permet aux utilisateurs de voyager virtuellement dans le monde en se déplaçant aléatoirement sur Google Street View, offrant ainsi une expérience immersive de découverte de différents lieux.</p>
-            <div class="buttons">
-                <a href="https://www.mapcrunch.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/geoguessr.jpg" alt="logo">GeoGuessr</h3>
-            <p>GeoGuessr est un jeu en ligne qui plonge les utilisateurs dans des images de Google Street View, les défiant de deviner leur emplacement exact sur la carte en se basant sur des indices visuels.</p>
-            <div class="buttons">
-                <a href="https://www.geoguessr.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-
  
 </main>
 
 
 
+
+  
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script src="common-elementss.js"></script>
@@ -170,6 +124,19 @@
 <script src="scripts.js"></script>
 <script src="translation-service.js"></script>
 <script src="urlDisplay.js"></script>
+<!-- À la fin du body -->
+<script src="auth.js"></script>
+<script src="publish.js"></script>
+<script src="publishDisplay.js"></script>
+<script src="publishother.js"></script>
+
+
+
+
+
+
+
+
 <!-- Inizio Codice ShinyStat -->
 <script src="//codice.shinystat.com/cgi-bin/getcod.cgi?USER=SS-52025661-7459d"></script>
 <noscript>
@@ -177,6 +144,7 @@
 <img src="//www.shinystat.com/cgi-bin/shinystat.cgi?USER=SS-52025661-7459d" alt="Statistiche web" style="border:0px" /></a>
 </noscript>
 <!-- Fine Codice ShinyStat -->
+
 
 </body>
 </html>

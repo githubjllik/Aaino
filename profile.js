@@ -1,99 +1,84 @@
-const profileData = document.getElementById('profileData');
+// profile.js
+const SUPABASE_URL = 'https://wdyvvgxritetqhouwebf.supabase.co'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkeXZ2Z3hyaXRldHFob3V3ZWJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI2MjczMzYsImV4cCI6MjA0ODIwMzMzNn0.3IFR6RtNKHYm-Ezrb4OzgS2wLcgDvE5VD30F91H6jDU'
 
-async function loadProfileData() {
-    const { data: { session }, error } = await supabase.auth.getSession();
-    
-    if (!session) {
-        window.location.href = '/index.html';
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+async function loadProfile() {
+  const { data: { session }, error } = await supabase.auth.getSession();
+  
+  if (!session) {
+    window.location.href = '/';
+    return;
+  }
+
+  const user = session.user;
+  
+  // Charger les données du profil
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .single();
+
+  // Mettre à jour l'interface
+  document.getElementById('profileImage').src = profile?.avatar_url || user.user_metadata?.avatar_url || 'svg/default-avatar.svg';
+  document.getElementById('profileName').textContent = profile?.full_name || user.user_metadata?.full_name || 'Utilisateur';
+  document.getElementById('profileEmail').textContent = user.email;
+  document.getElementById('profileJoinDate').textContent = new Date(user.created_at).toLocaleDateString();
+
+  // Configurer les boutons
+  setupProfileActions(user.id);
+}
+
+function setupProfileActions(userId) {
+  const avatarInput = document.getElementById('avatarInput');
+  const updateAvatarBtn = document.getElementById('updateAvatarBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  updateAvatarBtn.addEventListener('click', () => {
+    avatarInput.click();
+  });
+
+  avatarInput.addEventListener('change', async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${userId}-${Math.random()}.${fileExt}`;
+
+      // Upload to Supabase Storage
+      const { data, error } = await supabase.storage
+        .from('avatars')
+        .upload(fileName, file);
+
+      if (error) {
+        alert('Erreur lors du téléchargement de l\'image');
         return;
-    }
+      }
 
-    const user = session.user;
-    
-    // Récupérer les données additionnelles de l'utilisateur depuis Supabase
-    const { data: profileDetails, error: profileError } = await supabase
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(fileName);
+
+      // Update profile
+      await supabase
         .from('profiles')
-        .select('*')
-        .eq('id', user.id)
-        .single();
+        .upsert({
+          id: userId,
+          avatar_url: publicUrl,
+          updated_at: new Date()
+        });
 
-    profileData.innerHTML = `
-        <div class="profile-container">
-            <div class="profile-header">
-                <img src="${user.user_metadata.avatar_url || 'svg/default-avatar.svg'}" 
-                     alt="Photo de profil" 
-                     class="profile-image">
-                <h2>${user.user_metadata.full_name || 'Utilisateur'}</h2>
-                <p>${user.email}</p>
-            </div>
-            
-            <div class="profile-info">
-                <h3>Informations du compte</h3>
-                <p>Membre depuis: ${new Date(user.created_at).toLocaleDateString()}</p>
-                <p>Dernière connexion: ${new Date(user.last_sign_in_at).toLocaleDateString()}</p>
-            </div>
+      document.getElementById('profileImage').src = publicUrl;
+    }
+  });
 
-            <div class="profile-actions">
-                <button onclick="updateProfilePhoto()">Modifier la photo</button>
-                <button onclick="window.location.href='index.html'">Retour à l'accueil</button>
-            </div>
-        </div>
-    `;
+  logoutBtn.addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    window.location.href = '/';
+  });
 }
 
-async function updateProfilePhoto() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    
-    input.onchange = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        // Vérifier la taille du fichier (max 2MB)
-        if (file.size > 2 * 1024 * 1024) {
-            alert('La taille du fichier ne doit pas dépasser 2MB');
-            return;
-        }
-
-        try {
-            // Supprimer l'ancienne photo si elle existe
-            const { data: { session } } = await supabase.auth.getSession();
-            const user = session.user;
-            const oldPhotoPath = `avatars/${user.id}/profile`;
-            await supabase.storage.from('avatars').remove([oldPhotoPath]);
-
-            // Upload de la nouvelle photo
-            const { data, error } = await supabase.storage
-                .from('avatars')
-                .upload(`${user.id}/profile`, file, {
-                    upsert: true,
-                    contentType: file.type
-                });
-
-            if (error) throw error;
-
-            // Obtenir l'URL publique
-            const { data: { publicUrl } } = supabase.storage
-                .from('avatars')
-                .getPublicUrl(`${user.id}/profile`);
-
-            // Mettre à jour les métadonnées de l'utilisateur
-            await supabase.auth.updateUser({
-                data: { avatar_url: publicUrl }
-            });
-
-            // Recharger la page
-            loadProfileData();
-
-        } catch (error) {
-            console.error('Erreur lors de la mise à jour de la photo:', error);
-            alert('Erreur lors de la mise à jour de la photo');
-        }
-    };
-
-    input.click();
-}
-
-// Charger les données au chargement de la page
-document.addEventListener('DOMContentLoaded', loadProfileData);
+// Charger le profil au chargement de la page
+document.addEventListener('DOMContentLoaded', loadProfile);

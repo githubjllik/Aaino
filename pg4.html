@@ -11,8 +11,6 @@
 <meta name="apple-mobile-web-app-title" content="Aaino" />
 <link rel="manifest" href="/site.webmanifest" />
 <title>Aaino | Learn</title>
-<script src="loader.js"></script>
-<script src="config.js"></script>
     <link rel="stylesheet" href="styles2.css">
     <link rel="stylesheet" href="styles4.css">
     <link rel="stylesheet" href="styles5.css">
@@ -26,7 +24,7 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YM5YD3S15F"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -35,22 +33,66 @@
 
   gtag('config', 'G-YM5YD3S15F');
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <!-- Lien vers votre fichier CSS -->
+<link rel="stylesheet" href="stylepublish.css">
+    
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+// À mettre dans le head, avant vos autres scripts
+document.addEventListener('DOMContentLoaded', function() {
+  // Activer le cache pour les ressources
+  if ('caches' in window) {
+    caches.open('site-static').then(cache => {
+      // Mettre en cache les ressources importantes
+      const stylesheets = Array.from(document.styleSheets).map(sheet => sheet.href).filter(Boolean);
+      const scripts = Array.from(document.scripts).map(script => script.src).filter(Boolean);
+      cache.addAll([...stylesheets, ...scripts]);
+    });
+  }
 
+  // S'assurer que les ressources sont chargées dans l'ordre
+  const head = document.getElementsByTagName('head')[0];
+  const existingLinks = Array.from(document.getElementsByTagName('link'));
+  const existingScripts = Array.from(document.getElementsByTagName('script'));
+
+  // Réorganiser les styles
+  existingLinks
+    .filter(link => link.rel === 'stylesheet')
+    .forEach(link => {
+      head.appendChild(link.cloneNode(true));
+      link.remove();
+    });
+
+  // Réorganiser les scripts
+  existingScripts
+    .filter(script => script.src)
+    .forEach(script => {
+      const newScript = document.createElement('script');
+      newScript.src = script.src;
+      newScript.async = false;
+      head.appendChild(newScript);
+      script.remove();
+    });
+});
+</script>
 </head>
 <body>
 
 <main>
-  <section id="introduction">
-    <h1>Bienvenue dans la section Apprendre</h1>
-    <p>Bienvenue à tous, quel que soit votre parcours ou vos envies !
-     Cette section a été créée spécialement pour vous, que vous souhaitiez développer de nouvelles compétences, approfondir vos connaissances, ou simplement découvrir un domaine qui vous passionne. Peu importe où vous en êtes aujourd'hui, l'important est la volonté d'apprendre et de progresser.
-
-      Sachez-le : n'importe qui peut devenir ce qu'il souhaite, tant qu'il en a la volonté. Ici, chacun est le bienvenu, qu’il soit débutant ou expert, curieux ou passionné. Vous trouverez des ressources pour tous les domaines, afin de vous accompagner dans votre évolution.
-
-      Prenez plaisir à explorer, à apprendre, et à grandir. Revenez souvent, car il y a toujours plus à découvrir. Vous êtes ici dans un espace où tout le monde peut s'épanouir et réaliser ses ambitions.</p>
-    <p><strong>Alors, que cherchez-vous ?</strong></p>
-    <div class="qw4321_search_box">
+  <section id="introduction" class="modern-intro">
+    <div class="intro-content">
+        <h1>Apprendre</h1>
+        <div class="animated-bar"></div>
+        <p class="intro-text">
+            Découvrez des ressources enrichissantes pour développer vos connaissances. Que vous soyez débutant ou expert, trouvez ici des contenus éducatifs partagés par notre communauté ou contribuez avec vos propres découvertes.
+        </p>
+        <div class="category-preview">
+            <p class="sharing-invite">Les publications apparaîtront ici, classées par catégories ↓</p>
+        </div>
+    </div>
+        <div class="qw4321_search_box">
         <textarea id="intro_search_input" class="er7890_search_field" placeholder="Rechercher..." rows="1"></textarea>
         <div id="intro_close_icon" class="hj6789_close_icon">
             <img src="svg/close.svg" alt="Effacer">
@@ -59,253 +101,8 @@
             <img src="svg/searchword.svg" alt="Rechercher">
         </button>
     </div>
-    <div class="zx9">
-    <ul class="qt3" id="listContainer">
-        <li class="vp7">
-            <span class="lm2">Les plateformes populaires pour tout apprendre en <span class="current-year"></span></span>
-            <a href="#lien1" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites pour tout apprendre gratuitement en <span class="current-year"></span></span>
-            <a href="#lien2" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites pour apprendre avec certification gratuit en <span class="current-year"></span></span>
-            <a href="#lien3" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites gratuits pour apprendre une nouvelle langue en <span class="current-year"></span></span>
-            <a href="#lien4" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites pour lire et télécharger n'importe quel livre gratuitement en <span class="current-year"></span></span>
-            <a href="#lien5" class="wy5">Voir</a>
-        </li>
-        <li class="vp7">
-            <span class="lm2">Les sites avec des outils incroyables pour les apprenants en <span class="current-year"></span></span>
-            <a href="#lien6" class="wy5">Voir</a>
-        </li>
-    </ul>
-    <div class="jk4" id="buttonContainer"></div>
-</div>
-
-
-</section>
-   <section id="lien1" class="section-offset">
-    <h2>Les plateformes populaires pour tout apprendre en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/openclassroom.png" alt="logo">OpenClassrooms</h3>
-            <p>OpenClassrooms est une plateforme d'apprentissage en ligne offrant des cours interactifs dans divers domaines, avec des diplômes et certifications reconnues.</p>
-            <div class="buttons">
-                <a href="https://openclassrooms.com/fr/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/coursera.webp" alt="logo">Coursera</h3>
-            <p>Coursera est une plateforme d'apprentissage en ligne qui propose des cours, certifications et diplômes délivrés par des universités et institutions renommées.</p>
-            <div class="buttons">
-                <a href="https://www.coursera.org/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/udemy3.png" alt="logo">Udemy</h3>
-            <p>Udemy est une plateforme en ligne proposant des milliers de cours payants et gratuits sur une large variété de sujets, accessibles à tous.</p>
-            <div class="buttons">
-                <a href="https://www.udemy.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/edx.png" alt="logo">edX</h3>
-            <p>edX est une plateforme d'apprentissage en ligne proposant des cours, certifications et diplômes de grandes universités et institutions, accessibles à tous.</p>
-            <div class="buttons">
-                <a href="https://www.edx.org/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-    </div>
-    <div class="view-toggle-container"></div>
 </section>
 
-<section id="lien2" class="section-offset">
-    <h2>Les sites gratuits pour tout apprendre en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/youtube.png" alt="logo">Youtube</h3>
-            <p>YouTube est une plateforme de vidéo gratuite permettant d'apprendre tout ce que l'on souhaite en recherchant des tutoriels et des cours sur divers sujets.</p>
-            <div class="buttons">
-                <a href="https://m.youtube.com/" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/khanacademy.png" alt="logo">Khan Academy</h3>
-            <p>Khan Academy est une plateforme éducative gratuite offrant des cours interactifs et des exercices dans diverses matières, pour tous les niveaux.</p>
-            <div class="buttons">
-                <a href="https://fr.khanacademy.org/" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/mindluster.png" alt="logo">Mindluster</h3>
-            <p>Mindluster est une plateforme éducative gratuite offrant des cours et leçons sur presque toutes les compétences du monde, permettant d'apprendre vraiment tout ce que vous souhaitez.</p>
-            <div class="buttons">
-                <a href="https://www.mindluster.com/" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-
-<section id="lien3" class="section-offset">
-    <h2>Les sites pour apprendre avec certification gratuit en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/linkedin.png" alt="logo">LinkedIn</h3>
-            <p>LinkedIn est un réseau professionnel qui offre des opportunités d'apprentissage via LinkedIn Learning, avec des cours et des certifications gratuits ou inclus dans les abonnements, permettant de développer des compétences et d'améliorer sa carrière.</p>
-            <div class="buttons">
-                <a href="https://fr.linkedin.com/" target="_blank"  class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="https://youtu.be/KNkys0Q4ih8?si=o1IB36h45_2ayzjM" target="_blank" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/freecodecamp2.jpg" alt="logo">Freecodecamp</h3>
-            <p>FreeCodeCamp est une plateforme gratuite d'apprentissage en ligne offrant des cours de programmation et de développement web avec certifications gratuites à la clé.</p>
-            <div class="buttons">
-                <a href="https://www.freecodecamp.org/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/cursa.jpg" alt="logo">Cursa</h3>
-            <p>Cursa est une plateforme éducative gratuite offrant des cours en ligne avec des certifications gratuites, couvrant une large gamme de sujets pour développer diverses compétences.</p>
-            <div class="buttons">
-                <a href="https://cursa.app/fr" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/alison.jpg" alt="logo">Alison</h3>
-            <p>Alison est une plateforme d'apprentissage en ligne gratuite offrant des cours et des certifications dans divers domaines professionnels et académiques.</p>
-            <div class="buttons">
-                <a href="https://alison.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/lectera.png" alt="logo">Lectera</h3>
-            <p>Lectera est une plateforme d'apprentissage en ligne gratuite offrant des cours et des formations sur divers sujets, avec des certifications gratuites pour valider les compétences acquises.</p>
-            <div class="buttons">
-                <a href="https://lectera.com/fr" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/efset.png" alt="logo">Efset</h3>
-            <p>EF SET est un site gratuit proposant des tests d'anglais en ligne, offrant des certificats de compétence et des ressources d'apprentissage.</p>
-            <div class="buttons">
-                <a href="https://www.efset.org/fr/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-    <section id="lien4" class="section-offset">
-    <h2>Les sites pour apprendre une nouvelle langue en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/loecsen3.png" alt="logo">Loecsen</h3>
-            <p>Loecsen est une plateforme gratuite d'apprentissage des langues offrant des cours interactifs pour maîtriser les bases de nombreuses langues étrangères.</p>
-            <div class="buttons">
-                <a href="https://www.loecsen.com/fr" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/duolingo.png" alt="logo">Duolingo</h3>
-            <p>Duolingo est une plateforme gratuite d'apprentissage des langues offrant des cours interactifs pour apprendre de nombreuses langues de manière ludique.</p>
-            <div class="buttons">
-                <a href="https://fr.duolingo.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-
-<section id="lien5" class="section-offset">
-    <h2>Les sites pour lire et télécharger n'importe quel livre gratuitement en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/zlibrairy.jpg" alt="logo">Z-Librairy</h3>
-            <p>Z-Library est une bibliothèque en ligne gratuite offrant un large éventail de livres électroniques et d'articles scientifiques à télécharger.</p>
-            <div class="buttons">
-                <a href="https://z-lib.io/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/livre21.jpg" alt="logo">Livre21</h3>
-            <p>Livre21 est un site gratuit offrant une large collection de livres électroniques à télécharger dans divers genres et domaines.</p>
-            <div class="buttons">
-                <a href="http://livre21.com/pf1.html" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-
-<section id="lien6" class="section-offset">
-    <h2>Les sites avec des outils incroyables pour les apprenants en <span class="current-year"></span></h2>
-    <div class="appListContainer">
-        <div class="app-item">
-            <h3 class="links-title"><img src="logo/walfromalpha.png" alt="logo">Wolfram Alpha</h3>
-            <p>Wolfram Alpha est un moteur de réponse computationnelle qui fournit des réponses précises à des questions en utilisant des données et des calculs sur divers sujets, tels que les mathématiques, la science et les statistiques.</p>
-            <div class="buttons">
-                <a href="https://www.wolframalpha.com/" target="_blank" class="button view-site">Voir le site <span>&#10132;</span></a>
-                <a href="#" class="button view-tuto">Voir le tuto <span>&#10132;</span></a>
-            </div>
-        </div>
-    </div>
-    <div class="view-toggle-container"></div>
-</section>
-  <!--  <section id="lien3" class="section-offset">
-      <h2>Les animes</h2>
-    <h3 class="links-title"><img src="logo/facebook.jpg" alt="fb">Naruto</h3>
-    <p>Une histoire captivante d'un ninja qui rêve de devenir Hokage.</p>
-    <div class="buttons view-channel">
-        <a href="#" class="button" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-    </div>
-
-    <h3 class="links-title"><img src="logo/facebook.jpg" alt="fb">One Piece</h3>
-    <p>Suivez Luffy et son équipage dans leur quête pour trouver le légendaire trésor One Piece.</p>
-    <div class="buttons view-channel">
-        <a href="#" class="button" style="background-color: red;">Voir la chaîne <span>&#10132;</span></a>
-    </div>
-</section>-->
-    
 </main>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -322,6 +119,19 @@
 <script src="scripts.js"></script>
 <script src="translation-service.js"></script>
 <script src="urlDisplay.js"></script>
+<!-- À la fin du body -->
+<script src="auth.js"></script>
+<script src="publish.js"></script>
+<script src="publishDisplay.js"></script>
+<script src="publishother.js"></script>
+
+
+
+
+
+
+
+
 <!-- Inizio Codice ShinyStat -->
 <script src="//codice.shinystat.com/cgi-bin/getcod.cgi?USER=SS-52025661-7459d"></script>
 <noscript>

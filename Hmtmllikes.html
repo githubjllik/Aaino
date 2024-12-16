@@ -1,0 +1,1290 @@
+<style>/* Modal container - centré sur l'écran */
+.publish-form-modal,
+.edit-form-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+/* Contenu du formulaire */
+.publish-form-content,
+.form-content {
+    background: #fdfdfd;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+    width: 95%;
+    max-width: 500px;
+    max-height: 90vh;
+    animation: slideIn 0.3s ease;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Animation d'entrée */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Bouton fermer */
+.close-form {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #ff5a5a;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.close-form:hover {
+    transform: rotate(90deg);
+}
+
+/* Titres du formulaire */
+.publish-form-content h2,
+.form-content h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    padding-right: 25px;
+}
+
+.publish-form-content h2::after,
+.form-content h2::after {
+    content: '✨';
+    position: absolute;
+    right: 0;
+}
+
+/* Groupes de champs */
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f9f9f9;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+/* Champ de description */
+textarea[name="description"] {
+    resize: none;
+    min-height: 100px;
+    max-height: none;
+    overflow-y: auto;
+}
+
+/* Compteur de caractères */
+.char-count {
+    font-size: 0.85rem;
+    color: #777;
+    text-align: right;
+    margin-top: 5px;
+}
+
+/* Aperçu de l'image */
+.image-preview img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Boutons de plateformes */
+.platform-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.platform-buttons button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.platform-buttons button[data-platform="mail"] {
+    background: #ff5a5a;
+    color: white;
+}
+
+.platform-buttons button[data-platform="facebook"] {
+    background: #1877f2;
+    color: white;
+}
+
+.platform-buttons button[data-platform="twitter"] {
+    background: #1da1f2;
+    color: white;
+}
+
+.platform-buttons button[data-platform="github"] {
+    background: #24292e;
+    color: white;
+}
+
+.platform-buttons button[data-platform="whatsapp"] {
+    background: #25d366;
+    color: white;
+}
+
+.platform-buttons button[data-platform="telegram"] {
+    background: #0088cc;
+    color: white;
+}
+
+.platform-buttons button[data-platform="phone"] {
+    background: #ff9800;
+    color: white;
+}
+
+/* États sélectionnés */
+.platform-buttons button.selected {
+    filter: brightness(0.9);
+    font-weight: bold;
+}
+
+/* Items de contact */
+.contact-item {
+    margin-bottom: 15px;
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+/* Bouton de suppression */
+.remove-contact {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #ff5a5a;
+    cursor: pointer;
+}
+
+/* Bouton ajouter */
+#addContact,
+#addSection {
+    background: none;
+    border: 2px dashed #007bff;
+    color: #007bff;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    width: 100%;
+}
+
+#addContact:hover,
+#addSection:hover {
+    background: #007bff;
+    color: white;
+}
+
+/* Sections */
+.sections-select {
+    position: relative;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.selected-section {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.sections-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1002;
+}
+
+.section-option {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.section-option:last-child {
+    border-bottom: none;
+}
+
+.section-option:hover {
+    background-color: #f0f0f0;
+}
+
+/* Bouton de soumission */
+.submit-btn,
+.save-btn {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-btn:hover,
+.save-btn:hover {
+    background: #0056b3;
+}
+
+/* Styles pour la zone publication-actions */
+.publication-actions {
+    position: relative;
+}
+
+.action-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+}
+
+/* Styles pour la fenêtre modale */
+.action-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 300px;
+    background-color: #ffffff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 16px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.hidden-modal {
+    display: none;
+}
+
+/* Styles pour l'en-tête de la modale */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+
+.modal-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+/* Styles pour le contenu de la modale */
+.modal-content {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 8px;
+}
+
+.modal-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-button img {
+    width: 16px;
+    height: 16px;
+}
+
+.modal-button.edit-button-unique {
+    background-color: #f0f9ff;
+    color: #007bff;
+}
+
+.modal-button.edit-button-unique:hover {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.modal-button.delete-button-unique {
+    background-color: #fff5f5;
+    color: #ff4d4f;
+}
+
+.modal-button.delete-button-unique:hover {
+    background-color: #ff4d4f;
+    color: #ffffff;
+}
+
+/* Styles pour l'arrière-plan de la fenêtre modale */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+.publication-features {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.feature-item {
+  text-align: center;
+  font-size: 14px;
+}
+
+.feature-icon {
+  width: 30px;
+  height: 30px;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.feature-icon.like-button {
+  transition: transform 0.2s ease;
+}
+
+.feature-icon.like-button:hover {
+  transform: scale(1.1);
+}
+
+.feature-count {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+</style>
+<script>
+  class PublicationManager {
+    constructor() {
+      this.supabase = window.supabase.createClient(
+        'https://cfisapjgzfdpwejkjcek.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmaXNhcGpnemZkcHdlamtqY2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI3MjI1MjIsImV4cCI6MjA0ODI5ODUyMn0.s9rW3qacaJfksz0B2GeW46OF59-1xA27eDhSTzTCn_8'
+      );
+      this.init();
+    }
+
+    init() {
+      document.addEventListener('DOMContentLoaded', async () => {
+        this.session = await this.getSession();
+        this.loadPublications();
+      });
+    }
+
+    async getSession() {
+      const { data: sessionData } = await this.supabase.auth.getSession();
+      return sessionData.session;
+    }
+    getCurrentPagePath() {
+  const path = window.location.pathname;
+
+  const pathMap = {
+    '/social-media': '/pg2.html',
+    '/streaming': '/pg3.html',
+    '/learn': '/pg4.html',
+    '/ai': '/pg5.html',
+    '/edit': '/pg6.html',
+    '/develop': '/pg7.html',
+    '/e-services': '/pg8.html',
+    '/explore': '/pg9.html',
+    '/download': '/pg10.html',
+    '/devices': '/pg11.html',
+    '/search': '/pg12.html',
+    '/darkweb': '/pg13.html',
+    '/discover': '/pg14.html',
+  };
+
+  if (Object.keys(pathMap).includes(path)) {
+    return path;
+  }
+
+  for (const [customPath, htmlPath] of Object.entries(pathMap)) {
+    if (htmlPath === path) {
+      return customPath;
+    }
+  }
+
+  return path;
+}
+
+
+    async loadPublications() {
+  try {
+    const currentPagePath = this.getCurrentPagePath();
+
+    const { data: publications, error } = await this.supabase
+      .from('publications')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    // Filtrer les publications pour la page actuelle
+    const filteredPublications = publications.filter(
+      (publication) => publication.page_path === currentPagePath
+    );
+
+    const sections = this.groupPublicationsBySection(filteredPublications);
+
+    for (const [sectionId, publications] of Object.entries(sections)) {
+      let sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
+
+      if (!sectionContainer) {
+        const { data: sectionData, error: sectionError } = await this.supabase
+          .from('sections')
+          .select()
+          .eq('id', sectionId)
+          .single();
+
+        if (sectionError || !sectionData) {
+          console.error(`Section non trouvée pour ID: ${sectionId}`);
+          continue;
+        }
+
+        this.createAndInsertSection(sectionData);
+        sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
+      }
+
+      if (sectionContainer) {
+        sectionContainer.innerHTML = '';
+
+        publications.forEach((publication) => {
+          const publicationElement = this.createPublicationElement(publication);
+          sectionContainer.appendChild(publicationElement);
+        });
+      }
+    }
+
+    // Initialisez les fonctionnalités (ajouter visiteurs, lecteurs, etc.)
+    const appItemFeatures = new AppItemFeatures(this.supabase);
+    appItemFeatures.initListeners();
+
+    await appItemFeatures.init();
+    
+
+  } catch (error) {
+    console.error('Erreur lors du chargement des publications:', error);
+  }
+}
+
+
+
+
+    groupPublicationsBySection(publications) {
+  const sections = {};
+
+  publications.forEach((publication) => {
+    if (!sections[publication.section_id]) {
+      sections[publication.section_id] = [];
+    }
+    sections[publication.section_id].push(publication);
+  });
+
+  return sections;
+}
+
+createAndInsertSection(section) {
+  const main = document.querySelector('main');
+  if (!main) return;
+
+  const sectionElement = document.createElement('section');
+  sectionElement.id = section.id;
+  sectionElement.className = 'section-offset';
+
+  sectionElement.innerHTML = `
+    <h2>${section.name}</h2>
+    <div class="section-author">
+      Créé par 
+      <img src="${section.created_by.avatar_url}" alt="avatar" class="author-avatar">
+      <span>${section.created_by.full_name}</span>
+    </div>
+    <div class="appListContainer"></div>
+    <div class="view-toggle-container"></div>
+  `;
+
+  // Placer la section au-dessus des autres (juste après l'introduction)
+  const introductionSection = document.getElementById('introduction');
+  if (introductionSection && main.contains(introductionSection)) {
+    main.insertBefore(sectionElement, introductionSection.nextSibling);
+  } else {
+    main.prepend(sectionElement);
+  }
+}
+
+
+    createPublicationElement(publication) {
+  const formattedDate = new Date(publication.created_at).toLocaleString('fr-FR');
+  const isAuthor = this.session?.user?.id === publication.user_id;
+
+  const div = document.createElement('div');
+  div.className = 'app-item';
+
+  const hasContacts = publication.contacts && publication.contacts.length > 0;
+
+  div.innerHTML = `
+    ${
+      isAuthor
+        ? `
+      <div class="publication-actions">
+        <!-- Icône pour ouvrir la fenêtre modale -->
+        <img src="svg/edittt.svg" alt="Options" class="action-icon" />
+        <!-- Fenêtre modale -->
+        <div class="action-modal hidden-modal">
+          <div class="modal-header">
+            <span class="modal-title">Que voulez-vous faire ?</span>
+            <button class="close-modal">&times;</button>
+          </div>
+          <div class="modal-content">
+            <button class="modal-button edit-button-unique" data-publication-id="${publication.id}">
+              <img src="svg/modifyyy.svg" alt="Edit" />
+              Modifier
+            </button>
+            <button class="modal-button delete-button-unique" data-publication-id="${publication.id}">
+              <img src="svg/deleteee.svg" alt="Delete" />
+              Supprimer
+            </button>
+          </div>
+        </div>
+      </div>
+      `
+        : ''
+    }
+    <h3 class="links-title">
+      <img src="${publication.image_url || '/default-image.png'}" alt="logo">
+      ${publication.name}
+    </h3>
+    <div class="author">
+      <a href="#" class="author-profile">
+        <img src="${
+          publication.user_metadata?.avatar_url || '/default-avatar.png'
+        }" alt="avatar" class="author-avatar">
+        <span class="author-name">${publication.user_metadata?.full_name || 'Utilisateur inconnu'}</span>
+      </a>
+    </div>
+    <div class="publication-date">Publié le ${formattedDate}</div>
+    <div class="description-container">
+      <p>${publication.description}</p>
+    </div>
+    ${
+      hasContacts
+        ? `
+      <div class="connect-section">
+        <span class="connect-label">Pour échanger</span>
+        <div class="connect-details">
+          ${this.formatContacts(publication.contacts)}
+        </div>
+      </div>
+      `
+        : ''
+    }
+    <div class="buttons">
+      <a href="${publication.site_url}" target="_blank" class="button view-site">
+        Voir le site <span>&#10132;</span>
+      </a>
+      ${
+        publication.tutorial_url
+          ? `
+        <a href="${publication.tutorial_url}" target="_blank" class="button view-tuto">
+          Voir le tuto <span>&#10132;</span>
+        </a>
+      `
+          : ''
+      }
+    </div>
+  `;
+
+  this.setupPublicationActions(div, publication);
+// Ajout des fonctionnalités visiteurs, lecteurs, pépites en bas de chaque publication
+const featuresDiv = document.createElement('div');
+featuresDiv.className = 'publication-features';
+
+featuresDiv.innerHTML = `
+  <div class="feature-item visitors">
+    <span class="feature-count" data-type="visitors" data-id="${publication.id}"></span>
+    <img src="/icons/visitors-icon.png" alt="Visiteurs" class="feature-icon">
+    <span class="feature-label">Visiteurs</span>
+  </div>
+  <div class="feature-item readers">
+    <span class="feature-count" data-type="readers" data-id="${publication.id}"></span>
+    <img src="/icons/readers-icon.png" alt="Lecteurs" class="feature-icon">
+    <span class="feature-label">Lecteurs</span>
+  </div>
+  <div class="feature-item likes">
+    <span class="feature-count" data-type="likes" data-id="${publication.id}"></span>
+    <img src="/icons/likes-icon.png" alt="Pépites" class="feature-icon like-button" data-id="${publication.id}">
+    <span class="feature-label">Pépites</span>
+  </div>
+`;
+
+div.appendChild(featuresDiv);
+
+  return div;
+}
+
+
+    setupPublicationActions(publicationElement, publication) {
+  const actionIcon = publicationElement.querySelector('.action-icon');
+  const actionModal = publicationElement.querySelector('.action-modal');
+  const closeModal = publicationElement.querySelector('.close-modal');
+  const deleteButton = publicationElement.querySelector('.delete-button-unique');
+  const editButton = publicationElement.querySelector('.edit-button-unique');
+
+  // Gérer l'ouverture de la fenêtre modale
+  if (actionIcon) {
+    actionIcon.onclick = (e) => {
+      e.stopPropagation();
+      actionModal.classList.remove('hidden-modal');
+
+      // Ajouter un arrière-plan de type "backdrop"
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop';
+      document.body.appendChild(backdrop);
+
+      // Fermer la fenêtre si on clique en dehors
+      backdrop.onclick = () => {
+        actionModal.classList.add('hidden-modal');
+        backdrop.remove();
+      };
+    };
+  }
+
+  // Gérer la fermeture de la fenêtre modale
+  if (closeModal) {
+    closeModal.onclick = (e) => {
+      e.stopPropagation();
+      actionModal.classList.add('hidden-modal');
+
+      // Supprimer le backdrop
+      const backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) backdrop.remove();
+    };
+  }
+
+  // Bouton Supprimer : Gérer la suppression avec confirmation
+  if (deleteButton) {
+    deleteButton.onclick = async (e) => {
+      e.stopPropagation();
+      if (confirm('Êtes-vous sûr de vouloir supprimer cette publication ?')) {
+        try {
+          const { error } = await this.supabase
+            .from('publications')
+            .delete()
+            .match({ id: publication.id });
+
+          if (error) throw error;
+          publicationElement.remove();
+        } catch (error) {
+          console.error('Erreur lors de la suppression:', error);
+          alert('Erreur lors de la suppression: ' + error.message);
+        }
+
+        // Fermer la modale après suppression
+        actionModal.classList.add('hidden-modal');
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) backdrop.remove();
+      }
+    };
+  }
+
+  // Bouton Modifier : Gérer l'ouverture du formulaire de modification
+  if (editButton) {
+    editButton.onclick = (e) => {
+      e.stopPropagation();
+      this.showEditForm(publication);
+
+      // Fermer la modale après clic sur Modifier
+      actionModal.classList.add('hidden-modal');
+      const backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) backdrop.remove();
+    };
+  }
+
+  // Fermer la fenêtre si on clique ailleurs
+  document.addEventListener('click', (e) => {
+    if (!actionModal.contains(e.target) && !actionIcon.contains(e.target)) {
+      actionModal.classList.add('hidden-modal');
+      const backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) backdrop.remove();
+    }
+  });
+}
+
+
+    formatContacts(contacts) {
+      if (!contacts || !Array.isArray(contacts)) return '';
+
+      return contacts
+        .map(
+          (contact) => `
+        <a href="${this.getContactLink(contact)}" target="_blank" class="contact-link ${contact.platform}">
+          <span class="contact-icon"></span>
+          ${this.getPlatformName(contact.platform)}
+        </a>
+      `
+        )
+        .join('');
+    }
+
+    getPlatformName(platform) {
+      const platformNames = {
+        mail: 'Mail',
+        facebook: 'Facebook',
+        twitter: 'Twitter',
+        github: 'GitHub',
+        whatsapp: 'WhatsApp',
+        telegram: 'Telegram',
+        phone: 'Téléphone',
+      };
+      return platformNames[platform] || 'Lien';
+    }
+
+    getContactLink(contact) {
+      switch (contact.platform) {
+        case 'mail':
+          return `mailto:${contact.value}`;
+        case 'facebook':
+          return `https://facebook.com/${contact.value}`;
+        case 'twitter':
+          return `https://twitter.com/${contact.value}`;
+        case 'github':
+          return `https://github.com/${contact.value}`;
+        case 'whatsapp':
+          return `https://wa.me/${contact.value}`;
+        case 'telegram':
+          return `https://t.me/${contact.value}`;
+        case 'phone':
+          return `tel:${contact.value}`;
+        default:
+          return '#';
+      }
+    }
+
+    showEditForm(publication) {
+      const formModal = document.createElement('div');
+      formModal.className = 'edit-form-modal';
+
+      formModal.innerHTML = `
+        <div class="form-content">
+          <button class="close-form">&times;</button>
+          <h2>Modifier la publication</h2>
+          <form id="editForm">
+            <div class="form-group">
+              <label>Nom</label>
+              <input type="text" name="name" value="${publication.name || ''}" maxlength="30" required>
+            </div>
+            <div class="form-group">
+              <label>Image actuelle</label>
+              <div class="image-preview">
+                <img src="${publication.image_url || '/default-image.png'}" alt="Aperçu">
+              </div>
+              <label>Modifier l'image</label>
+              <input type="file" name="image" accept="image/*">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea name="description" minlength="300" maxlength="500" required>${publication.description || ''}</textarea>
+            </div>
+            <div class="form-group">
+              <label>Lien du site</label>
+              <input type="url" name="site_url" value="${publication.site_url || ''}">
+            </div>
+            <div class="form-group">
+              <label>Lien du tutoriel</label>
+              <input type="url" name="tutorial_url" value="${publication.tutorial_url || ''}">
+            </div>
+            <div class="form-group contacts-group">
+              <label>Contacts (max 4)</label>
+              <div id="contactsList">
+                ${publication.contacts
+                  .map(
+                    (contact) => `
+                  <div class="contact-item">
+                    <input type="text" value="${contact.value}" placeholder="Contact">
+                    <div class="platform-buttons">
+                      <button type="button" data-platform="mail" class="${
+                        contact.platform === 'mail' ? 'selected' : ''
+                      }">Mail</button>
+                      <button type="button" data-platform="facebook" class="${
+                        contact.platform === 'facebook' ? 'selected' : ''
+                      }">Facebook</button>
+                      <button type="button" data-platform="twitter" class="${
+                        contact.platform === 'twitter' ? 'selected' : ''
+                      }">Twitter</button>
+                      <button type="button" data-platform="github" class="${
+                        contact.platform === 'github' ? 'selected' : ''
+                      }">GitHub</button>
+                      <button type="button" data-platform="whatsapp" class="${
+                        contact.platform === 'whatsapp' ? 'selected' : ''
+                      }">WhatsApp</button>
+                      <button type="button" data-platform="telegram" class="${
+                        contact.platform === 'telegram' ? 'selected' : ''
+                      }">Telegram</button>
+                      <button type="button" data-platform="phone" class="${
+                        contact.platform === 'phone' ? 'selected' : ''
+                      }">Téléphone</button>
+                    </div>
+                    <button type="button" class="remove-contact">&times;</button>
+                  </div>
+                `
+                  )
+                  .join('')}
+              </div>
+              <button type="button" id="addContact" ${
+                publication.contacts.length >= 4 ? 'disabled' : ''
+              }>+ Ajouter un contact</button>
+            </div>
+            <div class="form-group">
+              <label>Section</label>
+              <div id="sectionsList">
+                ${this.generateSectionsList()}
+              </div>
+            </div>
+            <button type="submit" class="save-btn">Enregistrer les modifications</button>
+          </form>
+        </div>
+      `;
+
+      document.body.appendChild(formModal);
+      
+    // Ajoutez ce code juste après appendChild
+    const descriptionArea = formModal.querySelector('textarea[name="description"]');
+    if (descriptionArea) {
+        // Ajustement initial pour le contenu existant
+        descriptionArea.style.height = 'auto';
+        descriptionArea.style.height = descriptionArea.scrollHeight + 'px';
+
+        descriptionArea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+    }
+
+    
+      const closeBtn = formModal.querySelector('.close-form');
+      closeBtn.onclick = () => formModal.remove();
+
+      const editForm = formModal.querySelector('#editForm');
+      editForm.onsubmit = async (e) => {
+        e.preventDefault();
+        await this.handleEditFormSubmit(e, publication.id);
+        formModal.remove();
+      };
+
+      const addContactBtn = formModal.querySelector('#addContact');
+      addContactBtn.onclick = () => this.addContactField();
+
+      const contactItems = formModal.querySelectorAll('.contact-item');
+      contactItems.forEach((item) => this.setupContactHandlers(item));
+    }
+
+    setupContactHandlers(contactElement) {
+      const platformButtons = contactElement.querySelectorAll('.platform-buttons button');
+      platformButtons.forEach((btn) => {
+        btn.onclick = () => {
+          platformButtons.forEach((b) => b.classList.remove('selected'));
+          btn.classList.add('selected');
+        };
+      });
+
+      const removeBtn = contactElement.querySelector('.remove-contact');
+      if (removeBtn) {
+        removeBtn.onclick = () => {
+          contactElement.remove();
+          const addContactBtn = document.getElementById('addContact');
+          addContactBtn.disabled = false;
+        };
+      }
+    }
+
+    addContactField() {
+      const contactsList = document.getElementById('contactsList');
+      const contactItems = contactsList.querySelectorAll('.contact-item');
+
+      if (contactItems.length >= 4) return;
+
+      const newContact = document.createElement('div');
+      newContact.className = 'contact-item';
+      newContact.innerHTML = `
+        <input type="text" placeholder="Contact">
+        <div class="platform-buttons">
+          <button type="button" data-platform="mail">Mail</button>
+          <button type="button" data-platform="facebook">Facebook</button>
+          <button type="button" data-platform="twitter">Twitter</button>
+          <button type="button" data-platform="github">GitHub</button>
+          <button type="button" data-platform="whatsapp">WhatsApp</button>
+          <button type="button" data-platform="telegram">Telegram</button>
+          <button type="button" data-platform="phone">Téléphone</button>
+        </div>
+        <button type="button" class="remove-contact">&times;</button>
+      `;
+
+      this.setupContactHandlers(newContact);
+      contactsList.appendChild(newContact);
+
+      if (contactsList.querySelectorAll('.contact-item').length >= 4) {
+        const addContactBtn = document.getElementById('addContact');
+        addContactBtn.disabled = true;
+      }
+    }
+
+    generateSectionsList() {
+      const sections = this.getSectionOffsets();
+      return `
+        <div class="sections-select">
+          <div class="sections-dropdown">
+            ${sections
+              .map(
+                (section) => `
+              <div class="section-option" data-section-id="${section.id}">
+                ${section.title}
+              </div>
+            `
+              )
+              .join('')}
+          </div>
+          <div class="selected-section"></div>
+        </div>
+      `;
+    }
+
+    getSectionOffsets() {
+  const sections = document.querySelectorAll('main section.section-offset');
+  const sectionsData = [];
+
+  sections.forEach((section) => {
+    sectionsData.push({
+      id: section.id,
+      title: section.querySelector('h2').textContent,
+    });
+  });
+
+  return sectionsData;
+}
+
+
+    async handleEditFormSubmit(e, publicationId) {
+      const formData = new FormData(e.target);
+      const updatedData = {
+        name: formData.get('name'),
+        description: formData.get('description'),
+        site_url: formData.get('site_url'),
+        tutorial_url: formData.get('tutorial_url'),
+        section_id: document.querySelector('.selected-section').dataset.sectionId,
+        contacts: this.getContactsData(),
+      };
+
+      const imageFile = formData.get('image');
+      if (imageFile && imageFile.size > 0) {
+        const imageUrl = await this.uploadImage(imageFile);
+        if (!imageUrl) return;
+        updatedData.image_url = imageUrl;
+      }
+
+      try {
+        const { error } = await this.supabase
+          .from('publications')
+          .update(updatedData)
+          .match({ id: publicationId });
+
+        if (error) throw error;
+        alert('Publication mise à jour avec succès !');
+        this.loadPublications();
+      } catch (error) {
+        console.error('Erreur lors de la mise à jour:', error);
+        alert('Erreur lors de la mise à jour: ' + error.message);
+      }
+    }
+
+    getContactsData() {
+      const contacts = [];
+      const contactItems = document.querySelectorAll('.contact-item');
+
+      contactItems.forEach((item) => {
+        const input = item.querySelector('input');
+        const selectedPlatform = item.querySelector('.platform-buttons .selected');
+
+        if (input && input.value && selectedPlatform) {
+          contacts.push({
+            value: input.value,
+            platform: selectedPlatform.dataset.platform,
+          });
+        }
+      });
+
+      return contacts;
+    }
+
+    async uploadImage(file) {
+      const fileName = `${Date.now()}-${file.name}`;
+      const { data, error } = await this.supabase.storage
+        .from('images')
+        .upload(fileName, file);
+
+      if (error) {
+        console.error('Erreur lors du téléchargement de l\'image:', error);
+        return null;
+      }
+
+      const { data: publicUrl } = this.supabase.storage
+        .from('images')
+        .getPublicUrl(fileName);
+
+      return publicUrl.publicUrl;
+    }
+  }
+
+  new PublicationManager();
+</script>
+<script>
+  class AppItemFeatures {
+    constructor(supabase) {
+      this.supabase = supabase;
+      this.userSession = null;
+    }
+
+    async init() {
+      this.userSession = await this.getUserSession();
+      this.loadFeatureCounts();
+    }
+
+    async getUserSession() {
+      const { data: sessionData } = await this.supabase.auth.getSession();
+      return sessionData.session;
+    }
+
+    async loadFeatureCounts() {
+      // Charger les visiteurs, lecteurs, et likes pour chaque publication
+      const featureCounts = document.querySelectorAll('.feature-count');
+      for (const countElement of featureCounts) {
+        const type = countElement.dataset.type;
+        const publicationId = countElement.dataset.id;
+        const count = await this.getFeatureCount(type, publicationId);
+        countElement.textContent = count > 0 ? this.formatCount(count) : '';
+      }
+    }
+
+    async getFeatureCount(type, publicationId) {
+      const { data, error } = await this.supabase
+        .from(type)
+        .select('count')
+        .eq('publication_id', publicationId)
+        .single();
+
+      if (error) {
+        console.error(`Erreur lors du chargement des ${type} :`, error);
+        return 0;
+      }
+
+      return data?.count || 0;
+    }
+
+    formatCount(count) {
+      if (count >= 1_000_000) return (count / 1_000_000).toFixed(2) + 'M';
+      if (count >= 1_000) return (count / 1_000).toFixed(2) + 'k';
+      return count;
+    }
+
+    initListeners() {
+      // Gérer les clics sur "Voir le site" pour incrémenter les visiteurs
+      document.querySelectorAll('.button.view-site').forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          const publicationId = this.getPublicationIdFromButton(e.target);
+          await this.incrementFeature('visitors', publicationId);
+        });
+      });
+
+      // Gérer les clics pour les likes (pépites)
+      document.querySelectorAll('.like-button').forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          const publicationId = e.target.dataset.id;
+
+          if (!this.userSession) {
+            alert('Connectez-vous pour aimer cette publication !');
+            return;
+          }
+
+          await this.toggleLike(publicationId);
+        });
+      });
+
+      // Ajouter les lecteurs lorsqu'une publication est visible
+      this.observePublicationsVisibility();
+    }
+
+    getPublicationIdFromButton(button) {
+      const appItem = button.closest('.app-item');
+      return appItem?.querySelector('.feature-count')?.dataset.id || null;
+    }
+
+    async incrementFeature(type, publicationId) {
+      try {
+        const { error } = await this.supabase.rpc(`increment_${type}`, {
+          publication_id: publicationId,
+        });
+
+        if (error) throw error;
+
+        this.loadFeatureCounts();
+      } catch (error) {
+        console.error(`Erreur lors de l'incrémentation des ${type} :`, error);
+      }
+    }
+
+    async toggleLike(publicationId) {
+      try {
+        const { data: existingLike, error: fetchError } = await this.supabase
+          .from('likes')
+          .select('*')
+          .eq('publication_id', publicationId)
+          .eq('user_id', this.userSession.user.id)
+          .single();
+
+        if (fetchError && fetchError.code !== 'PGRST116') {
+          console.error('Erreur lors de la vérification des likes :', fetchError);
+          return;
+        }
+
+        if (existingLike) {
+          // Supprimez le like existant
+          const { error: deleteError } = await this.supabase
+            .from('likes')
+            .delete()
+            .match({ id: existingLike.id });
+
+          if (deleteError) throw deleteError;
+        } else {
+          // Ajoutez un nouveau like
+          const { error: insertError } = await this.supabase.from('likes').insert({
+            publication_id: publicationId,
+            user_id: this.userSession.user.id,
+          });
+
+          if (insertError) throw insertError;
+        }
+
+        this.loadFeatureCounts();
+      } catch (error) {
+        console.error('Erreur lors de la gestion des likes :', error);
+      }
+    }
+
+    observePublicationsVisibility() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(async (entry) => {
+          if (entry.isIntersecting) {
+            const publicationId = entry.target.querySelector('.feature-count').dataset.id;
+            await this.incrementFeature('readers', publicationId);
+          }
+        });
+      });
+
+      document.querySelectorAll('.app-item').forEach((item) => observer.observe(item));
+    }
+  }
+
+  new AppItemFeatures(window.supabase).init();
+</script>

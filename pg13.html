@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
@@ -9,13 +10,11 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="Aaino" />
 <link rel="manifest" href="/site.webmanifest" />
-<title>Aaino | Darkweb</title>
- <script src="loader.js"></script>
-<script src="config.js"></script>
+<title>Aaino | Search</title>
     <link rel="stylesheet" href="styles2.css">
     <link rel="stylesheet" href="styles4.css">
     <link rel="stylesheet" href="styles5.css">
-   <link rel="stylesheet" href="darkweb.css">
+   
     <link rel="stylesheet" href="nfbodyeclipse.css">
     <link rel="stylesheet" href="stylelight.css">
        <link rel="stylesheet" href="styledark.css">
@@ -25,7 +24,7 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-   <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YM5YD3S15F"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -34,74 +33,79 @@
 
   gtag('config', 'G-YM5YD3S15F');
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Lien vers votre fichier CSS -->
+<link rel="stylesheet" href="stylepublish.css">
+    
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+// À mettre dans le head, avant vos autres scripts
+document.addEventListener('DOMContentLoaded', function() {
+  // Activer le cache pour les ressources
+  if ('caches' in window) {
+    caches.open('site-static').then(cache => {
+      // Mettre en cache les ressources importantes
+      const stylesheets = Array.from(document.styleSheets).map(sheet => sheet.href).filter(Boolean);
+      const scripts = Array.from(document.scripts).map(script => script.src).filter(Boolean);
+      cache.addAll([...stylesheets, ...scripts]);
+    });
+  }
 
+  // S'assurer que les ressources sont chargées dans l'ordre
+  const head = document.getElementsByTagName('head')[0];
+  const existingLinks = Array.from(document.getElementsByTagName('link'));
+  const existingScripts = Array.from(document.getElementsByTagName('script'));
 
+  // Réorganiser les styles
+  existingLinks
+    .filter(link => link.rel === 'stylesheet')
+    .forEach(link => {
+      head.appendChild(link.cloneNode(true));
+      link.remove();
+    });
+
+  // Réorganiser les scripts
+  existingScripts
+    .filter(script => script.src)
+    .forEach(script => {
+      const newScript = document.createElement('script');
+      newScript.src = script.src;
+      newScript.async = false;
+      head.appendChild(newScript);
+      script.remove();
+    });
+});
+</script>
 </head>
 <body>
 
-<div class="dark-age-verification" id="darkAgeVerification">
-    <div class="dark-verification-content">
-        <h2 class="dark-warning-title">Bienvenue dans l'exploration du Dark Web</h2>
-        <p class="dark-verification-text">
-            Cette section est dédiée à la découverte et à la compréhension du Dark Web dans un cadre éducatif et sécurisé. 
-            Notre objectif est de partager des connaissances et non d'encourager des activités illégales.
-            En continuant, vous confirmez avoir plus de 18 ans et comprendre la nature éducative de ce contenu.
+<main>
+<section id="introduction" class="modern-intro">
+    <div class="intro-content">
+        <h1>Rechercher</h1>
+        <div class="animated-bar"></div>
+        <p class="intro-text">
+            Explorez l'immensité du web avec les meilleurs outils de recherche. Découvrez des moteurs et navigateurs innovants sélectionnés par notre communauté ou partagez vos trouvailles préférées.
         </p>
-        <div class="dark-verification-buttons">
-            <button class="dark-verify-btn dark-yes-btn" onclick="verifyAge(true)">J'accepte et je continue</button>
-            <button class="dark-verify-btn dark-no-btn" onclick="verifyAge(false)">Retour</button>
+        <div class="category-preview">
+            <p class="sharing-invite">Les publications apparaîtront ici, classées par catégories ↓</p>
         </div>
     </div>
-</div>
-
-<main>
-    <section id="darkIntroduction">
-        <h1 class="dark-section-title">Guide d'Exploration du Dark Web</h1>
-        
-        <div class="dark-web-intro">
-            <h2>Comprendre le Dark Web</h2>
-            <p>Le Dark Web représente une partie fascinante d'Internet, offrant anonymat et liberté d'expression. C'est un espace où la confidentialité est primordiale, utilisé par des journalistes, activistes, et chercheurs.</p>
-            
-            <div class="dark-feature-list">
-                <div class="dark-feature-item">
-                    <div class="dark-feature-icon">🔒</div>
-                    <h3>Accès Sécurisé</h3>
-                    <p>Navigateur Tor requis</p>
-                </div>
-                
-                <div class="dark-feature-item">
-                    <div class="dark-feature-icon">🛡️</div>
-                    <h3>Protection</h3>
-                    <p>VPN recommandé</p>
-                </div>
-                
-                <div class="dark-feature-item">
-                    <div class="dark-feature-icon">📚</div>
-                    <h3>Ressources</h3>
-                    <p>Bibliothèques, forums, archives</p>
-                </div>
-            </div>
-
-            <div class="dark-safety-tips">
-                <h3>Guide de Sécurité Essentiel:</h3>
-                <ul class="dark-list">
-                    <li class="dark-list-item">Téléchargez Tor Browser depuis le site officiel</li>
-                    <li class="dark-list-item">Utilisez un VPN de confiance</li>
-                    <li class="dark-list-item">Gardez votre anonymat</li>
-                    <li class="dark-list-item">Activez les paramètres de sécurité maximum</li>
-                    <li class="dark-list-item">Évitez de télécharger des fichiers suspects</li>
-                </ul>
-            </div>
+        <div class="qw4321_search_box">
+        <textarea id="intro_search_input" class="er7890_search_field" placeholder="Rechercher..." rows="1"></textarea>
+        <div id="intro_close_icon" class="hj6789_close_icon">
+            <img src="svg/close.svg" alt="Effacer">
         </div>
-    </section>
+        <button id="intro_search_button" class="ty5678_search_btn">
+            <img src="svg/searchword.svg" alt="Rechercher">
+        </button>
+    </div>
+</section>
 
-    <section class="dark-coming-soon">
-        <h2>✨ Prochainement sur Aaino Dark Web</h2>
-        <p>Notre équipe prépare une sélection soignée de ressources fascinantes et sécurisées du Dark Web. Nous recherchons des sites éducatifs, des forums de discussion enrichissants et des plateformes de partage de connaissances.</p>
-        <p>Explorez bientôt avec nous les aspects les plus intéressants et sécurisés du Dark Web!</p>
-    </section>
 </main>
-       <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script src="common-elementss.js"></script>
 <common-elements></common-elements>
@@ -115,6 +119,19 @@
 <script src="scripts.js"></script>
 <script src="translation-service.js"></script>
 <script src="urlDisplay.js"></script>
+<!-- À la fin du body -->
+<script src="auth.js"></script>
+<script src="publish.js"></script>
+<script src="publishDisplay.js"></script>
+<script src="publishother.js"></script>
+
+
+
+
+
+
+
+
 <!-- Inizio Codice ShinyStat -->
 <script src="//codice.shinystat.com/cgi-bin/getcod.cgi?USER=SS-52025661-7459d"></script>
 <noscript>
