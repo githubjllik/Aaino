@@ -8,12 +8,19 @@
       this.init();
     }
 
-    init() {
-      document.addEventListener('DOMContentLoaded', async () => {
-        this.session = await this.getSession();
-        this.loadPublications();
-      });
-    }
+    // Remplacez la méthode init() actuelle par celle-ci
+init() {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', async () => {
+      await this.initialize();
+      await this.loadPublications();
+    });
+  } else {
+    // Si le DOM est déjà chargé
+    this.initialize().then(() => this.loadPublications());
+  }
+}
+
 
     async getSession() {
   const { data: { session }, error } = await this.supabase.auth.getSession();
@@ -63,23 +70,6 @@ async initialize() {
     async loadPublications() {
   try {
     const currentPagePath = this.getCurrentPagePath();
-    
-    const { data: sections, error: sectionsError } = await this.supabase
-  .from('sections')
-  .select('*');
-
-if (sectionsError) {
-  console.error('Erreur lors du chargement des sections:', sectionsError);
-  return;
-}
-
-// Assurez-vous que toutes les sections sont bien créées dans le DOM
-sections.forEach((section) => {
-  if (!document.querySelector(`#${section.id}`)) {
-    this.createAndInsertSection(section);
-  }
-});
-
 
     const { data: publications, error } = await this.supabase
       .from('publications')
@@ -87,18 +77,20 @@ sections.forEach((section) => {
       .order('created_at', { ascending: false });
 
     if (error) throw error;
-    if (!publications || publications.length === 0) {
-  console.warn('Aucune publication trouvée pour cette page.');
-  const main = document.querySelector('main');
-  if (main) {
-    main.innerHTML = `
-      <div class="no-publications">
-        <p>Aucune publication disponible pour cette section.</p>
-      </div>
-    `;
-  }
+    
+    // Récupérer d'abord toutes les sections
+const { data: allSections, error: sectionsError } = await this.supabase
+  .from('sections')
+  .select('*')
+  .order('created_at', { ascending: true });
+
+if (sectionsError) {
+  console.error('Erreur lors du chargement des sections:', sectionsError);
   return;
 }
+
+// Créer un mapping des sections pour référence rapide
+const sectionsMap = new Map(allSections.map(section => [section.id, section]));
 
     
 
@@ -109,38 +101,35 @@ sections.forEach((section) => {
 
     // Grouper les publications par section
     const sections = this.groupPublicationsBySection(filteredPublications);
+    
+    // S'assurer que toutes les sections existent
+await this.ensureSectionsExist(sections);
+
 
     for (const [sectionId, sectionPublications] of Object.entries(sections)) {
-  let sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
+      let sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
 
-  if (!sectionContainer) {
-    // La section n'existe pas encore dans le DOM, essayons de la créer
-    const { data: sectionData, error: sectionError } = await this.supabase
-      .from('sections')
-      .select('*')
-      .eq('id', sectionId)
-      .single();
+      // Si la section n'existe pas, la créer dynamiquement
+      if (!sectionContainer) {
+        const { data: sectionData, error: sectionError } = await this.supabase
+          .from('sections')
+          .select()
+          .eq('id', sectionId)
+          .single();
 
-    if (sectionError || !sectionData) {
-      console.error(`Erreur : Section introuvable pour ID: ${sectionId}`, sectionError);
-      continue; // Passez à la section suivante si elle est introuvable
-    }
+        if (sectionError || !sectionData) {
+          console.error(`Section non trouvée pour ID: ${sectionId}`);
+          continue;
+        }
 
-    // Créez et insérez la section dans le DOM
-    this.createAndInsertSection(sectionData);
-    sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
-  }
+        this.createAndInsertSection(sectionData);
+        sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
+      }
 
-  // Vérifiez encore que le conteneur de section existe après tentative de création
-  if (!sectionContainer) {
-    console.error(`Erreur critique : Impossible de trouver ou créer la section avec ID: ${sectionId}`);
-    continue; // Passez à la section suivante
-  }
-
-  // Videz le conteneur avant d'insérer les publications
-  sectionContainer.innerHTML = '';
-
-  // Ajoutez les publications dans la section
+      // Ajouter les publications dans la section
+      // Ajouter les publications dans la section
+if (sectionContainer) {
+  sectionContainer.innerHTML = ''; // Vider le conteneur avant d'ajouter
   sectionPublications.forEach((publication) => {
     const publicationElement = this.createPublicationElement(publication);
     sectionContainer.appendChild(publicationElement);
@@ -156,6 +145,7 @@ sections.forEach((section) => {
   });
 }
 
+    }
 
     // Initialiser les fonctionnalités des app-items (visiteurs, lecteurs, etc.)
     const appItemFeatures = new AppItemFeatures(this.supabase);
@@ -601,47 +591,74 @@ setupLikeFeature(commentsModal, comments) {
   const sections = {};
 
   publications.forEach((publication) => {
-    if (!publication.section_id) {
-      console.warn('Publication sans section_id:', publication);
-      return; // Ignorez les publications sans section_id
-    }
-
     if (!sections[publication.section_id]) {
       sections[publication.section_id] = [];
     }
     sections[publication.section_id].push(publication);
   });
 
-  // Tri des publications par date (descendant) dans chaque section
-  for (const sectionId in sections) {
-    sections[sectionId].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-  }
-
   return sections;
+}
+
+
+async ensureSectionsExist(sections) {
+  const main = document.querySelector('main');
+  if (!main) return false;
+
+  try {
+    const { data: sectionData, error } = await this.supabase
+      .from('sections')
+      .select('*')
+      .in('id', Object.keys(sections));
+
+    if (error) throw error;
+
+    // Trier les sections selon leur ordre de création
+    sectionData.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+
+    // Créer les sections dans l'ordre
+    for (const section of sectionData) {
+      this.createAndInsertSection(section);
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Erreur lors de la vérification des sections:', error);
+    return false;
+  }
 }
 
 
 
 createAndInsertSection(section) {
-  if (!section || !section.id || !section.name) {
-  console.error('Données de section invalides:', section);
-  return;
-}
-
   const main = document.querySelector('main');
-  if (!main) return;
+  if (!main) {
+    console.error('Élément main non trouvé');
+    return;
+  }
+
+  // Vérifier si la section existe déjà
+  const existingSection = document.getElementById(section.id);
+  if (existingSection) {
+    console.log(`Section ${section.id} existe déjà`);
+    return existingSection;
+  }
 
   const sectionElement = document.createElement('section');
   sectionElement.id = section.id;
   sectionElement.className = 'section-offset';
+  sectionElement.dataset.sectionId = section.id;
 
-  sectionElement.innerHTML = `
-    <h2>${section.name}</h2>
+  const sectionContent = `
+    <h2>${section.name || 'Section sans nom'}</h2>
     ${
       section.created_by
         ? `<div class="section-author">
             Créé par 
-            <img src="${section.created_by.avatar_url || 'svg2/defautprofil.jpg'}" alt="avatar" class="author-avatar">
+            <img src="${section.created_by.avatar_url || 'svg2/defautprofil.jpg'}" 
+                 alt="avatar" 
+                 class="author-avatar"
+                 onerror="this.src='svg2/defautprofil.jpg'">
             <span>${section.created_by.full_name || 'Utilisateur inconnu'}</span>
           </div>`
         : ''
@@ -650,14 +667,19 @@ createAndInsertSection(section) {
     <div class="view-toggle-container"></div>
   `;
 
-  // Ajouter la section dans le DOM
+  sectionElement.innerHTML = sectionContent;
+
+  // Insertion de la section dans le bon ordre
   const introductionSection = document.getElementById('introduction');
   if (introductionSection && main.contains(introductionSection)) {
     main.insertBefore(sectionElement, introductionSection.nextSibling);
   } else {
-    main.prepend(sectionElement);
+    main.appendChild(sectionElement);
   }
+
+  return sectionElement;
 }
+
 
 adjustDateForTimezone(dateString) {
   const date = new Date(dateString);
