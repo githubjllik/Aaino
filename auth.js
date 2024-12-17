@@ -140,6 +140,10 @@
         font-size: 0.8rem;
         color: #666;
     }
+    .email-auth {
+    display: none; 
+}
+
     `;
 
     const styleSheet = document.createElement("style");
