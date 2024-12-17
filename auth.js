@@ -322,13 +322,16 @@
     // Gestion de l'authentification
     const signInWithProvider = async (provider) => {
     try {
-        const currentUrl = window.location.href;
-        localStorage.setItem('authRedirectUrl', currentUrl);
+        localStorage.setItem('authRedirectUrl', window.location.href);
         
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider,
             options: {
-                redirectTo: 'https://aaino.onrender.com/auth-callback.html'
+                redirectTo: `${window.location.origin}/auth-callback.html`,
+                queryParams: {
+                    access_type: 'offline',
+                    prompt: 'consent',
+                }
             }
         });
         if (error) throw error;
@@ -341,13 +344,13 @@
 
 const signInWithEmail = async (email) => {
     try {
-        const currentUrl = window.location.href;
-        localStorage.setItem('authRedirectUrl', currentUrl);
+        // Stocker l'URL actuelle
+        localStorage.setItem('authRedirectUrl', window.location.href);
         
         const { data, error } = await supabase.auth.signInWithOtp({
             email,
             options: {
-                emailRedirectTo: 'https://aaino.onrender.com/auth-callback.html'
+                emailRedirectTo: `${window.location.origin}/auth-callback.html`
             }
         });
         if (error) throw error;
@@ -357,7 +360,6 @@ const signInWithEmail = async (email) => {
         alert('Erreur lors de l\'envoi du lien. Veuillez réessayer.');
     }
 };
-
 
 
     const handleSignOut = async () => {
