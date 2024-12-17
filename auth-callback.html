@@ -156,29 +156,22 @@
     </style>
     <script>
         window.onload = function() {
-    const SUPABASE_URL = 'https://cfisapjgzfdpwejkjcek.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmaXNhcGpnemZkcHdlamtqY2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI3MjI1MjIsImV4cCI6MjA0ODI5ODUyMn0.s9rW3qacaJfksz0B2GeW46OF59-1xA27eDhSTzTCn_8';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            const SUPABASE_URL = 'https://cfisapjgzfdpwejkjcek.supabase.co';
+            const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmaXNhcGpnemZkcHdlamtqY2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI3MjI1MjIsImV4cCI6MjA0ODI5ODUyMn0.s9rW3qacaJfksz0B2GeW46OF59-1xA27eDhSTzTCn_8';
+            const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    createParticles();
+            createParticles();
 
-    // Handle hash fragment
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
-    if (hashParams.get('access_token')) {
-        const redirectUrl = localStorage.getItem('authRedirectUrl') || '/';
-        localStorage.removeItem('authRedirectUrl');
-        window.location.replace(redirectUrl);
-    } else {
-        supabase.auth.getSession().then(({ data: { session }, error }) => {
-            if (session) {
-                const redirectUrl = localStorage.getItem('authRedirectUrl') || '/';
-                localStorage.removeItem('authRedirectUrl');
-                window.location.replace(redirectUrl);
-            }
-        });
-    }
-};
-
+            supabase.auth.getSession().then(({ data: { session }, error }) => {
+                if (session) {
+                    const redirectUrl = localStorage.getItem('authRedirectUrl');
+                    localStorage.removeItem('authRedirectUrl');
+                    setTimeout(() => {
+                        window.location.href = redirectUrl || '/';
+                    }, 2500);
+                }
+            });
+        };
 
         function createParticles() {
             const particlesContainer = document.querySelector('.particles');

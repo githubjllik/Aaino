@@ -322,16 +322,13 @@
     // Gestion de l'authentification
     const signInWithProvider = async (provider) => {
     try {
+        // Stocker l'URL actuelle
         localStorage.setItem('authRedirectUrl', window.location.href);
         
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider,
             options: {
-                redirectTo: `${window.location.origin}/auth-callback.html`,
-                queryParams: {
-                    access_type: 'offline',
-                    prompt: 'consent',
-                }
+                redirectTo: `${window.location.origin}/auth-callback.html`
             }
         });
         if (error) throw error;
@@ -340,7 +337,6 @@
         alert('Erreur de connexion. Veuillez réessayer.');
     }
 };
-
 
 const signInWithEmail = async (email) => {
     try {
