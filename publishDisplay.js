@@ -1,31 +1,12 @@
 
   class PublicationManager {
     constructor() {
-  this.supabase = window.supabase.createClient(
-    'https://cfisapjgzfdpwejkjcek.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmaXNhcGpnemZkcHdlamtqY2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI3MjI1MjIsImV4cCI6MjA0ODI5ODUyMn0.s9rW3qacaJfksz0B2GeW46OF59-1xA27eDhSTzTCn_8'
-  );
-  this.init();
-  this.startSectionMonitoring();
-}
-
-    
-    startSectionMonitoring() {
-  setInterval(async () => {
-    const { data: sections, error } = await this.supabase
-      .from('sections')
-      .select('*');
-      
-    if (!error) {
-      sections.forEach(section => {
-        if (!document.getElementById(section.id)) {
-          this.createAndInsertSection(section);
-        }
-      });
+      this.supabase = window.supabase.createClient(
+        'https://cfisapjgzfdpwejkjcek.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmaXNhcGpnemZkcHdlamtqY2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI3MjI1MjIsImV4cCI6MjA0ODI5ODUyMn0.s9rW3qacaJfksz0B2GeW46OF59-1xA27eDhSTzTCn_8'
+      );
+      this.init();
     }
-  }, 10000); // Vérifie toutes les 10 secondes
-}
-
 
     init() {
       document.addEventListener('DOMContentLoaded', async () => {
@@ -83,53 +64,72 @@ async initialize() {
   try {
     const currentPagePath = this.getCurrentPagePath();
 
-    // Charger d'abord toutes les sections
+    // 1. Récupérer d'abord toutes les sections
     const { data: allSections, error: sectionsError } = await this.supabase
       .from('sections')
-      .select('*')
-      .order('created_at', { ascending: true });
+      .select('*');
 
     if (sectionsError) throw sectionsError;
 
-    // Créer toutes les sections à l'avance
-    allSections.forEach(section => {
-      if (!document.getElementById(section.id)) {
-        this.createAndInsertSection(section);
-      }
-    });
-
-    // Charger ensuite les publications
-    const { data: publications, error } = await this.supabase
+    // 2. Récupérer toutes les publications pour la page actuelle
+    const { data: publications, error: pubError } = await this.supabase
       .from('publications')
       .select('*')
+      .eq('page_path', currentPagePath)
       .order('created_at', { ascending: false });
 
-    if (error) throw error;
+    if (pubError) throw pubError;
 
-    // Filtrer les publications pour la page actuelle
-    const filteredPublications = publications.filter(
-      (publication) => publication.page_path === currentPagePath
-    );
+    // 3. Créer toutes les sections d'abord
+    const main = document.querySelector('main');
+    const introSection = document.getElementById('introduction');
 
-    // Grouper les publications par section
-    const sections = this.groupPublicationsBySection(filteredPublications);
-
-    // Vider d'abord tous les conteneurs de publications
-    allSections.forEach(section => {
-      const container = document.querySelector(`#${section.id} .appListContainer`);
-      if (container) {
-        container.innerHTML = '';
+    // Vérifier si des sections existent déjà et les supprimer
+    const existingSections = document.querySelectorAll('section.section-offset');
+    existingSections.forEach(section => {
+      if (section.id !== 'introduction') {
+        section.remove();
       }
     });
 
-    // Ajouter les publications dans leurs sections respectives
-    for (const [sectionId, sectionPublications] of Object.entries(sections)) {
-      const sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
-      
-      if (sectionContainer) {
-        sectionPublications.forEach((publication) => {
+    // Créer les sections dans l'ordre
+    for (const section of allSections) {
+      // Vérifier si la section a des publications
+      const sectionPublications = publications.filter(pub => pub.section_id === section.id);
+      if (sectionPublications.length > 0) {
+        const sectionElement = document.createElement('section');
+        sectionElement.id = section.id;
+        sectionElement.className = 'section-offset';
+        
+        sectionElement.innerHTML = `
+          <h2>${section.name}</h2>
+          ${
+            section.created_by
+              ? `<div class="section-author">
+                  Créé par 
+                  <img src="${section.created_by.avatar_url || 'svg2/defautprofil.jpg'}" alt="avatar" class="author-avatar">
+                  <span>${section.created_by.full_name || 'Utilisateur inconnu'}</span>
+                </div>`
+              : ''
+          }
+          <div class="appListContainer"></div>
+          <div class="view-toggle-container"></div>
+        `;
+
+        // Insérer la section au bon endroit
+        if (introSection && main.contains(introSection)) {
+          main.insertBefore(sectionElement, introSection.nextSibling);
+        } else {
+          main.prepend(sectionElement);
+        }
+
+        // 4. Ajouter les publications dans leurs sections respectives
+        const appListContainer = sectionElement.querySelector('.appListContainer');
+        sectionPublications.forEach(publication => {
           const publicationElement = this.createPublicationElement(publication);
-          sectionContainer.appendChild(publicationElement);
+          appListContainer.appendChild(publicationElement);
+          
+          // Initialiser les compteurs et fonctionnalités
           this.updateCommentsCountUI(publication.id);
           this.setupReaderCounter(publicationElement, publication);
           this.setupPepitesFeature(publicationElement, publication);
@@ -137,7 +137,7 @@ async initialize() {
       }
     }
 
-    // Initialiser les fonctionnalités
+    // Initialiser les fonctionnalités des app-items
     const appItemFeatures = new AppItemFeatures(this.supabase);
     await appItemFeatures.init();
 
@@ -145,7 +145,6 @@ async initialize() {
     console.error('Erreur lors du chargement des publications:', error);
   }
 }
-
 
 async loadComments(publicationId) {
   try {
@@ -579,75 +578,7 @@ setupLikeFeature(commentsModal, comments) {
 
 
 
-    groupPublicationsBySection(publications) {
-  const sections = {};
-
-  publications.forEach((publication) => {
-    if (!sections[publication.section_id]) {
-      sections[publication.section_id] = [];
-    }
-    sections[publication.section_id].push(publication);
-  });
-
-  return sections;
-}
-
-
-createAndInsertSection(section) {
-  const main = document.querySelector('main');
-  if (!main) return;
-
-  const sectionElement = document.createElement('section');
-  sectionElement.id = section.id;
-  sectionElement.className = 'section-offset';
-
-  sectionElement.innerHTML = `
-    <h2>${section.name}</h2>
-    ${
-      section.created_by
-        ? `<div class="section-author">
-            Créé par 
-            <img src="${section.created_by.avatar_url || 'svg2/defautprofil.jpg'}" alt="avatar" class="author-avatar">
-            <span>${section.created_by.full_name || 'Utilisateur inconnu'}</span>
-          </div>`
-        : ''
-    }
-    <div class="appListContainer"></div>
-    <div class="view-toggle-container"></div>
-  `;
-
-  // Ajouter la section dans le DOM
-  const introductionSection = document.getElementById('introduction');
-  if (introductionSection && main.contains(introductionSection)) {
-    main.insertBefore(sectionElement, introductionSection.nextSibling);
-  } else {
-    main.prepend(sectionElement);
-  }
-}
-
-async retrySectionLoad(sectionId, maxRetries = 3, delay = 2000) {
-  let retries = 0;
-  
-  const tryLoad = async () => {
-    const { data: section, error } = await this.supabase
-      .from('sections')
-      .select()
-      .eq('id', sectionId)
-      .single();
-
-    if (error || !section) {
-      if (retries < maxRetries) {
-        retries++;
-        setTimeout(() => tryLoad(), delay);
-      }
-    } else {
-      this.createAndInsertSection(section);
-    }
-  };
-
-  await tryLoad();
-}
-
+    
 
 adjustDateForTimezone(dateString) {
   const date = new Date(dateString);
