@@ -11,8 +11,6 @@
     init() {
       document.addEventListener('DOMContentLoaded', async () => {
         this.session = await this.getSession();
-        await this.loadSections(); // Charger les sections dynamiquement avant d'afficher les publications
-
         this.loadPublications();
       });
     }
@@ -61,30 +59,26 @@ async initialize() {
   return path;
 }
 
-async loadSections() {
-  try {
-    // Récupère toutes les sections de Supabase
-    const { data: sections, error } = await this.supabase.from('sections').select('*');
-    if (error) throw error;
-
-    // Pour chaque section, vérifie si elle existe et crée-la si nécessaire
-    const main = document.querySelector('main');
-    sections.forEach((section) => {
-      const existingSection = document.getElementById(section.id);
-
-      if (!existingSection) {
-        this.createAndInsertSection(section);
-      }
-    });
-  } catch (error) {
-    console.error('Erreur lors du chargement des sections:', error);
-  }
-}
 
     async loadPublications() {
   try {
-    await this.loadSections(); // Assure-toi que toutes les sections sont chargées
-const currentPagePath = this.getCurrentPagePath();
+    const currentPagePath = this.getCurrentPagePath();
+    
+    const { data: sections, error: sectionsError } = await this.supabase
+  .from('sections')
+  .select('*');
+
+if (sectionsError) {
+  console.error('Erreur lors du chargement des sections:', sectionsError);
+  return;
+}
+
+// Assurez-vous que toutes les sections sont bien créées dans le DOM
+sections.forEach((section) => {
+  if (!document.querySelector(`#${section.id}`)) {
+    this.createAndInsertSection(section);
+  }
+});
 
 
     const { data: publications, error } = await this.supabase
@@ -93,6 +87,19 @@ const currentPagePath = this.getCurrentPagePath();
       .order('created_at', { ascending: false });
 
     if (error) throw error;
+    if (!publications || publications.length === 0) {
+  console.warn('Aucune publication trouvée pour cette page.');
+  const main = document.querySelector('main');
+  if (main) {
+    main.innerHTML = `
+      <div class="no-publications">
+        <p>Aucune publication disponible pour cette section.</p>
+      </div>
+    `;
+  }
+  return;
+}
+
     
 
     // Filtrer les publications pour la page actuelle
@@ -104,34 +111,36 @@ const currentPagePath = this.getCurrentPagePath();
     const sections = this.groupPublicationsBySection(filteredPublications);
 
     for (const [sectionId, sectionPublications] of Object.entries(sections)) {
-      let sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
+  let sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
 
-      // Si la section n'existe pas, la créer dynamiquement
-      if (!sectionContainer) {
-  console.warn(`Section non trouvée dans le DOM pour ID: ${sectionId}. Création en cours...`);
+  if (!sectionContainer) {
+    // La section n'existe pas encore dans le DOM, essayons de la créer
+    const { data: sectionData, error: sectionError } = await this.supabase
+      .from('sections')
+      .select('*')
+      .eq('id', sectionId)
+      .single();
 
-  // Vérifie et récupère les données de la section depuis Supabase
-  const { data: sectionData, error: sectionError } = await this.supabase
-    .from('sections')
-    .select('*')
-    .eq('id', sectionId)
-    .single();
+    if (sectionError || !sectionData) {
+      console.error(`Erreur : Section introuvable pour ID: ${sectionId}`, sectionError);
+      continue; // Passez à la section suivante si elle est introuvable
+    }
 
-  if (sectionError || !sectionData) {
-    console.error(`Impossible de récupérer les données de la section ID: ${sectionId}`, sectionError);
-    continue;
+    // Créez et insérez la section dans le DOM
+    this.createAndInsertSection(sectionData);
+    sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
   }
 
-  // Crée dynamiquement la section et mets-la dans le DOM
-  this.createAndInsertSection(sectionData);
-  sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
-}
+  // Vérifiez encore que le conteneur de section existe après tentative de création
+  if (!sectionContainer) {
+    console.error(`Erreur critique : Impossible de trouver ou créer la section avec ID: ${sectionId}`);
+    continue; // Passez à la section suivante
+  }
 
+  // Videz le conteneur avant d'insérer les publications
+  sectionContainer.innerHTML = '';
 
-      // Ajouter les publications dans la section
-      // Ajouter les publications dans la section
-if (sectionContainer) {
-  sectionContainer.innerHTML = ''; // Vider le conteneur avant d'ajouter
+  // Ajoutez les publications dans la section
   sectionPublications.forEach((publication) => {
     const publicationElement = this.createPublicationElement(publication);
     sectionContainer.appendChild(publicationElement);
@@ -147,7 +156,6 @@ if (sectionContainer) {
   });
 }
 
-    }
 
     // Initialiser les fonctionnalités des app-items (visiteurs, lecteurs, etc.)
     const appItemFeatures = new AppItemFeatures(this.supabase);
@@ -593,17 +601,33 @@ setupLikeFeature(commentsModal, comments) {
   const sections = {};
 
   publications.forEach((publication) => {
+    if (!publication.section_id) {
+      console.warn('Publication sans section_id:', publication);
+      return; // Ignorez les publications sans section_id
+    }
+
     if (!sections[publication.section_id]) {
       sections[publication.section_id] = [];
     }
     sections[publication.section_id].push(publication);
   });
 
+  // Tri des publications par date (descendant) dans chaque section
+  for (const sectionId in sections) {
+    sections[sectionId].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  }
+
   return sections;
 }
 
 
+
 createAndInsertSection(section) {
+  if (!section || !section.id || !section.name) {
+  console.error('Données de section invalides:', section);
+  return;
+}
+
   const main = document.querySelector('main');
   if (!main) return;
 
