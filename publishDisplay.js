@@ -103,7 +103,11 @@ async initialize() {
       // Ajouter les publications dans la section
       // Ajouter les publications dans la section
 if (sectionContainer) {
-  sectionContainer.innerHTML = ''; // Vider le conteneur avant d'ajouter
+  // Supprimer toutes les sections et leurs publications avant de recharger
+const main = document.querySelector('main');
+const existingSections = main.querySelectorAll('section.section-offset');
+existingSections.forEach((section) => section.remove());
+
   sectionPublications.forEach((publication) => {
     const publicationElement = this.createPublicationElement(publication);
     sectionContainer.appendChild(publicationElement);
@@ -576,36 +580,41 @@ setupLikeFeature(commentsModal, comments) {
 
 
 createAndInsertSection(section) {
-  const main = document.querySelector('main');
-  if (!main) return;
+    const main = document.querySelector('main');
+    if (!main) return;
 
-  const sectionElement = document.createElement('section');
-  sectionElement.id = section.id;
-  sectionElement.className = 'section-offset';
+    // Vérifier si la section existe déjà
+    const existingSection = document.getElementById(section.id);
+    if (existingSection) return;
 
-  sectionElement.innerHTML = `
-    <h2>${section.name}</h2>
-    ${
-      section.created_by
-        ? `<div class="section-author">
-            Créé par 
-            <img src="${section.created_by.avatar_url || 'svg2/defautprofil.jpg'}" alt="avatar" class="author-avatar">
-            <span>${section.created_by.full_name || 'Utilisateur inconnu'}</span>
-          </div>`
-        : ''
+    const sectionElement = document.createElement('section');
+    sectionElement.id = section.id;
+    sectionElement.className = 'section-offset';
+
+    sectionElement.innerHTML = `
+        <h2>${section.name}</h2>
+        ${
+            section.created_by
+            ? `<div class="section-author">
+                Créé par 
+                <img src="${section.created_by.avatar_url || 'svg2/defautprofil.jpg'}" alt="avatar" class="author-avatar">
+                <span>${section.created_by.full_name || 'Utilisateur inconnu'}</span>
+              </div>`
+            : ''
+        }
+        <div class="appListContainer"></div>
+        <div class="view-toggle-container"></div>
+    `;
+
+    // Ajouter la section dans le DOM
+    const introductionSection = document.getElementById('introduction');
+    if (introductionSection && main.contains(introductionSection)) {
+        main.insertBefore(sectionElement, introductionSection.nextSibling);
+    } else {
+        main.prepend(sectionElement);
     }
-    <div class="appListContainer"></div>
-    <div class="view-toggle-container"></div>
-  `;
-
-  // Ajouter la section dans le DOM
-  const introductionSection = document.getElementById('introduction');
-  if (introductionSection && main.contains(introductionSection)) {
-    main.insertBefore(sectionElement, introductionSection.nextSibling);
-  } else {
-    main.prepend(sectionElement);
-  }
 }
+
 
 adjustDateForTimezone(dateString) {
   const date = new Date(dateString);
@@ -1274,18 +1283,22 @@ setupPepitesFeature(publicationElement, publication) {
     }
 
     getSectionOffsets() {
-  const sections = document.querySelectorAll('main section.section-offset');
-  const sectionsData = [];
+    const sections = document.querySelectorAll('main section.section-offset');
+    const sectionsData = [];
 
-  sections.forEach((section) => {
-    sectionsData.push({
-      id: section.id,
-      title: section.querySelector('h2').textContent,
+    sections.forEach((section) => {
+        const titleElement = section.querySelector('h2');
+        if (titleElement) {
+            sectionsData.push({
+                id: section.id,
+                title: titleElement.textContent,
+            });
+        }
     });
-  });
 
-  return sectionsData;
+    return sectionsData;
 }
+
 
 
     async handleEditFormSubmit(e, publicationId) {
