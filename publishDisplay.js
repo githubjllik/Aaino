@@ -11,6 +11,8 @@
     init() {
       document.addEventListener('DOMContentLoaded', async () => {
         this.session = await this.getSession();
+        await this.loadSections(); // Charger les sections dynamiquement avant d'afficher les publications
+
         this.loadPublications();
       });
     }
@@ -59,10 +61,31 @@ async initialize() {
   return path;
 }
 
+async loadSections() {
+  try {
+    // Récupère toutes les sections de Supabase
+    const { data: sections, error } = await this.supabase.from('sections').select('*');
+    if (error) throw error;
+
+    // Pour chaque section, vérifie si elle existe et crée-la si nécessaire
+    const main = document.querySelector('main');
+    sections.forEach((section) => {
+      const existingSection = document.getElementById(section.id);
+
+      if (!existingSection) {
+        this.createAndInsertSection(section);
+      }
+    });
+  } catch (error) {
+    console.error('Erreur lors du chargement des sections:', error);
+  }
+}
 
     async loadPublications() {
   try {
-    const currentPagePath = this.getCurrentPagePath();
+    await this.loadSections(); // Assure-toi que toutes les sections sont chargées
+const currentPagePath = this.getCurrentPagePath();
+
 
     const { data: publications, error } = await this.supabase
       .from('publications')
@@ -78,52 +101,53 @@ async initialize() {
     );
 
     // Grouper les publications par section
-    // Grouper les publications par section
-const sections = this.groupPublicationsBySection(filteredPublications);
+    const sections = this.groupPublicationsBySection(filteredPublications);
 
-for (const [sectionId, sectionPublications] of Object.entries(sections)) {
-    let sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
+    for (const [sectionId, sectionPublications] of Object.entries(sections)) {
+      let sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
 
-    // Si la section n'existe pas, la créer dynamiquement
-    if (!sectionContainer) {
-        const { data: sectionData, error: sectionError } = await this.supabase
-            .from('sections')
-            .select()
-            .eq('id', sectionId)
-            .single();
+      // Si la section n'existe pas, la créer dynamiquement
+      if (!sectionContainer) {
+  console.warn(`Section non trouvée dans le DOM pour ID: ${sectionId}. Création en cours...`);
 
-        if (sectionError || !sectionData) {
-            console.error(`Section non trouvée pour ID: ${sectionId}`);
-            continue;
-        }
+  // Vérifie et récupère les données de la section depuis Supabase
+  const { data: sectionData, error: sectionError } = await this.supabase
+    .from('sections')
+    .select('*')
+    .eq('id', sectionId)
+    .single();
 
-        // **AJOUT : Vérifiez que la section appartient à la page actuelle**
-        if (sectionData.page_path !== this.getCurrentPagePath()) {
-            continue; // Ignorez les sections qui ne correspondent pas
-        }
+  if (sectionError || !sectionData) {
+    console.error(`Impossible de récupérer les données de la section ID: ${sectionId}`, sectionError);
+    continue;
+  }
 
-        this.createAndInsertSection(sectionData);
-        sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
-    }
-
-    if (sectionContainer) {
-        sectionContainer.innerHTML = ''; // Vider le conteneur avant d'ajouter
-        sectionPublications.forEach((publication) => {
-            const publicationElement = this.createPublicationElement(publication);
-            sectionContainer.appendChild(publicationElement);
-
-            // Charger dynamiquement le compteur des commentaires
-            this.updateCommentsCountUI(publication.id);
-
-            // Initialiser le compteur de lecteurs
-            this.setupReaderCounter(publicationElement, publication);
-
-            // Initialiser le système de pépites
-            this.setupPepitesFeature(publicationElement, publication);
-        });
-    }
+  // Crée dynamiquement la section et mets-la dans le DOM
+  this.createAndInsertSection(sectionData);
+  sectionContainer = document.querySelector(`#${sectionId} .appListContainer`);
 }
 
+
+      // Ajouter les publications dans la section
+      // Ajouter les publications dans la section
+if (sectionContainer) {
+  sectionContainer.innerHTML = ''; // Vider le conteneur avant d'ajouter
+  sectionPublications.forEach((publication) => {
+    const publicationElement = this.createPublicationElement(publication);
+    sectionContainer.appendChild(publicationElement);
+
+    // Charger dynamiquement le compteur des commentaires
+    this.updateCommentsCountUI(publication.id);
+
+    // Initialiser le compteur de lecteurs
+    this.setupReaderCounter(publicationElement, publication);
+
+    // Initialiser le système de pépites
+    this.setupPepitesFeature(publicationElement, publication);
+  });
+}
+
+    }
 
     // Initialiser les fonctionnalités des app-items (visiteurs, lecteurs, etc.)
     const appItemFeatures = new AppItemFeatures(this.supabase);
@@ -580,45 +604,36 @@ setupLikeFeature(commentsModal, comments) {
 
 
 createAndInsertSection(section) {
-    const main = document.querySelector('main');
-    if (!main) return;
+  const main = document.querySelector('main');
+  if (!main) return;
 
-    // Ignorer les sections qui ne correspondent pas à la page actuelle
-    const currentPagePath = this.getCurrentPagePath();
-    if (section.page_path !== currentPagePath) {
-        return;
+  const sectionElement = document.createElement('section');
+  sectionElement.id = section.id;
+  sectionElement.className = 'section-offset';
+
+  sectionElement.innerHTML = `
+    <h2>${section.name}</h2>
+    ${
+      section.created_by
+        ? `<div class="section-author">
+            Créé par 
+            <img src="${section.created_by.avatar_url || 'svg2/defautprofil.jpg'}" alt="avatar" class="author-avatar">
+            <span>${section.created_by.full_name || 'Utilisateur inconnu'}</span>
+          </div>`
+        : ''
     }
+    <div class="appListContainer"></div>
+    <div class="view-toggle-container"></div>
+  `;
 
-    const sectionElement = document.createElement('section');
-    sectionElement.id = section.id;
-    sectionElement.className = 'section-offset';
-
-    sectionElement.innerHTML = `
-        <h2>${section.name}</h2>
-        ${
-            section.created_by
-            ? `<div class="section-author">
-                    Créé par 
-                    <img src="${section.created_by.avatar_url || 'svg2/defautprofil.jpg'}" alt="avatar" class="author-avatar">
-                    <span>${section.created_by.full_name || 'Utilisateur inconnu'}</span>
-                </div>`
-            : ''
-        }
-        <div class="appListContainer"></div>
-        <div class="view-toggle-container"></div>
-    `;
-
-    sectionElement.dataset.pagePath = section.page_path;
-
-    // Ajouter la section dans le DOM
-    const introductionSection = document.getElementById('introduction');
-    if (introductionSection && main.contains(introductionSection)) {
-        main.insertBefore(sectionElement, introductionSection.nextSibling);
-    } else {
-        main.prepend(sectionElement);
-    }
+  // Ajouter la section dans le DOM
+  const introductionSection = document.getElementById('introduction');
+  if (introductionSection && main.contains(introductionSection)) {
+    main.insertBefore(sectionElement, introductionSection.nextSibling);
+  } else {
+    main.prepend(sectionElement);
+  }
 }
-
 
 adjustDateForTimezone(dateString) {
   const date = new Date(dateString);

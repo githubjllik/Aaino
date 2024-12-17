@@ -288,15 +288,12 @@ createAndInsertSection(section) {
         <h2>${section.name}</h2>
         <div class="section-author">
             Créé par 
-            <img src="${section.created_by.avatar_url || 'svg2/defautprofil.jpg'}" alt="avatar" class="author-avatar">
-            <span>${section.created_by.full_name || 'Utilisateur inconnu'}</span>
+            <img src="${section.created_by.avatar_url}" alt="avatar" class="author-avatar">
+            <span>${section.created_by.full_name}</span>
         </div>
         <div class="appListContainer"></div>
         <div class="view-toggle-container"></div>
     `;
-
-    // Ajoutez le `page_path` au DOM pour le traquer
-    sectionElement.dataset.pagePath = this.getCurrentPagePath();
 
     // Placer la section au-dessus des autres (juste après l'introduction)
     const introductionSection = document.getElementById('introduction');
@@ -306,7 +303,6 @@ createAndInsertSection(section) {
         main.prepend(sectionElement);
     }
 }
-
 
 
 async createAndInsertAppItem(publication) {
@@ -327,11 +323,6 @@ async createAndInsertAppItem(publication) {
 
         this.createAndInsertSection(sectionData);
         section = document.getElementById(publication.section_id);
-    }
-
-    // **AJOUT : Vérifiez que la section appartient bien à la page actuelle**
-    if (section.dataset.pagePath !== this.getCurrentPagePath()) {
-        return; // Ne pas afficher si la section n'appartient pas à cette page
     }
 
     const appListContainer = section.querySelector('.appListContainer');
@@ -379,7 +370,6 @@ async createAndInsertAppItem(publication) {
 
     appListContainer.appendChild(appItem);
 }
-
 
 
 
