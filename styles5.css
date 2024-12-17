@@ -829,13 +829,7 @@
     width: 90%;
 }
 
-.close-modal {
-    float: right;
-    border: none;
-    background: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
+
 
 .auth-buttons {
     display: flex;
@@ -848,8 +842,6 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    background: #0066cc;
-    color: white;
 }
 
 .email-auth {
