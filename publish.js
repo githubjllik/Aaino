@@ -228,9 +228,8 @@ async handleFormSubmit(e, type) {
 
             newSectionId = newSection.id;
 
-            // Recharger les sections depuis la base de données après la création
-await this.reloadSections();
-
+            // Ajouter la nouvelle section au DOM
+            this.createAndInsertSection(newSection);
         }
 
         const imageUrl = imageFile ? await this.uploadImage(imageFile) : null;
@@ -277,46 +276,9 @@ window.location.reload(); // Recharge la page après la soumission réussie
     }
 }
 
-async reloadSections() {
-    try {
-        const currentPagePath = this.getCurrentPagePath();
-
-        // Charger toutes les sections pour la page actuelle
-        const { data: sections, error } = await this.supabase
-            .from('sections')
-            .select('*')
-            .eq('page_path', currentPagePath);
-
-        if (error) throw error;
-
-        // Supprimer toutes les sections existantes du DOM
-        const main = document.querySelector('main');
-        const existingSections = main.querySelectorAll('section.section-offset');
-        existingSections.forEach((section) => section.remove());
-
-        // Ajouter toutes les sections depuis la base de données
-        sections.forEach((section) => this.createAndInsertSection(section));
-    } catch (error) {
-        console.error('Erreur lors du rechargement des sections :', error);
-    }
-    await this.reloadSections();
-
-// Mettre à jour la liste des sections dans le formulaire
-const sectionsListContainer = document.getElementById('sectionsList');
-if (sectionsListContainer) {
-    sectionsListContainer.innerHTML = this.generateSectionsList();
-}
-
-}
-
-
 createAndInsertSection(section) {
     const main = document.querySelector('main');
     if (!main) return;
-
-    // Vérifier si la section existe déjà
-    const existingSection = document.getElementById(section.id);
-    if (existingSection) return;
 
     const sectionElement = document.createElement('section');
     sectionElement.id = section.id;
@@ -324,20 +286,19 @@ createAndInsertSection(section) {
 
     sectionElement.innerHTML = `
         <h2>${section.name}</h2>
-        ${
-            section.created_by
-            ? `<div class="section-author">
-                Créé par 
-                <img src="${section.created_by.avatar_url || 'svg2/defautprofil.jpg'}" alt="avatar" class="author-avatar">
-                <span>${section.created_by.full_name || 'Utilisateur inconnu'}</span>
-              </div>`
-            : ''
-        }
+        <div class="section-author">
+            Créé par 
+            <img src="${section.created_by.avatar_url || 'svg2/defautprofil.jpg'}" alt="avatar" class="author-avatar">
+            <span>${section.created_by.full_name || 'Utilisateur inconnu'}</span>
+        </div>
         <div class="appListContainer"></div>
         <div class="view-toggle-container"></div>
     `;
 
-    // Ajouter la section dans le DOM
+    // Ajoutez le `page_path` au DOM pour le traquer
+    sectionElement.dataset.pagePath = this.getCurrentPagePath();
+
+    // Placer la section au-dessus des autres (juste après l'introduction)
     const introductionSection = document.getElementById('introduction');
     if (introductionSection && main.contains(introductionSection)) {
         main.insertBefore(sectionElement, introductionSection.nextSibling);
@@ -366,6 +327,11 @@ async createAndInsertAppItem(publication) {
 
         this.createAndInsertSection(sectionData);
         section = document.getElementById(publication.section_id);
+    }
+
+    // **AJOUT : Vérifiez que la section appartient bien à la page actuelle**
+    if (section.dataset.pagePath !== this.getCurrentPagePath()) {
+        return; // Ne pas afficher si la section n'appartient pas à cette page
     }
 
     const appListContainer = section.querySelector('.appListContainer');
@@ -413,6 +379,7 @@ async createAndInsertAppItem(publication) {
 
     appListContainer.appendChild(appItem);
 }
+
 
 
 
@@ -545,20 +512,16 @@ getContactLink(contact) {
 getSectionOffsets() {
     const sections = document.querySelectorAll('main section.section-offset');
     const sectionsData = [];
-
-    sections.forEach((section) => {
-        const titleElement = section.querySelector('h2');
-        if (titleElement) {
-            sectionsData.push({
-                id: section.id,
-                title: titleElement.textContent,
-            });
-        }
+    
+    sections.forEach(section => {
+        sectionsData.push({
+            id: section.id,
+            title: section.querySelector('h2').textContent
+        });
     });
-
+    
     return sectionsData;
 }
-
 
 getSectionsData() {
     const selectedSection = document.querySelector('.selected-section');
@@ -574,26 +537,21 @@ getSectionsData() {
 
 generateSectionsList() {
     const sections = this.getSectionOffsets();
-    return `
+    let html = `
         <div class="sections-select">
             <div class="sections-dropdown">
-                ${sections
-                    .map(
-                        (section) => `
-                        <div class="section-option" data-section-id="${section.id}">
-                            ${section.title}
-                        </div>
-                    `
-                    )
-                    .join('')}
+                ${sections.map(section => `
+                    <div class="section-option" data-section-id="${section.id}">
+                        ${section.title}
+                    </div>
+                `).join('')}
             </div>
-            <div class="selected-section">
-                ${sections.length > 0 ? sections[0].title : 'Aucune section sélectionnée'}
-            </div>
+            <div class="selected-section"></div>
         </div>
     `;
+    
+    return html;
 }
-
 
 
 addNewSection() {
