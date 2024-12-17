@@ -163,14 +163,15 @@
             createParticles();
 
             supabase.auth.getSession().then(({ data: { session }, error }) => {
-                if (session) {
-                    const redirectUrl = localStorage.getItem('authRedirectUrl');
-                    localStorage.removeItem('authRedirectUrl');
-                    setTimeout(() => {
-                        window.location.href = redirectUrl || '/';
-                    }, 2500);
-                }
-            });
+    if (session) {
+        const redirectUrl = localStorage.getItem('authRedirectUrl') || 'https://aaino.onrender.com';
+        localStorage.removeItem('authRedirectUrl');
+        setTimeout(() => {
+            window.location.href = redirectUrl;
+        }, 2500);
+    }
+});
+
         };
 
         function createParticles() {
