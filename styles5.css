@@ -803,6 +803,7 @@
 .elements-hidden .division2,
 .elements-hidden .contact-icons,
 .elements-hidden .mascot,
+.elements-hidden .floating-publish-button,
 .elements-hidden #language-selector {
     display: none !important;
 }

@@ -429,10 +429,7 @@ class CommonElements extends HTMLElement {
         <div id="youtube_player_container"></div>
     </div>
 </div>
-<div class="mascot" id="searchMascot">
-    <div class="mascot-speech">Cliquez ici pour rechercher !</div>
-    <div>💁‍♀️</div>
-</div>
+
 <div id="language-selector">
   <button id="current-language">
     <span id="current-language-flag">🇫🇷</span>
