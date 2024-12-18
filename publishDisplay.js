@@ -750,7 +750,7 @@ formatRelativeDate(date) {
     ${this.formatCount(publication.pepites || 0)}
   </div>
   <img 
-    src="svg2/pepites.png" 
+    src="svg2/pepites.svg" 
     alt="Pépites" 
     class="counter-icon pepite-icon" 
     data-publication-id="${publication.id}" 
@@ -968,13 +968,13 @@ setupPepitesFeature(publicationElement, publication) {
         // Si déjà liké, delike
         pepites_users = pepites_users.filter((id) => id !== userId);
         pepites = Math.max(pepites - 1, 0); // Protéger contre les valeurs négatives
-        pepiteIcon.src = 'svg2/pepites.png';
+        pepiteIcon.src = 'svg2/pepites.svg';
         pepiteIcon.dataset.liked = 'false';
       } else {
         // Si pas encore liké, ajouter le like
         pepites_users.push(userId);
         pepites += 1;
-        pepiteIcon.src = 'svg2/pepitesor.png';
+        pepiteIcon.src = 'svg2/pepitesor.svg';
         pepiteIcon.dataset.liked = 'true';
       }
 
