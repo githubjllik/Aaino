@@ -1030,19 +1030,17 @@ document.addEventListener('DOMContentLoaded', function() {
         let isFirstSaveAfterOpen = true;
 
         function showSyncMessage() {
-            const message = "Information importante sur la synchronisation :\n\nVos notes sont actuellement sauvegardées uniquement dans ce navigateur. Elles ne sont pas synchronisées entre différents appareils ou navigateurs.\n\nPour accéder à vos notes sur d'autres appareils, vous devrez utiliser le même navigateur sur le même appareil.\n\nConseil : Pour une sauvegarde plus sûre, pensez à exporter régulièrement vos notes importantes.";
-            const overlay = document.getElementById('messageOverlay');
-            const messageText = document.getElementById('messageText');
-            overlay.style.display = 'flex';
-            typeWriterEffect(messageText, message, 0);
-        }
+    const message = "Information importante sur la synchronisation :\n\nVos notes sont actuellement sauvegardées uniquement dans ce navigateur. Elles ne sont pas synchronisées entre différents appareils ou navigateurs.\n\nPour accéder à vos notes sur d'autres appareils, vous devrez utiliser le même navigateur sur le même appareil.\n\nConseil : Pour une sauvegarde plus sûre, pensez à exporter régulièrement vos notes importantes.";
+    const overlay = document.getElementById('messageOverlay');
+    const messageText = document.getElementById('messageText');
+    overlay.style.display = 'flex';
+    messageText.innerHTML = message;  // Remplace typeWriterEffect par une assignation directe
+}
 
-        function typeWriterEffect(element, text, index) {
-            if (index < text.length) {
-                element.innerHTML += text.charAt(index);
-                setTimeout(() => typeWriterEffect(element, text, index + 1), 20);
-            }
-        }
+
+
+
+        
 
         function closeMessage() {
             document.getElementById('messageOverlay').style.display = 'none';
