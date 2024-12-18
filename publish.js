@@ -267,7 +267,9 @@ async handleFormSubmit(e, type) {
         this.createAndInsertAppItem(insertedData);
 
         alert('Publication réussie !');
+await this.checkAndDeleteEmptySection(newSectionId || selectedSectionId);
 window.location.reload(); // Recharge la page après la soumission réussie
+
 
 
     } catch (error) {
@@ -303,6 +305,36 @@ createAndInsertSection(section) {
         main.prepend(sectionElement);
     }
 }
+
+async checkAndDeleteEmptySection(sectionId) {
+    try {
+        // Vérifier s'il reste des publications dans cette section
+        const { count, error } = await this.supabase
+            .from('publications')
+            .select('id', { count: 'exact' })
+            .eq('section_id', sectionId);
+
+        if (error) throw error;
+
+        // Si aucune publication n'est trouvée, supprimer la section
+        if (count === 0) {
+            // Supprimer la section de la base de données
+            const { error: deleteError } = await this.supabase
+                .from('sections')
+                .delete()
+                .eq('id', sectionId);
+
+            if (deleteError) throw deleteError;
+
+            // Supprimer la section du DOM
+            const sectionElement = document.getElementById(sectionId);
+            if (sectionElement) sectionElement.remove();
+        }
+    } catch (error) {
+        console.error('Erreur lors de la vérification/suppression de la section :', error.message);
+    }
+}
+
 
 
 async createAndInsertAppItem(publication) {
@@ -387,22 +419,28 @@ setupPublicationActions(appItem, publication) {
         };
 
         deleteButton.onclick = async (e) => {
-            e.stopPropagation();
-            if (confirm('Êtes-vous sûr de vouloir supprimer cette publication ?')) {
-                try {
-                    const { error } = await this.supabase
-                        .from('publications')
-                        .delete()
-                        .match({ id: publication.id });
+    e.stopPropagation();
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette publication ?')) {
+        try {
+            const { error } = await this.supabase
+                .from('publications')
+                .delete()
+                .match({ id: publication.id });
 
-                    if (error) throw error;
-                    appItem.remove();
-                } catch (error) {
-                    console.error('Erreur lors de la suppression:', error);
-                    alert('Erreur lors de la suppression: ' + error.message);
-                }
-            }
-        };
+            if (error) throw error;
+
+            // Supprimer l'élément de publication du DOM
+            appItem.remove();
+
+            // Vérifier et supprimer la section si elle est vide
+            await this.checkAndDeleteEmptySection(publication.section_id);
+        } catch (error) {
+            console.error('Erreur lors de la suppression:', error);
+            alert('Erreur lors de la suppression: ' + error.message);
+        }
+    }
+};
+
 
         editButton.onclick = (e) => {
             e.stopPropagation();
