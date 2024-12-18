@@ -20,7 +20,7 @@ function loadTemplate() {
                 <li id="menu5"><a href="pg5.html"><img src="svg/bot.svg" alt="Icon 5">IA</a></li>
                 <li id="menu6"><a href="pg6.html"><img src="svg/edit.svg" alt="Icon 6">Éditer</a></li>
                 <li id="menu7"><a href="pg7.html"><img src="svg/developpeur2.svg" alt="Icon 7">Développer</a></li>
-                <li id="menu8"><a href="#"><img src="svg/marchebusiness.svg" alt="Icon 8">E-Services</a></li>
+                <li id="menu8"><a href="pg8.html"><img src="svg/marchebusiness.svg" alt="Icon 8">E-Services</a></li>
                 <li id="menu9"><a href="pg9.html"><img src="svg2/crypto.svg" alt="Icon 9">Cryptomonnaie</a></li>
                 <li id="menu10"><a href="pg10.html"><img src="svg/explorer.svg" alt="Icon 10">Explorer le monde</a></li>
                 <li id="menu11"><a href="pg11.html"><img src="svg/telechargement.svg" alt="Icon 11">Télécharger</a></li>
