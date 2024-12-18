@@ -314,13 +314,14 @@ async translateUIElements() {
     const elementsToTranslate = document.querySelectorAll('[data-translate]');
 
     for (const element of elementsToTranslate) {
-        // Ne traduit pas le nom d'utilisateur si l'utilisateur est connecté
+        // Vérifie si c'est un élément utilisateur et si le texte n'est PAS "Visiteur anonyme"
+        // Dans ce cas, on ne traduit pas car c'est probablement un nom d'utilisateur
         if (element.dataset.translate === 'visitor' && 
-            element.textContent !== 'Visiteur anonyme') {
-            continue;
+            element.textContent.trim() !== 'Visiteur anonyme') {
+            continue; // Saute la traduction pour cet élément
         }
 
-        const originalText = element.textContent;
+        const originalText = element.textContent.trim();
 
         // Vérifie si une traduction existe déjà
         if (!this.translations[originalText] || 
@@ -336,17 +337,30 @@ async translateUIElements() {
                 this.translations[originalText] = this.translations[originalText] || {};
                 this.translations[originalText][this.currentLanguage] = translatedText;
                 
-                // Applique la traduction
-                element.textContent = translatedText;
+                // Applique la traduction seulement si le texte est toujours "Visiteur anonyme"
+                if (element.dataset.translate === 'visitor') {
+                    if (element.textContent.trim() === 'Visiteur anonyme') {
+                        element.textContent = translatedText;
+                    }
+                } else {
+                    element.textContent = translatedText;
+                }
             } catch (error) {
                 console.error('Translation error:', error);
             }
         } else {
-            // Utilise la traduction existante
-            element.textContent = this.translations[originalText][this.currentLanguage];
+            // Applique la traduction existante seulement si nécessaire
+            if (element.dataset.translate === 'visitor') {
+                if (element.textContent.trim() === 'Visiteur anonyme') {
+                    element.textContent = this.translations[originalText][this.currentLanguage];
+                }
+            } else {
+                element.textContent = this.translations[originalText][this.currentLanguage];
+            }
         }
     }
 }
+
 
 
 
