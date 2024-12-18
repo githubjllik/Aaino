@@ -33,6 +33,33 @@ class TranslationService {
         });
 
         this.setupMutationObserver();
+            // Observer spécifique pour les éléments d'authentification
+    const authObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.target.classList.contains('user-name') ||
+                mutation.target.classList.contains('auth-button')) {
+                this.translateUIElements();
+            }
+        });
+    });
+
+    const userProfile = document.querySelector('.user-profile');
+    const authButton = document.querySelector('.auth-button');
+
+    if (userProfile) {
+        authObserver.observe(userProfile, {
+            subtree: true,
+            characterData: true,
+            childList: true
+        });
+    }
+
+    if (authButton) {
+        authObserver.observe(authButton, {
+            characterData: true,
+            childList: true
+        });
+    }
     }
 
     setupMutationObserver() {
@@ -221,6 +248,11 @@ class TranslationService {
         this.restoreOriginalContent();
         return;
     }
+    
+     // Traduit d'abord les éléments UI spécifiques
+    await this.translateUIElements();
+
+
 
     const textNodes = this.getAllTextNodes(document.body);
     
@@ -273,6 +305,49 @@ class TranslationService {
         }
     }
 }
+
+async translateUIElements() {
+    // Ne traduit pas si on est déjà en français
+    if (this.currentLanguage === 'fr') return;
+
+    // Éléments à traduire avec leur identifiant
+    const elementsToTranslate = document.querySelectorAll('[data-translate]');
+
+    for (const element of elementsToTranslate) {
+        // Ne traduit pas le nom d'utilisateur si l'utilisateur est connecté
+        if (element.dataset.translate === 'visitor' && 
+            element.textContent !== 'Visiteur anonyme') {
+            continue;
+        }
+
+        const originalText = element.textContent;
+
+        // Vérifie si une traduction existe déjà
+        if (!this.translations[originalText] || 
+            !this.translations[originalText][this.currentLanguage]) {
+            try {
+                const response = await fetch(
+                    `https://translate.googleapis.com/translate_a/single?client=gtx&sl=fr&tl=${this.currentLanguage}&dt=t&q=${encodeURIComponent(originalText)}`
+                );
+                const data = await response.json();
+                const translatedText = data[0].map(item => item[0]).join('');
+                
+                // Stocke la traduction
+                this.translations[originalText] = this.translations[originalText] || {};
+                this.translations[originalText][this.currentLanguage] = translatedText;
+                
+                // Applique la traduction
+                element.textContent = translatedText;
+            } catch (error) {
+                console.error('Translation error:', error);
+            }
+        } else {
+            // Utilise la traduction existante
+            element.textContent = this.translations[originalText][this.currentLanguage];
+        }
+    }
+}
+
 
 
     restoreOriginalContent() {
