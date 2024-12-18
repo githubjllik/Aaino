@@ -31,14 +31,15 @@ function loadTemplate() {
         </nav>
         <div class="burger-menu" id="burgerMenu">
             <div class="user-profile" style="display: none;">
-        <img class="user-avatar" src="svg2/defautprofil.jpg" alt="Profile">
-        <div class="user-info">
-            <span class="user-name">Visiteur anonyme</span>
-            <span class="user-status"></span>
-        </div>
+    <img class="user-avatar" src="svg2/defautprofil.jpg" alt="Profile">
+    <div class="user-info">
+        <span class="user-name" data-translate="visitor">Visiteur anonyme</span>
+        <span class="user-status"></span>
     </div>
-    
-    <button class="auth-button" onclick="authManager.showAuthModal()">Se connecter/S'inscrire</button>
+</div>
+
+<button class="auth-button" data-translate="auth-button" onclick="authManager.showAuthModal()">Se connecter/S'inscrire</button>
+
 <button class="view-activities" onclick="authManager.checkActivities()">Voir vos activités</button>
     <ul>
         <li>
