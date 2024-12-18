@@ -20,12 +20,18 @@ let plannerWidget;
         }
 
         function switchSection(sectionId) {
-            var sections = document.getElementsByClassName("section-content");
-            for (var i = 0; i < sections.length; i++) {
-                sections[i].style.display = "none";
-            }
-            document.getElementById(sectionId).style.display = "block";
-        }
+    var sections = document.getElementsByClassName("section-content");
+    for (var i = 0; i < sections.length; i++) {
+        sections[i].style.display = "none";
+    }
+    document.getElementById(sectionId).style.display = "block";
+    
+    // Demander la géolocalisation uniquement pour les sections qui en ont besoin
+    if (sectionId === 'location-section') {
+        fetchLocation();
+    }
+}
+
 
         function initializePlanner() {
             if (plannerWidget) {
@@ -170,13 +176,20 @@ function showDayInfo(date) {
             document.getElementById("forecast-output").innerText = result;
         }
 
-        function fetchLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(displayPosition, showLocationError);
-            } else {
-                document.getElementById("coordinates-output").innerText = "La géolocalisation n'est pas supportée par ce navigateur.";
-            }
-        }
+        function fetchLocation(callback) {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                displayPosition(position);
+                if (callback) callback(position);
+            },
+            showLocationError
+        );
+    } else {
+        document.getElementById("coordinates-output").innerText = "La géolocalisation n'est pas supportée par ce navigateur.";
+    }
+}
+
         
         function showLocationError(error) {
             switch(error.code) {
@@ -394,13 +407,16 @@ setInterval(changeImage, imageChangeInterval);
       navigator.userAgent.match(/AppleWebKit/);
 
     function init() {
-      startBtn.addEventListener("click", startCompass);
-      navigator.geolocation.getCurrentPosition(locationHandler);
+    startBtn.addEventListener("click", () => {
+        startCompass();
+        fetchLocation(locationHandler);
+    });
 
-      if (!isIOS) {
+    if (!isIOS) {
         window.addEventListener("deviceorientationabsolute", handler, true);
-      }
     }
+}
+
 
     function startCompass() {
       if (isIOS) {
