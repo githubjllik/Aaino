@@ -128,7 +128,7 @@ class PublishManager {
 
     <div class="new-section">
         <label for="newSectionName">Créer une nouvelle section</label>
-        <input type="text" id="newSectionName" name="newSectionName" maxlength="50" placeholder="Nom de la nouvelle section">
+        <input type="text" id="newSectionName" name="newSectionName" maxlength="100" placeholder="Nom de la nouvelle section">
     </div>
 </div>
 
