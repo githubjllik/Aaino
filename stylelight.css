@@ -2141,3 +2141,9 @@ main {
 .NewStyleauth-modal-content {
     animation: modalFadeIn 0.4s ease-out;
 }
+.app-item .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: auto;
+}
