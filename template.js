@@ -21,7 +21,7 @@ function loadTemplate() {
                 <li id="menu6"><a href="pg6.html"><img src="svg/edit.svg" alt="Icon 6">Éditer</a></li>
                 <li id="menu7"><a href="pg7.html"><img src="svg/developpeur2.svg" alt="Icon 7">Développer</a></li>
                 <li id="menu8"><a href="pg8.html"><img src="svg/marchebusiness.svg" alt="Icon 8">E-Services</a></li>
-                <li id="menu9"><a href="pg9.html"><img src="svg2/crypto.svg" alt="Icon 9">Cryptomonnaie</a></li>
+                <li id="menu9"><a href="pg9.html"><img src="svg2/trading.svg" alt="Icon 9">Trader/investir</a></li>
                 <li id="menu10"><a href="pg10.html"><img src="svg/explorer.svg" alt="Icon 10">Explorer le monde</a></li>
                 <li id="menu11"><a href="pg11.html"><img src="svg/telechargement.svg" alt="Icon 11">Télécharger</a></li>
                 <li id="menu12"><a href="pg12.html"><img src="svg/mobileetpc3.svg" alt="Icon 12">Mobiles et pc</a></li>
@@ -82,11 +82,12 @@ function loadTemplate() {
             <p class="description">Sites populaires de ventes en ligne, sites de freelance, Sites pour des transactions en ligne pour tous les pays, ...</p>
             </a>
         </li>
-        <li>
-    <a href="pg9.html"><img src="svg2/crypto.svg" alt="Icon 9">Cryptomonnaie
-    <p class="description">Sites populaires de cryptomonnaie, sites d'actualités crypto, sites d'échanges crypto, sites de mining crypto, ...</p>
+<li>
+    <a href="pg9.html"><img src="svg2/trading.svg" alt="Icon 9">Trader/Investir
+    <p class="description">Sites de trading et d'investissement, plateformes de trading, actualités financières, analyses techniques, formations, brokers, cryptomonnaies, forex, actions, ...</p>
     </a>
 </li>
+
 
         <li>
             <a href="pg10.html"><img src="svg/explorer.svg" alt="Icon 10">Explorer le monde
@@ -293,7 +294,7 @@ const pageMapping = {
     'pg6.html': 'edit',
     'pg7.html': 'develop',
     'pg8.html': 'e-services',
-    'pg9.html': 'cryptocurrency',
+    'pg9.html': 'tradeinvest',
     'pg10.html': 'explore',
     'pg11.html': 'download',
     'pg12.html': 'devices',

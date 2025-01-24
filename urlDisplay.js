@@ -9,7 +9,7 @@ if ('serviceWorker' in navigator) {
             'pg6.html': 'edit',
             'pg7.html': 'develop',
             'pg8.html': 'e-services',
-            'pg9.html': 'cryptocurrency',
+            'pg9.html': 'tradeinvest',
             'pg10.html': 'explore',
             'pg11.html': 'download',
             'pg12.html': 'devices',

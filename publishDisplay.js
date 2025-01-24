@@ -38,7 +38,7 @@ async initialize() {
     '/edit': '/pg6.html',
     '/develop': '/pg7.html',
     '/e-services': '/pg8.html',
-    '/cryptocurrency': '/pg9.html',
+    '/tradeinvest': '/pg9.html',
     '/explore': '/pg10.html',
     '/download': '/pg11.html',
     '/devices': '/pg12.html',
