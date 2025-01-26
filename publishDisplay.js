@@ -29,7 +29,8 @@
     }
 
     // Vérifier si l'utilisateur actuel est le créateur de la section
-    if (this.session?.user?.id === section.created_by) {
+    if (this.session?.user?.user_metadata?.full_name === section.created_by?.full_name) {
+
       const currentName = e.target.parentElement.textContent.trim().slice(0, -2);
       const newName = prompt('Entrez le nouveau nom de la section:', currentName);
       
@@ -142,13 +143,9 @@ async initialize() {
         sectionElement.innerHTML = `
   <h2 class="section-title">
     ${section.name}
-    ${this.session?.user ? (
-      section.created_by && this.session.user.id === section.created_by.id ? 
-        `<span class="edit-section-name" data-section-id="${section.id}">✍️</span>` 
-        : ''
-    ) : ''}
-  </h2>
+    ${section.created_by?.full_name === this.session?.user?.user_metadata?.full_name ? `<span class="edit-section-name" data-section-id="${section.id}">✍️</span>` : ''}
 
+  </h2>
 
           ${
             section.created_by
