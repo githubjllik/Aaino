@@ -142,7 +142,8 @@ async initialize() {
         sectionElement.innerHTML = `
   <h2 class="section-title">
     ${section.name}
-    ${this.session?.user?.id === section.created_by ? `<span class="edit-section-name" data-section-id="${section.id}">✍️</span>` : ''}
+    ${this.session?.user?.id === section.created_by?.user_id ? `<span class="edit-section-name" data-section-id="${section.id}">✍️</span>` : ''}
+
 
   </h2>
 
