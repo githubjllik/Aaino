@@ -102,22 +102,59 @@ async initialize() {
         sectionElement.className = 'section-offset';
         
         sectionElement.innerHTML = `
-          <h2 class="editable-section-name" data-section-id="${section.id}">
-  ${section.name}${this.session?.user?.id === section.created_by ? ' ✍️' : ''}
-</h2>
+  <h2>
+    ${section.name}
+    ${
+      this.session?.user?.id === section.created_by
+        ? `<span class="editable-icon" style="cursor: pointer;"> ✍️</span>`
+        : ''
+    }
+  </h2>
+  ${
+    section.created_by
+      ? `<div class="section-author">
+          Créé par 
+          <img src="${section.created_by.avatar_url || 'svg2/defautprofil.jpg'}" alt="avatar" class="author-avatar">
+          <span>${section.created_by.full_name || 'Utilisateur inconnu'}</span>
+        </div>`
+      : ''
+  }
+  <div class="appListContainer"></div>
+  <div class="view-toggle-container"></div>
+`;
 
-          ${
-            section.created_by
-              ? `<div class="section-author">
-                  Créé par 
-                  <img src="${section.created_by.avatar_url || 'svg2/defautprofil.jpg'}" alt="avatar" class="author-avatar">
-                  <span>${section.created_by.full_name || 'Utilisateur inconnu'}</span>
-                </div>`
-              : ''
+if (this.session?.user?.id === section.created_by) {
+  const editableIcon = sectionElement.querySelector('.editable-icon');
+  if (editableIcon) {
+    editableIcon.addEventListener('click', async () => {
+      const newName = prompt('Entrez un nouveau nom pour la section:', section.name);
+      if (newName && newName.trim() && newName.length <= 100) {
+        try {
+          // Mise à jour dans Supabase
+          const { data, error } = await this.supabase
+            .from('sections')
+            .update({ name: newName.trim() })
+            .eq('id', section.id);
+
+          if (error) throw error;
+
+          // Mise à jour dans l'interface
+          const sectionTitle = sectionElement.querySelector('h2');
+          if (sectionTitle) {
+            sectionTitle.innerHTML = `
+              ${newName.trim()}
+              <span class="editable-icon" style="cursor: pointer;"> ✍️</span>
+            `;
           }
-          <div class="appListContainer"></div>
-          <div class="view-toggle-container"></div>
-        `;
+        } catch (error) {
+          console.error('Erreur lors de la mise à jour du nom de la section:', error);
+          alert('Impossible de modifier le nom de la section.');
+        }
+      }
+    });
+  }
+}
+
 
         // Insérer la section au bon endroit
         if (introSection && main.contains(introSection)) {
@@ -139,24 +176,6 @@ async initialize() {
         });
       }
     }
-    
-    // Ajouter l'édition du nom de section
-const sectionTitles = document.querySelectorAll('.editable-section-name');
-sectionTitles.forEach((title) => {
-  const sectionId = title.dataset.sectionId;
-
-  // Ajouter un événement de clic uniquement si l'utilisateur est le créateur
-  if (this.session?.user?.id === allSections.find(s => s.id === sectionId)?.created_by) {
-    title.addEventListener('click', async () => {
-      const newName = prompt('Modifier le nom de la section:', title.textContent.replace(' ✍️', '').trim());
-      if (newName && newName.length > 0) {
-        await this.updateSectionName(sectionId, newName);
-        title.textContent = `${newName} ✍️`; // Mettre à jour l'interface utilisateur
-      }
-    });
-  }
-});
-
 
     // Initialiser les fonctionnalités des app-items
     const appItemFeatures = new AppItemFeatures(this.supabase);
@@ -595,20 +614,6 @@ setupLikeFeature(commentsModal, comments) {
 
 
 
-async updateSectionName(sectionId, newName) {
-  try {
-    const { data, error } = await this.supabase
-      .from('sections')
-      .update({ name: newName })
-      .eq('id', sectionId);
-
-    if (error) throw error;
-    console.log('Nom de la section mis à jour avec succès:', data);
-  } catch (error) {
-    console.error('Erreur lors de la mise à jour du nom de la section:', error);
-    alert('Erreur lors de la mise à jour du nom de la section.');
-  }
-}
 
 
 

@@ -1198,3 +1198,13 @@
 .action-menu.hidden {
   display: none;
 }
+
+.editable-icon {
+    font-size: 0.9rem;
+    color: #555;
+    margin-left: 0.5rem;
+  }
+  .editable-icon:hover {
+    color: #000;
+    text-decoration: underline;
+  }
