@@ -12,45 +12,6 @@
       document.addEventListener('DOMContentLoaded', async () => {
         this.session = await this.getSession();
         this.loadPublications();
-        document.addEventListener('click', async (e) => {
-  if (e.target.classList.contains('edit-section-name')) {
-    const sectionId = e.target.dataset.sectionId;
-    
-    // Récupérer d'abord les informations de la section
-    const { data: section, error } = await this.supabase
-      .from('sections')
-      .select('*, created_by')
-      .eq('id', sectionId)
-      .single();
-
-    if (error) {
-      console.error('Erreur lors de la récupération de la section:', error);
-      return;
-    }
-
-    // Vérifier si l'utilisateur actuel est le créateur de la section
-    if (this.session?.user?.user_metadata?.full_name === section.created_by?.full_name) {
-
-      const currentName = e.target.parentElement.textContent.trim().slice(0, -2);
-      const newName = prompt('Entrez le nouveau nom de la section:', currentName);
-      
-      if (newName && newName.trim() && newName.length <= 100) {
-        try {
-          await this.updateSectionName(sectionId, newName.trim());
-          this.loadPublications(); // Recharge pour afficher le nouveau nom
-        } catch (error) {
-          alert('Erreur lors de la modification du nom de la section');
-        }
-      } else if (newName) {
-        alert('Le nom de la section ne doit pas dépasser 100 caractères');
-      }
-    } else {
-      alert('Seul le créateur de la section peut modifier son nom');
-    }
-  }
-});
-
-
       });
     }
 
@@ -141,12 +102,7 @@ async initialize() {
         sectionElement.className = 'section-offset';
         
         sectionElement.innerHTML = `
-  <h2 class="section-title">
-    ${section.name}
-    ${section.created_by?.full_name === this.session?.user?.user_metadata?.full_name ? `<span class="edit-section-name" data-section-id="${section.id}">✍️</span>` : ''}
-
-  </h2>
-
+          <h2>${section.name}</h2>
           ${
             section.created_by
               ? `<div class="section-author">
@@ -189,21 +145,6 @@ async initialize() {
     console.error('Erreur lors du chargement des publications:', error);
   }
 }
-
-async updateSectionName(sectionId, newName) {
-  try {
-    const { error } = await this.supabase
-      .from('sections')
-      .update({ name: newName })
-      .eq('id', sectionId);
-
-    if (error) throw error;
-  } catch (error) {
-    console.error('Erreur lors de la mise à jour du nom de la section:', error);
-    throw error;
-  }
-}
-
 
 async loadComments(publicationId) {
   try {
