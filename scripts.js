@@ -1173,7 +1173,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
    
    
-        (function() {
+(function() {
     const CosmicControlPanel = {
         // Variables globales
         isCollapsed: false,
@@ -1186,6 +1186,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const novaShare = document.getElementById('nova-share');
             const heliosTheme = document.getElementById('helios-theme');
             const orionSearch = document.getElementById('orion-search');
+            const downloaddbCosmosBtn = document.getElementById('downloaddb_cosmos_btn');
             const pulsarSearchBox = document.querySelector('.pulsar-search-box');
             const zephyrControlPanel = document.querySelector('.zephyr-control-panel');
             const body = document.body;
@@ -1217,7 +1218,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const icons = [
                 document.getElementById('nova-share'),
                 document.getElementById('helios-theme'),
-                document.getElementById('orion-search')
+                document.getElementById('orion-search'),
+                document.getElementById('downloaddb_cosmos_btn')  // Ajout du bouton downloaddb_cosmos_btn
             ];
             const delay = 100;
 
@@ -1365,6 +1367,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Exposer les fonctions nécessaires globalement
     window.cosmic_toggleSearch = CosmicControlPanel.toggleSearch.bind(CosmicControlPanel);
 })();
+
 
 
 document.addEventListener('DOMContentLoaded', function() {

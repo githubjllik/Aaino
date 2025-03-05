@@ -2147,3 +2147,264 @@ main {
     gap: 10px;
     margin-top: auto;
 }
+
+
+/* Style du bouton et de la modal */
+.downloaddb_quantum_modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.75);
+    z-index: 2000;
+    backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.downloaddb_quantum_modal.active {
+    opacity: 1;
+    display: flex;
+}
+
+.downloaddb_nebula_content {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    overflow: hidden;
+}
+
+.downloaddb_quantum_modal.active .downloaddb_nebula_content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.downloaddb_nebula_content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient);
+}
+
+.downloaddb_eclipse_close {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    font-size: 1.75rem;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.downloaddb_eclipse_close:hover {
+    color: var(--primary-dark);
+    background-color: rgba(241, 245, 249, 0.8);
+    transform: rotate(90deg);
+}
+
+.downloaddb_nebula_content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    position: relative;
+}
+
+.downloaddb_nebula_content p {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+
+.downloaddb_stellar_input_container {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+#downloaddb_aurora_password {
+    width: 100%;
+    padding: 1rem 3rem 1rem 1.25rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    background-color: #f8fafc;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+    font-family: inherit;
+}
+
+#downloaddb_aurora_password:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    background-color: white;
+}
+
+.downloaddb_nova_toggle_visibility {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    transition: color 0.2s ease;
+}
+
+.downloaddb_nova_toggle_visibility:hover {
+    color: var(--primary-color);
+}
+
+.downloaddb_eye_open, .downloaddb_eye_closed {
+    width: 20px;
+    height: 20px;
+    transition: all 0.2s ease;
+}
+
+.downloaddb_eye_closed {
+    display: none;
+}
+
+#downloaddb_pulsar_submit {
+    width: 100%;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.75rem;
+    border: none;
+    background: var(--gradient);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    font-family: inherit;
+}
+
+#downloaddb_pulsar_submit:hover {
+    background: var(--gradient-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+#downloaddb_pulsar_submit::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease-out;
+}
+
+#downloaddb_pulsar_submit:active::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+.downloaddb_vortex_error {
+    color: #ef4444;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    text-align: center;
+    display: none;
+}
+
+@keyframes downloaddb_pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    }
+}
+
+/* Animation de chargement */
+.downloaddb_loading_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(5px);
+    z-index: 2100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.downloaddb_loading_spinner {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+}
+
+.downloaddb_loading_spinner::before {
+    content: '';
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-top-color: var(--primary-color);
+    border-bottom-color: var(--accent-color);
+    animation: downloaddb_spin 1.5s linear infinite;
+}
+
+.downloaddb_loading_text {
+    position: relative;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+    text-align: center;
+}
+
+@keyframes downloaddb_spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

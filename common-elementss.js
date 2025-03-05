@@ -46,13 +46,14 @@ class CommonElements extends HTMLElement {
                     </button>
                 </div>
              
-                <div class="galaxy-wrapper">
-                    <div class="zephyr-control-panel">
-                        <img src="svg/top.svg" class="quasar-icon" id="nebula-toggle" alt="Toggle">
-                        <img src="svg/send.png" class="quasar-icon" id="nova-share" alt="Share">
-                        <img src="svg/sun2.png" class="quasar-icon" id="helios-theme" alt="Theme">
-                        <img src="svg/google.png" class="quasar-icon" id="orion-search" alt="Search">
-                    </div>
+<div class="galaxy-wrapper">
+    <div class="zephyr-control-panel">
+        <img src="svg/top.svg" class="quasar-icon" id="nebula-toggle" alt="Toggle">
+        <img src="svg2/downloaddb.png" class="quasar-icon" id="downloaddb_cosmos_btn" alt="Download Database">
+        <img src="svg/send.png" class="quasar-icon" id="nova-share" alt="Share">
+        <img src="svg/sun2.png" class="quasar-icon" id="helios-theme" alt="Theme">
+        <img src="svg/google.png" class="quasar-icon" id="orion-search" alt="Search">
+    </div>
 
                     <div class="pulsar-search-box">
                         <div class="gcse-search"></div>
@@ -750,6 +751,30 @@ class CommonElements extends HTMLElement {
             <p>Chaque jour, notre communauté grandit et découvre de nouvelles merveilles du web. Vos partages enrichissent cette expérience collective. Alors n'hésitez plus, partagez vos découvertes !</p>
         </div>
     </div>
+    </div>
+</div>
+<div id="downloaddb_quantum_modal" class="downloaddb_quantum_modal">
+    <div class="downloaddb_nebula_content">
+        <span class="downloaddb_eclipse_close">&times;</span>
+        <h3>Authentification requise</h3>
+        <p>Veuillez saisir le mot de passe pour télécharger la base de données.</p>
+        
+        <div class="downloaddb_stellar_input_container">
+            <input type="password" id="downloaddb_aurora_password" placeholder="Mot de passe">
+            <button class="downloaddb_nova_toggle_visibility">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="downloaddb_eye_open">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="downloaddb_eye_closed">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                </svg>
+            </button>
+        </div>
+        
+        <button id="downloaddb_pulsar_submit">Télécharger</button>
+        <p id="downloaddb_vortex_error" class="downloaddb_vortex_error"></p>
     </div>
 </div>
         `;

@@ -578,4 +578,300 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeHideControl();
 });
 
-
+// Code JavaScript pour gérer le téléchargement de la base de données Supabase en Excel
+document.addEventListener('DOMContentLoaded', function() {
+  const downloadBtn = document.getElementById('downloaddb_cosmos_btn');
+  const passwordModal = document.getElementById('downloaddb_quantum_modal');
+  const submitPasswordBtn = document.getElementById('downloaddb_pulsar_submit');
+  const closeModal = document.querySelector('.downloaddb_eclipse_close');
+  const passwordError = document.getElementById('downloaddb_vortex_error');
+  const passwordToggle = document.querySelector('.downloaddb_nova_toggle_visibility');
+  const passwordInput = document.getElementById('downloaddb_aurora_password');
+  const eyeOpen = document.querySelector('.downloaddb_eye_open');
+  const eyeClosed = document.querySelector('.downloaddb_eye_closed');
+  const correctPassword = "01Jeanlik2003@"; // Le mot de passe que vous avez spécifié
+  
+  // Charger la bibliothèque SheetJS (xlsx) pour la génération d'Excel
+  const sheetJSScript = document.createElement('script');
+  sheetJSScript.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+  document.head.appendChild(sheetJSScript);
+  
+  // Ouvrir la modal quand on clique sur le bouton de téléchargement
+  downloadBtn.addEventListener('click', function() {
+    passwordModal.style.display = 'flex';
+    setTimeout(() => {
+      passwordModal.classList.add('active');
+    }, 10);
+    passwordInput.value = '';
+    passwordError.style.display = 'none';
+  });
+  
+  // Fermer la modal avec le X
+  closeModal.addEventListener('click', function() {
+    closeModalFunction();
+  });
+  
+  // Fermer la modal si on clique en dehors
+  window.addEventListener('click', function(event) {
+    if (event.target === passwordModal) {
+      closeModalFunction();
+    }
+  });
+  
+  function closeModalFunction() {
+    passwordModal.classList.remove('active');
+    setTimeout(() => {
+      passwordModal.style.display = 'none';
+    }, 300);
+  }
+  
+  // Basculer la visibilité du mot de passe
+  passwordToggle.addEventListener('click', function() {
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      eyeOpen.style.display = 'none';
+      eyeClosed.style.display = 'block';
+    } else {
+      passwordInput.type = 'password';
+      eyeOpen.style.display = 'block';
+      eyeClosed.style.display = 'none';
+    }
+  });
+  
+  // Vérifier le mot de passe et télécharger si correct
+  submitPasswordBtn.addEventListener('click', function() {
+    verifyPasswordAndDownload();
+  });
+  
+  // Permettre l'envoi avec la touche Entrée
+  passwordInput.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+      verifyPasswordAndDownload();
+    }
+  });
+  
+  function verifyPasswordAndDownload() {
+    if (passwordInput.value === correctPassword) {
+      closeModalFunction();
+      downloadSupabaseDatabaseAsExcel();
+    } else {
+      passwordError.textContent = 'Mot de passe incorrect. Veuillez réessayer.';
+      passwordError.style.display = 'block';
+      passwordInput.classList.add('error');
+      
+      // Animation d'erreur
+      passwordInput.style.animation = 'downloaddb_shake 0.5s ease-in-out';
+      setTimeout(() => {
+        passwordInput.style.animation = '';
+      }, 500);
+    }
+  }
+  
+  async function downloadSupabaseDatabaseAsExcel() {
+    try {
+      // Vérifier que SheetJS est chargé
+      if (typeof XLSX === 'undefined') {
+        alert('Chargement des outils d\'export Excel. Veuillez patienter quelques secondes et réessayer.');
+        return;
+      }
+      
+      // Vous devez remplacer ces valeurs par vos identifiants Supabase
+      const supabaseUrl = 'https://cfisapjgzfdpwejkjcek.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmaXNhcGpnemZkcHdlamtqY2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI3MjI1MjIsImV4cCI6MjA0ODI5ODUyMn0.s9rW3qacaJfksz0B2GeW46OF59-1xA27eDhSTzTCn_8';
+      
+      // Créer et afficher l'animation de chargement
+      const loadingOverlay = document.createElement('div');
+      loadingOverlay.className = 'downloaddb_loading_overlay';
+      
+      const loadingSpinner = document.createElement('div');
+      loadingSpinner.className = 'downloaddb_loading_spinner';
+      
+      const loadingText = document.createElement('div');
+      loadingText.className = 'downloaddb_loading_text';
+      loadingText.textContent = 'Téléchargement en cours...';
+      
+      loadingSpinner.appendChild(loadingText);
+      loadingOverlay.appendChild(loadingSpinner);
+      document.body.appendChild(loadingOverlay);
+      
+      // Création d'une fonction pour récupérer les données d'une table
+      async function fetchTableData(tableName) {
+        loadingText.textContent = `Chargement de ${tableName}...`;
+        const response = await fetch(`${supabaseUrl}/rest/v1/${tableName}?select=*`, {
+          headers: {
+            'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Erreur lors de la récupération de la table ${tableName}`);
+        }
+        
+        return await response.json();
+      }
+      
+      // Récupérer la liste des tables (vous devrez ajuster cette partie selon votre cas)
+      const tables = ['publications', 'comments', 'sections']; // Remplacez par vos noms de tables réels
+      
+      // Créer un nouveau classeur Excel
+      const workbook = XLSX.utils.book_new();
+      
+      // Récupérer les données de chaque table et les ajouter comme feuilles dans le classeur
+      for (const table of tables) {
+        try {
+          const tableData = await fetchTableData(table);
+          
+          if (tableData && tableData.length > 0) {
+            // Création d'une feuille de calcul pour cette table
+            const worksheet = XLSX.utils.json_to_sheet(tableData);
+            
+            // Ajouter la feuille au classeur
+            XLSX.utils.book_append_sheet(workbook, worksheet, table);
+          } else {
+            // Création d'une feuille vide si aucune donnée
+            const worksheet = XLSX.utils.aoa_to_sheet([['Aucune donnée trouvée']]);
+            XLSX.utils.book_append_sheet(workbook, worksheet, table);
+          }
+        } catch (error) {
+          console.error(`Erreur avec la table ${table}:`, error);
+          // Création d'une feuille d'erreur
+          const worksheet = XLSX.utils.aoa_to_sheet([['Erreur lors du chargement des données'], [error.message]]);
+          XLSX.utils.book_append_sheet(workbook, worksheet, `${table} (erreur)`);
+        }
+      }
+      
+      // Créer le fichier Excel et le télécharger
+      loadingText.textContent = "Finalisation du fichier...";
+      const date = new Date().toISOString().slice(0, 10);
+      const fileName = `supabase-backup-${date}.xlsx`;
+      
+      // Générer le fichier et le télécharger
+      XLSX.writeFile(workbook, fileName);
+      
+      // Nettoyer
+      setTimeout(() => {
+        document.body.removeChild(loadingOverlay);
+        
+        // Afficher un message de succès
+        const successNotification = document.createElement('div');
+        successNotification.style.position = 'fixed';
+        successNotification.style.bottom = '2rem';
+        successNotification.style.right = '2rem';
+        successNotification.style.padding = '1rem 1.5rem';
+        successNotification.style.background = 'var(--success-color)';
+        successNotification.style.color = 'white';
+        successNotification.style.borderRadius = '0.75rem';
+        successNotification.style.boxShadow = 'var(--shadow-md)';
+        successNotification.style.zIndex = '2000';
+        successNotification.style.transform = 'translateY(100px)';
+        successNotification.style.opacity = '0';
+        successNotification.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        successNotification.style.display = 'flex';
+        successNotification.style.alignItems = 'center';
+        successNotification.style.gap = '0.75rem';
+        
+        // Icône de succès
+        const checkIcon = document.createElement('div');
+        checkIcon.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        `;
+        
+        const successText = document.createElement('div');
+        successText.textContent = 'Base de données téléchargée avec succès !';
+        
+        successNotification.appendChild(checkIcon);
+        successNotification.appendChild(successText);
+        document.body.appendChild(successNotification);
+        
+        // Animation d'entrée
+        setTimeout(() => {
+          successNotification.style.transform = 'translateY(0)';
+          successNotification.style.opacity = '1';
+        }, 10);
+        
+        // Disparition automatique
+        setTimeout(() => {
+          successNotification.style.transform = 'translateY(100px)';
+          successNotification.style.opacity = '0';
+          setTimeout(() => {
+            document.body.removeChild(successNotification);
+          }, 300);
+        }, 5000);
+      }, 1000);
+    } catch (error) {
+      console.error('Erreur lors du téléchargement de la base de données:', error);
+      
+      // Retirer l'overlay de chargement s'il existe
+      const loadingOverlay = document.querySelector('.downloaddb_loading_overlay');
+      if (loadingOverlay) {
+        document.body.removeChild(loadingOverlay);
+      }
+      
+      // Afficher une notification d'erreur
+      const errorNotification = document.createElement('div');
+      errorNotification.style.position = 'fixed';
+      errorNotification.style.bottom = '2rem';
+      errorNotification.style.right = '2rem';
+      errorNotification.style.padding = '1rem 1.5rem';
+      errorNotification.style.background = '#ef4444';
+      errorNotification.style.color = 'white';
+      errorNotification.style.borderRadius = '0.75rem';
+      errorNotification.style.boxShadow = 'var(--shadow-md)';
+      errorNotification.style.zIndex = '2000';
+      errorNotification.style.transform = 'translateY(100px)';
+      errorNotification.style.opacity = '0';
+      errorNotification.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      errorNotification.style.display = 'flex';
+      errorNotification.style.alignItems = 'center';
+      errorNotification.style.gap = '0.75rem';
+      errorNotification.style.maxWidth = '400px';
+      
+      // Icône d'erreur
+      const errorIcon = document.createElement('div');
+      errorIcon.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      `;
+      
+      const errorText = document.createElement('div');
+      errorText.textContent = 'Erreur lors du téléchargement: ' + error.message;
+      
+      errorNotification.appendChild(errorIcon);
+      errorNotification.appendChild(errorText);
+      document.body.appendChild(errorNotification);
+      
+      // Animation d'entrée
+      setTimeout(() => {
+        errorNotification.style.transform = 'translateY(0)';
+        errorNotification.style.opacity = '1';
+      }, 10);
+      
+      // Disparition automatique
+      setTimeout(() => {
+        errorNotification.style.transform = 'translateY(100px)';
+        errorNotification.style.opacity = '0';
+        setTimeout(() => {
+          document.body.removeChild(errorNotification);
+        }, 300);
+      }, 7000);
+    }
+  }
+  
+  // Animation shake pour l'erreur de mot de passe
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = `
+    @keyframes downloaddb_shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+  `;
+  document.head.appendChild(styleSheet);
+});
