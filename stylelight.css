@@ -2408,3 +2408,95 @@ main {
         transform: rotate(360deg);
     }
 }
+/* Styles pour les options de téléchargement */
+.downloaddb_options_container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.downloaddb_option_btn {
+    flex: 1;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    background-color: #f8fafc;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.downloaddb_option_btn svg {
+    stroke: var(--text-light);
+    transition: stroke 0.3s ease;
+}
+
+.downloaddb_option_btn span {
+    font-weight: 600;
+}
+
+.downloaddb_option_btn:hover {
+    border-color: var(--primary-color);
+    background-color: white;
+}
+
+.downloaddb_option_btn:hover svg {
+    stroke: var(--primary-color);
+}
+
+.downloaddb_option_btn.active {
+    border-color: var(--primary-color);
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+.downloaddb_option_btn.active svg {
+    stroke: var(--primary-color);
+}
+
+.download_action_btn {
+    width: 100%;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.75rem;
+    border: none;
+    background: var(--gradient);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    font-family: inherit;
+}
+
+.download_action_btn:hover {
+    background: var(--gradient-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.download_action_btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease-out;
+}
+
+.download_action_btn:active::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}

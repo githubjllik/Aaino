@@ -578,10 +578,11 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeHideControl();
 });
 
-// Code JavaScript pour gérer le téléchargement de la base de données Supabase en Excel
+// Code JavaScript pour gérer le téléchargement de la base de données et du code source
 document.addEventListener('DOMContentLoaded', function() {
   const downloadBtn = document.getElementById('downloaddb_cosmos_btn');
   const passwordModal = document.getElementById('downloaddb_quantum_modal');
+  const nextBtn = document.getElementById('downloaddb_pulsar_next');
   const submitPasswordBtn = document.getElementById('downloaddb_pulsar_submit');
   const closeModal = document.querySelector('.downloaddb_eclipse_close');
   const passwordError = document.getElementById('downloaddb_vortex_error');
@@ -589,7 +590,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const passwordInput = document.getElementById('downloaddb_aurora_password');
   const eyeOpen = document.querySelector('.downloaddb_eye_open');
   const eyeClosed = document.querySelector('.downloaddb_eye_closed');
+  const optionDatabase = document.getElementById('downloaddb_option_database');
+  const optionSource = document.getElementById('downloaddb_option_source');
+  const authSection = document.getElementById('downloaddb_auth_section');
+
   const correctPassword = "01Jeanlik2003@"; // Le mot de passe que vous avez spécifié
+  let selectedOption = 'database'; // Valeur par défaut
   
   // Charger la bibliothèque SheetJS (xlsx) pour la génération d'Excel
   const sheetJSScript = document.createElement('script');
@@ -598,12 +604,31 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Ouvrir la modal quand on clique sur le bouton de téléchargement
   downloadBtn.addEventListener('click', function() {
+    resetModal();
     passwordModal.style.display = 'flex';
     setTimeout(() => {
       passwordModal.classList.add('active');
     }, 10);
-    passwordInput.value = '';
-    passwordError.style.display = 'none';
+  });
+  
+  // Gestion des options de téléchargement
+  optionDatabase.addEventListener('click', function() {
+    optionDatabase.classList.add('active');
+    optionSource.classList.remove('active');
+    selectedOption = 'database';
+  });
+  
+  optionSource.addEventListener('click', function() {
+    optionSource.classList.add('active');
+    optionDatabase.classList.remove('active');
+    selectedOption = 'source';
+  });
+  
+  // Passer à l'étape d'authentification
+  nextBtn.addEventListener('click', function() {
+    authSection.style.display = 'block';
+    nextBtn.style.display = 'none';
+    submitPasswordBtn.style.display = 'block';
   });
   
   // Fermer la modal avec le X
@@ -618,10 +643,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
+  function resetModal() {
+    passwordInput.value = '';
+    passwordError.style.display = 'none';
+    authSection.style.display = 'none';
+    nextBtn.style.display = 'block';
+    submitPasswordBtn.style.display = 'none';
+    optionDatabase.classList.add('active');
+    optionSource.classList.remove('active');
+    selectedOption = 'database';
+  }
+  
   function closeModalFunction() {
     passwordModal.classList.remove('active');
     setTimeout(() => {
       passwordModal.style.display = 'none';
+      resetModal();
     }, 300);
   }
   
@@ -653,7 +690,11 @@ document.addEventListener('DOMContentLoaded', function() {
   function verifyPasswordAndDownload() {
     if (passwordInput.value === correctPassword) {
       closeModalFunction();
-      downloadSupabaseDatabaseAsExcel();
+      if (selectedOption === 'database') {
+        downloadSupabaseDatabaseAsExcel();
+      } else {
+        downloadSourceCode();
+      }
     } else {
       passwordError.textContent = 'Mot de passe incorrect. Veuillez réessayer.';
       passwordError.style.display = 'block';
@@ -664,6 +705,48 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => {
         passwordInput.style.animation = '';
       }, 500);
+    }
+  }
+  
+  function downloadSourceCode() {
+    try {
+      // Créer et afficher l'animation de chargement
+      const loadingOverlay = document.createElement('div');
+      loadingOverlay.className = 'downloaddb_loading_overlay';
+      
+      const loadingSpinner = document.createElement('div');
+      loadingSpinner.className = 'downloaddb_loading_spinner';
+      
+      const loadingText = document.createElement('div');
+      loadingText.className = 'downloaddb_loading_text';
+      loadingText.textContent = 'Téléchargement du code source...';
+      
+      loadingSpinner.appendChild(loadingText);
+      loadingOverlay.appendChild(loadingSpinner);
+      document.body.appendChild(loadingOverlay);
+      
+      // Lien de téléchargement du code source
+      const downloadLink = document.createElement('a');
+      downloadLink.href = 'https://github.com/githubjllik/Aaino/archive/refs/heads/main.zip';
+      downloadLink.download = 'aaino-source-code.zip';
+      
+      // Simuler un délai de téléchargement pour montrer le loader
+      setTimeout(() => {
+        // Déclencher le téléchargement
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        
+        // Nettoyer et afficher notification de succès
+        setTimeout(() => {
+          document.body.removeChild(loadingOverlay);
+          showSuccessNotification('Code source téléchargé avec succès !');
+        }, 1000);
+      }, 1500);
+    } catch (error) {
+      console.error('Erreur lors du téléchargement du code source:', error);
+      removeLoadingOverlay();
+      showErrorNotification('Erreur lors du téléchargement: ' + error.message);
     }
   }
   
@@ -752,116 +835,124 @@ document.addEventListener('DOMContentLoaded', function() {
       // Nettoyer
       setTimeout(() => {
         document.body.removeChild(loadingOverlay);
-        
-        // Afficher un message de succès
-        const successNotification = document.createElement('div');
-        successNotification.style.position = 'fixed';
-        successNotification.style.bottom = '2rem';
-        successNotification.style.right = '2rem';
-        successNotification.style.padding = '1rem 1.5rem';
-        successNotification.style.background = 'var(--success-color)';
-        successNotification.style.color = 'white';
-        successNotification.style.borderRadius = '0.75rem';
-        successNotification.style.boxShadow = 'var(--shadow-md)';
-        successNotification.style.zIndex = '2000';
-        successNotification.style.transform = 'translateY(100px)';
-        successNotification.style.opacity = '0';
-        successNotification.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        successNotification.style.display = 'flex';
-        successNotification.style.alignItems = 'center';
-        successNotification.style.gap = '0.75rem';
-        
-        // Icône de succès
-        const checkIcon = document.createElement('div');
-        checkIcon.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-          </svg>
-        `;
-        
-        const successText = document.createElement('div');
-        successText.textContent = 'Base de données téléchargée avec succès !';
-        
-        successNotification.appendChild(checkIcon);
-        successNotification.appendChild(successText);
-        document.body.appendChild(successNotification);
-        
-        // Animation d'entrée
-        setTimeout(() => {
-          successNotification.style.transform = 'translateY(0)';
-          successNotification.style.opacity = '1';
-        }, 10);
-        
-        // Disparition automatique
-        setTimeout(() => {
-          successNotification.style.transform = 'translateY(100px)';
-          successNotification.style.opacity = '0';
-          setTimeout(() => {
-            document.body.removeChild(successNotification);
-          }, 300);
-        }, 5000);
+        showSuccessNotification('Base de données téléchargée avec succès !');
       }, 1000);
     } catch (error) {
       console.error('Erreur lors du téléchargement de la base de données:', error);
-      
-      // Retirer l'overlay de chargement s'il existe
-      const loadingOverlay = document.querySelector('.downloaddb_loading_overlay');
-      if (loadingOverlay) {
-        document.body.removeChild(loadingOverlay);
-      }
-      
-      // Afficher une notification d'erreur
-      const errorNotification = document.createElement('div');
-      errorNotification.style.position = 'fixed';
-      errorNotification.style.bottom = '2rem';
-      errorNotification.style.right = '2rem';
-      errorNotification.style.padding = '1rem 1.5rem';
-      errorNotification.style.background = '#ef4444';
-      errorNotification.style.color = 'white';
-      errorNotification.style.borderRadius = '0.75rem';
-      errorNotification.style.boxShadow = 'var(--shadow-md)';
-      errorNotification.style.zIndex = '2000';
+      removeLoadingOverlay();
+      showErrorNotification('Erreur lors du téléchargement: ' + error.message);
+    }
+  }
+  
+  function removeLoadingOverlay() {
+    const loadingOverlay = document.querySelector('.downloaddb_loading_overlay');
+    if (loadingOverlay) {
+      document.body.removeChild(loadingOverlay);
+    }
+  }
+  
+  function showSuccessNotification(message) {
+    // Afficher un message de succès
+    const successNotification = document.createElement('div');
+    successNotification.style.position = 'fixed';
+    successNotification.style.bottom = '2rem';
+    successNotification.style.right = '2rem';
+    successNotification.style.padding = '1rem 1.5rem';
+    successNotification.style.background = 'var(--success-color)';
+    successNotification.style.color = 'white';
+    successNotification.style.borderRadius = '0.75rem';
+    successNotification.style.boxShadow = 'var(--shadow-md)';
+    successNotification.style.zIndex = '2000';
+    successNotification.style.transform = 'translateY(100px)';
+    successNotification.style.opacity = '0';
+    successNotification.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    successNotification.style.display = 'flex';
+    successNotification.style.alignItems = 'center';
+    successNotification.style.gap = '0.75rem';
+    
+    // Icône de succès
+    const checkIcon = document.createElement('div');
+    checkIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+    `;
+    
+    const successText = document.createElement('div');
+    successText.textContent = message;
+    
+    successNotification.appendChild(checkIcon);
+    successNotification.appendChild(successText);
+    document.body.appendChild(successNotification);
+    
+    // Animation d'entrée
+    setTimeout(() => {
+      successNotification.style.transform = 'translateY(0)';
+      successNotification.style.opacity = '1';
+    }, 10);
+    
+    // Disparition automatique
+    setTimeout(() => {
+      successNotification.style.transform = 'translateY(100px)';
+      successNotification.style.opacity = '0';
+      setTimeout(() => {
+        document.body.removeChild(successNotification);
+      }, 300);
+    }, 5000);
+  }
+  
+  function showErrorNotification(message) {
+    // Afficher une notification d'erreur
+    const errorNotification = document.createElement('div');
+    errorNotification.style.position = 'fixed';
+    errorNotification.style.bottom = '2rem';
+    errorNotification.style.right = '2rem';
+    errorNotification.style.padding = '1rem 1.5rem';
+    errorNotification.style.background = '#ef4444';
+    errorNotification.style.color = 'white';
+    errorNotification.style.borderRadius = '0.75rem';
+    errorNotification.style.boxShadow = 'var(--shadow-md)';
+    errorNotification.style.zIndex = '2000';
+    errorNotification.style.transform = 'translateY(100px)';
+    errorNotification.style.opacity = '0';
+    errorNotification.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    errorNotification.style.display = 'flex';
+    errorNotification.style.alignItems = 'center';
+    errorNotification.style.gap = '0.75rem';
+    errorNotification.style.maxWidth = '400px';
+    
+    // Icône d'erreur
+    const errorIcon = document.createElement('div');
+    errorIcon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+    `;
+    
+    const errorText = document.createElement('div');
+    errorText.textContent = message;
+    
+    errorNotification.appendChild(errorIcon);
+    errorNotification.appendChild(errorText);
+    document.body.appendChild(errorNotification);
+    
+    // Animation d'entrée
+    setTimeout(() => {
+      errorNotification.style.transform = 'translateY(0)';
+      errorNotification.style.opacity = '1';
+    }, 10);
+    
+    // Disparition automatique
+    setTimeout(() => {
       errorNotification.style.transform = 'translateY(100px)';
       errorNotification.style.opacity = '0';
-      errorNotification.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
-      errorNotification.style.display = 'flex';
-      errorNotification.style.alignItems = 'center';
-      errorNotification.style.gap = '0.75rem';
-      errorNotification.style.maxWidth = '400px';
-      
-      // Icône d'erreur
-      const errorIcon = document.createElement('div');
-      errorIcon.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="12"></line>
-          <line x1="12" y1="16" x2="12.01" y2="16"></line>
-        </svg>
-      `;
-      
-      const errorText = document.createElement('div');
-      errorText.textContent = 'Erreur lors du téléchargement: ' + error.message;
-      
-      errorNotification.appendChild(errorIcon);
-      errorNotification.appendChild(errorText);
-      document.body.appendChild(errorNotification);
-      
-      // Animation d'entrée
       setTimeout(() => {
-        errorNotification.style.transform = 'translateY(0)';
-        errorNotification.style.opacity = '1';
-      }, 10);
-      
-      // Disparition automatique
-      setTimeout(() => {
-        errorNotification.style.transform = 'translateY(100px)';
-        errorNotification.style.opacity = '0';
-        setTimeout(() => {
-          document.body.removeChild(errorNotification);
-        }, 300);
-      }, 7000);
-    }
+        document.body.removeChild(errorNotification);
+      }, 300);
+    }, 7000);
   }
   
   // Animation shake pour l'erreur de mot de passe

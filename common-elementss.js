@@ -756,27 +756,52 @@ class CommonElements extends HTMLElement {
 <div id="downloaddb_quantum_modal" class="downloaddb_quantum_modal">
     <div class="downloaddb_nebula_content">
         <span class="downloaddb_eclipse_close">&times;</span>
-        <h3>Authentification requise</h3>
-        <p>Veuillez saisir le mot de passe pour télécharger la base de données.</p>
+        <h3>Téléchargement</h3>
+        <p>Que souhaitez-vous télécharger?</p>
         
-        <div class="downloaddb_stellar_input_container">
-            <input type="password" id="downloaddb_aurora_password" placeholder="Mot de passe">
-            <button class="downloaddb_nova_toggle_visibility">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="downloaddb_eye_open">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
+        <div class="downloaddb_options_container">
+            <button id="downloaddb_option_database" class="downloaddb_option_btn active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
                 </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="downloaddb_eye_closed">
-                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                <span>Base de données</span>
+            </button>
+            <button id="downloaddb_option_source" class="downloaddb_option_btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                    <path d="M7 7l10 10"></path>
+                    <path d="M17 7l-10 10"></path>
                 </svg>
+                <span>Code source</span>
             </button>
         </div>
+
+        <div id="downloaddb_auth_section" style="display:none;">
+            <p>Veuillez saisir le mot de passe pour continuer.</p>
+            
+            <div class="downloaddb_stellar_input_container">
+                <input type="password" id="downloaddb_aurora_password" placeholder="Mot de passe">
+                <button class="downloaddb_nova_toggle_visibility">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="downloaddb_eye_open">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="downloaddb_eye_closed">
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
         
-        <button id="downloaddb_pulsar_submit">Télécharger</button>
+        <button id="downloaddb_pulsar_next" class="download_action_btn">Continuer</button>
+        <button id="downloaddb_pulsar_submit" class="download_action_btn" style="display:none;">Télécharger</button>
         <p id="downloaddb_vortex_error" class="downloaddb_vortex_error"></p>
     </div>
 </div>
+
         `;
     }
 }
